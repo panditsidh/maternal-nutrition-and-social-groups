@@ -68,25 +68,28 @@ tab diff
 tab v214, m
 tab v214 if v213==1
 gen mopreg = v214
-*If the mother does not report the duration of the pregnancy but does report the months since last period, then use the months since last period.
 
-replace mopreg = moperiod if missing(v214) & moperiod>=2 & v213==1
-
-
-*Let's count women as pregnant if they report durations of two or more months.
-*In NFHS 3, I used 3 months, but by the NFHS-5, a similar proportion of women report 2, 3 , 4, 5 etc. months of pregnancy, suggesting there is less selection into reporting 2 months of pregnancy than there used to be.
-gen preg = mopreg>=2 if !missing(mopreg)
+*If the mother does not report the duration of the pregnancy but does report the months since last period, then use months since last period.
+*If months since last period is missing but months of pregnancy is not, then use month of pregnancy.
+replace mopreg = moperiod if missing(v214) & v214>=2 & v213==1
+replace moperiod = v214 if missing(moperiod) & v214>=2 & v213==1
+replace moperiod=. if v213!=1
 
 
-* drop women who report that they are 1 month pregnant 
-drop if inlist(mopreg,1) 
+// mopreg is gestional duration based on reported months of pregnancy -- only 6% of pregnant women report being 9 or more months pregnant by this measure
+// moperiod is gestational duration based on time since last period -- 11.3% of pregnant women report being 9 or more months pregnant by this measure.
+
+
+*count women as pregnant if they are 3+ months pregnant to avoid selection
+gen preg= moperiod>=3 if !missing(moperiod) 
+
+* drop women who report that they are 1, 2 month pregnant 
+drop if moperiod==1 | moperiod==2
 
 *This code should give the contraceptive use at the time of the survey for non-pregnant women and the contraceptive use before pregnancy for women who are currently pregnant.
 *It was written for NFHS-3, in which all of the codes for contraceptive use were numeric.
-*Now, "other modern contraception" is marked with an "X" 
+*Now, "other modern contraception" is marked with an "X" STILL NEED TO INCORPORATE THIS
 * drop nonpreg women who are sterilized or using modern contraception
-
-*In order to inform whether to drop the women using modern contraception it will be good to see what % of currently pregnant women got 
 
 gen vcal_1_trim = trim(vcal_1)
 gen done = 0
@@ -99,13 +102,15 @@ forvalues i = 1(1)15 {
 	replace done = 1 if done == 0 & isnumber !=.
 }
 gen modernmethod = .
-replace modernmethod = 0 if answer==0 | answer ==8 | answer==9
-replace modernmethod = 1 if answer>0 & answer <8 
+replace modernmethod = 0 if answer==0
+replace modernmethod = 1 if answer>0 & answer <=8 
 
-gen sterilized = answer==6 | answer ==7
+gen sterilized = answer==1 | answer ==2
 
 *** QUESTION: drop all sterilized/modern method? or just non-pregnant
 // drop if v213==0 & (sterilized==1 | modernmethod==1)
+**343 women report being pregnant and sterilized by our variables.
+***1,581 report being pregnant and using a modern method.
 gen drop = (sterilized==1 | modernmethod==1)
 drop if drop==1
 bysort v213: tab drop
