@@ -16,11 +16,11 @@ if "`c(username)'" == "sidhpandit" {
 if "`c(username)'" == "dc42724" {
 	global nfhs3ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\ir\IAIR52FL.dta"
 	global nfhs4ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\ir\IAIR71FL.DTA"
-	global nfhs5ir "C:\Users\dc42724\Dropbox\K01\maternal nutrition by social group\data\IAIR7DFL.DTA"
+	global nfhs5ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAIR7DDT\IAIR7DFL.DTA"
 	
 	global nfhs3br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\br\IABR52FL.dta"
 	global nfhs4br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\br\IABR71FL.DTA"
-	global nfhs5br "C:\Users\dc42724\Dropbox\K01\maternal nutrition by social group\data\IABR7EFL.DTA"
+	global nfhs5br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IABR7EDT\IABR7EFL.DTA"
 
 	global reweight "C:\Users\dc42724\Documents\GitHub\trends-in-health-in-pregnancy-overleaf-\do files\data prep\assemble data for social group pre-pregnancy\01_reweight within social group.do"
 	
@@ -32,16 +32,13 @@ clear all
 use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s using $nfhs5ir
 
 gen round5=(v000=="IA7")
-gen round4=(v000=="IA6")
-gen round3=(v000=="IA5")
 
 gen round=5 if round5==1
-replace round=4 if round4==1
-replace round=3 if round3==1
 
-keep if v501==1 // currently married women
+// keep currently married women
+keep if v501==1 
 
-* months since last period
+//generate months since last period
 gen moperiod = .
 replace moperiod = 1 if v215>=101 & v215 <= 128 
 replace moperiod = 2 if v215>=129 & v215 <= 156 
@@ -62,22 +59,35 @@ replace moperiod = 9 if v215==309
 replace moperiod = 10 if v215==310 
 replace moperiod = 11 if v215==311 
 
-* compare to self reported duration of current pregnancy
+* compare to self reported duration of current pregnancy to the months since last period
+* it is different for about half the pregnant sample (45%) - the most common mismatch is when months since last period if 1 month greater than months of pregnancy
 gen diff = moperiod-v214 if v213==1
-* gen preg, an indicator for 3+ mo gestational duration
-gen preg = v214>=3 if !missing(v214)
-replace preg = moperiod>=3 if missing(v214)
+tab diff
 
-* QUESTION:
-* v214<3 are those women who detect their pregnancies early
-* otherwise, 1/2 moperiod may still be nonpregnant - don't drop those
+* When v214 (months pregnant) is less than 2, it is a select group of women who detect and report their pregnancies early
+tab v214, m
+tab v214 if v213==1
 gen mopreg = v214
-replace mopreg = moperiod if missing(v214) & moperiod>=3
+*If the mother does not report the duration of the pregnancy but does report the months since last period, then use the months since last period.
 
-* drop 1,2, month pregnant women (self-reportedly pregnant, v213==1)
-drop if inlist(mopreg,1,2) 
+replace mopreg = moperiod if missing(v214) & moperiod>=2 & v213==1
 
+
+*Let's count women as pregnant if they report durations of two or more months.
+*In NFHS 3, I used 3 months, but by the NFHS-5, a similar proportion of women report 2, 3 , 4, 5 etc. months of pregnancy, suggesting there is less selection into reporting 2 months of pregnancy than there used to be.
+gen preg = mopreg>=2 if !missing(mopreg)
+
+
+* drop women who report that they are 1 month pregnant 
+drop if inlist(mopreg,1) 
+
+*This code should give the contraceptive use at the time of the survey for non-pregnant women and the contraceptive use before pregnancy for women who are currently pregnant.
+*It was written for NFHS-3, in which all of the codes for contraceptive use were numeric.
+*Now, "other modern contraception" is marked with an "X" 
 * drop nonpreg women who are sterilized or using modern contraception
+
+*In order to inform whether to drop the women using modern contraception it will be good to see what % of currently pregnant women got 
+
 gen vcal_1_trim = trim(vcal_1)
 gen done = 0
 gen isnumber = .
