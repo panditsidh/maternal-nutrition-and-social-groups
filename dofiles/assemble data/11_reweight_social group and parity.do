@@ -11,7 +11,7 @@ within each social group/parity
 
 if "`c(username)'" == "sidhpandit" {
 	
-	global out_tex"/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/tables/rw_all.tex"
+	global out_tex"/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/tables/rw_all_underweight.tex"
 
 }
 
@@ -102,12 +102,13 @@ forvalues i = 1/5 {
 }
 
 
-drop dropbin_pregnant
+capture drop dropbin_pregnant
 
 svyset psu [pw=reweightingfxn], strata(strata) singleunit(centered)
 
-svy: mean bmi, over(groups6 parity)
+preserve
 
+svy: mean underweight, over(groups6 parity)
 
 matrix T = r(table)
 local ncols = colsof(T)
@@ -119,8 +120,6 @@ forvalues i = 1/`ncols' {
     matrix result[`i', 2] = T[5, `i']   // lower bound (ll)
     matrix result[`i', 3] = T[6, `i']   // upper bound (ul)
 }
-
-
 
 
 gen dropbin_pregnant = dropbin*100 if preg==1
@@ -186,16 +185,20 @@ keep rowname ci pct_drop
 drop if missing(rowname)
 
 
+
+
+
 #delimit ;
-listtex row ci_3 ci_4 ci_5 using $out_tex, replace ///
+listtex rowname ci pct_drop using $out_tex, replace ///
   rstyle(tabular) ///
   head("\begin{tabular}{lccc}" ///
        "\toprule" ///
-       "Group & Percent underweight & Percent of pregnant sample dropped \\\\" ///
+       "Group & \% underweight & \% pregnant sample dropped \\\\" ///
        "\midrule") ///
   foot("\bottomrule" ///
        "\end{tabular}"); ///
 
+restore
 
 // TESTING CODE
 // egen bin = group(age edu rural hasboy c_user) if groups6==1 & parity==2
