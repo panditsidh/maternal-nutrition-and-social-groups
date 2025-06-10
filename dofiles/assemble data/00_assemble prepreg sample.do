@@ -75,7 +75,8 @@ replace mopreg = moperiod if missing(v214) & moperiod>=2 & v213==1
 
 *Let's count women as pregnant if they report durations of two or more months.
 *In NFHS 3, I used 3 months, but by the NFHS-5, a similar proportion of women report 2, 3 , 4, 5 etc. months of pregnancy, suggesting there is less selection into reporting 2 months of pregnancy than there used to be.
-gen preg = mopreg>=2 if !missing(mopreg)
+gen preg = 0
+replace preg = mopreg>=2 if !missing(mopreg)
 
 
 * drop women who report that they are 1 month pregnant 
@@ -173,9 +174,10 @@ replace bmi = bmi/100
 
 gen underweight = bmi<18.5
 
-gen parity = v219 if v219<=3 
+gen parity = v219 
+replace parity = v219-1 if v213==1
 replace parity = 4 if v219>=4 
-replace parity = parity-1 if v213==1
+
 
 
 * gen svy vars
@@ -228,4 +230,4 @@ label values parity paritylbl
 
 * gen reweighting!
 
-do "${reweight}"
+// do "${reweight}"
