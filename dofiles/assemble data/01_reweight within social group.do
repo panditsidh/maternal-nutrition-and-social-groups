@@ -50,12 +50,16 @@ foreach i of numlist 1/5 {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 egen dropbin = anymatch(bin_1-bin_5), values(1)
 =======
 egen dropbin = anymatch(dropbin_1-dropbin_5), values(1)
 >>>>>>> Stashed changes
 
+=======
+egen dropbin = anymatch(dropbin_1-dropbin_5), values(1)
+>>>>>>> Stashed changes
 
 gen reweightingfxn = .
 forvalues i = 1/5 {
