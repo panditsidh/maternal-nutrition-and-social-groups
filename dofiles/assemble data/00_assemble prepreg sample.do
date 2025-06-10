@@ -174,10 +174,9 @@ replace bmi = bmi/100
 
 gen underweight = bmi<18.5
 
-gen parity = v219 if v219<=3 
-replace parity = 4 if v219>=4 
-replace parity = parity-1 if v213==1
-
+gen parity = v219 
+replace parity = v219-1 if v213==1
+replace parity = 4 if v219>=4
 
 * gen svy vars
 egen strata = group(v000 v024 v025) 
@@ -220,4 +219,4 @@ label values parity paritylbl
 
 * gen reweighting!
 
-do "${reweight}"
+// do "${reweight}"
