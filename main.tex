@@ -29,7 +29,7 @@
 \maketitle
 
 
-\section{BMI : 5 covariates reweighting, single year age bins }
+\section{BMI : 5 covariates, single year age }
 
 reweighting vars used: age edu rural hasboy c user
 
@@ -42,7 +42,12 @@ reweighting vars used: age edu rural hasboy c user
 \end{table}
 
 
-\section{underweight : 5 covariates reweighting, single year age bins }
+among forward parity 3, bins that have only pregnant women are of age 26,35,36
+among forward parity 4, bins that have only pregnant women are of age 26,36
+
+that tells us it's not an age sparsity issue (maybe among 35,36) - let's look to see what other dimension is
+
+\section{underweight : 5 covariates, single year age }
 
 reweighting vars used: age edu rural hasboy c user
 
@@ -55,7 +60,9 @@ reweighting vars used: age edu rural hasboy c user
 \end{table}
 
 
-\section{bmi : 5 covariates reweighting, 2 year age bins }
+\newpage
+
+\section{bmi : 5 covariates, 2 year age bins }
 
 reweighting vars used: age edu rural hasboy c user
 
@@ -64,11 +71,13 @@ reweighting vars used: age edu rural hasboy c user
     \footnotesize % shrink text
     \caption{: Underweight by group, reweighting vars used: age edu rural hasboy c user}
     \label{tab:sumstat}
-    \adjustbox{width=\textwidth}{\input{tables/rw_all_underweight}}
+    \adjustbox{width=\textwidth}{\input{tables/rw__bmi}}
 \end{table}
 
 
-\section{underweight : 5 covariates reweighting, 2 year age bins }
+
+\newpage 
+\section{underweight : 5 covariates, 2 year age bins }
 
 reweighting vars used: age edu rural hasboy c user
 
@@ -77,28 +86,28 @@ reweighting vars used: age edu rural hasboy c user
     \footnotesize % shrink text
     \caption{: Underweight by group, reweighting vars used: age edu rural hasboy c user}
     \label{tab:sumstat}
-    \adjustbox{width=\textwidth}{\input{tables/rw_all_underweight}}
+    \adjustbox{width=\textwidth}{\input{tables/rw_}}
 \end{table}
 
 
 
-% \section{outcome: BMI}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{figures/prepreg_bmi_combined.png}
-% \end{figure}
+\section{outcome: BMI}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/prepreg_bmi_combined.png}
+\end{figure}
 
-% \section{outcome: underweight}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{figures/prepreg_underweight_combined.png}
-% \end{figure}
+\section{outcome: underweight}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/prepreg_underweight_combined.png}
+\end{figure}
 
-% \section{stacked bar graph}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{figures/stackedbar_parity_socialgroup.png}
-% \end{figure}
+\section{stacked bar graph}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/stackedbar_parity_socialgroup.png}
+\end{figure}
 
 
 
