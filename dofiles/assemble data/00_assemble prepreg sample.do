@@ -11,6 +11,9 @@ if "`c(username)'" == "sidhpandit" {
 	
 	global reweight "/Users/sidhpandit/Documents/GitHub/trends-in-health-in-pregnancy-overleaf-/do files/data prep/assemble data for social group pre-pregnancy/01_reweight within social group.do"
 	
+	
+	global prepared_dataset "/Users/sidhpandit/Documents/GitHub/trends-in-health-in-pregnancy-overleaf-/do files/data prep/assemble data for social group pre-pregnancy/01_reweight within social group.do"
+	
 }
 
 if "`c(username)'" == "dc42724" {
@@ -176,7 +179,8 @@ gen underweight = bmi<18.5
 
 gen parity = v219 
 replace parity = v219-1 if v213==1
-replace parity = 4 if v219>=4
+// replace parity = 4 if parity>=4
+replace parity = 3 if parity>=3
 
 * gen svy vars
 egen strata = group(v000 v024 v025) 
@@ -220,3 +224,7 @@ label values parity paritylbl
 * gen reweighting!
 
 // do "${reweight}"
+
+
+
+save

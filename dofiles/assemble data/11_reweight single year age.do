@@ -1,16 +1,4 @@
-* this dofile does reweighting by age (single year) edu rural hasboy c_user within parity and social group
-
-if "`c(username)'" == "sidhpandit" {
-	
-	global out_tex"/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/tables/rw_all_underweight.tex"
-
-}
-
-if "`c(username)'" == "dc42724" {
-	global out_tex "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\tables\rw_all_underweight.tex"
-	
-}
-
+* this dofile does reweighting by age (single year) edu rural hasboy c_user within parity and social groupf
 
 capture drop age 
 capture drop counter 
@@ -19,21 +7,30 @@ capture drop dropbin*
 capture drop dropbins*
 capture drop reweightingfxn
 capture drop pregweight* nonpregweight* transfer*
+capture drop wealth_tertile
+capture drop tag
 
 gen age = v012
 gen counter=1
 gen dropbin = 0
 
 
+reg preg age edu rural hasboy c_user v404
+display e(r2)
+
+egen tag = tag(age edu rural hasboy c_user v404)
+count if tag==1
+ 
+
+
 foreach i of numlist 1/5 {
 	
-	foreach p of numlist 0/4 {
+	foreach p of numlist 0/3 {
 		
 		
 		display as text "social group " as result `i' as text " at parity " as result `p'
 		
-		qui egen bin_`i'_`p' = group(age edu rural hasboy c_user) if groups6==`i' & parity==`p'
-		
+		qui egen bin_`i'_`p' = group(age edu rural hasboy c_user v404) if groups6==`i' & parity==`p'
 		
 		preserve
 
@@ -85,7 +82,7 @@ foreach i of numlist 1/5 {
 gen reweightingfxn = .
 forvalues i = 1/5 {
 	
-	forvalues p = 0/4 {
+	forvalues p = 0/3 {
 		
 		egen pregweight_`i'_`p' = sum(v005) if preg==1 & dropbin_`i'_`p'==0, by(bin_`i'_`p')
 		egen nonpregweight_`i'_`p' = sum(v005) if preg==0 & dropbin_`i'_`p'==0, by(bin_`i'_`p')
@@ -102,15 +99,24 @@ forvalues i = 1/5 {
 
 
 
+
+
 // TESTING CODE
-// egen bin = group(age edu rural hasboy c_user) if groups6==1 & parity==2
-//
-// collapse (sum) counter (mean) age edu rural hasboy, by(bin preg)
-// drop if bin == .
-// reshape wide counter, i(bin) j(preg)
-//
-// qui replace counter0 = 0 if counter0 == .
-// qui replace counter1 = 0 if counter1 == .
+
+preserve
+egen bin = group(age edu rural hasboy c_user v404) if groups6==1 & parity==3
+
+collapse (sum) counter (mean) age edu rural hasboy c_user v404, by(bin preg)
+drop if bin == .
+reshape wide counter, i(bin) j(preg)
+
+qui replace counter0 = 0 if counter0 == .
+qui replace counter1 = 0 if counter1 == .
+
+list bin age edu rural hasboy c_user v404 if counter0==0 & counter1>0
+
 		
+restore
+
 
 

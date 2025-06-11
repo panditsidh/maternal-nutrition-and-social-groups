@@ -1,15 +1,24 @@
 if "`c(username)'" == "sidhpandit" {
 	
-	global out_tex"/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/tables/rw_"
-
+	global out_tex "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/tables/rw_"
+	
+	global rw_11 "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/11_reweight single year age.do"
+	
+	global rw_12 "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/12_reweight 2yr age bins.do"
+	
 }
 
 if "`c(username)'" == "dc42724" {
 	global out_tex "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\tables\rw_"
 	
+	global rw_11 "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\11_reweight single year age.do"
+	
+	global rw_12 "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\12_reweight 2yr age bins.do"
+	
 }
 
 
+do "${rw_12}"
 
 capture drop dropbin_pregnant
 
@@ -17,7 +26,10 @@ svyset psu [pw=reweightingfxn], strata(strata) singleunit(centered)
 
 preserve
 
-svy: mean underweight, over(groups6 parity)
+
+foreach outcome in bmi underweight weight {
+
+svy: mean `outcome', over(groups6 parity)
 
 matrix T = r(table)
 local ncols = colsof(T)
@@ -25,9 +37,19 @@ local ncols = colsof(T)
 matrix result = J(`ncols', 4, .)
 
 forvalues i = 1/`ncols' {
-    matrix result[`i', 1] = T[1, `i']*100   // mean (b)
-    matrix result[`i', 2] = T[5, `i']*100   // lower bound (ll)
-    matrix result[`i', 3] = T[6, `i']*100   // upper bound (ul)
+	
+	if "`outcome'"=="underweight"{
+		matrix result[`i', 1] = T[1, `i']*100   // mean (b)
+		matrix result[`i', 2] = T[5, `i']*100   // lower bound (ll)
+		matrix result[`i', 3] = T[6, `i']*100   // upper bound (ul)
+		
+	}
+    
+	else {	
+		matrix result[`i', 1] = T[1, `i']   // mean (b)
+		matrix result[`i', 2] = T[5, `i']   // lower bound (ll)
+		matrix result[`i', 3] = T[6, `i']   // upper bound (ul)
+	}
 }
 
 
@@ -91,7 +113,7 @@ drop if missing(rowname)
 
 
 #delimit ;
-listtex rowname ci pct_drop using $out_tex, replace ///
+listtex rowname ci pct_drop using "${out_tex}12_`outcome'", replace ///
   rstyle(tabular) ///
   head("\begin{tabular}{lccc}" ///
        "\toprule" ///
@@ -101,3 +123,6 @@ listtex rowname ci pct_drop using $out_tex, replace ///
        "\end{tabular}"); ///
 
 restore
+
+
+}
