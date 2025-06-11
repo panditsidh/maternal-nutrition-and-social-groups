@@ -1,0 +1,31 @@
+\begin{tabular}{lccc}
+\toprule
+Group & \% underweight & \% pregnant sample dropped \\\\
+\midrule
+Forward: parity 0&22.6 (22.4, 22.8)&0\\
+Forward: parity 1&22.8 (22.6, 23.0)&0\\
+Forward: parity 2&22.6 (22.3, 22.8)&0\\
+Forward: parity 3&23.0 (22.3, 23.7)&4\\
+Forward: parity 4+&22.1 (21.5, 22.8)&0\\
+OBC: parity 0&21.8 (21.7, 21.9)&0\\
+OBC: parity 1&22.1 (22.0, 22.2)&0\\
+OBC: parity 2&21.9 (21.8, 22.0)&0\\
+OBC: parity 3&21.5 (21.3, 21.7)&0\\
+OBC: parity 4+&21.1 (20.7, 21.5)&2.26\\
+Dalit: parity 0&21.7 (21.6, 21.8)&0\\
+Dalit: parity 1&21.9 (21.8, 22.0)&.12\\
+Dalit: parity 2&21.7 (21.6, 21.9)&0\\
+Dalit: parity 3&21.3 (21.1, 21.5)&0\\
+Dalit: parity 4+&21.4 (21.1, 21.7)&.62\\
+Adivasi: parity 0&20.9 (20.6, 21.1)&.1\\
+Adivasi: parity 1&21.7 (20.2, 23.2)&0\\
+Adivasi: parity 2&21.0 (20.7, 21.2)&0\\
+Adivasi: parity 3&20.9 (20.6, 21.2)&0\\
+Adivasi: parity 4+&20.6 (20.1, 21.2)&0\\
+Muslim: parity 0&22.3 (22.1, 22.4)&0\\
+Muslim: parity 1&22.6 (22.4, 22.8)&0\\
+Muslim: parity 2&22.9 (22.7, 23.1)&.42\\
+Muslim: parity 3&22.8 (22.4, 23.1)&.42\\
+Muslim: parity 4+&22.6 (22.3, 22.9)&0\\
+\bottomrule
+\end{tabular}

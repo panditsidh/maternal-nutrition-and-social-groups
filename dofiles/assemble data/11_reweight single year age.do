@@ -12,7 +12,8 @@ if "`c(username)'" == "dc42724" {
 }
 
 
-capture drop age counter 
+capture drop age 
+capture drop counter 
 capture drop bin_*
 capture drop dropbin* 
 capture drop dropbins*
@@ -79,6 +80,7 @@ foreach i of numlist 1/5 {
 	}
 
 }
+
 
 gen reweightingfxn = .
 forvalues i = 1/5 {

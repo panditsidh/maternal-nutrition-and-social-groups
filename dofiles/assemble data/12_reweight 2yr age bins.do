@@ -1,25 +1,16 @@
 * this dofile does reweighting by age (single year) edu rural hasboy c_user within parity and social group
 
-if "`c(username)'" == "sidhpandit" {
-	
-	global out_tex"/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/tables/rw_all_underweight.tex"
-
-}
-
-if "`c(username)'" == "dc42724" {
-	global out_tex "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\tables\rw_all_underweight.tex"
-	
-}
-
-
-capture drop age counter 
+capture drop age 
+capture drop counter 
 capture drop bin_*
 capture drop dropbin* 
 capture drop dropbins*
 capture drop reweightingfxn
 capture drop pregweight* nonpregweight* transfer*
 
-gen age = v012
+
+gen age2yr = 2 * floor(v012 / 2)
+gen age = age2yr
 gen counter=1
 gen dropbin = 0
 
@@ -80,6 +71,7 @@ foreach i of numlist 1/5 {
 
 }
 
+
 gen reweightingfxn = .
 forvalues i = 1/5 {
 	
@@ -97,18 +89,5 @@ forvalues i = 1/5 {
 	
 }
 
-
-
-
-// TESTING CODE
-// egen bin = group(age edu rural hasboy c_user) if groups6==1 & parity==2
-//
-// collapse (sum) counter (mean) age edu rural hasboy, by(bin preg)
-// drop if bin == .
-// reshape wide counter, i(bin) j(preg)
-//
-// qui replace counter0 = 0 if counter0 == .
-// qui replace counter1 = 0 if counter1 == .
-		
 
 
