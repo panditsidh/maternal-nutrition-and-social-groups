@@ -131,21 +131,18 @@ gen parity0 = parity==0
 gen parity1 = parity==1
 gen parity2 = parity==2
 gen parity3 = parity==3
-gen parity4_plus = parity==4
-
 
 
 *** only pregnant women
 
-graph bar parity0 parity1 parity2 parity3 parity4_plus if preg==1, ///
+graph bar parity0 parity1 parity2 parity3 if preg==1, ///
     over(groups6, label(angle(45))) ///
     stack ///
     legend( ///
         label(1 "0") ///
         label(2 "1") ///
         label(3 "2") ///
-        label(4 "3") ///
-        label(5 "4+") ///
+        label(4 "3+") ///
         title("number of living children before pregnancy", size(small)) ///
         rows(5) ///
     )
