@@ -35,7 +35,7 @@ foreach outcome of local outcomes {
 
     * Estimate mean and CI by group and parity
     foreach i of numlist 1/5 {
-        foreach p of numlist 0/4 {
+        foreach p of numlist 0/3 {
             quietly svy: mean `outcome' if groups6==`i' & parity==`p' & preg==0
             
             replace m = r(table)[1,1] if groups6==`i' & parity==`p'
@@ -86,7 +86,7 @@ foreach outcome of local outcomes {
 			(scatter m_overall_outcome m_overall_parity if groups6==`i', msymbol(X) mcolor(black)) ///
             (rcap ll ul parity if groups6==`i', color(black)) ///
             (scatter m parity if groups6==`i', msymbol(`shape') mcolor(black)), ///
-            xlabel(0 "0" 1 "1" 2 "2" 3 "3" 4 "4+") ///
+            xlabel(0 "0" 1 "1" 2 "2" 3 "3+") ///
             ytitle("estimated prevalence of pre-pregnancy `outcome'", size(vsmall)) ///
             xtitle("number of living children") ///
             title("`groupname' and Forward Caste") ///
@@ -110,14 +110,14 @@ foreach outcome of local outcomes {
 
 #delimit ;
 grc1leg underweight_fwd_vs_group2 underweight_fwd_vs_group3 underweight_fwd_vs_group4 underweight_fwd_vs_group5,
-	ycommon;
+	ycommon iscale(.8) imargin(0 0 0 0) graphregion(margin(0 0 0 0));
 
 graph export "${path}prepreg_underweight_combined.png", as(png) replace;
 	
 	
 #delimit ;
 grc1leg bmi_fwd_vs_group2 bmi_fwd_vs_group3 bmi_fwd_vs_group4 bmi_fwd_vs_group5,
-	ycommon;
+	ycommon iscale(.8) imargin(0 0 0 0) graphregion(margin(0 0 0 0));
 
 graph export "${path}prepreg_bmi_combined.png", as(png) replace;
 

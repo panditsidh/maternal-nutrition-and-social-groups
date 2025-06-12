@@ -14,6 +14,8 @@ if "`c(username)'" == "sidhpandit" {
 	
 	global prepared_dataset "/Users/sidhpandit/Documents/GitHub/trends-in-health-in-pregnancy-overleaf-/do files/data prep/assemble data for social group pre-pregnancy/01_reweight within social group.do"
 	
+	
+	
 }
 
 if "`c(username)'" == "dc42724" {
@@ -32,7 +34,7 @@ if "`c(username)'" == "dc42724" {
 
 
 clear all
-use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s using $nfhs5ir
+use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 using $nfhs5ir
 
 // keep currently married women
 keep if v501==1 
@@ -177,10 +179,20 @@ replace bmi = bmi/100
 
 gen underweight = bmi<18.5
 
+
+gen weight = v437
+replace weight =. if v437>9990
+replace weight =weight/10
+
 gen parity = v219 
 replace parity = v219-1 if v213==1
 // replace parity = 4 if parity>=4
 replace parity = 3 if parity>=3
+
+gen parity0 = parity==0
+gen parity1 = parity==1
+gen parity2 = parity==2
+gen parity3 = parity==3
 
 * gen svy vars
 egen strata = group(v000 v024 v025) 
@@ -227,4 +239,3 @@ label values parity paritylbl
 
 
 
-save
