@@ -2,31 +2,34 @@ if "`c(username)'" == "sidhpandit" {
 	
 	global out_tex "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/tables/rw_"
 	
-	global rw "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/11_reweight single year age.do"
+	global rw "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/01_reweight 2yr age + breastfeeding.do"
 	
 	global bootstrapresults_full "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/bootstrapresults_full.dta"
 	
+	
+	global assemble "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/00_assemble prepreg sample.do"
 	
 }
 
 if "`c(username)'" == "dc42724" {
 	global out_tex "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\tables\rw_"
 	
-	global rw "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\11_reweight single year age.do"
+	global rw "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\01_reweight 2yr age + breastfeeding.do"
 	
 	global out_tex "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\bootstrapresults_full.dta"
+	
+	global assemble "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\00_assemble prepreg sample.do"
 	
 }
 
 * we can get point estimates before 
-
 
 set more off 
 clear all
 
 set seed 8062011
 local B = 1000
-*That's how many times to run it; I recommend 1,000
+* That's how many times to run it; I recommend 1,000
 
 
 *** clear results dataset
@@ -37,16 +40,17 @@ gen `var' = .
 save $bootstrapresults_full, replace
 
 
+do "${assemble}"
 tempfile prepared_dataset
 save `prepared_dataset'
 
-forvalues i = 1(1)`B'{ // # of times bootstrapping loop
+* bootstrapping loop
+forvalues i = 1(1)`B'{ 
 
 di `i', " of ", `B'
 
-
 use `prepared_dataset', clear
-replace strata = 7 if strata==8 // lol rural chandigadh
+replace strata = 7 if strata==8 // rural chandigadh
 
 * CREATE REWEIGHTING BINS
 egen bin=group(lessedu v013 urban youngest_status noliving childdied hasboy)
@@ -93,3 +97,7 @@ centile bmihat underweighthat weighthat, centile(2.5 97.5)
 
 
 
+
+do "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/dummy.do"
+
+display `i'

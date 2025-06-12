@@ -1,5 +1,6 @@
 if "`c(username)'" == "sidhpandit" {
 	
+	global out_tex "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/tables/kitagawa_"
 	
 
 	

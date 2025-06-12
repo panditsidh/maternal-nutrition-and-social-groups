@@ -4,7 +4,7 @@ if "`c(username)'" == "sidhpandit" {
 	
 	global rw_11 "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/11_reweight single year age.do"
 	
-	global rw_12 "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/12_reweight 2yr age bins.do"
+	global rw_12 "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/01_reweight 2yr age + breastfeeding.do"
 	
 }
 
@@ -13,7 +13,7 @@ if "`c(username)'" == "dc42724" {
 	
 	global rw_11 "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\11_reweight single year age.do"
 	
-	global rw_12 "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\12_reweight 2yr age bins.do"
+	global rw_12 "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\01_reweight 2yr age + breastfeeding.do"
 	
 }
 
@@ -31,7 +31,7 @@ foreach outcome in bmi underweight weight {
 	
 preserve
 
-svy: mean `outcome', over(groups6 parity)
+svy: mean `outcome' if preg==0, over(groups6 parity)
 
 matrix T = r(table)
 local ncols = colsof(T)
