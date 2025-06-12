@@ -29,65 +29,65 @@
 \maketitle
 
 
-\section{BMI : 5 covariates, single year age }
+% \section{BMI : 5 covariates, single year age }
 
-reweighting vars used: age edu rural hasboy c user
+% reweighting vars used: age edu rural hasboy c user
 
-\begin{table}[H]
-    \centering
-    \footnotesize % shrink text
-    \caption{: BMI by group, reweighting vars used: age edu rural hasboy c user}
-    \label{tab:sumstat}
-    \adjustbox{width=\textwidth}{\input{tables/rw_all}}
-\end{table}
-
-
-among forward parity 3, bins that have only pregnant women are of age 26,35,36
-among forward parity 4, bins that have only pregnant women are of age 26,36
-
-that tells us it's not an age sparsity issue (maybe among 35,36) - let's look to see what other dimension is
-
-\section{underweight : 5 covariates, single year age }
-
-reweighting vars used: age edu rural hasboy c user
-
-\begin{table}[H]
-    \centering
-    \footnotesize % shrink text
-    \caption{: Underweight by group, reweighting vars used: age edu rural hasboy c user}
-    \label{tab:sumstat}
-    \adjustbox{width=\textwidth}{\input{tables/rw_all_underweight}}
-\end{table}
+% \begin{table}[H]
+%     \centering
+%     \footnotesize % shrink text
+%     \caption{: BMI by group, reweighting vars used: age edu rural hasboy c user}
+%     \label{tab:sumstat}
+%     \adjustbox{width=\textwidth}{\input{tables/rw_all}}
+% \end{table}
 
 
-\newpage
+% among forward parity 3, bins that have only pregnant women are of age 26,35,36
+% among forward parity 4, bins that have only pregnant women are of age 26,36
 
-\section{bmi : 5 covariates, 2 year age bins }
+% that tells us it's not an age sparsity issue (maybe among 35,36) - let's look to see what other dimension is
 
-reweighting vars used: age edu rural hasboy c user
+% \section{underweight : 5 covariates, single year age }
 
-\begin{table}[H]
-    \centering
-    \footnotesize % shrink text
-    \caption{: Underweight by group, reweighting vars used: age edu rural hasboy c user}
-    \label{tab:sumstat}
-    \adjustbox{width=\textwidth}{\input{tables/rw__bmi}}
-\end{table}
+% reweighting vars used: age edu rural hasboy c user
+
+% \begin{table}[H]
+%     \centering
+%     \footnotesize % shrink text
+%     \caption{: Underweight by group, reweighting vars used: age edu rural hasboy c user}
+%     \label{tab:sumstat}
+%     \adjustbox{width=\textwidth}{\input{tables/rw_all_underweight}}
+% \end{table}
+
+
+% \newpage
+
+% \section{bmi : 5 covariates, 2 year age bins }
+
+% reweighting vars used: age edu rural hasboy c user
+
+% \begin{table}[H]
+%     \centering
+%     \footnotesize % shrink text
+%     \caption{: Underweight by group, reweighting vars used: age edu rural hasboy c user}
+%     \label{tab:sumstat}
+%     \adjustbox{width=\textwidth}{\input{tables/rw__bmi}}
+% \end{table}
 
 
 
-\newpage 
-\section{underweight : 5 covariates, 2 year age bins }
+% \newpage 
+% \section{underweight : 5 covariates, 2 year age bins }
 
-reweighting vars used: age edu rural hasboy c user
+% reweighting vars used: age edu rural hasboy c user
 
-\begin{table}[H]
-    \centering
-    \footnotesize % shrink text
-    \caption{: Underweight by group, reweighting vars used: age edu rural hasboy c user}
-    \label{tab:sumstat}
-    \adjustbox{width=\textwidth}{\input{tables/rw_}}
-\end{table}
+% \begin{table}[H]
+%     \centering
+%     \footnotesize % shrink text
+%     \caption{: Underweight by group, reweighting vars used: age edu rural hasboy c user}
+%     \label{tab:sumstat}
+%     \adjustbox{width=\textwidth}{\input{tables/rw_}}
+% \end{table}
 
 
 \newpage 
@@ -141,7 +141,7 @@ reweighting vars used: age (2yr bins) edu rural hasboy cuser v404 (currently bre
 \section{outcome: underweight}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/prepreg_underweight_combined.png}
+    \includegraphics[width=\textwidth]{figures/:prepreg_underweight_combined.png}
 \end{figure}
 
 \section{stacked bar graph}
@@ -152,5 +152,16 @@ reweighting vars used: age (2yr bins) edu rural hasboy cuser v404 (currently bre
 
 
 
+
+\section{kitagawa}
+
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: bmi by group, reweighting vars used: age edu rural hasboy c user}
+    \label{tab:sumstat}
+    \adjustbox{width=\textwidth}{\input{tables/rw_12_weight}}
+\end{table}
 
 \end{document}
