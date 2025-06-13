@@ -1,8 +1,10 @@
+* just testing this code with the social group reweighting (01)
+
 if "`c(username)'" == "sidhpandit" {
 	
 	global out_tex "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/tables/rw_"
 	
-	global rw "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/01_reweight 2yr age + breastfeeding.do"
+	global rw "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/01_reweight within social group.do"
 	
 	global bootstrapresults_full "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/bootstrapresults_full.dta"
 	
@@ -14,7 +16,7 @@ if "`c(username)'" == "sidhpandit" {
 if "`c(username)'" == "dc42724" {
 	global out_tex "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\tables\rw_"
 	
-	global rw "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\01_reweight 2yr age + breastfeeding.do"
+	global rw "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\01_reweight within social group.do"
 	
 	global out_tex "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\bootstrapresults_full.dta"
 	
@@ -22,7 +24,6 @@ if "`c(username)'" == "dc42724" {
 	
 }
 
-* we can get point estimates before 
 
 set more off 
 clear all

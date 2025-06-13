@@ -8,10 +8,35 @@
 within each social group
 */
 
-gen age = v012
+
+* just testing this code with the social group reweighting (01)
+
+if "`c(username)'" == "sidhpandit" {
+	
+	
+	
+	global assemble "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/00_assemble prepreg sample.do"
+	
+}
+
+if "`c(username)'" == "dc42724" {
+	
+	global assemble "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\00_assemble prepreg sample.do"
+	
+}
+
+// gen age = v012
+capture drop counter bin* dropbin*
+capture drop pct_drop
+capture drop reweightingfxn* pregweight* nonpregweight* transfer*
 gen counter=1
 
+
+gen pct_drop = .
+
 foreach i of numlist 1/5 {
+	
+
 	
 	egen bin_`i' = group(age edu rural hasboy c_user) if groups6==`i'
 	
@@ -23,15 +48,13 @@ foreach i of numlist 1/5 {
 	replace counter0 = 0 if counter0 == .
 	replace counter1 = 0 if counter1 == .
 	
-	* number of bins with only pregnant women
-// 	count if counter0==0 & counter1>0
 	
-	* number of pregnant women in dropbins
-	tab counter1 if counter0==0 & counter1>0
+	* # bins with only pregnant women
+	qui count if counter0==0 & counter1>0
+	local droppedbins`i' = r(N)
+	
 	
 	gen dropbin_`i' = counter0==0 & counter1>0
-	
-	tab dropbin
 	
 	keep bin_`i' dropbin_`i'
 	
@@ -43,9 +66,19 @@ foreach i of numlist 1/5 {
 	merge m:1 bin_`i' using `dropbins_`i'', gen(dropbins_merge_`i')
 	
 	tab dropbin_`i'
-
+	
+	
+	* percent of pregnant women dropped
+	sum dropbin_`i' [aw=v005] if preg==1	
+	replace pct_drop = r(mean) if groups6==`i'
+	
  
 }
+
+
+
+
+
 
 egen dropbin = anymatch(bin_1-bin_5), values(1)
 
