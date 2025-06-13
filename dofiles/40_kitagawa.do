@@ -98,7 +98,7 @@ foreach g of numlist 2/5 {
 	if `g'==4 local group "Adivasi"
 	if `g'==5 local group "Muslim"
 
-	local labels `" "Prop. pregnant women (Fwd)" "Avg pre-pregnancy `outcome' (Fwd)" "Prop. pregnant women (`group')" "Avg pre-pregnancy `outcome' (`group')"  "Difference in `outcome' (`group'-Forward)" "Within parity (rate)" "Between parity (compositional)" "'
+	local labels `" "Prop. pregnant women (Fwd)" "Avg pre-pregnancy `outcome' (Fwd)" "Prop. pregnant women (`group')" "Avg pre-pregnancy `outcome' (`group')"  "Difference in `outcome' (`group'-Forward)" "Within parity difference (rate)" "Between parity difference (compositional)" "'
 
 	#delimit ;
 	esttab parity0 parity1 parity2 parity3 total pct,

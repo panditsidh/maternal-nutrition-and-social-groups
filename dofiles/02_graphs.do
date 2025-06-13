@@ -14,6 +14,7 @@ if "`c(username)'" == "dc42724" {
 }
 
 
+
 svyset psu [pw=reweightingfxn], strata(strata) singleunit(centered)
 
 capture graph drop _all
