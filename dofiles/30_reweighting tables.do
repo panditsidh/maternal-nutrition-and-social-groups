@@ -26,12 +26,8 @@ if "`c(username)'" == "dc42724" {
 
 
 
-
-
-
-
-
-// do "${rw_12}"
+do "${assemble}"
+do "${rw_12}"
 
 capture drop dropbin_pregnant
 
@@ -151,7 +147,7 @@ drop if missing(rowname)
 
 
 #delimit ;
-listtex rowname ci pct_drop using "${out_tex}10_`outcome'.tex", replace ///
+listtex rowname ci pct_drop using "${out_tex}12_`outcome'.tex", replace ///
   rstyle(tabular) ///
   head("\begin{tabular}{lccc}" ///
        "\toprule" ///

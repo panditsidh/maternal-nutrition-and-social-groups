@@ -16,6 +16,8 @@ if "`c(username)'" == "dc42724" {
 	
 	global rw_01 "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\01_reweight within social group.do"
 	
+	global assemble "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\00_assemble prepreg sample.do"
+	
 }
 
 
