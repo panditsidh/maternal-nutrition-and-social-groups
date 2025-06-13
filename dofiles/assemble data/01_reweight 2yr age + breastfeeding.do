@@ -13,7 +13,8 @@ gen age = 2 * floor(v012 / 2)
 gen counter=1
 gen dropbin = 0
 
-reg preg age edu rural hasboy c_user v404
+
+reg preg age edu rural hasboy c_user v404 [aw=v005]
 display e(r2)
 
 egen tag = tag(age edu rural hasboy c_user v404)
