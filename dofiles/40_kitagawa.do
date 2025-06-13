@@ -15,6 +15,8 @@ if "`c(username)'" == "dc42724" {
 
 local outcome underweight
 
+foreach outcome in underweight bmi {
+
 foreach g of numlist 2/5 {
 
 	* get weights and group outcomes
@@ -72,7 +74,7 @@ foreach g of numlist 2/5 {
 	local g_outcome = `g_outcome_0'*`g_wt_0'+`g_outcome_1'*`g_wt_1'+`g_outcome_2'*`g_wt_2'+`g_outcome_3'*`g_wt_3'
 	eststo total: estadd scalar g_outcome = `g_outcome'
 
-	local total_diff = `fwd_outcome'-`g_outcome'
+	local total_diff = `g_outcome'-`fwd_outcome'
 	eststo total: estadd scalar total_diff = `total_diff'
 
 	* get component of difference explained/unexplained
@@ -96,14 +98,15 @@ foreach g of numlist 2/5 {
 	if `g'==4 local group "Adivasi"
 	if `g'==5 local group "Muslim"
 
-	local labels `" "Fwd prop. pregnant women" "Fwd avg pre-pregnancy `outcome'" "`group' prop. pregnant women" "`group' avg pre-pregnancy `outcome'" "'
+	local labels `" "Prop. pregnant women (Fwd)" "Avg pre-pregnancy `outcome' (Fwd)" "Prop. pregnant women (`group')" "Avg pre-pregnancy `outcome' (`group')"  "Difference in `outcome' (`group'-Forward)" "Within parity (rate)" "Between parity (compositional)" "'
 
 	#delimit ;
 	esttab parity0 parity1 parity2 parity3 total pct,
 		stats(fwd_wt fwd_outcome g_wt g_outcome total_diff within_group between_group, labels(`labels') fmt(2))
 		drop(v201 _cons)
 		nonumbers nostar noobs not
-		mtitles("Parity 0" "Parity 1" "Parity 2" "Parity 3+");
+		addnote("Decomposes the total difference in pre-pregnancy outcomes between `group' and forward caste into the difference within parities and the difference due to distribution across parities")
+		mtitles("Parity 0" "Parity 1" "Parity 2" "Parity 3+" "Total" "Percent");
 
 
 	esttab parity0 parity1 parity2 parity3 total pct using "${out_tex}`outcome'_`g'.tex",
@@ -111,64 +114,12 @@ foreach g of numlist 2/5 {
 		stats(fwd_wt fwd_outcome g_wt g_outcome total_diff within_group between_group, labels(`labels') fmt(2))
 		drop(v201 _cons)
 		nonumbers nostar noobs not
-		mtitles("Parity 0" "Parity 1" "Parity 2" "Parity 3+")
+		mtitles("Parity 0" "Parity 1" "Parity 2" "Parity 3+" "Total" "Percent")
+		addnote("Decomposes the total difference in pre-pregnancy outcomes between `group' and forward caste into the difference within parities and the difference due to distribution across parities")
 		booktabs;
 
 	#delimit cr
 		
-}
-
-
-
-//
-//
-// twoway ///
-// (kdensity bmi [aw=reweightingfxn] if groups6 == 1 & preg == 0 & bmi<31, lcolor(navy) lpattern(solid) lwidth(medthick) ///
-//     legend(label(1 "Forward Castes"))) ///
-// (kdensity bmi [aw=reweightingfxn] if groups6 == 5 & preg == 0 & bmi<31, lcolor(maroon) lpattern(dash) lwidth(medthick) ///
-//     legend(label(2 "Muslims"))) ///
-// , ///
-// title("Pre-Pregnancy BMI Distribution (overall)") ///
-// xlabel(15(2)30) ///
-// ylabel(, angle(horizontal)) ///
-// legend(position(6) ring(0) cols(1)) ///
-// xtitle("BMI") ///
-// ytitle("Density") ///
-// xline(18.5, lpattern(dot) lcolor(black)) ///
-// graphregion(color(white)) ///
-// plotregion(margin(zero))
-//
-//
-//
-//
-//
-//
-// forvalues p = 0/3 {
-//    
-//     twoway ///
-//     (kdensity bmi [aw=reweightingfxn] if groups6 == 1 & preg == 0 & parity == `p' & bmi < 31, ///
-//         lcolor(navy) lpattern(solid) lwidth(medthick) ///
-//         legend(label(1 "Forward Castes"))) ///
-//     (kdensity bmi [aw=reweightingfxn] if groups6 == 5 & preg == 0 & parity == `p' & bmi < 31, ///
-//         lcolor(maroon) lpattern(dash) lwidth(medthick) ///
-//         legend(label(2 "Muslims"))) ///
-//     , ///
-//     title("Parity `p'") ///
-//     xlabel(15(2)30) ///
-//     ylabel(, angle(horizontal)) ///
-//     legend(position(6) ring(0) cols(2)) ///
-//     xtitle("BMI") ///
-//     ytitle("Density") ///
-//     xline(18.5, lpattern(dot) lcolor(black)) ///
-//     graphregion(color(white)) ///
-//     plotregion(margin(zero)) ///
-//     name(bmi_parity`p', replace)
-// }
-//
-//
-// grc1leg bmi_parity0 bmi_parity1 bmi_parity2 bmi_parity3, ///
-//     rows(2) ///
-//     title("Pre-Pregnancy BMI: Distribution by Parity") ///
-//     ycommon ///
-//     graphregion(color(white))
+} // comparison group loop
+} // outcome loop
 
