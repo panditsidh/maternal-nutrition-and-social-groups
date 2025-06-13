@@ -8,14 +8,12 @@ if "`c(username)'" == "sidhpandit" {
 	global nfhs5br "/Users/sidhpandit/Desktop/nfhs/nfhs5br/IABR7EFL.DTA"
 	
 	global ir_combined "/Users/sidhpandit/Desktop/ra/ir345_prepregweights.dta"
-	
-	global reweight "/Users/sidhpandit/Documents/GitHub/trends-in-health-in-pregnancy-overleaf-/do files/data prep/assemble data for social group pre-pregnancy/01_reweight within social group.do"
+
+*check if this is right? 
+	global reweight "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/01_reweight.do"
 	
 	
 	global prepared_dataset "/Users/sidhpandit/Documents/GitHub/trends-in-health-in-pregnancy-overleaf-/do files/data prep/assemble data for social group pre-pregnancy/01_reweight within social group.do"
-	
-	
-	
 }
 
 if "`c(username)'" == "dc42724" {
@@ -27,14 +25,12 @@ if "`c(username)'" == "dc42724" {
 	global nfhs4br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\br\IABR71FL.DTA"
 	global nfhs5br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IABR7EDT\IABR7EFL.DTA"
 
-	global reweight "C:\Users\dc42724\Documents\GitHub\trends-in-health-in-pregnancy-overleaf-\do files\data prep\assemble data for social group pre-pregnancy\01_reweight within social group.do"
-	
-	
+	global reweight "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\01_reweight.do"
 }
 
 
 clear all
-use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 using $nfhs5ir
+use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* using $nfhs5ir
 
 // keep currently married women
 keep if v501==1 
@@ -76,10 +72,8 @@ replace mopreg = moperiod if missing(v214) & v214>=2 & v213==1
 replace moperiod = v214 if missing(moperiod) & v214>=2 & v213==1
 replace moperiod=. if v213!=1
 
-
 // mopreg is gestional duration based on reported months of pregnancy -- only 6% of pregnant women report being 9 or more months pregnant by this measure
 // moperiod is gestational duration based on time since last period -- 11.3% of pregnant women report being 9 or more months pregnant by this measure.
-
 
 *count women as pregnant if they are 3+ months pregnant to avoid selection
 gen preg= moperiod>=3 if !missing(moperiod) 
@@ -110,14 +104,13 @@ replace modernmethod = 1 if answer>0 & answer <=8
 
 gen sterilized = answer==1 | answer ==2
 
-
 ***  non-pregnant women who are sterlized or using a modern method.
 *** Could use these data to look at the sterilization failure rate.  (343 women report being pregnant and sterilized by our variables.)
 ***1,581 report being pregnant after using a modern method.
 gen c_user = (sterilized==1 | modernmethod==1)
 bysort v213: tab c_user
 
-* social group - leave out 6 (C/S/J non SC/ST/OBC)
+* social group - leave out 6 (Christians, Sikhs, or Jains who are not SC/ST/OBC)
 gen groups6 = .
 replace groups6 = 3 if s116 == 1  // Dalit
 replace groups6 = 4 if s116 == 2 // Adivasi
@@ -153,25 +146,14 @@ gen hasboy = v202 >0 & v202!=.
 replace hasboy = 1 if v204 >0 & v204!=.
 
 /*
-* previous child died
-preserve
-	clear all
-	use $nfhs5br
-	sort caseid
-	gen timeagodied = v008-b3
-	gen diedpastfiveyr= timeagodied<60 & b5==0
-	by caseid: egen diedpast5yr = max(diedpastfiveyr)
-	collapse diedpast5yr, by(caseid)
-	tab diedpast5yr, m
-	
-	tempfile nfhs_dead
-	save `nfhs_dead'
-restore
-
-merge 1:1 caseid using `nfhs_dead'
-drop if _merge == 2
-gen childdied = diedpast5yr==1
+if we want to, we can put a variable that says whether a non-pregnant woman is currently BF a child under two
+for pregnant women, this variable would be coded according to whether she was BF a child under two in the month before she became pregnant
+there would be code for this in the original paper
 */
+
+*two year age bins
+*if we want to get more precise, we can match age of non-pregnant women now to age of pregnant women when they became pregnant
+gen age = 2 * floor(v012 / 2)
 
 * gen outcome variables
 gen bmi = v445 if v445!=9998 & v445!= 9999
@@ -179,14 +161,20 @@ replace bmi = bmi/100
 
 gen underweight = bmi<18.5
 
-
 gen weight = v437
 replace weight =. if v437>9990
 replace weight =weight/10
 
+/*we originally coded parity with living children + current pregnancy
+*then decided to do it with live births
 gen parity = v219 
 replace parity = v219-1 if v213==1
 // replace parity = 4 if parity>=4
+replace parity = 3 if parity>=3
+*/
+
+gen parity = bord_01
+replace parity = 0 if parity == .
 replace parity = 3 if parity>=3
 
 gen parity0 = parity==0
@@ -228,8 +216,7 @@ label define paritylbl ///
     0 "0" ///
     1 "1" ///
     2 "2" ///
-	3 "3" ///
-	4 "4+" ///
+	3 "3+" ///
 	
 label values parity paritylbl
 
