@@ -1,12 +1,14 @@
 * need to fix export function here
 
 if "`c(username)'" == "sidhpandit" {
-	global path "/Users/sidhpandit/Documents/GitHub/trends-in-health-in-pregnancy-overleaf-/figures/maternal nutrition by social group/"
-	
+	global path_bmi "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/figures/prepreg_bmi_combined.png"
+	global path_underweight "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/figures/prepreg_underweight_combined.png"
 }
 
 if "`c(username)'" == "dc42724" {
-	global path "C:\Users\dc42724\Documents\GitHub\trends-in-health-in-pregnancy-overleaf-\figures\maternal nutrition by social group\"
+	global path_bmi "C:\Users\dc42724\Documents\GitHub\trends-in-health-in-pregnancy-overleaf-\figures\maternal nutrition by social group\prepreg_bmi_combined.png"
+	
+	global path_underweight"C:\Users\dc42724\Documents\GitHub\trends-in-health-in-pregnancy-overleaf-\figures\maternal nutrition by social group\prepreg_underweight_combined.png"
 	
 	
 }
@@ -66,12 +68,12 @@ foreach outcome of local outcomes {
 		local yscale ""
 
 		if "`outcome'" == "underweight" {
-			local ylabel ylabel(0(0.05)0.3, angle(horizontal))
-			local yscale yscale(range(0 0.3))
+			local ylabel ylabel(0.1(0.05)0.3, angle(horizontal))
+			local yscale yscale(range(0.1 0.3))
 		}
 		else if "`outcome'" == "bmi" {
-			local ylabel ylabel(20(1)26, angle(horizontal))
-			local yscale yscale(range(20 26))
+			local ylabel ylabel(20(1)24, angle(horizontal))
+			local yscale yscale(range(20 24))
 		}
 		
 		
@@ -80,16 +82,16 @@ foreach outcome of local outcomes {
 		duplicates drop groups6 m ll ul, force
 		
         qui twoway ///
-			(scatter m_overall_outcome m_overall_parity if groups6==1, msymbol(X) mcolor(gs8)) ///
+			(scatter m_overall_outcome m_overall_parity if groups6==1, msymbol(X) mcolor(gs8) msize(large)) ///
             (rcap ll ul parity if groups6==1, color(gs8)) ///
             (scatter m parity if groups6==1, msymbol(circle) mcolor(gs8)) ///
-			(scatter m_overall_outcome m_overall_parity if groups6==`i', msymbol(X) mcolor(black)) ///
+			(scatter m_overall_outcome m_overall_parity if groups6==`i', msymbol(X) mcolor(black) msize(large)) ///
             (rcap ll ul parity if groups6==`i', color(black)) ///
             (scatter m parity if groups6==`i', msymbol(`shape') mcolor(black)), ///
             xlabel(0 "0" 1 "1" 2 "2" 3 "3+") ///
-            ytitle("estimated prevalence of pre-pregnancy `outcome'", size(vsmall)) ///
-            xtitle("number of living children") ///
-            title("`groupname' and Forward Caste") ///
+            ytitle("estimated prevalence of pre-pregnancy `outcome'", size(small)) ///
+            xtitle("number of living children", size(small)) ///
+            title("`groupname'", size(medium)) ///
 			`ylabel' ///
 			`yscale' ///
             legend(order(1 "Forward Caste" 4 "Comparison Social Group") rows(1)) ///
@@ -110,16 +112,21 @@ foreach outcome of local outcomes {
 
 #delimit ;
 grc1leg underweight_fwd_vs_group2 underweight_fwd_vs_group3 underweight_fwd_vs_group4 underweight_fwd_vs_group5,
-	ycommon iscale(.8) imargin(0 0 0 0) graphregion(margin(0 0 0 0));
+	ycommon iscale(.6) name(grc1leg1, replace);
+	
+gr draw grc1leg1, ysize(3) xsize(3);
 
-graph export "${path}prepreg_underweight_combined.png", as(png) replace;
+graph export $path_underweight, as(png) replace;
 	
 	
 #delimit ;
 grc1leg bmi_fwd_vs_group2 bmi_fwd_vs_group3 bmi_fwd_vs_group4 bmi_fwd_vs_group5,
-	ycommon iscale(.8) imargin(0 0 0 0) graphregion(margin(0 0 0 0));
+	ycommon iscale(.6) name(grc1leg2, replace);
+	
 
-graph export "${path}prepreg_bmi_combined.png", as(png) replace;
+gr draw grc1leg2, ysize(3) xsize(3);
+
+graph export $path_bmi, as(png) replace;
 
 
 #delimit cr
