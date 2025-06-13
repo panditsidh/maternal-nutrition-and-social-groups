@@ -1,4 +1,4 @@
-* this dofile does reweighting by age (single year) edu rural hasboy c_user within parity and social group
+* this dofile does reweighting by two year age bins, 3 edu categories, rural, hasboy, modern contraceptive user, within parity and social group.
 
 capture drop age 
 capture drop counter 
@@ -9,12 +9,11 @@ capture drop reweightingfxn
 capture drop pregweight* nonpregweight* transfer*
 capture drop tag
 
-gen age = 2 * floor(v012 / 2)
 gen counter=1
 gen dropbin = 0
 
 
-reg preg age edu rural hasboy c_user v404 [aw=v005]
+reg preg age edu rural hasboy c_user [aw=v005]
 display e(r2)
 
 egen tag = tag(age edu rural hasboy c_user v404)
