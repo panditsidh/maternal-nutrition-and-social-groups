@@ -77,13 +77,26 @@ replace rowname = "Adivasi" in 4
 replace rowname = "Muslim" in 5
 
 
-gen pct_drop = round(percent_drop, 0.01)
+gen pct_drop1 = round(percent_drop, 0.01)
 
 
 gen ci = string(Mean, "%4.1f") + " (" + string(LL, "%4.1f") + ", " + string(UL, "%4.1f") + ")" if !missing(Mean)
 
-keep rowname ci pct_drop
+keep rowname ci pct_drop1
 
 drop if missing(rowname)
+
+
+#delimit ;
+listtex rowname ci pct_drop1 using "${out_tex}10_underweight.tex", replace ///
+  rstyle(tabular) ///
+  head("\begin{tabular}{lccc}" ///
+       "\toprule" ///
+       "Group & \`outcome' & \% pregnant sample dropped \\\\" ///
+       "\midrule") ///
+  foot("\bottomrule" ///
+       "\end{tabular}"); ///
+#delimit cr
+
 
 

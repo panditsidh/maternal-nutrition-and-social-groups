@@ -1,4 +1,4 @@
-* this dofile does reweighting by two year age bins, 3 edu categories, rural, hasboy, modern contraceptive user, within parity and social group.
+* this dofile does reweighting by age (single year) edu rural hasboy c_user within parity and social group
 
 capture drop age 
 capture drop counter 
@@ -9,11 +9,12 @@ capture drop reweightingfxn
 capture drop pregweight* nonpregweight* transfer*
 capture drop tag
 
+gen age = 2 * floor(v012 / 2)
 gen counter=1
 gen dropbin = 0
 
 
-reg preg age edu rural hasboy c_user [aw=v005]
+reg preg age edu rural hasboy c_user v404 [aw=v005]
 display e(r2)
 
 egen tag = tag(age edu rural hasboy c_user v404)
@@ -26,7 +27,7 @@ foreach i of numlist 1/5 {
 		
 		display as text "social group " as result `i' as text " at parity " as result `p'
 		
-		qui egen bin_`i'_`p' = group(age edu rural hasboy c_user v404) if groups6==`i' & parity==`p'
+		qui egen bin_`i'_`p' = group(age edu rural hasboy c_user) if groups6==`i' & parity==`p'
 		
 		
 		preserve
@@ -98,20 +99,20 @@ forvalues i = 1/5 {
 }
 
 
-* testing code
-preserve
-egen bin = group(age edu rural hasboy c_user v404) if groups6==1 & parity==3
-
-collapse (sum) counter (mean) age edu rural hasboy c_user v404, by(bin preg)
-drop if bin == .
-reshape wide counter, i(bin) j(preg)
-
-qui replace counter0 = 0 if counter0 == .
-qui replace counter1 = 0 if counter1 == .
-
-list bin counter1 age edu rural hasboy c_user v404 if counter0==0 & counter1>0
-
-		
-restore
+// * testing code
+// preserve
+// egen bin = group(age edu rural hasboy c_user v404) if groups6==1 & parity==3
+//
+// collapse (sum) counter (mean) age edu rural hasboy c_user v404, by(bin preg)
+// drop if bin == .
+// reshape wide counter, i(bin) j(preg)
+//
+// qui replace counter0 = 0 if counter0 == .
+// qui replace counter1 = 0 if counter1 == .
+//
+// list bin counter1 age edu rural hasboy c_user v404 if counter0==0 & counter1>0
+//
+//		
+// restore
 
 

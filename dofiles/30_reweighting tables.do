@@ -2,7 +2,12 @@ if "`c(username)'" == "sidhpandit" {
 	
 	global out_tex "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/tables/rw_"
 	
+	
+	global rw_01 "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/01_reweight within social group.do"
+	
 	global rw_11 "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/11_reweight single year age.do"
+	
+	global assemble "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/00_assemble prepreg sample.do"
 	
 	global rw_12 "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/01_reweight 2yr age + breastfeeding.do"
 	
@@ -15,10 +20,18 @@ if "`c(username)'" == "dc42724" {
 	
 	global rw_12 "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\01_reweight 2yr age + breastfeeding.do"
 	
+	global assemble "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\00_assemble prepreg sample.do"
+	
 }
 
 
-do "${rw_12}"
+
+
+
+
+
+
+// do "${rw_12}"
 
 capture drop dropbin_pregnant
 
@@ -126,12 +139,7 @@ replace rowname = "Muslim: parity 2" in 19
 replace rowname = "Muslim: parity 3+" in 20
 
 
-* Now loop over the labels
-local i = 1
-foreach label of local labels {
-    replace rowname = "`label'" in `i'
-    local ++i
-}
+
 
 gen pct_drop = round(percent_drop, 0.01)
 
@@ -143,7 +151,7 @@ drop if missing(rowname)
 
 
 #delimit ;
-listtex rowname ci pct_drop using "${out_tex}12_`outcome'.tex", replace ///
+listtex rowname ci pct_drop using "${out_tex}10_`outcome'.tex", replace ///
   rstyle(tabular) ///
   head("\begin{tabular}{lccc}" ///
        "\toprule" ///
