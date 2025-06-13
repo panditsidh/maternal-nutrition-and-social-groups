@@ -13,8 +13,7 @@ if "`c(username)'" == "dc42724" {
 }
 
 
-
-local outcome bmi
+local outcome underweight
 
 foreach g of numlist 2/5 {
 
@@ -23,7 +22,7 @@ foreach p of numlist 0/3 {
 	qui {
 	
 	eststo parity`p': reg v201 v201
-		
+	
 	sum parity`p' if groups6==1 & preg==1 [aw=v005]
 	local fwd_wt_`p' = r(mean)
 	
@@ -68,7 +67,6 @@ eststo total: estadd scalar fwd_outcome = `fwd_outcome'
 local g_outcome = `g_outcome_0'*`g_wt_0'+`g_outcome_1'*`g_wt_1'+`g_outcome_2'*`g_wt_2'+`g_outcome_3'*`g_wt_3'
 eststo total: estadd scalar g_outcome = `g_outcome'
 
-
 local total_diff = `fwd_outcome'-`g_outcome'
 eststo total: estadd scalar total_diff = `total_diff'
 
@@ -111,3 +109,58 @@ esttab parity0 parity1 parity2 parity3 total pct using "${out_tex}`g'.tex",
 #delimit cr
 	
 }
+
+
+
+
+
+twoway ///
+(kdensity bmi [aw=reweightingfxn] if groups6 == 1 & preg == 0 & bmi<31, lcolor(navy) lpattern(solid) lwidth(medthick) ///
+    legend(label(1 "Forward Castes"))) ///
+(kdensity bmi [aw=reweightingfxn] if groups6 == 5 & preg == 0 & bmi<31, lcolor(maroon) lpattern(dash) lwidth(medthick) ///
+    legend(label(2 "Muslims"))) ///
+, ///
+title("Pre-Pregnancy BMI Distribution (overall)") ///
+xlabel(15(2)30) ///
+ylabel(, angle(horizontal)) ///
+legend(position(6) ring(0) cols(1)) ///
+xtitle("BMI") ///
+ytitle("Density") ///
+xline(18.5, lpattern(dot) lcolor(black)) ///
+graphregion(color(white)) ///
+plotregion(margin(zero))
+
+
+
+
+
+
+forvalues p = 0/3 {
+    
+    twoway ///
+    (kdensity bmi [aw=reweightingfxn] if groups6 == 1 & preg == 0 & parity == `p' & bmi < 31, ///
+        lcolor(navy) lpattern(solid) lwidth(medthick) ///
+        legend(label(1 "Forward Castes"))) ///
+    (kdensity bmi [aw=reweightingfxn] if groups6 == 5 & preg == 0 & parity == `p' & bmi < 31, ///
+        lcolor(maroon) lpattern(dash) lwidth(medthick) ///
+        legend(label(2 "Muslims"))) ///
+    , ///
+    title("Parity `p'") ///
+    xlabel(15(2)30) ///
+    ylabel(, angle(horizontal)) ///
+    legend(position(6) ring(0) cols(2)) ///
+    xtitle("BMI") ///
+    ytitle("Density") ///
+    xline(18.5, lpattern(dot) lcolor(black)) ///
+    graphregion(color(white)) ///
+    plotregion(margin(zero)) ///
+    name(bmi_parity`p', replace)
+}
+
+
+grc1leg bmi_parity0 bmi_parity1 bmi_parity2 bmi_parity3, ///
+    rows(2) ///
+    title("Pre-Pregnancy BMI: Distribution by Parity") ///
+    ycommon ///
+    graphregion(color(white))
+
