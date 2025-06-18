@@ -105,7 +105,6 @@ foreach g of numlist 2/5 {
 		stats(fwd_wt fwd_outcome g_wt g_outcome total_diff within_group between_group, labels(`labels') fmt(2))
 		drop(v201 _cons)
 		nonumbers nostar noobs not
-		addnote("Decomposes the total difference in pre-pregnancy outcomes between `group' and forward caste into the difference within parities and the difference due to distribution across parities")
 		mtitles("Parity 0" "Parity 1" "Parity 2" "Parity 3+" "Total" "Percent");
 
 
@@ -115,11 +114,11 @@ foreach g of numlist 2/5 {
 		drop(v201 _cons)
 		nonumbers nostar noobs not
 		mtitles("Parity 0" "Parity 1" "Parity 2" "Parity 3+" "Total" "Percent")
-		addnote("Decomposes the total difference in pre-pregnancy outcomes between `group' and forward caste into the difference within parities and the difference due to distribution across parities")
 		booktabs;
 
 	#delimit cr
-		
+	
+	eststo clear
 } // comparison group loop
 } // outcome loop
 
