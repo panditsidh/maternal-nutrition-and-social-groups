@@ -1,21 +1,10 @@
-if "`c(username)'" == "sidhpandit" {
-	
-	global out_tex "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/tables/kitagawa_"
-	
-
-	
-}
-
-if "`c(username)'" == "dc42724" {
-	global out_tex "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\tables\kitagawa_"
-
-	
-}
-
-
 local outcome underweight
 
 foreach outcome in underweight bmi {
+
+*testing code
+local outcome underweight 
+*testing code
 
 foreach g of numlist 2/5 {
 
@@ -107,8 +96,8 @@ foreach g of numlist 2/5 {
 		nonumbers nostar noobs not
 		mtitles("Parity 0" "Parity 1" "Parity 2" "Parity 3+" "Total" "Percent");
 
-
-	esttab parity0 parity1 parity2 parity3 total pct using "${out_tex}`outcome'_`g'.tex",
+	
+	esttab parity0 parity1 parity2 parity3 total pct using "tables/kitagawa_`outcome'_`g'.tex",
 		replace
 		stats(fwd_wt fwd_outcome g_wt g_outcome total_diff within_group between_group, labels(`labels') fmt(2))
 		drop(v201 _cons)
@@ -119,6 +108,11 @@ foreach g of numlist 2/5 {
 	#delimit cr
 	
 	eststo clear
+	
 } // comparison group loop
+
+
+
+
 } // outcome loop
 

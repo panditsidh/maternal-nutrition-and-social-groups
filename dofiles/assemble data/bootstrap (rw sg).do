@@ -109,8 +109,8 @@ forvalues i = 1(1)`B'{
 		local dropbins`g' = r(N)
 		
 		* propogate dropbin and zerobin to all individuals if needed
-		bysort bin (dropbin): replace dropbin = dropbin[1] if groups6==`g' 
-		bysort bin (zerobin): replace zerobin = zerobin[1] if groups6==`g'
+		bysort bin (dropbin): replace dropbin = dropbin[1] if dropbin[1]==1 & groups6==`g' 
+		bysort bin (zerobin): replace zerobin = zerobin[1] if zerobin[1]==1 & groups6==`g'
 		
 		* percent of nonpregnant women in bins without pregnant women (reweighted to zero)
 		sum zerobin if groups6==`g' & preg==0

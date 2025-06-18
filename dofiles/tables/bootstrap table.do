@@ -1,4 +1,4 @@
-* Load and reshape
+* Load and reshape bootstrap results
 use "data/bootstrapresults_full.dta", clear
 gen iteration = _n
 
@@ -23,7 +23,7 @@ foreach var of local vars {
              (p5) lb=`var' ///
              (p95) ub=`var', by(groups6)
 
-    * If underweight, multiply all by 100
+    * If underweight, scale to percentage
     if "`var'" == "underweight" {
         replace mean = mean * 100
         replace lb   = lb   * 100
@@ -40,13 +40,11 @@ foreach var of local vars {
     local ++c
 }
 
-* Stack into one matrix: [mean1 mean2 ... | lb1 lb2 ... | ub1 ub2 ...]
+* Stack into one matrix
 matrix allstats = means, lbs, ubs
-
-* Convert to variables (using default col names: allstats1, allstats2, etc.)
 svmat allstats
 
-* Rename the variables to something readable
+* Rename variables
 local i = 1
 foreach var of local vars {
     rename allstats`i' mean_`var'
@@ -66,25 +64,37 @@ gen group = _n
 label define groups6 1 "Forward" 2 "OBC" 3 "Dalit" 4 "Adivasi" 5 "Muslim"
 label values group groups6
 
-* Generate final string variables
+* Generate formatted string variables
 foreach var of local vars {
     gen result_`var' = string(round(mean_`var', 0.01), "%4.2f") + " (" + ///
                        string(round(lb_`var', 0.01), "%4.2f") + ", " + ///
                        string(round(ub_`var', 0.01), "%4.2f") + ")"
 }
 
-* Final view
+* Save bootstrap summary temporarily
 keep group result_*
-drop if _n>5
+drop if _n > 5
+tempfile summary
+save `summary'
 
+* Load original sample to compute sample size of 3+ mo pregnant women
+qui do "dofiles/assemble data/00_assemble prepreg sample.do"
+gen preg3plus = mopreg >= 3 & preg==1
+collapse (count) preg3plus, by(groups6)
+rename groups6 group
+rename preg3plus sample_preg3plus
 
+* Merge with bootstrap summary
+merge 1:1 group using `summary'
+drop _merge
 
-listtex group result_underweight result_bmi result_weight result_gainhat ///
+* Export final table
+listtex group result_underweight result_bmi result_weight result_gainhat sample_preg3plus ///
     using "tables/bootstrap_results.tex", ///
     replace rstyle(tabular) ///
-    head("\begin{tabular}{lcccc}" ///
+    head("\begin{tabular}{lccccr}" ///
          "\toprule" ///
-         "Social Group & Underweight (\%) & BMI & Weight (kg) & Weight Gain (kg) \\" ///
+         "Social Group & Underweight (\%) & BMI & Weight (kg) & Weight Gain (kg) & N (≥3 mo pregnant) \\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}")
