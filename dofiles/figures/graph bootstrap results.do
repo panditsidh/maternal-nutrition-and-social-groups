@@ -7,7 +7,7 @@ gen iteration = _n
 reshape long preg pct_drop bins dropbins pct_zero count9plus bmi underweight weight nineweighthat coeffhat gainhat, ///
     i(iteration) j(groups6)
 
-foreach var in underweight weight gainhat {
+foreach var in underweight weight gainhat bmi {
     
     preserve
 

@@ -1,37 +1,17 @@
-if "`c(username)'" == "sidhpandit" {
-	
-	global out_tex "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/tables/rw_"
-	
-	
-	global rw_01 "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/01_reweight within social group.do"
-	
-	global rw_11 "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/11_reweight single year age.do"
-	
-	global assemble "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/00_assemble prepreg sample.do"
-	
-	global rw_12 "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/assemble data/01_reweight 2yr age + breastfeeding.do"
-	
-}
+/*
 
-if "`c(username)'" == "dc42724" {
-	global out_tex "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\tables\rw_"
-	
-	global rw_11 "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\11_reweight single year age.do"
-	
-	global rw_12 "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\01_reweight 2yr age + breastfeeding.do"
-	
-	global assemble "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\assemble data\00_assemble prepreg sample.do"
-	
-}
+This file makes a table like this
 
 
+social group + parity | mean bmi (ll, ul) | % of pregnant sample dropped 
 
-do "${assemble}"
-do "${rw_12}"
+
+run this after having run 00 and reweighting
+
+*/
+
 
 capture drop dropbin_pregnant
-
-
 
 svyset psu [pw=reweightingfxn], strata(strata) singleunit(centered)
 
@@ -147,7 +127,7 @@ drop if missing(rowname)
 
 
 #delimit ;
-listtex rowname ci pct_drop using "${out_tex}12_`outcome'.tex", replace ///
+listtex rowname ci pct_drop using "/tables/12_`outcome'.tex", replace ///
   rstyle(tabular) ///
   head("\begin{tabular}{lccc}" ///
        "\toprule" ///

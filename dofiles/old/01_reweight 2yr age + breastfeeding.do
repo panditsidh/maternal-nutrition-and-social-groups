@@ -1,5 +1,5 @@
 * this dofile does reweighting by age (single year) edu rural hasboy c_user within parity and social group
-
+qui do "dofiles/assemble data/00_assemble prepreg sample.do"
 capture drop age 
 capture drop counter 
 capture drop bin_*
