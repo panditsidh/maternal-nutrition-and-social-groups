@@ -71,9 +71,6 @@ use `prepared_dataset', clear
 // 	replace strata = 7 if strata==8
 // 	local i = 1
 // 	* testing code
-	
-
-
 
 * get bootstrap sample
 bsample, strata(strata) cluster(psu) 
