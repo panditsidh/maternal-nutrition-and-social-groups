@@ -1,6 +1,4 @@
-
-
-
+qui do "dofiles/assemble data/00_assemble prepreg sample.do"
 
 svyset psu [pw=v005], strata(strata) singleunit(centered)
 
@@ -62,8 +60,8 @@ twoway
     (scatter m mopreg if groups6==5, msymbol(circle_hollow) mcolor(yellow))
 	(rcap ll ul mopreg if groups6==5),
 	
-	`ylabel'
-	`yscale'
+	ylabel'
+	yscale'
     legend(order(1 "Forward Caste"
                  2 "OBC"
                  3 "Dalit"
@@ -71,3 +69,5 @@ twoway
                  5 "Muslim") rows(5));
 
 restore
+
+

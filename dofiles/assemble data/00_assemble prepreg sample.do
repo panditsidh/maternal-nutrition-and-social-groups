@@ -124,6 +124,20 @@ there would be code for this in the original paper
 *if we want to get more precise, we can match age of non-pregnant women now to age of pregnant women when they became pregnant
 gen age = 2 * floor(v012 / 2)
 
+* age bins that are more coarse at lower pregnancy likelihood
+gen agebin = .
+replace agebin = 1 if inrange(age, 14, 17)     // low frequency
+replace agebin = 2 if inrange(age, 18, 19)     // keep narrow here
+replace agebin = 3 if inrange(age, 20, 21)
+replace agebin = 4 if inrange(age, 22, 23)
+replace agebin = 5 if inrange(age, 24, 25)
+replace agebin = 6 if inrange(age, 26, 29)
+replace agebin = 7 if inrange(age, 30, 34)
+replace agebin = 8 if inrange(age, 35, 49)     // collapse tail
+label define agebinlbl 1 "14–17" 2 "18–19" 3 "20–21" 4 "22–23" 5 "24–25" 6 "26–29" 7 "30–34" 8 "35–49"
+label values agebin agebinlbl
+
+
 * gen outcome variables
 gen bmi = v445 if v445!=9998 & v445!= 9999
 replace bmi = bmi/100
@@ -192,3 +206,7 @@ label values parity paritylbl
 * gen reweighting!
 
 // do "${reweight}"
+
+
+do "dofiles/assemble data/additional reweighting variables.do"
+

@@ -80,7 +80,7 @@ save `summary'
 * Load original sample to compute sample size of 3+ mo pregnant women
 qui do "dofiles/assemble data/00_assemble prepreg sample.do"
 gen preg3plus = mopreg >= 3 & preg==1
-collapse (count) preg3plus, by(groups6)
+collapse (sum) preg3plus, by(groups6)
 rename groups6 group
 rename preg3plus sample_preg3plus
 
