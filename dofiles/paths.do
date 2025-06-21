@@ -29,8 +29,15 @@ if "`c(username)'" == "dc42724" {
 if "`c(hostname)'" == "PPRC-STATS-P01" {
 	
 	
-	global nfhs5ir "C:\Users\ssp2843\Downloads\nfhs5ir.zip\nfhs5ir\IAIR7EFL.DTA"
+	global nfhs3ir "Q:\Coffey\Users\SidhPandit\nfhs3ir\IAIR52FL.dta"
 	
-	cd "C:\Users\ssp2843\Desktop\dofiles"
+	global nfhs3br "Q:\Coffey\Users\SidhPandit\nfhs3br\IABR52FL.dta"
+	
+	global nfhs5ir "Q:\Coffey\Users\SidhPandit\nfhs5ir\IAIR7EFL.dta"
+	
+	global nfhs5br "Q:\Coffey\Users\SidhPandit\nfhs5br\IABR7EFL.dta"
+	
+	cd "C:\Users\ssp2843\Documents\GitHub\maternal-nutrition-and-social-groups"
+	
 	
 }
