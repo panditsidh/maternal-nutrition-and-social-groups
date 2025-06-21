@@ -26,6 +26,13 @@ what bins have no pregnant women in them
 * clear results dataset and initialize results variables we want from each iteration
 set obs 20000
 
+gen bmi = .
+gen underweight = .
+gen weight = .
+gen nineweighthat = .
+gen coeffhat = .
+gen gainhat = .
+
 foreach g of numlist 1/5 {
 	* reweighting diagnostics
 	gen preg`g' = .
@@ -58,8 +65,10 @@ save `prepared_dataset'
 
 * bootstrapping loop start
 forvalues i = 1(1)`B'{ 
+	
+qui do "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/paths.do"
 
-di `i', " of ", `B'
+di "ITERATION ", `i', " of ", `B'
 
 qui {
 	
@@ -72,8 +81,6 @@ use `prepared_dataset', clear
 // 	local i = 1
 // 	* testing code
 	
-
-
 
 * get bootstrap sample
 bsample, strata(strata) cluster(psu) 
@@ -165,6 +172,20 @@ foreach g of numlist 1/5 {
 }
 
 
+* get general outcomes
+foreach var of varlist bmi underweight weight {
+	qui sum `var' [aw=reweightingfxn] if preg==0 & dropbin!=1
+	local `var' = r(mean)
+}
+
+qui sum weight [aw=v005] if mopreg>=9 & mopreg!=.
+local nineweighthat = r(mean)
+	
+	* get beta from weight on mopreg regression
+qui reg weight mopreg i.v012 i.v133 i.v218 i.urban i.v190 i.v024##v006 [aw=v005] if inrange(mopreg,3,9)
+local coeffhat = _b[mopreg]
+
+
 ******** add everything to the bootstrap results file ********
 
 use "data/bootstrapresults_full.dta", clear
@@ -194,18 +215,31 @@ foreach g of numlist 1/5 {
 	replace gainhat`g' = nineweighthat`g'-weight`g'+(0.5)*coeffhat`g' if _n==`i'
 }
 
+* general outcomes
+replace bmi = `bmi' if _n==`i'
+replace underweight = `underweight' if _n==`i'
+replace weight = `weight' if _n==`i'
+replace nineweighthat = `nineweighthat' if _n==`i'
+replace coeffhat = `coeffhat' if _n==`i'
+
+replace nineweighthat = `nineweighthat' if _n == `i'
+* beta from weight on mopreg regression
+replace coeffhat = `coeffhat' if _n == `i'
+* weight gain from method 2
+replace gainhat = nineweighthat-weight+(0.5)*coeffhat if _n==`i'
+
+
 save, replace
 
 }
 
-	
+sum pct_drop*
+sum pct_zero*
+
+sum bmi*
+sum underweight*
+sum weight*
+sum gainhat*
 	
 } // bootstrapping loop end
 
-
-* Tell us what happened
-sum bmihat, detail
-sum underweighthat, detail
-sum weighthat, detail
-
-centile bmihat underweighthat weighthat, centile(2.5 97.5)
