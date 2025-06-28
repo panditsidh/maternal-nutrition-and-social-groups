@@ -1,5 +1,18 @@
 * Load and reshape bootstrap results
-use "data/bootstrapresults_full.dta", clear
+
+local rounds 3 5
+
+foreach round in `rounds' {
+	
+if `round'==3 {
+	use "data/bootstrapresults_full_nfhs3.dta", clear
+}
+
+if `round'==5 {
+	use "data/bootstrapresults_full.dta", clear
+}
+
+
 gen iteration = _n
 
 reshape long preg pct_drop bins dropbins pct_zero count9plus bmi underweight weight nineweighthat coeffhat gainhat, ///
@@ -78,7 +91,16 @@ tempfile summary
 save `summary'
 
 * Load original sample to compute sample size of 3+ mo pregnant women
-qui do "dofiles/assemble data/00_assemble prepreg sample.do"
+
+if `round'==3 {
+	qui do "dofiles/assemble data/prepare nfhs3 data.do"
+}
+
+if `round'==5 {
+	qui do "dofiles/assemble data/00_assemble prepreg sample.do"
+}
+
+
 gen preg3plus = mopreg >= 3 & preg==1
 collapse (sum) preg3plus, by(groups6)
 rename groups6 group
@@ -90,7 +112,7 @@ drop _merge
 
 * Export final table
 listtex group result_underweight result_bmi result_weight result_gainhat sample_preg3plus ///
-    using "tables/bootstrap_results.tex", ///
+    using "tables/bootstrap_results_`round'.tex", ///
     replace rstyle(tabular) ///
     head("\begin{tabular}{lccccr}" ///
          "\toprule" ///
@@ -98,3 +120,5 @@ listtex group result_underweight result_bmi result_weight result_gainhat sample_
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}")
+
+}
