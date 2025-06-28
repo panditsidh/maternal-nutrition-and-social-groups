@@ -1,5 +1,5 @@
 clear all
-use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* using $nfhs5ir
+use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 using $nfhs5ir
 
 // keep currently married women
 keep if v501==1 
@@ -165,6 +165,12 @@ gen parity1 = parity==1
 gen parity2 = parity==2
 gen parity3 = parity==3
 
+xtile wealth=v191, n(4)
+gen wealth1 = wealth==1
+gen wealth2 = wealth==2
+gen wealth3 = wealth==3
+gen wealth4 = wealth==4
+
 * gen svy vars
 egen strata = group(v000 v024 v025) 
 egen psu = group(v000 v001 v024 v025)
@@ -185,6 +191,15 @@ label define grouplbl ///
     5 "Muslim" 
 
 label values groups6 grouplbl
+
+label define wealthlbl ///
+    1 "1st quartile" ///
+    2 "2nd quartile" ///
+    3 "3rd quartile" ///
+    4 "4th quartile" 
+
+label values wealth wealthlbl
+
 
 label var forward "Forward"
 label var obc "OBC"
