@@ -20,9 +20,9 @@ if "`c(username)'" == "dc42724" {
 	
 }
 
-
-do "${assemble}"
-do "${rw_01}"
+//
+// do "${assemble}"
+// do "${rw_01}"
 
 * Set up survey design
 svyset psu [pw=reweightingfxn], strata(strata) singleunit(centered)
@@ -54,7 +54,7 @@ foreach g of numlist 1/5 {
     matrix results[`row', 2] = `ll'
     matrix results[`row', 3] = `ul'
 	
-	sum pct_drop if groups6==1
+	sum dropbin if groups6==1
 	matrix results[`row', 4] = r(mean)*100
 
     local ++row

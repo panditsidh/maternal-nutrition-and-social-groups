@@ -1,3 +1,6 @@
+// do "dofiles/assemble data/reweighting.do"
+
+
 local outcome underweight
 
 foreach outcome in underweight {
@@ -9,7 +12,7 @@ local outcome underweight
 foreach g of numlist 2/5 {
 
 	* get weights and group outcomes
-	foreach p of numlist 0/3 {
+	foreach p of numlist 1/4 {
 
 		qui {
 		
@@ -57,20 +60,20 @@ foreach g of numlist 2/5 {
 	eststo total: reg v201 v201 // dummy regression for eststo
 
 	* the number at the end indexes parity
-	local fwd_outcome = `fwd_outcome_0'*`fwd_wt_0'+`fwd_outcome_1'*`fwd_wt_1'+`fwd_outcome_2'*`fwd_wt_2'+`fwd_outcome_3'*`fwd_wt_3'
+	local fwd_outcome = `fwd_outcome_1'*`fwd_wt_1'+`fwd_outcome_2'*`fwd_wt_2'+`fwd_outcome_3'*`fwd_wt_3'+`fwd_outcome_4'*`fwd_wt_4'
 	eststo total: estadd scalar fwd_outcome = `fwd_outcome'
 
-	local g_outcome = `g_outcome_0'*`g_wt_0'+`g_outcome_1'*`g_wt_1'+`g_outcome_2'*`g_wt_2'+`g_outcome_3'*`g_wt_3'
+	local g_outcome = `g_outcome_1'*`g_wt_1'+`g_outcome_2'*`g_wt_2'+`g_outcome_3'*`g_wt_3'+`g_outcome_4'*`g_wt_4'
 	eststo total: estadd scalar g_outcome = `g_outcome'
 
 	local total_diff = `g_outcome'-`fwd_outcome'
 	eststo total: estadd scalar total_diff = `total_diff'
 
 	* get component of difference explained/unexplained
-	local within_group = `within_group_0'+`within_group_1'+`within_group_2'+`within_group_3'
+	local within_group = `within_group_1'+`within_group_2'+`within_group_3'+`within_group_4'
 	eststo total: estadd scalar within_group = `within_group'
 
-	local between_group = `between_group_0'+`between_group_1'+`between_group_2'+`between_group_3'
+	local between_group = `between_group_1'+`between_group_2'+`between_group_3'+`between_group_4'
 	eststo total: estadd scalar between_group = `between_group'
 
 	* get percent of difference explained/unexplained
@@ -97,7 +100,7 @@ foreach g of numlist 2/5 {
 		mtitles("Wealth 1st Q" "Wealth 2nd Q" "Wealth 3rd Q" "Wealth 4th Q" "Total" "Percent");
 
 	
-	esttab wealth1 wealth2 wealth3 wealth4 total pct using "tables/kitagawa_`outcome'_`g'.tex",
+	esttab wealth1 wealth2 wealth3 wealth4 total pct using "tables/kitagawa_`outcome'_`g'_wealth.tex",
 		replace
 		stats(fwd_wt fwd_outcome g_wt g_outcome total_diff within_group between_group, labels(`labels') fmt(2))
 		drop(v201 _cons)

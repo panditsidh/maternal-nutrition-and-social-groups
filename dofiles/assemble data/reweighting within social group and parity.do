@@ -2,7 +2,7 @@
 
 // qui do "dofiles/assemble data/00_assemble prepreg sample.do"
 
-qui do "dofiles/assemble data/prepare nfhs3 data.do"
+// qui do "dofiles/assemble data/prepare nfhs3 data.do"
 
 * generate bins for reweighting (within social group and parity)
 egen bin = group(c_user agebin less_edu rural hasboy groups6 parity childdied)

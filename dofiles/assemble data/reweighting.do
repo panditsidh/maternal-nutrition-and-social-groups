@@ -1,11 +1,11 @@
 * ----------- PARAMETERS (change here only) -----------
-local binvars c_user agebin less_edu rural hasboy groups6 parity childdied
+local binvars c_user agebin less_edu rural hasboy groups6 wealth childdied
 * ----------------------------------------------------
 
 * this file generates reweights within social group and parity
 
-// qui do "dofiles/assemble data/00_assemble prepreg sample.do"
-qui do "dofiles/assemble data/prepare nfhs3 data.do"
+qui do "dofiles/assemble data/00_assemble prepreg sample.do"
+// qui do "dofiles/assemble data/prepare nfhs3 data.do"
 
 * generate bins for reweighting
 egen bin = group(`binvars')

@@ -89,7 +89,7 @@ use `prepared_dataset', clear
 bsample, strata(strata) cluster(psu) 
 
 * generate bins for reweighting (within social group and parity)
-egen bin = group(c_user agebin less_edu rural hasboy groups6 parity childdied)
+egen bin = group(c_user agebin less_edu rural hasboy childdied parity wealth groups6)
 gen counter=1
 
 
