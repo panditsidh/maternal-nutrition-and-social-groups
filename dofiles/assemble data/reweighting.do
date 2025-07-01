@@ -8,6 +8,7 @@ local attempt 1
 
 foreach overvar in parity birth_space_cat wealth {
 
+eststo drop over*
 * this part is for the group by which you want kitagawa decomposition
 // local overvar parity // testing line
 levelsof groups6, local(groups)
@@ -18,15 +19,15 @@ if "`overvar'"=="parity" {
 	local mtitles Overall "1" "2" "3" "4+"
 	
 	local binvars c_user agebin less_edu urban hasboy birth_space_cat wealth childdied groups6
-	local title "Pregnant women droprate by parity;\n rw vars: `binvars'"
+	local title "Pregnant women droprate by parity; \\ rw vars: `binvars'"
 }
 
 if "`overvar'"=="birth_space_cat" {
 	
 	local binvars c_user agebin less_edu urban hasboy parity wealth childdied groups6
 	
-	local mtitles Overall "<2 yrs" "2-3 yrs" ">3 yrs" "1st birth"
-	local title "Pregnant women droprate by birth spacing;\n rw vars: `binvars'"
+	local mtitles Overall "below 2 yrs" "2-3 yrs" "above 3 yrs" "1st birth"
+	local title "Pregnant women droprate by birth spacing; \\ rw vars: `binvars'"
 }
 
 if "`overvar'"=="wealth" {
@@ -34,7 +35,7 @@ if "`overvar'"=="wealth" {
 	local binvars c_user agebin less_edu urban hasboy parity_bs childdied groups6
 	
 	local mtitles Overall "1st" "2nd" "3rd" "4th"
-	local title "Pregnant women droprate by wealth quartile;\n rw vars: `binvars'"
+	local title "Pregnant women droprate by wealth quartile; \\ rw vars: `binvars'"
 }
 
 local fvars
@@ -156,7 +157,8 @@ esttab over over_* using "tables/rw diagnostics/rw_droprate_over_`overvar'_`atte
 }
 
 #delimit ;
-esttab parity birth_space_cat wealth using "tables/rw diagnostics/rsq_`attempt'", 
+esttab parity birth_space_cat wealth using "tables/rw diagnostics/rsq_`attempt'",
+	replace
 	scalar(rsq) drop(v201 _cons)
 	nonumbers nostar noobs not
 	mtitles("parity" "birth space" "wealth quartile")
