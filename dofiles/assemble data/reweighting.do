@@ -1,12 +1,16 @@
 eststo clear
 qui do "dofiles/assemble data/00_assemble prepreg sample.do"
+tempfile prepared_data
+save `prepared_data'
 
 * ----------- PARAMETERS (change here only) -----------
 // local binvars c_user agebin less_edu urban hasboy parity_bs wealth groups6
 
-local attempt 1
+local attempt 3
 
 foreach overvar in parity birth_space_cat wealth {
+	
+use `prepared_data'
 
 eststo drop over*
 * this part is for the group by which you want kitagawa decomposition
@@ -14,17 +18,20 @@ eststo drop over*
 levelsof groups6, local(groups)
 levelsof `overvar', local(over)
 
+
+
 if "`overvar'"=="parity" {
 	
 	local mtitles Overall "1" "2" "3" "4+"
 	
-	local binvars c_user agebin less_edu urban hasboy birth_space_cat wealth childdied groups6
+	local binvars c_user agebin less_edu urban hasboy wealth groups6
 	local title "rw vars: `binvars'"
 }
 
 if "`overvar'"=="birth_space_cat" {
 	
-	local binvars c_user agebin less_edu urban hasboy parity wealth childdied groups6
+	keep if birth_space_cat==9
+	local binvars c_user agebin less_edu urban hasboy parity wealth groups6
 	
 	local mtitles Overall "below 2 yrs" "2-3 yrs" "above 3 yrs" "1st birth"
 	local title "rw vars: `binvars'"
@@ -32,7 +39,7 @@ if "`overvar'"=="birth_space_cat" {
 
 if "`overvar'"=="wealth" {
 	
-	local binvars c_user agebin less_edu urban hasboy parity_bs childdied groups6
+	local binvars c_user agebin less_edu urban hasboy parity_bs groups6
 	
 	local mtitles Overall "1st" "2nd" "3rd" "4th"
 	local title "rw vars: `binvars'"
