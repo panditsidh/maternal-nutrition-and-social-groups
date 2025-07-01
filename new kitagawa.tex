@@ -1,0 +1,139 @@
+\documentclass{article}
+\usepackage{graphicx} %package to manage images
+\graphicspath{ {./figures/} }
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage[font=scriptsize]{subcaption}
+\captionsetup[figure]{labelsep=none}
+\captionsetup[table]{labelsep=none}
+\usepackage{bbm}
+\usepackage{amsmath}
+\usepackage{import}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{afterpage}
+\usepackage{floatrow}
+\usepackage{pdflscape}
+\usepackage{soul}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{longtable}
+
+\begin{document}
+
+
+\subsection{}
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: rsquared for the following reweighting specifications}
+    \label{tab:sumstat}
+    {\input{tables/rw diagnostics/rsq_1}}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: rw groups: birth space  x social group}
+    \label{tab:sumstat}
+    \adjustbox{width=\textwidth}{\input{tables/rw diagnostics/rw_droprate_over_birth_space_cat_1
+    }
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: rw groups: parity x social group}
+    \label{tab:sumstat}
+    \adjustbox{width=\textwidth}{\input{tables/rw diagnostics/rw_droprate_over_parity_1}}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: rw groups: wealth x social group}
+    \label{tab:sumstat}
+    \adjustbox{width=\textwidth}{\input{tables/rw diagnostics/rw_droprate_over_wealth_1}}
+\end{table}
+
+
+
+\subsection{removed childdied}
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: rsquared for the following reweighting specifications}
+    \label{tab:sumstat}
+    {\input{tables/rw diagnostics/rsq_2}}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: rw groups: birth space  x social group}
+    \label{tab:sumstat}
+    \adjustbox{width=\textwidth}{\input{tables/rw diagnostics/rw_droprate_over_birth_space_cat_2
+    }
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: rw groups: parity x social group}
+    \label{tab:sumstat}
+    \adjustbox{width=\textwidth}{\input{tables/rw diagnostics/rw_droprate_over_parity_2}}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: rw groups: wealth x social group}
+    \label{tab:sumstat}
+    \adjustbox{width=\textwidth}{\input{tables/rw diagnostics/rw_droprate_over_wealth_2}}
+\end{table}
+
+\subsection{restricted parity in birth space decomposition and removed birth space from parity decomposition}
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: rsquared for the following reweighting specifications}
+    \label{tab:sumstat}
+    {\input{tables/rw diagnostics/rsq_3}}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: rw groups: birth space  x social group}
+    \label{tab:sumstat}
+    \adjustbox{width=\textwidth}{\input{tables/rw diagnostics/rw_droprate_over_birth_space_cat_3
+    }
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: rw groups: parity x social group}
+    \label{tab:sumstat}
+    \adjustbox{width=\textwidth}{\input{tables/rw diagnostics/rw_droprate_over_parity_3}}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \caption{: rw groups: wealth x social group}
+    \label{tab:sumstat}
+    \adjustbox{width=\textwidth}{\input{tables/rw diagnostics/rw_droprate_over_wealth_3}}
+\end{table}
+
+
+
+\end{document}
+
+
