@@ -19,7 +19,7 @@ if "`overvar'"=="parity" {
 	local mtitles Overall "1" "2" "3" "4+"
 	
 	local binvars c_user agebin less_edu urban hasboy birth_space_cat wealth childdied groups6
-	local title "Pregnant women droprate by parity; \\ rw vars: `binvars'"
+	local title "rw vars: `binvars'"
 }
 
 if "`overvar'"=="birth_space_cat" {
@@ -27,7 +27,7 @@ if "`overvar'"=="birth_space_cat" {
 	local binvars c_user agebin less_edu urban hasboy parity wealth childdied groups6
 	
 	local mtitles Overall "below 2 yrs" "2-3 yrs" "above 3 yrs" "1st birth"
-	local title "Pregnant women droprate by birth spacing; \\ rw vars: `binvars'"
+	local title "rw vars: `binvars'"
 }
 
 if "`overvar'"=="wealth" {
@@ -35,7 +35,7 @@ if "`overvar'"=="wealth" {
 	local binvars c_user agebin less_edu urban hasboy parity_bs childdied groups6
 	
 	local mtitles Overall "1st" "2nd" "3rd" "4th"
-	local title "Pregnant women droprate by wealth quartile; \\ rw vars: `binvars'"
+	local title "rw vars: `binvars'"
 }
 
 local fvars
