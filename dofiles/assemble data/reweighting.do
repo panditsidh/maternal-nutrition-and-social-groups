@@ -10,7 +10,7 @@ local attempt 3
 
 foreach overvar in parity birth_space_cat wealth {
 	
-use `prepared_data'
+use `prepared_data', clear
 
 eststo drop over*
 * this part is for the group by which you want kitagawa decomposition
@@ -30,7 +30,7 @@ if "`overvar'"=="parity" {
 
 if "`overvar'"=="birth_space_cat" {
 	
-	keep if birth_space_cat==9
+	keep if birth_space_cat!=9
 	local binvars c_user agebin less_edu urban hasboy parity wealth groups6
 	
 	local mtitles Overall "below 2 yrs" "2-3 yrs" "above 3 yrs" "1st birth"
