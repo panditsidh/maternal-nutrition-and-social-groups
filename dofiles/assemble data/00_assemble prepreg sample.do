@@ -284,6 +284,7 @@ label define birth_space_catlbl ///
 	3 "over 3 years" ///
  	9 "no previous birth" 
 
+label values birth_space_cat birth_space_catlbl 
 
 * gen reweighting!
 

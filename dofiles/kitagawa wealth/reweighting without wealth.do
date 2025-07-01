@@ -1,8 +1,7 @@
 * ----------- PARAMETERS (change here only) -----------
-local binvars c_user agebin less_edu urban hasboy childdied parity wealth groups6 
-* ----------------------------------------------------
+local binvars c_user agebin less_edu urban hasboy parity_bs wealth groups6
 
-* this file generates reweights within social group and parity
+* ----------------------------------------------------
 
 qui do "dofiles/assemble data/00_assemble prepreg sample.do"
 // qui do "dofiles/assemble data/prepare nfhs3 data.do"
@@ -48,7 +47,7 @@ foreach v in `over' {
 	
 	foreach g in `groups' {
 		
-		qui sum dropbin if groups6==`g' & `overvar'==`v'
+		qui sum dropbin if groups6==`g' & `overvar'==`v' & preg==1
 		
 		local grouplabel : label grouplbl `g'
 		
@@ -63,3 +62,8 @@ esttab over*,
 	stats(Forward OBC Dalit Adivasi Muslim, fmt(2))
 	drop(v201 _cons)
 	nonumbers nostar noobs not;
+
+	
+	
+use "data/bootstrapresults_full.dta", clear
+sum pct_drop*

@@ -88,6 +88,15 @@ bsample, strata(strata) cluster(psu)
 egen bin = group(c_user agebin less_edu urban hasboy parity_bs wealth groups6)
 gen counter=1
 
+// binvars
+// 1. contraceptive user
+// 2. age bin (combining all below 19)
+// 3. less education
+// 4. urban
+// 5. hasboy
+// 6. parity + birth spacing (new)
+// 7. wealth quartile
+
 
 preserve
 collapse ///
