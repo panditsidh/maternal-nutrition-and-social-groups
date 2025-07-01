@@ -1,6 +1,6 @@
 ** This do-file graphs underweight, weight, and gainhat with bootstrapped CIs
 
-local rounds 3 5
+local rounds 5
 
 foreach round in `rounds' {
 

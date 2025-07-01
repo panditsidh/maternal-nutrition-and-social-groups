@@ -189,7 +189,7 @@ gen birth_space_cat = .
 replace birth_space_cat = 1 if birth_space < 24
 replace birth_space_cat = 2 if inrange(birth_space, 24, 36)
 replace birth_space_cat = 3 if birth_space > 36
-replace birth_space_cat = 9 if parity<2
+replace birth_space_cat = 9 if parity<2 // so that it can still be a reweighting bin
 
 gen bs_below2 = birth_space_cat==1
 gen bs_2to3 = birth_space_cat==2
@@ -273,9 +273,17 @@ label define paritylbl ///
     1 "1 (no live births)" ///
     2 "2 (1 live birth)" ///
 	3 "3 (2 live births)" ///
-	4 "4+ (3+ live births)" ///
+	4 "4+ (3+ live births)" 
 	
 label values parity paritylbl
+
+
+label define birth_space_catlbl /// 
+	1 "under 2 years" ///
+	2 "2-3 years" ///
+	3 "over 3 years" ///
+ 	9 "no previous birth" 
+
 
 * gen reweighting!
 
