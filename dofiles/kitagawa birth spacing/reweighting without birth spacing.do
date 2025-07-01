@@ -1,12 +1,11 @@
-* this file is to get reweights for kitagawa decomposition by wealth
-* so wealth is removed from the bin command
-
 * ----------- PARAMETERS (change here only) -----------
-local binvars c_user agebin less_edu urban hasboy parity_bs groups6
+local binvars c_user agebin less_edu urban hasboy parity wealth groups6
 
 * ----------------------------------------------------
 
 qui do "dofiles/assemble data/00_assemble prepreg sample.do"
+
+keep if birth_space_cat!=9
 // qui do "dofiles/assemble data/prepare nfhs3 data.do"
 
 * generate bins for reweighting
@@ -65,4 +64,5 @@ esttab over*,
 	stats(Forward OBC Dalit Adivasi Muslim, fmt(2))
 	drop(v201 _cons)
 	nonumbers nostar noobs not;
+
 

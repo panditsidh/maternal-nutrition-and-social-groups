@@ -1,8 +1,5 @@
-* this file is to get reweights for kitagawa decomposition by wealth
-* so wealth is removed from the bin command
-
 * ----------- PARAMETERS (change here only) -----------
-local binvars c_user agebin less_edu urban hasboy parity_bs groups6
+local binvars c_user agebin less_edu urban hasboy wealth groups6
 
 * ----------------------------------------------------
 
@@ -66,3 +63,7 @@ esttab over*,
 	drop(v201 _cons)
 	nonumbers nostar noobs not;
 
+	
+	
+use "data/bootstrapresults_full.dta", clear
+sum pct_drop*
