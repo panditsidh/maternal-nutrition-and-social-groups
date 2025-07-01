@@ -1,5 +1,5 @@
 clear all
-use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 using $nfhs5ir
+use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* using $nfhs5ir
 
 // keep currently married women
 keep if v501==1 
@@ -126,16 +126,17 @@ gen age = 2 * floor(v012 / 2)
 
 * age bins that are more coarse at lower pregnancy likelihood
 gen agebin = .
-replace agebin = 1 if inrange(age, 14, 17)     // low frequency
-replace agebin = 2 if inrange(age, 18, 19)     // keep narrow here
-replace agebin = 3 if inrange(age, 20, 21)
-replace agebin = 4 if inrange(age, 22, 23)
-replace agebin = 5 if inrange(age, 24, 25)
-replace agebin = 6 if inrange(age, 26, 29)
-replace agebin = 7 if inrange(age, 30, 34)
-replace agebin = 8 if inrange(age, 35, 49)     // collapse tail
-label define agebinlbl 1 "14–17" 2 "18–19" 3 "20–21" 4 "22–23" 5 "24–25" 6 "26–29" 7 "30–34" 8 "35–49"
+replace agebin = 1 if inrange(age, 14, 19)     // collapse 14–17 and 18–19
+replace agebin = 2 if inrange(age, 20, 21)
+replace agebin = 3 if inrange(age, 22, 23)
+replace agebin = 4 if inrange(age, 24, 25)
+replace agebin = 5 if inrange(age, 26, 29)
+replace agebin = 6 if inrange(age, 30, 34)
+replace agebin = 7 if inrange(age, 35, 49)
+
+label define agebinlbl 1 "14–19" 2 "20–21" 3 "22–23" 4 "24–25" 5 "26–29" 6 "30–34" 7 "35–49"
 label values agebin agebinlbl
+
 
 
 * gen outcome variables
@@ -156,14 +157,61 @@ replace parity = v219-1 if v213==1
 replace parity = 3 if parity>=3
 */
 
-gen parity = bord_01
-replace parity = 0 if parity == .
-replace parity = 3 if parity>=3
+
+* bord_01 tells us how many live births the woman has had
+
+gen parity = bord_01 + 1 if !missing(bord_01)
+replace parity = 1 if missing(bord_01)
+replace parity = 4 if parity>=4 
+
+// * old definition
+// gen parity = bord_01
+// replace parity = 0 if parity == .
+// replace parity = 3 if parity>=3
 
 gen parity0 = parity==0
 gen parity1 = parity==1
 gen parity2 = parity==2
 gen parity3 = parity==3
+gen parity4 = parity==4
+
+
+
+* birth spacing is time between last delivery and interview for non-pregnant women
+* and time between last delivery and estimated conception of current pregnancy for pregnant women
+* this is only defined for women that have had a child
+
+* what if the woman is on her first child?
+gen birth_space = v008 - b3_01 if preg==0 & !missing(b3_01)
+replace birth_space = (v008 - mopreg) - b3_01 if preg==1 & !missing(b3_01)
+
+gen birth_space_cat = .
+replace birth_space_cat = 1 if birth_space < 24
+replace birth_space_cat = 2 if inrange(birth_space, 24, 36)
+replace birth_space_cat = 3 if birth_space > 36
+replace birth_space_cat = . if parity<2
+
+gen bs_below2 = birth_space_cat==1
+gen bs_2to3 = birth_space_cat==2
+gen bs_above3 = birth_space_cat==3
+
+
+* now generate the new var that combines parity and birth spacing
+
+gen parity_bs = .
+
+local i = 1
+foreach p of numlist 1/4 {
+	
+	foreach b of numlist 1/3 {
+		
+		replace parity_bs = `i' if parity==`p' & birth_space_cat==`b'		
+		local i = `i'+1
+	}
+}
+
+
+
 
 xtile wealth=v191, n(4)
 gen wealth1 = wealth==1
@@ -209,12 +257,18 @@ label var muslim "Muslim"
 // label var sikh_jain_christian "Sikh, Jain or Christian"
 label var other_group "Other social group"
 
-
+* old definition
+// label define paritylbl ///
+//     0 "0" ///
+//     1 "1" ///
+//     2 "2" ///
+// 	3 "3+" ///
+	
 label define paritylbl ///
-    0 "0" ///
-    1 "1" ///
-    2 "2" ///
-	3 "3+" ///
+    1 "1 (no live births)" ///
+    2 "2 (1 live birth)" ///
+	3 "3 (2 live births)" ///
+	4 "4+ (3+ live births)" ///
 	
 label values parity paritylbl
 
@@ -223,5 +277,9 @@ label values parity paritylbl
 // do "${reweight}"
 
 
-do "dofiles/assemble data/additional reweighting variables.do"
+// do "dofiles/assemble data/additional reweighting variables.do"
+
+
+
+
 

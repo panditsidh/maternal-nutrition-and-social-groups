@@ -1,5 +1,5 @@
 * ----------- PARAMETERS (change here only) -----------
-local binvars c_user agebin less_edu rural hasboy groups6 wealth childdied
+local binvars c_user agebin less_edu urban hasboy childdied parity_bs wealth groups6 
 * ----------------------------------------------------
 
 * this file generates reweights within social group and parity
@@ -33,3 +33,7 @@ egen transferpreg = mean(pregweight), by(bin)
 egen transfernonpreg = mean(nonpregweight), by(bin)
 
 gen reweightingfxn = v005*transferpreg/transfernonpreg if dropbin!=1 & preg==0
+
+
+
+* fix additional reweighting variables to be for nfhs5
