@@ -80,16 +80,12 @@ use `prepared_dataset', clear
 // 	replace strata = 7 if strata==8
 // 	local i = 1
 // 	* testing code
-<<<<<<< HEAD
-	
-=======
->>>>>>> main
 
 * get bootstrap sample
 bsample, strata(strata) cluster(psu) 
 
 * generate bins for reweighting (within social group and parity)
-egen bin = group(c_user agebin less_edu rural hasboy childdied parity wealth groups6)
+egen bin = group(c_user agebin less_edu urban hasboy parity_bs wealth groups6)
 gen counter=1
 
 
@@ -236,13 +232,15 @@ save, replace
 
 }
 
-sum pct_drop*
-sum pct_zero*
+
 
 sum bmi*
 sum underweight*
 sum weight*
 sum gainhat*
+
+sum pct_drop*
+sum pct_zero*
 	
 } // bootstrapping loop end
 

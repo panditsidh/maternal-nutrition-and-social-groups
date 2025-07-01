@@ -82,21 +82,19 @@
 *CHILD DEATH
 preserve
 clear all
-// use "C:\Users\diane\Documents\Data\NFHS\NFHS06\all india birth recode\IABR52FL.dta"
-use $nfhs3br
+
+use $nfhs5br
 sort caseid
 gen timeagodied = v008-b3
 gen diedpastfiveyr= timeagodied<60 & b5==0
 by caseid: egen diedpast5yr= max(diedpastfiveyr)
 collapse diedpast5yr, by(caseid)
 tab diedpast5yr, m
-// save "C:\Users\diane\Documents\2012to2013\pregnancy\stata data\india\nfhs3_dead.dta", replace
-tempfile nfhs3_dead
-save `nfhs3_dead'
+
+tempfile nfhs5_dead
+save `nfhs5_dead'
 restore
-// rename _merge merge1
-// merge 1:1 caseid using "C:\Users\diane\Documents\2012to2013\pregnancy\stata data\india\nfhs3_dead.dta"
-merge 1:1 caseid using `nfhs3_dead'
+merge 1:1 caseid using `nfhs5_dead'
 drop if _merge == 2
 *0 no child died in past 5 years (including those who never had a child)
 *1 child died in last 5 years

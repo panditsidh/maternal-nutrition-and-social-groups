@@ -1,5 +1,5 @@
 * ----------- PARAMETERS (change here only) -----------
-local binvars c_user agebin less_edu urban hasboy childdied parity_bs wealth groups6 
+local binvars c_user agebin less_edu urban hasboy childdied parity wealth groups6 
 * ----------------------------------------------------
 
 * this file generates reweights within social group and parity
@@ -35,5 +35,31 @@ egen transfernonpreg = mean(nonpregweight), by(bin)
 gen reweightingfxn = v005*transferpreg/transfernonpreg if dropbin!=1 & preg==0
 
 
+eststo clear 
 
-* fix additional reweighting variables to be for nfhs5
+local overvar birth_space_cat
+levelsof groups6, local(groups)
+levelsof `overvar', local(over)
+
+foreach v in `over' {
+	
+	
+	eststo over`v': qui reg v201 v201
+	
+	foreach g in `groups' {
+		
+		qui sum dropbin if groups6==`g' & `overvar'==`v'
+		
+		local grouplabel : label grouplbl `g'
+		
+		eststo over`v': estadd scalar `grouplabel' = r(mean)
+		
+	}
+}
+
+
+#delimit ;
+esttab over*,
+	stats(Forward OBC Dalit Adivasi Muslim, fmt(2))
+	drop(v201 _cons)
+	nonumbers nostar noobs not;

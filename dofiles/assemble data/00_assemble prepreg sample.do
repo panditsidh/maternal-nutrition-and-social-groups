@@ -189,7 +189,7 @@ gen birth_space_cat = .
 replace birth_space_cat = 1 if birth_space < 24
 replace birth_space_cat = 2 if inrange(birth_space, 24, 36)
 replace birth_space_cat = 3 if birth_space > 36
-replace birth_space_cat = . if parity<2
+replace birth_space_cat = 9 if parity<2
 
 gen bs_below2 = birth_space_cat==1
 gen bs_2to3 = birth_space_cat==2
@@ -200,7 +200,9 @@ gen bs_above3 = birth_space_cat==3
 
 gen parity_bs = .
 
-local i = 1
+replace parity_bs = 1 if parity==1
+
+local i = 2
 foreach p of numlist 1/4 {
 	
 	foreach b of numlist 1/3 {
@@ -209,6 +211,9 @@ foreach p of numlist 1/4 {
 		local i = `i'+1
 	}
 }
+
+
+
 
 
 
@@ -232,7 +237,7 @@ label define edulbl ///
 label values edu edulbl
 
 label define grouplbl ///
-    1 "Forward Caste" ///
+    1 "Forward" ///
     2 "OBC" ///
     3 "Dalit" ///
     4 "Adivasi" ///
@@ -277,7 +282,7 @@ label values parity paritylbl
 // do "${reweight}"
 
 
-// do "dofiles/assemble data/additional reweighting variables.do"
+do "dofiles/assemble data/additional reweighting variables.do"
 
 
 
