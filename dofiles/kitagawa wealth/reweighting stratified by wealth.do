@@ -7,7 +7,6 @@ local binvars c_user agebin less_edu urban hasboy parity_bs groups6
 * ----------------------------------------------------
 
 qui do "dofiles/assemble data/00_assemble prepreg sample.do"
-// qui do "dofiles/assemble data/prepare nfhs3 data.do"
 
 * generate bins for reweighting
 egen bin = group(`binvars')

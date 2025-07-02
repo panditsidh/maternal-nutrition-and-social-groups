@@ -1,6 +1,5 @@
 * ----------- PARAMETERS (change here only) -----------
 local binvars c_user agebin less_edu urban hasboy wealth groups6
-
 * ----------------------------------------------------
 
 qui do "dofiles/assemble data/00_assemble prepreg sample.do"

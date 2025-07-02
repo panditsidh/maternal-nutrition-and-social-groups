@@ -20,7 +20,7 @@ if "`c(username)'" == "dc42724" {
 	global nfhs4br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\br\IABR71FL.DTA"
 	global nfhs5br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IABR7EDT\IABR7EFL.DTA"
 	
-	cd "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles"
+	cd "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups"
 }
 
 

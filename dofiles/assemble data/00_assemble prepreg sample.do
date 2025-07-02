@@ -290,12 +290,8 @@ label define birth_space_catlbl ///
 
 label values birth_space_cat birth_space_catlbl 
 
-* gen reweighting!
 
-// do "${reweight}"
-
-
-do "dofiles/assemble data/additional reweighting variables.do"
+*do "dofiles/assemble data/additional reweighting variables.do"
 
 
 
