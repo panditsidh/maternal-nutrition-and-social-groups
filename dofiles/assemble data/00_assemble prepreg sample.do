@@ -125,16 +125,26 @@ there would be code for this in the original paper
 gen age = 2 * floor(v012 / 2)
 
 * age bins that are more coarse at lower pregnancy likelihood
-gen agebin = .
-replace agebin = 1 if inrange(age, 14, 19)     // collapse 14–17 and 18–19
-replace agebin = 2 if inrange(age, 20, 21)
-replace agebin = 3 if inrange(age, 22, 23)
-replace agebin = 4 if inrange(age, 24, 25)
-replace agebin = 5 if inrange(age, 26, 29)
-replace agebin = 6 if inrange(age, 30, 34)
-replace agebin = 7 if inrange(age, 35, 49)
+// gen agebin = .
+// replace agebin = 1 if inrange(age, 14, 19)     // collapse 14–17 and 18–19
+// replace agebin = 2 if inrange(age, 20, 21)
+// replace agebin = 3 if inrange(age, 22, 23)
+// replace agebin = 4 if inrange(age, 24, 25)
+// replace agebin = 5 if inrange(age, 26, 29)
+// replace agebin = 6 if inrange(age, 30, 34)
+// replace agebin = 7 if inrange(age, 35, 49)
+//
+// label define agebinlbl 1 "14–19" 2 "20–21" 3 "22–23" 4 "24–25" 5 "26–29" 6 "30–34" 7 "35–49"
+// label values agebin agebinlbl
 
-label define agebinlbl 1 "14–19" 2 "20–21" 3 "22–23" 4 "24–25" 5 "26–29" 6 "30–34" 7 "35–49"
+gen agebin = .
+replace agebin = 1 if inrange(v012, 15, 19)     // Teens
+replace agebin = 2 if inrange(v012, 20, 24)     // Peak fertility
+replace agebin = 3 if inrange(v012, 25, 29)     // High fertility
+replace agebin = 4 if inrange(v012, 30, 34)     // Declining fertility
+replace agebin = 5 if inrange(v012, 35, 49)     // Lowest fertility
+
+label define agebinlbl 1 "15–19" 2 "20–24" 3 "25–29" 4 "30–34" 5 "35–49"
 label values agebin agebinlbl
 
 
@@ -207,16 +217,36 @@ gen parity_bs = .
 replace parity_bs = 1 if parity==1
 
 local i = 2
-foreach p of numlist 1/4 {
+foreach p of numlist 2/4 {
 	
 	foreach b of numlist 1/3 {
 		
 		replace parity_bs = `i' if parity==`p' & birth_space_cat==`b'		
-		local i = `i'+1
+		local ++i
 	}
 }
 
 
+
+
+gen parity_bs2 = .
+
+gen birth_space_cat2 = birth_space_cat
+replace birth_space_cat2 = 1 if birth_space_cat==2
+
+
+
+replace parity_bs2 = 1 if parity==1
+
+local i = 2
+foreach p of numlist 2/4 {
+	
+	foreach b in 1 3 {
+		
+		replace parity_bs2 = `i' if parity==`p' & birth_space_cat2==`b'		
+		local ++i
+	}
+}
 
 
 
@@ -287,11 +317,17 @@ label define birth_space_catlbl ///
 	2 "2-3 years" ///
 	3 "over 3 years" ///
  	9 "no previous birth" 
+	
+	
+label define birth_space_cat2lbl /// 
+	1 "under 3 years" ///
+	3 "over 3 years" ///
+ 	9 "no previous birth" 
 
-label values birth_space_cat birth_space_catlbl 
+label values birth_space_cat2 birth_space_cat2lbl 
 
 
-*do "dofiles/assemble data/additional reweighting variables.do"
+do "dofiles/assemble data/additional reweighting variables.do"
 
 
 

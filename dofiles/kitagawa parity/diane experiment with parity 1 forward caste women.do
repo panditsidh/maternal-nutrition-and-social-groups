@@ -1,6 +1,3 @@
-
-
-
 keep if forward==1 & parity ==1
 
 * generate bins for reweighting

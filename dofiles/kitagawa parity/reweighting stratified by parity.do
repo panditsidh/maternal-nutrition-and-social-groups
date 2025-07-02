@@ -1,5 +1,5 @@
 * ----------- PARAMETERS (change here only) -----------
-local binvars c_user agebin less_edu urban hasboy wealth groups6
+local binvars c_user agebin less_edu urban hasboy wealth groups6 parity
 * ----------------------------------------------------
 
 qui do "dofiles/assemble data/00_assemble prepreg sample.do"
@@ -64,5 +64,3 @@ esttab over*,
 
 	
 	
-use "data/bootstrapresults_full.dta", clear
-sum pct_drop*
