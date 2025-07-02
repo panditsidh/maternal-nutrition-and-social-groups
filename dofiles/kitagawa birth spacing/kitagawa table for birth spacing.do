@@ -8,6 +8,8 @@ foreach outcome in underweight {
 
 foreach g of numlist 2/5 {
 
+
+	qui {
 	* get weights and group outcomes
 	foreach p of numlist 1/3 {
 
@@ -91,7 +93,7 @@ foreach g of numlist 2/5 {
 	
 	eststo pct: estadd scalar within_group = (`within_group'/`total_diff')*100 
 	eststo pct: estadd scalar between_group = (`between_group'/`total_diff')*100
-
+	
 
 	* format and export table
 	if `g'==2 local group "OBC"
@@ -100,6 +102,7 @@ foreach g of numlist 2/5 {
 	if `g'==5 local group "Muslim"
 
 	local labels `" "Prop. pregnant women (Fwd)" "Avg pre-pregnancy `outcome' (Fwd)" "Prop. pregnant women (`group')" "Avg pre-pregnancy `outcome' (`group')"  "Difference in `outcome' (`group'-Forward)" "Within parity difference (rate)" "Between parity difference (compositional)" "'
+	}
 
 	#delimit ;
 	esttab bs1 bs2 bs3 total pct,
