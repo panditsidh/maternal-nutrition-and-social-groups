@@ -1,5 +1,10 @@
 * this code creates a table of every group in all kitagawa decompositions and their number of pregnant women, non-pregnant women, and % of pregnant women dropped 
 
+
+* requires reweighting first, comment and change the following line if needed
+do "dofiles/reweight.do"
+
+
 * to easily see groups where too many pregnant women are dropped, you will see this in the console (if any)
 
 /*
@@ -15,6 +20,7 @@
      +----------------------------------------------------------------+
 
 */
+
 
 
 // 1. Create a matrix large enough
@@ -171,13 +177,24 @@ keep group_name-pct_drop_nonpreg
 
 drop if missing(n_preg)
 
+//
+// #delimit ;
+// listtex group_name over_name n_preg n_nonpreg pct_drop_preg pct_drop_nonpreg using "tables/rw_diagnostics_full.tex", replace ///
+//   rstyle(tabular) ///
+//   head("\begin{tabular}{lccc}" ///
+//        "\toprule" ///
+//        "Social Group & Decomposition group & N pregnant & N non-pregnant & \% dropped pregnant & \% dropped non-pregnant \\\\" ///
+//        "\midrule") ///
+//   foot("\bottomrule" ///
+//        "\end{tabular}"); ///
+// #delimit cr
 
 #delimit ;
-listtex group_name over_name n_preg n_nonpreg pct_drop_preg pct_drop_nonpreg using "tables/rw_diagnostics_full.tex", replace ///
+listtex group_name over_name n_preg pct_drop_preg  using "tables/rw_diagnostics_full.tex", replace ///
   rstyle(tabular) ///
   head("\begin{tabular}{lccc}" ///
        "\toprule" ///
-       "Social Group & Decomposition group & N pregnant & N non-pregnant & \% dropped pregnant & \% dropped non-pregnant \\\\" ///
+       "Social Group & Decomposition group & N pregnant & \% dropped pregnant \\\\" ///
        "\midrule") ///
   foot("\bottomrule" ///
        "\end{tabular}"); ///
