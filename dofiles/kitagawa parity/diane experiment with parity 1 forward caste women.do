@@ -1,16 +1,15 @@
+
+
+
 keep if forward==1 & parity ==1
 
-* ----------- PARAMETERS (change here only) -----------
-local binvars c_user agebin less_edu urban hasboy 
-
-* ----------------------------------------------------
-
 * generate bins for reweighting
-egen bin = group(`binvars')
+egen bin=group(c_user agebin less_edu urban hasboy wealth)
+
 gen counter=1
 
 preserve
-collapse (sum) counter (mean) c_user agebin less_edu urban hasboy, by(bin preg)
+collapse (sum) counter (mean) c_user agebin less_edu urban hasboy wealth, by(bin preg)
 
 drop if bin==.
 
