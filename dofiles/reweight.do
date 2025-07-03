@@ -1,7 +1,7 @@
 * this file does the reweighting for the main result (social group differences in pre-pregnancy underweight), and all kitagawa decompositions
 
 * ----------- PARAMETERS (change here only) -----------
-local binvars c_user agebin less_edu urban hasboy wealth parity_bs groups6
+local binvars c_user agebin less_edu urban hasboy wealth_2 parity_bs groups6
 * ----------------------------------------------------
 
 * assemble dataset

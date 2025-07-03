@@ -229,28 +229,16 @@ foreach p of numlist 2/4 {
 
 
 
-gen parity_bs2 = .
-
-gen birth_space_cat2 = birth_space_cat
-replace birth_space_cat2 = 1 if birth_space_cat==2
-
-
-
-replace parity_bs2 = 1 if parity==1
-
-local i = 2
-foreach p of numlist 2/4 {
-	
-	foreach b in 1 3 {
-		
-		replace parity_bs2 = `i' if parity==`p' & birth_space_cat2==`b'		
-		local ++i
-	}
+forvalues i = 1/10 {
+    gen parity_bs`i' = parity_bs == `i'
 }
 
 
 
+* Create wealth tertiles from v191
+xtile wealth_tertile = v191, n(3)
 
+xtile wealth_2 = v191, n(2)
 
 xtile wealth=v191, n(4)
 gen wealth1 = wealth==1
@@ -318,13 +306,8 @@ label define birth_space_catlbl ///
 	3 "over 3 years" ///
  	9 "no previous birth" 
 	
-	
-label define birth_space_cat2lbl /// 
-	1 "under 3 years" ///
-	3 "over 3 years" ///
- 	9 "no previous birth" 
 
-label values birth_space_cat2 birth_space_cat2lbl 
+
 
 
 do "dofiles/assemble data/additional reweighting variables.do"

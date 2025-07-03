@@ -4,7 +4,6 @@
 * requires reweighting first, comment and change the following line if needed
 do "dofiles/reweight.do"
 
-
 * to easily see groups where too many pregnant women are dropped, you will see this in the console (if any)
 
 /*
@@ -86,7 +85,7 @@ foreach g of numlist 1/5 {
 
 local over_counter = 1
 * get diagnostics by social group and kitagawa variable
-foreach overvar in parity birth_space_cat wealth {
+foreach overvar in parity_bs wealth {
 	
 	
 	
@@ -146,10 +145,21 @@ gen str15 over_name = ""
 
 * Step 2: Apply group name based on the 'group' variable
 replace group_name = "All India" if missing(group) & missing(cat)
+// replace over_name = "Parity 1"  if over_counter==1 & cat==1
+// replace over_name = "Parity 2"  if over_counter==1 & cat==2
+// replace over_name = "Parity 3"  if over_counter==1 & cat==3
+// replace over_name = "Parity 4+"  if over_counter==1 & cat==4
+
 replace over_name = "Parity 1"  if over_counter==1 & cat==1
-replace over_name = "Parity 2"  if over_counter==1 & cat==2
-replace over_name = "Parity 3"  if over_counter==1 & cat==3
-replace over_name = "Parity 4+"  if over_counter==1 & cat==4
+replace over_name = "p2, <2yrs"  if over_counter==1 & cat==2
+replace over_name = "p2, 2-3yrs"  if over_counter==1 & cat==3
+replace over_name = "p2, 3+yrs"  if over_counter==1 & cat==4
+replace over_name = "p3, <2yrs"  if over_counter==1 & cat==5
+replace over_name = "p3, 2-3yrs"  if over_counter==1 & cat==6
+replace over_name = "p3, 3+yrs"  if over_counter==1 & cat==7
+replace over_name = "p4+, <2yrs"  if over_counter==1 & cat==8
+replace over_name = "p4+, 2-3yrs"  if over_counter==1 & cat==9
+replace over_name = "p4+, 3+yrs"  if over_counter==1 & cat==10
 
 replace over_name = "Below 2 years"  if over_counter==2 & cat==1
 replace over_name = "2-3 years"  if over_counter==2 & cat==2
