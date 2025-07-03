@@ -210,6 +210,11 @@ gen bs1 = birth_space_cat==1
 gen bs2 = birth_space_cat==2
 gen bs3 = birth_space_cat==3
 
+gen birth_space_cat1 = birth_space_cat==1
+gen birth_space_cat2 = birth_space_cat==2
+gen birth_space_cat3 = birth_space_cat==3
+gen birth_space_cat9 = birth_space_cat==9
+
 * now generate the new var that combines parity and birth spacing
 
 gen parity_bs = .

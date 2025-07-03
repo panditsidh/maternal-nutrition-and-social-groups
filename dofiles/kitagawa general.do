@@ -3,14 +3,7 @@ eststo clear
 
 local outcome underweight
 
-local overvars parity_bs
-
-
-
-
-
-
-
+local overvars parity_bs parity birth_space_cat wealth
 
 foreach overvar in `overvars' {
 	
@@ -114,31 +107,61 @@ foreach g of numlist 2/5 {
 	if `g'==4 local group "Adivasi"
 	if `g'==5 local group "Muslim"
 
-	local labels `" "Prop. pregnant women (Fwd)" "Avg pre-pregnancy `outcome' (Fwd)" "Prop. pregnant women (`group')" "Avg pre-pregnancy `outcome' (`group')"  "Difference in `outcome' (`group'-Forward)" "Within parity difference (rate)" "Between parity difference (compositional)" "'
+	local labels `" "Prop. preg (Fwd)" "Avg pre-preg `outcome' (Fwd)" "Prop. preg (`group')" "Avg pre-preg `outcome' (`group')"  "Difference in `outcome' (`group'-Forward)" "Within group difference" "Between group difference" "'
 	}
+	
+	if "`overvar'"=="parity_bs" {
+		local mtitles1 `" "p1" "p2 <2yrs" "p2 2-3yrs" "p3 >3yrs" "p3 <2yrs" "p3 2-3yrs" "p3 >3yrs" "p4+ <2yrs" "p4+ 2-3yrs" "p4+ >3yrs" "'
+		
+		local mtitles2 `" "p1" "p2 \textless2yrs" "p2 2-3yrs" "p2 \textgreater3yrs" "p3 \textless2yrs" "p3 2-3yrs" "p3 \textgreater3yrs" "p4+ \textless2yrs" "p4+ 2-3yrs" "p4+ \textgreater3yrs" "'
+
+	}
+	
+	if "`overvar'"=="parity" {
+		
+		local mtitles1 `" "parity 1" "parity 2" "parity 3" "parity 4+" "Total" "Percent" "'
+		
+		local mtitles2 mtitles1
+
+	}
+	
+	if "`overvar'"=="birth_space_cat" {
+		
+		local mtitles1 `" "under 2 yrs" "2-3 years" "over 3 years" "Total" "Percent" "'
+		
+		local mtitles2 mtitles1
+	}
+	
+	if "`overvar'"=="wealth" {
+		
+		local mtitles1 `" "Wealth 1st Q" "Wealth 2nd Q" "Wealth 3rd Q" "Wealth 4th Q" "Total" "Percent" "'
+		
+		local mtitles2 mtitles1
+	}
+	
+	
 
 	#delimit ;
 	esttab `overvar'* total pct,
 		stats(fwd_wt fwd_outcome g_wt g_outcome total_diff within_group between_group, labels(`labels') fmt(2))
 		drop(v201 _cons)
 		nonumbers nostar noobs not
-		mtitles("under 2 yrs" "2-3 years" "over 3 years" "Total" "Percent");
-//
-//	
-// 	esttab bs1 bs2 bs3 total pct using "tables/kitagawa_`outcome'_`g'_bs.tex",
-// 		replace
-// 		stats(fwd_wt fwd_outcome g_wt g_outcome total_diff within_group between_group, labels(`labels') fmt(2))
-// 		drop(v201 _cons)
-// 		nonumbers nostar noobs not
-// 		mtitles("under 2 yrs" "2-3 years" "over 3 years" "Total" "Percent")
-// 		booktabs;
+		mtitles(`mtitles1')
+		addnote("fwd caste and `group'");
+
+	esttab `overvar'* total pct using "tables/kitagawa_`outcome'_`g'_`overvar'.tex",
+		replace
+		stats(fwd_wt fwd_outcome g_wt g_outcome total_diff within_group between_group, labels(`labels') fmt(2))
+		drop(v201 _cons)
+		nonumbers nostar noobs not
+		mtitles(`mtitles2')
+		booktabs;
 
 	#delimit cr
 	
 	eststo clear
 	
 } // comparison group loop
-
 
 
 
