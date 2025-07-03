@@ -1,9 +1,18 @@
+* this file does kitagawa across multiple variables and outcomes - change the following lines
+local outcome underweight
+local overvars parity_bs parity birth_space_cat wealth
+
+* you need to run reweighting first, or uncomment the following line
 // do "dofiles/assemble data/reweighting.do"
+
+* if you add something to overvars and want table column headers to be formatted nicely, go down to before the esttab commands where it does if "`overvar'"==... and add a section with mtitles following the format of the others 
+
+* might just put all that formatting stuff in another dofile to reduce clutter 
+
+
 eststo clear
 
-local outcome underweight
 
-local overvars parity_bs parity birth_space_cat wealth
 
 foreach overvar in `overvars' {
 	
@@ -140,9 +149,9 @@ foreach g of numlist 2/5 {
 	
 	if "`overvar'"=="birth_space_cat" {
 		
-		local mtitles1 `" "under 2 yrs" "2-3 years" "over 3 years" "Total" "Percent" "'
+		local mtitles1 `" "under 2 yrs" "2-3 years" "over 3 years" "parity 1" "Total" "Percent" "'
 		
-		local mtitles2 `" "under 2 yrs" "2-3 years" "over 3 years" "Total" "Percent" "'
+		local mtitles2 `" "under 2 yrs" "2-3 years" "over 3 years" "parity 1" "Total" "Percent" "'
 	}
 	
 	if "`overvar'"=="wealth" {
