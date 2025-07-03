@@ -103,6 +103,9 @@ foreach g of numlist 2/5 {
 
 	local labels `" "Prop. pregnant women (Fwd)" "Avg pre-pregnancy `outcome' (Fwd)" "Prop. pregnant women (`group')" "Avg pre-pregnancy `outcome' (`group')"  "Difference in `outcome' (`group'-Forward)" "Within parity difference (rate)" "Between parity difference (compositional)" "'
 	}
+	
+	
+	
 
 	#delimit ;
 	esttab bs1 bs2 bs3 total pct,
