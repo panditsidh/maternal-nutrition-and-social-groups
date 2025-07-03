@@ -69,25 +69,38 @@ foreach g of numlist 2/5 {
 	display(`fwd_outcome_1')
 
 	* the number at the end indexes parity
-	local fwd_outcome = `fwd_outcome_1'*`fwd_wt_1'+`fwd_outcome_2'*`fwd_wt_2'+`fwd_outcome_3'*`fwd_wt_3'
+// 	local fwd_outcome = `fwd_outcome_1'*`fwd_wt_1'+`fwd_outcome_2'*`fwd_wt_2'+`fwd_outcome_3'*`fwd_wt_3'
 	
+	local fwd_outcome = 0
+	local g_outcome = 0
+	local within_group = 0
+	local between_group = 0
+
+	foreach p of local over {
+		local fwd_outcome = `fwd_outcome' + `fwd_outcome_`p'' * `fwd_wt_`p''
+		local g_outcome   = `g_outcome'   + `g_outcome_`p'' * `g_wt_`p''
+		local within_group = `within_group' + `within_group_`p''
+		local between_group = `between_group' + `between_group_`p''
+	}
 
 	
 	eststo total: estadd scalar fwd_outcome = `fwd_outcome'
 
-	local g_outcome = `g_outcome_1'*`g_wt_1'+`g_outcome_2'*`g_wt_2'+`g_outcome_3'*`g_wt_3'
+// 	local g_outcome = `g_outcome_1'*`g_wt_1'+`g_outcome_2'*`g_wt_2'+`g_outcome_3'*`g_wt_3'
+	
 	eststo total: estadd scalar g_outcome = `g_outcome'
 
 	local total_diff = `g_outcome'-`fwd_outcome'
 	eststo total: estadd scalar total_diff = `total_diff'
 
 	* get component of difference explained/unexplained
-	local within_group = `within_group_1'+`within_group_2'+`within_group_3'
+// 	local within_group = `within_group_1'+`within_group_2'+`within_group_3'
+	
 	eststo total: estadd scalar within_group = `within_group'
 
 	
 	
-	local between_group = `between_group_1'+`between_group_2'+`between_group_3'
+// 	local between_group = `between_group_1'+`between_group_2'+`between_group_3'
 	eststo total: estadd scalar between_group = `between_group'
 
 	
@@ -121,7 +134,7 @@ foreach g of numlist 2/5 {
 		
 		local mtitles1 `" "parity 1" "parity 2" "parity 3" "parity 4+" "Total" "Percent" "'
 		
-		local mtitles2 mtitles1
+		local mtitles2 `" "parity 1" "parity 2" "parity 3" "parity 4+" "Total" "Percent" "'
 
 	}
 	
@@ -129,14 +142,14 @@ foreach g of numlist 2/5 {
 		
 		local mtitles1 `" "under 2 yrs" "2-3 years" "over 3 years" "Total" "Percent" "'
 		
-		local mtitles2 mtitles1
+		local mtitles2 `" "under 2 yrs" "2-3 years" "over 3 years" "Total" "Percent" "'
 	}
 	
 	if "`overvar'"=="wealth" {
 		
 		local mtitles1 `" "Wealth 1st Q" "Wealth 2nd Q" "Wealth 3rd Q" "Wealth 4th Q" "Total" "Percent" "'
 		
-		local mtitles2 mtitles1
+		local mtitles2 `" "Wealth 1st Q" "Wealth 2nd Q" "Wealth 3rd Q" "Wealth 4th Q" "Total" "Percent" "'
 	}
 	
 	
