@@ -1,5 +1,5 @@
 clear all
-use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* using $nfhs5ir
+use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 using $nfhs5ir
 
 // keep currently married women
 keep if v501==1 
@@ -102,6 +102,10 @@ gen edu = 0 if inlist(v106,0,1) // none or primary
 replace edu = 1 if v106==2 // secondary
 replace edu = 2 if v106==3 // higher
 
+
+*TODO
+* compare to the years of completed schooling variable  
+
 gen less_edu = inlist(v106,0,1)
 gen secondary = v106==2
 gen higher = v106==3
@@ -143,6 +147,9 @@ replace agebin = 2 if inrange(v012, 20, 24)     // Peak fertility
 replace agebin = 3 if inrange(v012, 25, 29)     // High fertility
 replace agebin = 4 if inrange(v012, 30, 34)     // Declining fertility
 replace agebin = 5 if inrange(v012, 35, 49)     // Lowest fertility
+
+* combining the last two categories
+replace agebin = 4 if agebin==5
 
 label define agebinlbl 1 "15–19" 2 "20–24" 3 "25–29" 4 "30–34" 5 "35–49"
 label values agebin agebinlbl
