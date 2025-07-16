@@ -22,13 +22,15 @@
 
 
 \begin{document}
-
 \begin{landscape}
 \begin{table}[H]
     \centering
-    \footnotesize
+    \huge  % smaller than \footnotesize
+    \renewcommand{\arraystretch}{2}  % tighter row spacing
     \caption{Predictor prevalence by social group for pregnant and nonpregnant women}
-    \input{tables/sumstats}  % or your actual .tex filename
+    \adjustbox{max width=\textwidth}{%
+        \input{tables/sumstats}  % or your actual file
+    }
 \end{table}
 \end{landscape}
 
