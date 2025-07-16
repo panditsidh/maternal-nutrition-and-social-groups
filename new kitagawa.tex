@@ -18,9 +18,19 @@
 \usepackage{float}
 \usepackage{adjustbox}
 \usepackage{longtable}
+\usepackage{pdflscape}
+
 
 \begin{document}
 
+\begin{landscape}
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \caption{Predictor prevalence by social group for pregnant and nonpregnant women}
+    \input{tables/predictors.tex}  % or your actual .tex filename
+\end{table}
+\end{landscape}
 
 
 \section{main result}
@@ -36,7 +46,7 @@
     \footnotesize % shrink text
     \label{tab:sumstat}
     \caption{: weight gain is calculated by subtracting pp weight from 9+ mo preg weight in each of 1000 bootstrap iterations}
-    \adjustbox{width=\textwidth}{\input{tables/bootstrap_results}}
+    \adjustbox{width=\textwidth}{\input{tables/bootstrap_results_5}}
 \end{table}
 
 
