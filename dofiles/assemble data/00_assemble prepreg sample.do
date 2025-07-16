@@ -154,6 +154,10 @@ replace agebin = 4 if agebin==5
 label define agebinlbl 1 "15–19" 2 "20–24" 3 "25–29" 4 "30–34" 5 "35–49"
 label values agebin agebinlbl
 
+gen age1519 = agebin==1
+gen age2024 = agebin==2
+gen age2529 = agebin==3
+gen age3049 = agebin==4
 
 
 * gen outcome variables
@@ -239,11 +243,26 @@ foreach p of numlist 2/4 {
 }
 
 
-
-
 forvalues i = 1/10 {
     gen parity_bs`i' = parity_bs == `i'
 }
+
+
+* Step 3: Label the categories for clarity
+label define parity_bs_lbl ///
+    1 "No births/1 birth, NA spacing" ///
+    2 "1 birth, <2y spacing" ///
+    3 "1 birth, 2–3y spacing" ///
+    4 "1 birth, 3+y spacing" ///
+    5 "2 births, <2y spacing" ///
+    6 "2 births, 2–3y spacing" ///
+    7 "2 births, 3+y spacing" ///
+    8 "3+ births, <2y spacing" ///
+    9 "3+ births, 2–3y spacing" ///
+   10 "3+ births, 3+y spacing"
+
+label values parity_bs parity_bs_lbl
+
 
 
 
@@ -322,7 +341,7 @@ label define birth_space_catlbl ///
 
 
 
-do "dofiles/assemble data/additional reweighting variables.do"
+// do "dofiles/assemble data/additional reweighting variables.do"
 
 
 
