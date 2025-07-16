@@ -23,19 +23,30 @@
 
 \begin{document}
 
-
 \begin{landscape}
+
+\vspace*{-1.5cm}  % Pull table upward on the page
+
 \begin{table}[H]
     \centering
-    \renewcommand{\arraystretch}{2}  % tighter row spacing
+    \renewcommand{\arraystretch}{1.5}  % moderately tight row spacing
     \caption{Predictor prevalence by social group for pregnant and nonpregnant women}
-    % \input{tables/sumstats}
-    \adjustbox{max width=\textwidth}{%
-        \input{tables/sumstats}  % or your actual file
+    \adjustbox{max width=10.5in, center}{%
+        \input{tables/sumstats}
     }
 \end{table}
+
+\vspace{1cm}  % Add space below if needed
+
 \end{landscape}
 
+\begin{table}[H]
+    \centering
+    \footnotesize % shrink text
+    \label{tab:sumstat}
+    \caption{: weight gain is calculated by subtracting pp weight from 9+ mo preg weight in each of 1000 bootstrap iterations}
+    \adjustbox{width=\textwidth}{\input{tables/kitagawa_under}}
+\end{table}
 
 
 \section{main result}
