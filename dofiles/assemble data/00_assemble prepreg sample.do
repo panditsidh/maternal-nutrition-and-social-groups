@@ -338,6 +338,26 @@ label define birth_space_catlbl ///
  	9 "no previous birth" 
 	
 
+	
+label define c_userlbl ///
+	1 "Uses modern contraception"
+
+label values c_user c_userlbl
+
+label define less_edulbl ///
+	1 "None or incomplete primary education"
+
+label values less_edu less_edulbl
+
+label define rural_lbl ///
+	1 "Rural resident"
+
+label values rural rural_lbl
+
+label define has_boylbl ///
+	1 "Has boy child"
+
+label values hasboy has_boylbl
 
 
 

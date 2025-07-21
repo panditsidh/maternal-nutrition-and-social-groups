@@ -1,6 +1,6 @@
 * Load and reshape bootstrap results
 
-local rounds 3 5
+local rounds 5
 
 foreach round in `rounds' {
 	
@@ -13,7 +13,19 @@ if `round'==5 {
 }
 
 
+*testing
+use "data/bootstrapresults_full.dta", clear
+*testing
+
 gen iteration = _n
+
+rename bmi bmi0
+rename underweight underweight0
+rename weight weight0
+rename nineweighthat nineweighthat0
+rename coeffhat coeffhat0
+rename gainhat gainhat0
+
 
 reshape long preg pct_drop bins dropbins pct_zero count9plus bmi underweight weight nineweighthat coeffhat gainhat, ///
     i(iteration) j(groups6)
@@ -23,9 +35,9 @@ local vars underweight bmi weight gainhat
 local nvars : word count `vars'
 
 * Initialize stat matrices
-matrix means = J(5, `nvars', .)
-matrix lbs   = J(5, `nvars', .)
-matrix ubs   = J(5, `nvars', .)
+matrix means = J(6, `nvars', .)
+matrix lbs   = J(6, `nvars', .)
+matrix ubs   = J(6, `nvars', .)
 
 * Fill the matrices
 local c = 1
@@ -43,7 +55,7 @@ foreach var of local vars {
         replace ub   = ub   * 100
     }
 
-    forvalues r = 1/5 {
+    forvalues r = 1/6 {
         matrix means[`r', `c'] = mean[`r']
         matrix lbs[`r', `c']   = lb[`r']
         matrix ubs[`r', `c']   = ub[`r']
@@ -73,8 +85,8 @@ foreach var of local vars {
 }
 
 * Add group labels
-gen group = _n
-label define groups6 1 "Forward" 2 "OBC" 3 "Dalit" 4 "Adivasi" 5 "Muslim"
+gen group = _n-1
+label define groups6 0 "India" 1 "Forward" 2 "OBC" 3 "Dalit" 4 "Adivasi" 5 "Muslim"
 label values group groups6
 
 * Generate formatted string variables
@@ -86,7 +98,7 @@ foreach var of local vars {
 
 * Save bootstrap summary temporarily
 keep group result_*
-drop if _n > 5
+drop if _n > 6
 tempfile summary
 save `summary'
 
@@ -100,15 +112,30 @@ if `round'==5 {
 	qui do "dofiles/assemble data/00_assemble prepreg sample.do"
 }
 
+// qui do "dofiles/assemble data/00_assemble prepreg sample.do"
 
 gen preg3plus = mopreg >= 3 & preg==1
 collapse (sum) preg3plus, by(groups6)
 rename groups6 group
 rename preg3plus sample_preg3plus
 
+* Create All India row
+preserve
+collapse (sum) sample_preg3plus
+gen group = 0  // or "All India" if group is string
+tempfile allindia
+save `allindia'
+restore
+
+append using `allindia'
+
+
 * Merge with bootstrap summary
 merge 1:1 group using `summary'
 drop _merge
+
+label values group groups6
+
 
 * Export final table
 listtex group result_underweight result_bmi result_weight result_gainhat sample_preg3plus ///

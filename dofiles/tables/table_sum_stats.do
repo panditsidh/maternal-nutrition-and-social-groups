@@ -2,17 +2,21 @@ qui do "dofiles/assemble data/00_assemble prepreg sample.do"
 
 gen blank = .
 
-
 svyset psu [pw=v005], strata(strata) singleunit(centered)
 
-
 #delimit ;
-local varlist blank c_user less_edu rural hasboy blank blank
-age1519 age2024 age2529 age3049 blank blank
-parity_bs1 parity_bs2 parity_bs3 parity_bs4 parity_bs5 parity_bs6 parity_bs7 parity_bs8 parity_bs9 parity_bs10 blank blank
-wealth1 wealth2 wealth3 wealth4 blank blank;
+local varlist blank c_user less_edu rural hasboy blank 
+age1519 age2024 age2529 age3049 blank 
+parity_bs1 parity_bs2 parity_bs3 parity_bs4 parity_bs5 parity_bs6 parity_bs7 parity_bs8 parity_bs9 parity_bs10 blank 
+wealth1 wealth2 wealth3 wealth4;
 #delimit cr
 
+
+foreach var in `varlist' {
+    if "`var'" != "blank" {
+        replace `var' = `var' * 100
+    }
+}
 
 foreach i of numlist 0/1 {
 
@@ -23,7 +27,6 @@ local row = 1
 
 * Loop over variables
 foreach var in `varlist' {
-	replace `var' = `var'*100
     local col = 1
 	
     foreach g of numlist 0/5 {
@@ -75,7 +78,7 @@ matrix colnames results_all = ///
     mean_muslim_np ll_muslim_np ul_muslim_np ///
     mean_forward_np ll_forward_np ul_forward_np
 
-					  
+
 local nrows = rowsof(results_all)
 local ncols = colsof(results_all)
 
@@ -86,21 +89,50 @@ forvalues i = 1/`nrows' {
 }
 
 
-input str100 rows
-"\multicolumn{13}{l}{\textbf{Binary Predictors of Pregnancy and Underweight}}"
+// input str100 rows
+// "\multicolumn{13}{l}{\textbf{Binary Predictors of Pregnancy and Underweight}}"
+// "not using modern contraception" 
+// "none or incomplete primary education" 
+// "rural resident" 
+// "does not have boy child" 
+// "\multicolumn{13}{l}{\textbf{Age Categories}}"
+// "15 to 19" 
+// "20 to 24" 
+// "25 to 29"
+// "30 to 49" 
+// "\multicolumn{13}{l}{\textbf{Parity \& birth spacing}}"
+// "No births"  
+// "1 birth, \textless{}2y spacing"
+// "1 birth, 2–3y spacing"
+// "1 birth, \textgreater{}3y spacing"
+// "2 births, \textless{}2y spacing"
+// "2 births, 2–3y spacing"
+// "2 births, \textgreater{}3y spacing"
+// "3+ births, \textless{}2y spacing"
+// "3+ births, 2–3y spacing"
+// "3+ births, \textgreater{}3y spacing"
+// "\multicolumn{13}{l}{\textbf{Wealth Categories}}"
+// "1st quartile" 
+// "2nd quartile" 
+// "3rd quartile" 
+// "4th quartile" 
+// ""
+//
+// end
 
+
+input str100 rows
+"\textbf{Binary Predictors of Pregnancy and Underweight}"
 "not using modern contraception" 
 "none or incomplete primary education" 
 "rural resident" 
 "does not have boy child" 
-""
-"\multicolumn{13}{l}{\textbf{Age Categories}}"
+"\textbf{Age Categories}"
 "15 to 19" 
 "20 to 24" 
 "25 to 29"
 "30 to 49" 
-""
-"\multicolumn{13}{l}{\textbf{Parity \& birth spacing}}"
+"\textbf{Parity \& birth spacing}"
 "No births"  
 "1 birth, \textless{}2y spacing"
 "1 birth, 2–3y spacing"
@@ -111,25 +143,25 @@ input str100 rows
 "3+ births, \textless{}2y spacing"
 "3+ births, 2–3y spacing"
 "3+ births, \textgreater{}3y spacing"
-""
-"\multicolumn{13}{l}{\textbf{Wealth Categories}}"
+"\textbf{Wealth Categories}"
 "1st quartile" 
 "2nd quartile" 
 "3rd quartile" 
 "4th quartile" 
-""
 
 end
 
 svmat results_all, names(col)
 
 foreach group in india adivasi dalit obc muslim forward {
+	
     
     gen ci_`group'_p = string(mean_`group'_p, "%4.1f") + " (" + ///
                        string(ll_`group'_p, "%4.1f") + ", " + ///
                        string(ul_`group'_p, "%4.1f") + ")" ///
                        if !missing(mean_`group'_p)
 
+	
     gen ci_`group'_np = string(mean_`group'_np, "%4.1f") + " (" + ///
                          string(ll_`group'_np, "%4.1f") + ", " + ///
                          string(ul_`group'_np, "%4.1f") + ")" ///
