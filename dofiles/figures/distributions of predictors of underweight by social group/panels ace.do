@@ -1,4 +1,6 @@
 
+qui do "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/reweight.do"
+
 * figure a
 
 preserve
@@ -17,19 +19,18 @@ graph hbar (mean) parity1 parity2 parity3 parity4 [aw=v005], ///
        cols(4) pos(6) region(lstyle(none))) ///
     blabel(bar, format(%4.1f) position(inside) ) ///
     ytitle("Percent") ///
-    title("Distribution of parity by social group - NFHS-5 pregnant women") ///
-    note("parity defined as # of live births, proportions weighted by v005. all nfhs-5 pregnant women")
+    title("Distribution of parity among pregnant women") ///
+    name(a, replace)
 
+	
+graph save "figures/a.gph", replace
 graph export "figures/parity distribution of pregnant women by social group.png", replace
 
 restore
 
 	
 * figure b
-
-
 preserve
-
 
 replace bs_below2 = bs_below2*100
 replace bs_2to3 = bs_2to3*100
@@ -38,6 +39,11 @@ replace bs_above3 = bs_above3*100
 keep if parity>=2	
 keep if preg==1
 
+
+count
+local sample_size = r(N)
+
+
 graph hbar (mean) bs_below2 bs_2to3 bs_above3 [aw=v005], ///
     over(groups6) ///
     stack /// 
@@ -45,9 +51,10 @@ graph hbar (mean) bs_below2 bs_2to3 bs_above3 [aw=v005], ///
        cols(4) pos(6) region(lstyle(none))) ///
 	blabel(bar, format(%4.1f) position(inside) ) ///
 	ytitle("Percent") ///
-    title("Distribution of birth spacing by social group - NFHS-5 pregnant women", size(medlarge)) ///
-    note("proportions weighted by v005. all nfhs-5 pregnant women of parity 2+ (defined as # of live births)")
+    title("Distribution of birth spacing among pregnant women", size(medlarge)) ///
+    note("sample restricted to parity 2+ women - N=`sample_size'") name(c, replace)
 	
+graph save "figures/c.gph", replace
 graph export "figures/birth spacing distribution of pregnant women by social group.png", replace
 
 	
@@ -55,7 +62,6 @@ restore
 
 
 * figure c
-
 
 
 
@@ -75,10 +81,14 @@ graph hbar (mean) wealth1 wealth2 wealth3 wealth4 [aw=v005], ///
        cols(4) pos(6) region(lstyle(none))) ///
 	blabel(bar, format(%4.1f) position(inside) ) ///
 	ytitle("Percent") ///
-    title("Distribution of wealth by social group - nfhs-5 pregnant women") ///
-    note("proportions weighted by v005. all nfhs-5 pregnant women")
+    title("Distribution of wealth among pregnant women") ///
+    name(e, replace)
 
+graph save "figures/e.gph", replace
 graph export "figures/wealth distribution of pregnant women by social group.png", replace
 
 
 restore
+
+
+

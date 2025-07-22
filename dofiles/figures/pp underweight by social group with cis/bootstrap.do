@@ -50,9 +50,32 @@ foreach g of numlist 1/5 {
 	gen coeffhat`g' = .
 	gen gainhat`g' = .
 	
-	
-
 }
+
+foreach p in 1 2 3 4 {
+	
+	gen underweight_parity`p' = .
+}
+
+
+foreach b in 1 2 3 9 {
+	
+	gen underweight_bs`b' = .
+}
+
+
+foreach pb in 1 2 3 4 5 6 7 8 9 10 {
+	
+	gen underweight_parity_bs`pb' = .
+}
+
+
+foreach w in 1 2 3 4 {
+	
+	gen underweight_wealth`w' = .
+}
+
+
 
 save "data/bootstrapresults_full.dta", replace
 
@@ -179,6 +202,38 @@ foreach g of numlist 1/5 {
 
 }
 
+levelsof(parity), local(parity_levels)
+levelsof(birth_space_cat), local(bs_levels)
+levelsof(parity_bs), local(parity_bs_levels)
+levelsof(wealth), local(wealth_levels)
+
+
+local var underweight
+
+* get outcomes by predictor categories
+foreach p in `parity_levels' {
+	
+	qui sum `var' [aw=reweightingfxn] if preg==0  & dropbin!=1 & parity==`p'
+	local underweight_parity`p' = r(mean)
+}
+
+foreach b in `bs_levels' {
+
+	qui sum `var' [aw=reweightingfxn] if preg==0  & dropbin!=1 & birth_space_cat==`b'
+	local underweight_bs`b' = r(mean)
+}
+
+foreach pb in `parity_bs_levels' {
+	
+	qui sum `var' [aw=reweightingfxn] if preg==0  & dropbin!=1 & parity_bs==`pb'
+	local underweight_parity_bs`pb' = r(mean)
+}
+
+foreach w in `wealth_levels' {
+	qui sum `var' [aw=reweightingfxn] if preg==0  & dropbin!=1 & wealth==`w'
+	local underweight_wealth`w' = r(mean)	
+}
+
 
 * get general outcomes
 foreach var of varlist bmi underweight weight {
@@ -223,6 +278,29 @@ foreach g of numlist 1/5 {
 	replace gainhat`g' = nineweighthat`g'-weight`g'+(0.5)*coeffhat`g' if _n==`i'
 }
 
+*outcomes by predictor category
+
+
+display("did i make it this far")
+foreach p in `parity_levels' {
+	replace underweight_parity`p' = `underweight_parity`p'' if _n == `i'
+}
+
+foreach b in `bs_levels' {
+	replace underweight_bs`b' = `underweight_bs`b'' if _n == `i'
+	
+}
+
+foreach pb in `parity_bs_levels' {
+	replace underweight_parity_bs`pb' = `underweight_parity_bs`pb'' if _n == `i'
+
+}
+
+foreach w in `wealth_levels' {
+	replace underweight_wealth`w' = `underweight_wealth`w'' if _n == `i'
+}
+
+
 * general outcomes
 replace bmi = `bmi' if _n==`i'
 replace underweight = `underweight' if _n==`i'
@@ -241,15 +319,17 @@ save, replace
 
 }
 
-
-
-sum bmi*
+sum underweight_parity*
+sum underweight_bs*
 sum underweight*
-sum weight*
+sum bmi*
+// sum weight*
 sum gainhat*
 
 sum pct_drop*
 sum pct_zero*
+
+
 	
 } // bootstrapping loop end
 
