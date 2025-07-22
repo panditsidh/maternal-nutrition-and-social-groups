@@ -47,6 +47,8 @@ foreach overvar in parity bs wealth {
            ytitle("Underweight Rate") ///
            xtitle("`xtitle'") ///
            title("Pre-Pregnancy Underweight Rate by `xtitle'") ///
+		   yscale(range(0 0.3) fill) ///
+		   ylabel(0(0.05)0.3) ///
            graphregion(color(white)) ///
            legend(off) name(`overvar', replace)
 
