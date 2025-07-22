@@ -1,4 +1,4 @@
-\documentclass[AER]{AEA}
+\documentclass{article}
 \usepackage{graphicx} %package to manage images
 \graphicspath{ {./figures/} }
 \usepackage{hyperref}
@@ -23,45 +23,134 @@
 \usepackage{afterpage}
 
 
-
-
-
-\draftSpacing{1.5}
-
 \begin{document}
-\title{}
-\shortTitle{}
-\author{April 28, 2025}
+\title{Fertility and Maternal Nutrition by Indian Social Group}
+\author{authors}
 \date{\today}
 
+\maketitle
+
 \begin{abstract}
-Maternal undernutrition is an important cause of child mortality and morbidity. Prior research suggests that maternal undernutrition, as measured by pre-pregnancy underweight, is common in India. This paper is the first to document differences in maternal undernutrition by Indian social group. We apply reweighting decomposition methods to the National Family Health Survey (2019-21) data to document that pre-pregnancy underweight is about 70\% higher among Adivasis and 40\% higher among Dalits than it is among forward caste Hindus and Muslims. Although high fertility and low birth spacing are known to contribute to maternal undernutrition in other contexts, we show that these factors do not explain the gaps that we document. Instead, accounting for differences in economic status explains a large fraction of the pre-pregnancy underweight gap between Dalits and Forward Castes and between Adivasis and Forward Castes. Accounting for wealth differences reveals that despite multidimensional disadvantage, Muslims have lower rates of pre-pregnancy underweight than forward caste Hindus.
+Maternal undernutrition is an important cause of child mortality and morbidity. Prior research finds that maternal undernutrition, measured by prepregnancy underweight, is common in India. This paper is the first to document differences in maternal undernutrition by Indian social group. We apply reweighting decomposition methods to National Family Health Survey, 2019-21 (NFHS-5) data to document that prepregnancy underweight is about 70\% higher among Adivasis and 40\% higher among Dalits than among Forward Caste Hindus and Muslims. Although high fertility and low birth spacing are known to contribute to maternal undernutrition in other contexts, we find that these factors do not explain social group differences in maternal undernutrition. Instead, accounting for differences in economic status explains much of the prepregnancy underweight gaps between Adivasis and Forward Castes, and between Dalits and Forward Castes. Accounting for wealth differences reveals that despite multidimensional disadvantage, Muslims have lower rates of prepregnancy underweight than Forward Caste Hindus.
 
 \end{abstract}
 
 \maketitle
 
+\section{things to think about}
+\begin{itemize}
+    \item comparison of underweight between pre-pregnancy and later life - are women still most likely to become pregnant in periods of higher undernourishment? how is this changing with decreasing parity? maybe this is for another paper
+    \item DC: yes, I think this is part of the intro or background sections.  I can draft some text and perhaps you can fill in the numbers?
+
+    \item in the discussion section: talk about social group disparities in access to healthcare? things that might account for the gap that are unobserved?
+
+    \item DC: my sense is that better healthcare would not make young women less likely to be underweight.  I think it has more to do with what resources the family has for food, how much of its resources it devotes to food (rather than other things), and how much the food that the household buys and make goes to young women as opposed to other family members.  Health is about getting advice from doctors, getting medicines, or procedures.  Those things don't make young women eat more. 
+
+    
+\end{itemize}
+
+
 \section{Introduction}
 
-Maternal undernutrition is important for population health. The period before and during pregnancy are especially important points for intervention. [EXPAND]
 
-India is a unique case with disproportionately poor health outcomes for women of reproductive age [CITE]. This can be linked to its disproportionately poor child health outcomes [CITE].
+Pre-pregnancy undernutrition is an important determinant of maternal morbidity and mortality, women's long term wellbeing, and intergenerational population health outcomes.
 
-Data on the state of maternal health, specifically, is more sparse. Estimates of pre-pregnancy health as opposed to using WRA as a proxy are important [ASK DIANE].
+\cite{king2003risk}: pregnancy introduces biological competition for nutrition between mother and fetus. the mother's pre-conception nutritional status is important for determining pregnancy outcomes. marginally undernourished mothers will lose weight during reproductive cycles but see smaller or no losses to infant birth weight. chronically undernourished mothers will surprisingly gain weight during reproductive cycles at the cost of large losses to infant birth weight. 
 
-Using a novel reweighting method, Coffey (2015) estimates that 42.2\% of women in India entered pregnancy underweight, and Indian women gain only about 7 kg during pregnancy.
+\vspace{1.5em}
 
-This paper produces more recent estimates using the NFHS-5 and also the first estimates of pre-pregnancy underweight by social group.
+
+India is a unique case with disproportionately poor pre-pregnancy health outcomes. This can be linked to its disproportionately poor child health outcomes.
+
+\cite{coffey2015prepregnancy}:  42.2\% of prepregnant women in India are underweight compared with 16.5\% of prepregnant women in sub-Saharan Africa. weight gain during pregnancy does not compensate
+
+\cite{miller2025preconception}: India shows the highest rates of "pre-conception" underweight in South Asia
+
+\cite{ahmed2013global}:  In South Asia, maternal malnutrition alone is responsible for 25–50\% of intrauterine growth restriction (IUGR)
+
+\vspace{1.5em}
+
+
+India has no national pregnancy monitoring system for accurate estimation of the national prevalence of pre-pregnancy health outcomes. Few reliable studies exist that estimate it using demographic health survey data.
+
+
+\cite{coffey2015prepregnancy} uses a novel reweighting method to estimate the nutritional status of women at the time of conception by adjusting the distribution of non-pregnant women to match the observable characteristics of pregnant women in large-scale survey data. This method resulted in a 6.7\% higher pre-pregnancy underweight prevalence when using reweighting methods compared to non-pregnant WRA as a proxy.
+
+This paper follows this method to produce more recent estimates using the NFHS-5 and also the first estimates of pre-pregnancy underweight by social group.
+
+\vspace{1.5em}
+
 
 Disaggregation by social group is important because disparities in maternal health and nutrition across caste and religion are well documented. National averages mask stark inequalities [CITE].
 
+\cite{borooah2010inequality} shows that, even after controlling for socioeconomic and demographic factors, life expectancy among Scheduled Tribes (STs) was 5 years lower, Scheduled Castes (SCs) 7 years lower, and OBC Muslims 8.6 years lower than among upper-caste Hindus (M\&HC Survey 2004).
+
+\cite{ramaiah2015health} the under-five mortality rate (U5MR) was 14 deaths higher among Scheduled Castes (88 vs. 74 nationally), while infant mortality among SCs and STs was 13.1 and 12.3 deaths higher, respectively, compared to the general category (NFHS-3).
+
+
+\vspace{1.5em}
+
+
+
+
+To our knowledge, there are no papers providing nationally representative estimates of pre-pregnancy health outcomes by social group in India.
+
 We find that 26.5\% of Adivasi women and 22.3\% of Dalit women were underweight before pregnancy, compared to 15.5\% of forward-caste Hindus and Muslims. This represents a 70\% higher rate among Adivasis and a 43\% higher rate among Dalits. 
 
-This paper also contributes to a growing literature on the determinants of social group disparities in health. [CITE] [READ] [ASK DIANE]
+\cite{doke2022prevalence}: in a survey of women desiring pregnancy in Nashik, the mean BMI of women was 19.73 (±3.51), and a higher proportion (40.5\%) of women from tribal areas had BMI<18.5.
 
-The disparities in pre-pregnancy underweight we observe are not explained by wealth, education, or fertility patterns alone: Kitagawa decompositions show that over 85\% of the Adivasi–forward and Dalit–forward caste gaps remain even after accounting for differences in parity, birth spacing, and wealth quartile.
+\vspace{1.5em}
 
-Accounting for wealth differences reveals that despite multidimensional disadvantage, Muslims have lower rates of pre-pregnancy underweight than forward caste Hindus. [READ]
+
+This paper also contributes to a growing literature on the determinants of social group disparities in health. A prominent explanation for poor maternal health among marginalized women is the maternal depletion hypothesis, which posits that repeated, closely spaced pregnancies lead to cumulative physiological stress and undernutrition. Indeed, preconception risk, low birth spacing, and high parity is higher among women of marginalized communities and of low socioeconomic status.
+
+\cite{singh2024wealth}: using NFHS-5, odds of short birth interval relative to general caste - Scheduled Caste (1.18), Scheduled Tribes (1.14), and Other Backward Classes (1.12). Women whose last child had passed away were also significantly more likely to have SBI (2.35). SBI prevalence was higher among poorer mothers (Richest: 33.8\% vs. Poorest: 52.9\%) and mothers from communities with lower average schooling levels (1.18).
+
+
+\cite{kuppusamy2023high}: women with no formal education and in the poorest wealth quintile were much more likely to have high risk pregnancy (NFHS-5)
+
+\cite{doke2022prevalence} found that among women desiring pregnancy in Nashik, selected risk factors were significantly more prevalent in tribal areas, where 7.7\% of high-parity women (4 or more births) still wished to conceive, compared to 3\% in non-tribal areas.
+
+
+\vspace{1.5em}
+
+Studies have shown associations between short birth intervals, high parity, and adverse maternal outcomes.
+
+\cite{kundu2025short}: short birth spacing increased the likelihood of maternal undernutrition (1.39 times more prevalent), incomplete ANC, low birth weight, infant and child mortality (NFHS-5).
+
+\cite{bauserman2020relationship}: short birth intervals had increased risk of neonatal death, stillbirth, and low birth weight (NICHD of DRC, Zambia, Kenya, Guatemala, India, and Pakistan)
+
+\cite{dhingra2021effects}: birth spacing length explains the firstborn height advantage
+
+
+\vspace{1.5em}
+
+However, the extent to which maternal depletion explains social group disparities in health remains an open empirical question. We find that differences in parity and birth spacing account for only up to 10\% of the gap despite forwards caste women being more likely to be on their first birth or have 3+ years of birth spacing. This implies that other structural factors—such as poverty, discrimination, or access to health services—may play a larger role in driving these disparities.
+
+\vspace{1.5em}
+
+To further investigate these structural factors, we conduct a decomposition by wealth status. Since caste and class are deeply intertwined in India, understanding how much of the caste-based gap in pre-pregnancy undernutrition is mediated by economic inequality can shed light on the relative importance of poverty versus social exclusion.
+
+Indeed, wealth accounts for about 60\% of the gap between Dalit and forward-caste women and Adivasi and forward-caste women, and  53.3\% of the gap between OBC and forward-caste women.
+
+Although deprivation can explain a majority of the gap, up to 40\%, a very large component, remains unexplained. This adds to a growing literature on the unobservable effects of caste on health in India [CITE].
+
+
+\cite{bora2019persistent}: 83\% of the caste-based gap in the under-five deaths
+is due to the distribution of women’s level of educational attainment and household wealth
+between the SC/ST and non-SC/ST population (NFHS).
+
+\cite{dutta2020effect}: Caste had an independent effect on anaemia and sickness absenteeism in school children, unexplained by inter-caste economic disparities (data collected in Odisha).
+
+\cite{van2009decomposing}: Differences in the distribution of the determinants were responsible for about 65\% of the gap between the ST/SC and the remaining population in average height-for-age z score
+
+
+
+
+\vspace{1.5em}
+
+
+Results from the decomposition of Muslim women and forwards caste women had the opposite result. Despite multidimensional disadvantage, Muslims have lower rates of pre-pregnancy underweight than forward caste Hindus, and this gap widens after accounting for wealth differences.
 
 
 
