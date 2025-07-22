@@ -208,6 +208,7 @@ levelsof(parity_bs), local(parity_bs_levels)
 levelsof(wealth), local(wealth_levels)
 
 
+
 local var underweight
 
 * get outcomes by predictor categories
