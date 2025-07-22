@@ -1,3 +1,5 @@
+
+do "dofiles/reweight.do"
 eststo clear
 local outcome underweight
 local overvars parity_bs wealth
