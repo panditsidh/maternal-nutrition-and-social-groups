@@ -77,7 +77,7 @@ foreach g of numlist 2/5 {
 }
 
 
-local labels `"  "percentage point difference in pre-preganancy underweight" " " "\textbf{Panel A: Kitagawa decompositions of parity + birthspacing}" "pp difference within parity + birthspacing category" "pp different across parity + birthspacing category" "% explained by parity + birthspacing" " "  "\textbf{Panel B. Kitagawa decompositions of wealth}"  "pp difference within wealth category"  "pp different across wealth category"  "% explained by wealth"  "'
+local labels `"  "percentage point difference in pre-preganancy underweight" " " "\textbf{Panel A: Kitagawa decompositions of parity + birthspacing}" "pp difference within parity + birthspacing category" "pp different across parity + birthspacing category" "\% explained by parity + birthspacing" " "  "\textbf{Panel B. Kitagawa decompositions of wealth}"  "pp difference within wealth category"  "pp different across wealth category"  "\% explained by wealth"  "'
 
 #delimit ;
 esttab underweight*, 
@@ -87,9 +87,12 @@ esttab underweight*,
 	mtitles("Adivasi-Forward" "Dalit-Forward" "OBC-Forward" "Muslim-Forward")
 	;
 
-esttab underweight* using "tables/kitagawa_`overvar'_all.tex", 
+esttab underweight* using "tables/kitagawa_all.tex",  replace
 	stats(underweight_diff blank blank within_parity_bs between_parity_bs pct_parity_bs blank blank within_wealth between_wealth pct_wealth, labels(`labels') fmt(2))
 	drop(v201 _cons)
 	nonumbers nostar noobs not
 	mtitles("Adivasi-Forward" "Dalit-Forward" "OBC-Forward" "Muslim-Forward")
+	booktabs
 	;
+
+	

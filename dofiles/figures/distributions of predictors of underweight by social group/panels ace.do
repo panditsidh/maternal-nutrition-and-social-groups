@@ -19,7 +19,7 @@ graph hbar (mean) parity1 parity2 parity3 parity4 [aw=v005], ///
        cols(4) pos(6) region(lstyle(none))) ///
     blabel(bar, format(%4.1f) position(inside) ) ///
     ytitle("Percent") ///
-    title("Distribution of parity among pregnant women") ///
+    title("Distribution of pregnant women by parity") ///
     name(a, replace)
 
 	
@@ -51,7 +51,7 @@ graph hbar (mean) bs_below2 bs_2to3 bs_above3 [aw=v005], ///
        cols(4) pos(6) region(lstyle(none))) ///
 	blabel(bar, format(%4.1f) position(inside) ) ///
 	ytitle("Percent") ///
-    title("Distribution of birth spacing among pregnant women", size(medlarge)) ///
+    title("Distribution of pregnant women who have had at least one live birth by birth spacing", size(medlarge)) ///
     note("sample restricted to parity 2+ women - N=`sample_size'") name(c, replace)
 	
 graph save "figures/c.gph", replace
@@ -81,7 +81,7 @@ graph hbar (mean) wealth1 wealth2 wealth3 wealth4 [aw=v005], ///
        cols(4) pos(6) region(lstyle(none))) ///
 	blabel(bar, format(%4.1f) position(inside) ) ///
 	ytitle("Percent") ///
-    title("Distribution of wealth among pregnant women") ///
+    title("Distribution of pregnant women by wealth quartile") ///
     name(e, replace)
 
 graph save "figures/e.gph", replace

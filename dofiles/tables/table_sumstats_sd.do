@@ -157,15 +157,15 @@ drop if missing(row)
 
 #delimit ;
 listtex row ///
-     ci_adivasi_p ci_dalit_p ci_obc_p ci_muslim_p ci_forward_p ci_india_p ///
-     ci_adivasi_np ci_dalit_np ci_obc_np ci_muslim_np ci_forward_np ci_india_np ///
+     ci_adivasi_p ci_dalit_p ci_obc_p ci_forward_p ci_muslim_p ci_india_p ///
+     ci_adivasi_np ci_dalit_np ci_obc_np ci_forward_np ci_muslim_np ci_india_np ///
     using "tables/sumstats.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{12}{c}}" ///
          "\toprule" ///
          "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{6}{c}{Nonpregnant women} \\\\" ///
          "\cmidrule(lr){2-7} \cmidrule(lr){8-13}" ///
-         "Social Group & Adivasi & Dalit & OBC & Muslim & Forward & All five social groups & Adivasi & Dalit & OBC & Muslim & Forward & All five social groups \\\\" ///
+         "Social Group & Adivasi & Dalit & OBC & Forward & Muslim & All five social groups & Adivasi & Dalit & OBC & Muslim & Forward & All five social groups \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
