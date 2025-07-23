@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 \usepackage{graphicx} %package to manage images
 \graphicspath{ {./figures/} }
 \usepackage{hyperref}
@@ -21,9 +21,28 @@
 \usepackage{caption}
 \usepackage{setspace}
 \usepackage{afterpage}
+\usepackage[margin=1in]{geometry}
+\usepackage[round]{natbib}
+
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{14}{16}\selectfont}  % Bold 14pt
+  {}{0pt}{}  % No numbering
+
+\titleformat{\subsection}
+  {\normalfont\bfseries\fontsize{12}{14}\selectfont}  % Bold 12pt
+  {}{0pt}{}  % No numbering
+
+\titleformat{\subsubsection}
+  {\normalfont\itshape\fontsize{12}{14}\selectfont}  % Italic 12pt
+  {}{0pt}{}  % No numbering
+
 
 
 \begin{document}
+\raggedright
+
 \title{Fertility and Maternal Nutrition by Indian Social Group}
 \author{authors}
 \date{\today}
@@ -50,7 +69,7 @@ Maternal undernutrition is an important cause of child mortality and morbidity. 
 \end{itemize}
 
 
-\section{Introduction}
+\section*{Introduction}
 
 
 Pre-pregnancy undernutrition is an important determinant of maternal morbidity and mortality, women's long term wellbeing, and intergenerational population health outcomes.
@@ -169,17 +188,17 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \begin{minipage}{\textwidth}
 
 
-\vspace*{-2cm}
+% \vspace*{-2cm}
 
-\subsection{Summary statistics}
+\subsection*{Summary statistics}
 
 \begin{table}[H]
     \centering
     \caption{: Summary statistics of the reweighting variables by pregnancy status}
     
-    \footnotesize	
-    \setlength{\tabcolsep}{1pt}
-    \renewcommand{\arraystretch}{1.1}
+    \scriptsize	
+    \setlength{\tabcolsep}{2pt}
+    \renewcommand{\arraystretch}{1.2}
     \input{tables/sumstats}
     
 \end{table}
@@ -191,7 +210,7 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 
 
 
-\subsection{Main result}
+\subsection*{Main result}
 
 
 \begin{figure}[H]
@@ -203,11 +222,11 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \begin{landscape}
     
 
-\subsection{Kitagawa decomposition}
+\subsection*{Kitagawa decomposition}
 
 \begin{table}[H]
     \centering
-    % \normal % shrink text
+    \small % shrink text
     \caption{: Kitagawa decomposition results}
     % \setlength{\tabcolsep}{1pt}
     \renewcommand{\arraystretch}{1.5}
@@ -215,54 +234,43 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \end{table}
 
 \end{landscape}
-\subsection{Regression}
+
+\begin{minipage}{\textwidth}
+\subsection*{Regression}
+
+% \newgeometry{left=1.2in, right=1.2in}  % or smaller margins
 
 \begin{table}[H]
     \centering
     \scriptsize % shrink text
     \caption{: OLS regressions predicting pregnancy with covariates that also predict underweight}
     \setlength{\tabcolsep}{1pt}
-    \renewcommand{\arraystretch}{1}{\input{tables/predictor_regression}}
+    \renewcommand{\arraystretch}{0.81}
+    {\input{tables/predictor_regression}}
 \end{table}
 
-\newpage
+% \restoregeometry
+
+\end{minipage}
+
 
 \begin{landscape}
 
-\vspace*{-3cm}  % Pull table upward on the 
+\vspace*{-2cm}  % Pull table upward on the 
 \begin{figure}[H]
   \makebox[\textwidth][c]{%
-    \includegraphics[width=1.2\linewidth]{figures/six panel figure.png}
+    \includegraphics[width=\linewidth]{figures/six panel figure.png}
   }
-  \caption{Differences in parity, birth spacing, and wealth quartile by social group, and the relationship between these characteristics and prepregnancy underweight}
+  \caption{: Differences in parity, birth spacing, and wealth quartile by social group, and the relationship between these characteristics and prepregnancy underweight}
   \label{fig:sixpanel}
 \end{figure}
 
 \end{landscape}
-\bibliographystyle{apalike}
+\bibliographystyle{apa}
 \bibliography{writing/references}
 
 
-\section{appendix}
-
-\begin{landscape}
-
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{2}
-    \caption{: Summary statistics of the reweighting variables by pregnancy status}
-    \vspace*{-2.3cm}
-    
-    {%
-    \fontsize{10}{10}\selectfont  % Adjust these numbers if needed
-    \resizebox{\textwidth}{!}{%
-        \normalsize
-        \input{tables/sumstats}
-    }
-    }
-    
-\end{table}
-\end{landscape}
+\section*{appendix}
 
 
 
