@@ -1,5 +1,5 @@
 
-qui do "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/reweight.do"
+qui do "dofiles/reweight.do"
 
 * figure a
 
