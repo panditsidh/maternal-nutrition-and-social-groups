@@ -167,12 +167,13 @@ Results from the decomposition of Muslim women and forwards caste women had the 
     \caption{: Summary statistics}
     \vspace*{-2.3cm}
     {%
-    \fontsize{10}{13}\selectfont  % Adjust these numbers if needed
+    \fontsize{10}{10}\selectfont  % Adjust these numbers if needed
     \resizebox{1.1\textwidth}{!}{%
-        \scriptsize
+        \normalsize
         \input{tables/sumstats}
     }
     }
+    \caption{Summary statistics of the reweighting variables by pregnancy status}
 \end{table}
 \end{landscape}
 
@@ -189,6 +190,7 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/bootstrapped_underweight_by_group_5.png}
+    \caption{: CIs of pre-pregnancy underweight by social group}
 \end{figure}
 
 
@@ -197,8 +199,7 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \begin{table}[H]
     \centering
     \normalsize % shrink text
-    \label{tab:sumstat}
-    \caption{: Main result, kitagawa decomposition}
+    \caption{: Kitagawa decomposition results}
     \adjustbox{width=\textwidth}
     {\input{tables/kitagawa_all}}
 \end{table}
@@ -210,7 +211,7 @@ Results from the decomposition of Muslim women and forwards caste women had the 
     \centering
     \footnotesize % shrink text
     \label{tab:sumstat}
-    \caption{: outcome variable is pregnancy indicator, standard errors clustered at psu level}
+    \caption{: OLS regressions predicting pregnancy with covariates that also predict underweight}
     \adjustbox{width=\textwidth}{\input{tables/predictor_regression}}
 \end{table}
 
@@ -223,7 +224,7 @@ Results from the decomposition of Muslim women and forwards caste women had the 
   \makebox[\textwidth][c]{%
     \includegraphics[width=1.2\linewidth]{figures/six panel figure.png}
   }
-  \caption{Your caption here}
+  \caption{Differences in parity, birth spacing, and wealth quartile by social group, and the relationship between these characteristics and prepregnancy underweight}
   \label{fig:sixpanel}
 \end{figure}
 
