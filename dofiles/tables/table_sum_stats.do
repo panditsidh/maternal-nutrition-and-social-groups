@@ -22,7 +22,7 @@ wealth1 wealth2 wealth3 wealth4;
 foreach i of numlist 0/1 {
 
 local nvars : word count `varlist'
-matrix results_`i' = J(`nvars'+1, 12, .)
+matrix results_`i' = J(`nvars'+1, 6, .)
 
 local row = 1
 
@@ -48,7 +48,7 @@ foreach var in `varlist' {
         }
 		
 		if "`var'"=="blank" {
-			matrix results_`i'[`row', `col']     = .
+			matrix results_`i'[`row', `col']     =  .
 		}
 
         local col = `col' + 1
@@ -136,21 +136,34 @@ svmat results_all, names(col)
 foreach group in india adivasi dalit obc muslim forward {
 	
     
-    gen ci_`group'_p = string(mean_`group'_p, "%4.2f") + " (" + ///
-                       string(sd_`group'_p, "%4.2f") + ")" ///
-                       if !missing(sd_`group'_p)
+    gen ci_`group'_p = substr(string(mean_`group'_p, "%4.2f"), 2, .) if row!="\textbf{Sample size}"
 
 	
-    gen ci_`group'_np = string(mean_`group'_np, "%4.2f") + " (" + ///
-                         string(sd_`group'_np, "%4.2f") + ")" ///
-                         if !missing(sd_`group'_np)
+    gen ci_`group'_np = substr(string(mean_`group'_np, "%4.2f"), 2, .) if row!="\textbf{Sample size}"
 						 
-	replace ci_`group'_p = string(mean_`group'_p) if missing(sd_`group'_p)
-	replace ci_`group'_np = string(mean_`group'_np) if missing(sd_`group'_np)
+	replace ci_`group'_p = string(mean_`group'_p) if row=="\textbf{Sample size}"
+	replace ci_`group'_np = string(mean_`group'_np) if row=="\textbf{Sample size}"
 }
 
 keep row ci*
 drop if missing(row)
+//
+//
+// #delimit ;
+// listtex row ///
+//      ci_adivasi_p ci_dalit_p ci_obc_p ci_forward_p ci_muslim_p ci_india_p ///
+//      ci_adivasi_np ci_dalit_np ci_obc_np ci_forward_np ci_muslim_np ci_india_np ///
+//     using "tables/sumstats.tex", replace ///
+//     rstyle(tabular) ///
+//     head("\begin{tabular}{l*{12}{c}}" ///
+//          "\toprule" ///
+//          "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{6}{c}{Nonpregnant women} \\\\" ///
+//          "\cmidrule(lr){2-7} \cmidrule(lr){8-13}" ///
+//          "Social Group & Adivasi & Dalit & OBC & Forward & Muslim & All five social groups & Adivasi & Dalit & OBC & Muslim & Forward & All five social groups \\\\" ///
+//          "\midrule") ///
+//     foot("\bottomrule" ///
+//          "\end{tabular}");
+// #delimit cr
 
 
 #delimit ;
@@ -160,12 +173,15 @@ listtex row ///
     using "tables/sumstats.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{12}{c}}" ///
-         "\toprule" ///
-         "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{6}{c}{Nonpregnant women} \\\\" ///
-         "\cmidrule(lr){2-7} \cmidrule(lr){8-13}" ///
-         "Social Group & Adivasi & Dalit & OBC & Forward & Muslim & All five social groups & Adivasi & Dalit & OBC & Muslim & Forward & All five social groups \\\\" ///
-         "\midrule") ///
+     "\toprule" ///
+     "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{6}{c}{Nonpregnant women} \\\\" ///
+     "\cmidrule(lr){2-7} \cmidrule(lr){8-13}" ///
+     "Social Group & Adivasi & Dalit & OBC & Forward & Muslim & \shortstack{All five\\\\social groups} & Adivasi & Dalit & OBC & Muslim & Forward & \shortstack{All five\\\\social groups} \\\\" ///
+     "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
 #delimit cr
+
+
+
 
