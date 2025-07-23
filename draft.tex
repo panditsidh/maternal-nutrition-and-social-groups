@@ -156,33 +156,33 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \section{Method}
 
 
+
+
+
 \section{Results}
 
+\subsection{Summary Statistics}
 
 
 \begin{landscape}
+
+\vspace*{-2.7cm}
+
+
 \begin{table}[H]
     \centering
-    \renewcommand{\arraystretch}{2.3}
-    \caption{: Summary statistics}
-    \vspace*{-2.3cm}
-    {%
-    \fontsize{10}{10}\selectfont  % Adjust these numbers if needed
-    \resizebox{1.1\textwidth}{!}{%
-        \normalsize
-        \input{tables/sumstats}
-    }
-    }
-    \caption{Summary statistics of the reweighting variables by pregnancy status}
+    \caption{: Summary statistics of the reweighting variables by pregnancy status}
+    
+    \footnotesize	
+    \setlength{\tabcolsep}{1.2pt}
+    \renewcommand{\arraystretch}{1.5}
+    \input{tables/sumstats}
+    
 \end{table}
+
 \end{landscape}
 
 
-
-
-
-
-\vspace{1cm}  % Add space below if needed
 
 \subsection{Main result}
 
@@ -210,7 +210,6 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \begin{table}[H]
     \centering
     \footnotesize % shrink text
-    \label{tab:sumstat}
     \caption{: OLS regressions predicting pregnancy with covariates that also predict underweight}
     \adjustbox{width=\textwidth}{\input{tables/predictor_regression}}
 \end{table}
@@ -231,5 +230,29 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \end{landscape}
 \bibliographystyle{apalike}
 \bibliography{writing/references}
+
+
+\section{appendix}
+
+\begin{landscape}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{2}
+    \caption{: Summary statistics of the reweighting variables by pregnancy status}
+    \vspace*{-2.3cm}
+    
+    {%
+    \fontsize{10}{10}\selectfont  % Adjust these numbers if needed
+    \resizebox{\textwidth}{!}{%
+        \normalsize
+        \input{tables/sumstats}
+    }
+    }
+    
+\end{table}
+\end{landscape}
+
+
 
 \end{document}
