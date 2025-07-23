@@ -77,7 +77,7 @@ foreach g of numlist 2/5 {
 }
 
 
-local labels `"  "percentage point difference in pre-preganancy underweight" " " "\textbf{Panel A: Kitagawa decompositions of parity + birthspacing}" "pp difference within parity + birthspacing category" "pp different across parity + birthspacing category" "\% explained by parity + birthspacing" " "  "\textbf{Panel B. Kitagawa decompositions of wealth}"  "pp difference within wealth category"  "pp different across wealth category"  "\% explained by wealth"  "'
+local labels `"  "percentage point difference in pre-pregnancy underweight" " " "\textbf{Panel A: Decompositions of parity + birthspacing}" "pp difference within parity + birthspacing category" "pp different across parity + birthspacing category" "\% explained by parity + birthspacing" " "  "\textbf{Panel B. Decompositions of wealth}"  "pp difference within wealth category"  "pp different across wealth category"  "\% explained by wealth"  "'
 
 #delimit ;
 esttab underweight*, 
