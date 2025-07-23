@@ -20,13 +20,16 @@ foreach overvar in parity bs wealth {
 	if "`overvar'" == "parity" {
 		local xtitle "parity"
 		local xlabel `"1 "Parity 1" 2 "Parity 2" 3 "Parity 3" 4 "Parity 4""'
+		local title "B. Estimates of prepregnancy underweight by `xtitle'"
 	}
 	if "`overvar'" == "wealth" {
 		local xtitle "wealth quartile"
 		local xlabel `"1 "Quartile 1" 2 "Quartile 2" 3 "Quartile 3" 4 "Quartile 4""'
+		local title "F. Estimates of prepregnancy underweight" "by `xtitle'"
 	}
 	if "`overvar'" == "bs" {
 		local xtitle "birth spacing"
+		local title "D. Estimates of prepregnancy underweight" "by `xtitle'"
 		local xlabel `"1 "<2 yrs" 2 "2–3 yrs" 3 ">3 yrs""'
 		
 		drop if bs==9
@@ -46,7 +49,7 @@ foreach overvar in parity bs wealth {
            xlabel(`xlabel') ///
            ytitle("Underweight Rate") ///
            xtitle("`xtitle'") ///
-           title("Estimates of prepregnancy underweight by `xtitle'") ///
+           title("`title'") ///
 		   yscale(range(0 0.3) fill) ///
 		   ylabel(0(0.05)0.3) ///
            graphregion(color(white)) ///
