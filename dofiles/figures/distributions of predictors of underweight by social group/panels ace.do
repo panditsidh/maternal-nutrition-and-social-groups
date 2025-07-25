@@ -1,5 +1,5 @@
 
-qui do "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/reweight.do"
+qui do "dofiles/reweight.do"
 
 * figure a
 
@@ -7,20 +7,40 @@ preserve
 
 keep if preg==1
 
+gen groups = 1 if groups6==4 // Adivasi
+replace groups = 2 if groups6==3 // Dalit
+// OBC is already 2
+replace groups = 3 if groups6==2
+replace groups = 4 if groups6==1 // Forward
+replace groups = 5 if groups6==5 // Muslim
+
+label define groupslbl ///
+    1 "Adivasi" ///
+    2 "Dalit" ///
+    3 "OBC" ///
+    4 "Forward" ///
+    5 "Muslim"
+
+label values groups grouplbl
+
 replace parity1 = parity1*100
 replace parity2 = parity2*100
 replace parity3 = parity3*100
 replace parity4 = parity4*100	
 
+count 
+local sample_size : display %15.0fc r(N)
+
+
 graph hbar (mean) parity1 parity2 parity3 parity4 [aw=v005], ///
-    over(groups6, label(angle(0))) ///
+    over(groups, label(angle(0))) ///
     stack ///
     legend(order(1 "Parity 1" 2 "Parity 2" 3 "Parity 3" 4 "Parity 4+") ///
        cols(4) pos(6) region(lstyle(none))) ///
     blabel(bar, format(%4.1f) position(inside) ) ///
     ytitle("Percent") ///
-    title("Distribution of pregnant women by parity") ///
-    name(a, replace)
+    title("A. Distribution of pregnant women by parity") ///
+	note("n=`sample_size' (3+ month pregnant women)", size(medsmall)) name(c, replace)
 
 	
 graph save "figures/a.gph", replace
@@ -41,18 +61,17 @@ keep if preg==1
 
 
 count
-local sample_size = r(N)
-
+local sample_size : display %15.0fc r(N)
 
 graph hbar (mean) bs_below2 bs_2to3 bs_above3 [aw=v005], ///
-    over(groups6) ///
+    over(groups) ///
     stack /// 
 	legend(order(1 "below 2 years" 2 "2-3 years" 3 "above 3 years") ///
        cols(4) pos(6) region(lstyle(none))) ///
 	blabel(bar, format(%4.1f) position(inside) ) ///
 	ytitle("Percent") ///
-    title("Distribution of pregnant women who have had at least one live birth by birth spacing", size(medlarge)) ///
-    note("sample restricted to parity 2+ women - N=`sample_size'") name(c, replace)
+    title("C. Distribution of pregnant women who have had " "at least one live birth by birth spacing", size(large)) ///
+    note("n=`sample_size' (3+ month pregnant women who have at least 1 live birth)", size(medsmall)) 
 	
 graph save "figures/c.gph", replace
 graph export "figures/birth spacing distribution of pregnant women by social group.png", replace
@@ -75,15 +94,14 @@ replace wealth3 = wealth3*100
 replace wealth4 = wealth4*100
 
 graph hbar (mean) wealth1 wealth2 wealth3 wealth4 [aw=v005], ///
-    over(groups6) ///
+    over(groups) ///
     stack /// 
 	legend(order(1 "1st quartile" 2 "2nd quartile" 3 "3rd quartile" 4 "4th quartile") ///
        cols(4) pos(6) region(lstyle(none))) ///
 	blabel(bar, format(%4.1f) position(inside) ) ///
 	ytitle("Percent") ///
-    title("Distribution of pregnant women by wealth quartile") ///
-    name(e, replace)
-
+    title("E. Distribution of pregnant women by wealth quartile") ///
+	note("n=`sample_size' (3+ month pregnant women)", size(medsmall)) name(c, replace) 
 graph save "figures/e.gph", replace
 graph export "figures/wealth distribution of pregnant women by social group.png", replace
 

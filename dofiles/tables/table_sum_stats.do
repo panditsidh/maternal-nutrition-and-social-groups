@@ -98,36 +98,36 @@ local ncols = colsof(results_all)
 
 
 
-
 input str100 rows
 "\textbf{Binary Predictors of Pregnancy and Underweight}"
-"not using modern contraception" 
-"no education or incomplete primary" 
-"rural resident" 
-"does not have boy child" 
+"\hspace*{2em}not using modern contraception" 
+"\hspace*{2em}no education or incomplete primary" 
+"\hspace*{2em}rural resident" 
+"\hspace*{2em}does not have boy child" 
 "\textbf{Age Categories}"
-"15 to 19" 
-"20 to 24" 
-"25 to 29"
-"30 to 49" 
+"\hspace*{2em}15 to 19" 
+"\hspace*{2em}20 to 24" 
+"\hspace*{2em}25 to 29"
+"\hspace*{2em}30 to 49" 
 "\textbf{Categories for parity and spacing from last birth}"
-"No births"  
-"1 birth, \textless{}2y spacing"
-"1 birth, 2–3y spacing"
-"1 birth, \textgreater{}3y spacing"
-"2 births, \textless{}2y spacing"
-"2 births, 2–3y spacing"
-"2 births, \textgreater{}3y spacing"
-"3+ births, \textless{}2y spacing"
-"3+ births, 2–3y spacing"
-"3+ births, \textgreater{}3y spacing"
+"\hspace*{2em}No births"  
+"\hspace*{2em}1 birth, \textless{}2y spacing"
+"\hspace*{2em}1 birth, 2–3y spacing"
+"\hspace*{2em}1 birth, \textgreater{}3y spacing"
+"\hspace*{2em}2 births, \textless{}2y spacing"
+"\hspace*{2em}2 births, 2–3y spacing"
+"\hspace*{2em}2 births, \textgreater{}3y spacing"
+"\hspace*{2em}3+ births, \textless{}2y spacing"
+"\hspace*{2em}3+ births, 2–3y spacing"
+"\hspace*{2em}3+ births, \textgreater{}3y spacing"
 "\textbf{Wealth Categories}"
-"1st quartile" 
-"2nd quartile" 
-"3rd quartile" 
-"4th quartile" 
+"\hspace*{2em}1st quartile" 
+"\hspace*{2em}2nd quartile" 
+"\hspace*{2em}3rd quartile" 
+"\hspace*{2em}4th quartile" 
 "\textbf{Sample size}"
 end
+
 
 svmat results_all, names(col)
 
@@ -141,13 +141,33 @@ foreach group in india adivasi dalit obc muslim forward {
 	
     gen ci_`group'_np = substr(string(mean_`group'_np, "%4.2f"), 2, .) if row!="\textbf{Sample size}"
 						 
-	replace ci_`group'_p = string(mean_`group'_p) if row=="\textbf{Sample size}"
-	replace ci_`group'_np = string(mean_`group'_np) if row=="\textbf{Sample size}"
+	replace ci_`group'_p = string(mean_`group'_p, "%15.0fc") if row == "\textbf{Sample size}"
+	replace ci_`group'_np = string(mean_`group'_np, "%15.0fc") if row == "\textbf{Sample size}"
+
 }
 
 keep row ci*
-drop if missing(row)
+gen blank = ""
+gen blank2 = ""
 
+gen is_header = regexm(row, "\\textbf")
+gen order = _n
+
+gen insert_blank = is_header[_n+1]  // this flags the row *before* each header
+replace insert_blank = 0 if missing(insert_blank)
+
+expand 2 if insert_blank
+expand 2 if missing(row) & row[_n+1]=="\textbf{Sample size}"
+
+bysort order (insert_blank): replace row = "" if _n == 2 & insert_blank
+
+foreach var of varlist ci_* {
+    replace `var' = "" if row == ""
+}
+
+
+drop if missing(insert_blank)
+drop is_header order insert_blank
 
 #delimit ;
 listtex row ///
@@ -155,15 +175,17 @@ listtex row ///
      ci_adivasi_np ci_dalit_np ci_obc_np ci_forward_np ci_muslim_np ci_india_np ///
     using "tables/sumstats.tex", replace ///
     rstyle(tabular) ///
-    head("\begin{tabular}{l*{12}{c}}" ///
+    head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{0.9cm}}@{\hspace{3em}}*{6}{>{\centering\arraybackslash}p{0.9cm}}}" ///
          "\toprule" ///
          "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{6}{c}{Nonpregnant women} \\\\" ///
-         "\cmidrule(lr){2-7} \cmidrule(lr){8-13}" ///
-         "Social Group & Adivasi & Dalit & OBC & Forward & Muslim & All five & Adivasi & Dalit & OBC & Muslim & Forward & All five \\\\" ///
+         "Social Group & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny All five & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny All five \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
 #delimit cr
+
+
+
 
 //
 // #delimit ;

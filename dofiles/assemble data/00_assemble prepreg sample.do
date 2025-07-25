@@ -252,15 +252,15 @@ forvalues i = 1/10 {
 * Step 3: Label the categories for clarity
 label define parity_bs_lbl ///
     1 "No births/1 birth, NA spacing" ///
-    2 "1 birth, <2y spacing" ///
+    2 "1 birth, below 2y spacing" ///
     3 "1 birth, 2–3y spacing" ///
-    4 "1 birth, 3+y spacing" ///
-    5 "2 births, <2y spacing" ///
+    4 "1 birth, above 3y spacing" ///
+    5 "2 births, below 2y spacing" ///
     6 "2 births, 2–3y spacing" ///
-    7 "2 births, 3+y spacing" ///
-    8 "3+ births, <2y spacing" ///
+    7 "2 births, above 3y spacing" ///
+    8 "3+ births, below 2y spacing" ///
     9 "3+ births, 2–3y spacing" ///
-   10 "3+ births, 3+y spacing"
+   10 "3+ births, above 3y spacing"
 
 label values parity_bs parity_bs_lbl
 
