@@ -1,9 +1,15 @@
+//This do file assembles 
+
 use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 using $nfhs5ir, clear
 
-// keep currently married women
+// keep currently married women becasue the NFHS only asks childbearing questions to married women
 keep if v501==1 
 
-//generate months since last period
+//look at reported months of pregnancy; it is always missing if the woman does not report pregnancy
+tab v214, m
+tab v214 if v213==1, m
+
+//generate months since last period to fill in any cases who report pregnancy but not duration of pregnancy
 gen moperiod = .
 replace moperiod = 1 if v215>=101 & v215 <= 128 
 replace moperiod = 2 if v215>=129 & v215 <= 156 
@@ -24,33 +30,21 @@ replace moperiod = 9 if v215==309
 replace moperiod = 10 if v215==310 
 replace moperiod = 11 if v215==311 
 
-* compare to self reported duration of current pregnancy to the months since last period
-* it is different for about half the pregnant sample (45%) - the most common mismatch is when months since last period if 1 month greater than months of pregnancy
-gen diff = moperiod-v214 if v213==1
-tab diff
+//34 pregnant women have missing duration of pregnancy; 29 of them report months since last period
+count if mopreg == . & v213==1 
+count if mopreg==. & v213==1 & moperiod!=.
 
-* When v214 (months pregnant) is less than 2, it is a select group of women who detect and report their pregnancies early
-tab v214, m
-tab v214 if v213==1
-gen mopreg = v214
-
-*If the mother does not report the duration of the pregnancy but does report the months since last period, then use months since last period.
-*If months since last period is missing but months of pregnancy is not, then use month of pregnancy.
-count if mopreg == .if missing(v214) & v214>=2 & v213==1
-
-replace mopreg = moperiod if missing(v214) & v214>=2 & v213==1
-replace moperiod = v214 if missing(moperiod) & v214>=2 & v213==1
-replace moperiod=. if v213!=1
-
-// mopreg is gestional duration based on reported months of pregnancy -- only 6% of pregnant women report being 9 or more months pregnant by this measure
-// moperiod is gestational duration based on time since last period -- 11.3% of pregnant women report being 9 or more months pregnant by this measure.
+//replace duration of pregnancy with months since last period for 29 cases (0.1% of the pregnant sample)
+replace mopreg = moperiod if missing(v214) & v213==1
 
 *count women as pregnant if they are 3+ months pregnant to avoid selection
-gen preg= moperiod>=3 if !missing(moperiod) 
-replace preg=0 if preg==.
+gen preg= mopreg>=3 if !missing(mopreg) 
 
 * drop women who report that they are 1, 2 month pregnant 
-drop if moperiod==1 | moperiod==2
+drop if mopreg==1 | mopreg==2
+
+replace preg=0 if preg==.
+
 
 *This code should give the contraceptive use at the time of the survey for non-pregnant women and the contraceptive use before pregnancy for women who are currently pregnant.
 *It was written for NFHS-3, in which all of the codes for contraceptive use were numeric.
@@ -359,12 +353,5 @@ label define has_boylbl ///
 	1 "Has boy child"
 
 label values hasboy has_boylbl
-
-
-
-// do "dofiles/assemble data/additional reweighting variables.do"
-
-
-
 
 

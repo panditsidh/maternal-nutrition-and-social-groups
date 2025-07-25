@@ -1,9 +1,33 @@
 use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 using $nfhs5ir, clear
 
-// keep currently married women
+// keep currently married women becasue the NFHS only asks childbearing questions to married women
 keep if v501==1 
 
-//generate months since last period
+//This paper only analyzes data for women beloning to the following groups:
+*Adivasi and Dalit (all religions)
+*OBC (Hindu and Sikh)
+*Forward Caste (Hindu)
+*Muslim 
+//It does not include women who are Christians or Jains who do not identify as Dalit or Adivasi, and it does not include women who are Sikhs who do not identify as Adivasi, Dalit, or OBC.
+
+gen groups6 = .
+replace groups6 = 3 if s116 == 1  // Dalit
+replace groups6 = 4 if s116 == 2 // Adivasi
+replace groups6 = 5 if v130 == 2 & groups6==.   // Muslim
+replace groups6 = 6 if (v130 == 3| v130==4 | v130==6) & groups6==. // Christian, Sikh, Jain
+replace groups6 = 2 if (v130 == 1 |v130==4) & s116 == 3 // OBC - hindu and sikh
+replace groups6 = 1 if v130 == 1 & (s116 == 4 | s116==8 |s116==.) // Forward Caste
+
+drop if groups6==6
+drop if groups6==.
+
+gen forward = groups6==1
+gen obc = groups6==2
+gen dalit = groups6==3
+gen adivasi = groups6==4
+gen muslim = group==5
+
+//generate months since last period in order to exclude women who are 1 or 2 months pregnant from the analysis.
 gen moperiod = .
 replace moperiod = 1 if v215>=101 & v215 <= 128 
 replace moperiod = 2 if v215>=129 & v215 <= 156 
@@ -24,39 +48,39 @@ replace moperiod = 9 if v215==309
 replace moperiod = 10 if v215==310 
 replace moperiod = 11 if v215==311 
 
-* compare to self reported duration of current pregnancy to the months since last period
-* it is different for about half the pregnant sample (45%) - the most common mismatch is when months since last period if 1 month greater than months of pregnancy
-gen diff = moperiod-v214 if v213==1
-tab diff
+//months since last period is not reported for 1,274 women who also report pregnancy.  use self-reported "months pregnant" as a measure of gestational duration for those women.
+//this allows us to assign a gestational duration for all but 5 women who report pregnancy.
+count if moperiod==. & v213==1
+gen gestdur = moperiod
+replace gestdur = v214 if missing(moperiod) & v213==1
+tab gestdur if v213==1, m
 
-* When v214 (months pregnant) is less than 2, it is a select group of women who detect and report their pregnancies early
-tab v214, m
-tab v214 if v213==1
-gen mopreg = v214
+//create an appendix table to explain why we drop women who report 1, 2, or missing months of gestational duration.
+tab gestdur if v213==1, m
 
-*If the mother does not report the duration of the pregnancy but does report the months since last period, then use months since last period.
-*If months since last period is missing but months of pregnancy is not, then use month of pregnancy.
-count if mopreg == .if missing(v214) & v214>=2 & v213==1
+//for the purpose of computing synthetic prepregnancy underweight, we will count women as pregnant if they have gestational duration as 3 or more months.  Those who report 1 or 2 months, or no duration, are a select sample who know about their pregnancies earlier than others.
+drop if gestdur == 1 & v213==1
+drop if gestdur == 2 & v213==1
+drop if gestdur==. & v213==1
 
-replace mopreg = moperiod if missing(v214) & v214>=2 & v213==1
-replace moperiod = v214 if missing(moperiod) & v214>=2 & v213==1
-replace moperiod=. if v213!=1
+//Create a variable "preg" to distinguish between the two groups.
+gen preg = v213 == 1
+tab preg, m
 
-// mopreg is gestional duration based on reported months of pregnancy -- only 6% of pregnant women report being 9 or more months pregnant by this measure
-// moperiod is gestational duration based on time since last period -- 11.3% of pregnant women report being 9 or more months pregnant by this measure.
 
-*count women as pregnant if they are 3+ months pregnant to avoid selection
-gen preg= moperiod>=3 if !missing(moperiod) 
-replace preg=0 if preg==.
+//Now we create the variables that will be used to match pregnant and nonpregnant women on the following variables for the estimation of prepregnancy underweight.
+*contraceptive user (binary)
+*age (5 categories)
+*education (binary)
+*urban (binary)
+*parity and time since last birth (10 categories)
+*wealth (4 categories)
+// 
 
-* drop women who report that they are 1, 2 month pregnant 
-drop if moperiod==1 | moperiod==2
-
-*This code should give the contraceptive use at the time of the survey for non-pregnant women and the contraceptive use before pregnancy for women who are currently pregnant.
-*It was written for NFHS-3, in which all of the codes for contraceptive use were numeric.
-*In NFHS-5, "other modern contraception" is marked with an "X," but when I copy/pasted the data, no "Xs" were found.  So, it can be used as is.
-*We will drop nonpreg women who are sterilized or using modern contraception.
-*Could go back and make it a reweighting variable.
+*contraceptive user
+//This code identifies contraceptive use at the time of the survey for non-pregnant women and the contraceptive use before pregnancy for women who are currently pregnant.
+//The Stata code below only accomodates numeric options as answers for the contraceptive use questions. In the NFHS-5 women's questionnaire, "other modern contraception" is listed as an option denoted by an "X," but no "Xs" were recorded in the contraceptive calendars.  So, the code can be used as is.
+//We note that 1,554 pregnant women (7% of pregnant women) became pregnant while using a modern method.  337 (1.4%) of pregnant women became pregnant while sterilized.
 
 gen vcal_1_trim = trim(vcal_1)
 gen done = 0
@@ -73,32 +97,10 @@ replace modernmethod = 0 if answer==0
 replace modernmethod = 1 if answer>0 & answer <=8 
 
 gen sterilized = answer==1 | answer ==2
-
-***  non-pregnant women who are sterlized or using a modern method.
-*** Could use these data to look at the sterilization failure rate.  (343 women report being pregnant and sterilized by our variables.)
-***1,581 report being pregnant after using a modern method.
 gen c_user = (sterilized==1 | modernmethod==1)
 bysort v213: tab c_user
 
-* social group - leave out 6 (Christians, Sikhs, or Jains who are not SC/ST/OBC)
-gen groups6 = .
-replace groups6 = 3 if s116 == 1  // Dalit
-replace groups6 = 4 if s116 == 2 // Adivasi
-replace groups6 = 5 if v130 == 2 & groups6==.   // Muslim
-replace groups6 = 6 if (v130 == 3| v130==4 | v130==6) & groups6==. // Christian, Sikh, Jain
-replace groups6 = 2 if (v130 == 1 |v130==4) & s116 == 3 // OBC - hindu and sikh
-replace groups6 = 1 if v130 == 1 & (s116 == 4 | s116==8 |s116==.) // Forward Caste
-
-drop if groups6==6
-
-gen forward = groups6==1
-gen obc = groups6==2
-gen dalit = groups6==3
-gen adivasi = groups6==4
-gen muslim = group==5
-gen other_group = missing(groups6)
-
-* education vars
+* education
 gen edu = 0 if inlist(v106,0,1) // none or primary
 replace edu = 1 if v106==2 // secondary
 replace edu = 2 if v106==3 // higher
