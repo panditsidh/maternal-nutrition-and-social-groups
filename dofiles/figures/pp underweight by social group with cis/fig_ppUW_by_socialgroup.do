@@ -4,7 +4,7 @@ local rounds 5
 
 foreach round in `rounds' {
 	
-local round 5
+
 
 if `round'==3 {
 	use "data/bootstrapresults_full_nfhs3.dta", clear
@@ -36,7 +36,6 @@ foreach var in underweight {
 	
     preserve
 	
-	local var underweight
 	gen groups = 0 if groups6==4 // Adivasi
 	replace groups = 1 if groups6==3 // Dalit
 	// OBC is already 2
