@@ -32,23 +32,39 @@ reshape long preg pct_drop bins dropbins pct_zero count9plus bmi underweight wei
 foreach var in underweight weight gainhat bmi {
     
     preserve
+	
+	gen groups = 0 if groups6==4 // Adivasi
+	replace groups = 1 if groups6==3 // Dalit
+	// OBC is already 2
+	replace groups = 2 if groups6==2
+	replace groups = 3 if groups6==1 // Forward
+	replace groups = 4 if groups6==5 // Muslim
+	replace groups = 5 if groups6==0 // All 5 groups
 
     collapse (mean) mean=`var' ///
              (p5) lb=`var' ///
-             (p95) ub=`var', by(groups6)
+             (p95) ub=`var', by(groups)
 
     local prettyname = upper("`var'")
     if "`var'" == "underweight" local prettyname "Underweight Rate"
     if "`var'" == "weight" local prettyname "Prepregnancy Weight (kg)"
     if "`var'" == "gainhat" local prettyname "Pregnancy Weight Gain (kg)"
 
-    twoway (rcap ub lb groups6, lcolor(black)) ///
-           (scatter mean groups6, msymbol(circle) mcolor(black)), ///
-           xlabel(0 "all groups" 1 "Forward" 2 "OBC" 3 "Dalit" 4 "Adivasi" 5 "Muslim") ///
+//     twoway (rcap ub lb groups, lcolor(black)) ///
+//            (scatter mean groups, msymbol(circle) mcolor(black)), ///
+//            xlabel(0 "Adivasi" 1 "Dalit" 2 "OBC" 3 "Forward" 4 "Muslim" 5 "All groups") ///
+//            ytitle("`prettyname'") ///
+//            xtitle("Social Group") ///
+//            title("Pre-Pregnancy `prettyname' by Social Group - `round'") ///
+//            graphregion(color(white)) ///
+//            legend(off)
+
+    twoway (rcap ub lb groups, lcolor(black)) ///
+           (scatter mean groups, msymbol(circle) mcolor(black)), ///
+           xlabel(0 "Adivasi" 1 "Dalit" 2 "OBC" 3 "Forward" 4 "Muslim" 5 "All groups") ///
            ytitle("`prettyname'") ///
-           xtitle("Social Group") ///
-           title("Pre-Pregnancy `prettyname' by Social Group - `round'") ///
            graphregion(color(white)) ///
+		   xtitle("") ///
            legend(off)
 
     graph export "figures/bootstrapped_`var'_by_group_`round'.png", replace
