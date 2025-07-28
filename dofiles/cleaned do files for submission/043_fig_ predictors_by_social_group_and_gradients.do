@@ -1,8 +1,5 @@
 * This dofile generates the individual panels of the 6 panel figure and combines them
 
-do "dofiles/figures/pp underweight by social group with cis/panels bdf.do"
-
-do "dofiles/figures/distributions of predictors of underweight by social group/panels ace.do"
 
 
 * calculate sample sizes for figure notes

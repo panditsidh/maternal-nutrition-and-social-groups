@@ -1,7 +1,5 @@
 * This dofile generates the top row of panels in the 6 panel figure
 
-qui do "dofiles/reweight.do"
-
 * create a reordered social group variable 
 gen groups = 1 if groups6==4
 replace groups = 2 if groups6==3 
@@ -63,7 +61,6 @@ graph export "figures/parity distribution of pregnant women by social group.png"
 
 restore
 
-	
 ************* FIGURE B: prepregnancy underweight by parity ***************
 preserve
 
@@ -85,9 +82,11 @@ graph hbar (mean) bs_below2 bs_2to3 bs_above3 [aw=v005],
 	blabel(bar, format(%4.1f) position(inside) ) 
 	ytitle("Percent") 
     title("C. Distribution of pregnant women who have had " "at least one live birth by birth spacing", size(large)) 
-    note("n=`sample_size' (3+ month pregnant women who have at least 1 live birth)", size(medsmall)) 
+    note("n=`sample_size' (3+ month pregnant women who have at least 1 live birth)", size(medsmall)) ;
 # delimit cr
-	
+
+
+
 graph save "figures/c.gph", replace
 graph export "figures/birth spacing distribution of pregnant women by social group.png", replace
 	
@@ -109,10 +108,10 @@ graph hbar (mean) wealth1 wealth2 wealth3 wealth4 [aw=v005],
 	blabel(bar, format(%4.1f) position(inside) ) 
 	ytitle("Percent") 
     title("E. Distribution of pregnant women by wealth quartile") 
-	note("n=`sample_size' (3+ month pregnant women)", size(medsmall)) name(c, replace) 
+	note("n=`sample_size' (3+ month pregnant women)", size(medsmall)) name(c, replace) ;
+# delimit cr
 graph save "figures/e.gph", replace
 graph export "figures/wealth distribution of pregnant women by social group.png", replace
-# delimit cr
 
 restore
 

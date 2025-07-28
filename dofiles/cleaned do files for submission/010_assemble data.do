@@ -4,8 +4,10 @@ use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s
 egen strata = group(v000 v024 v025) 
 egen psu = group(v000 v001 v024 v025)
 
-// keep currently married women becasue the NFHS only asks childbearing questions to married women
+// keep currently married women because the NFHS only asks childbearing questions to married women
 keep if v501==1 
+
+********************************* SOCIAL GROUP *********************************
 
 //This paper only analyzes data for women beloning to the following groups:
 *Adivasi and Dalit (all religions)
@@ -13,7 +15,6 @@ keep if v501==1
 *Forward Caste (Hindu)
 *Muslim 
 //It does not include women who are Christians or Jains who do not identify as Dalit or Adivasi, and it does not include women who are Sikhs who do not identify as Adivasi, Dalit, or OBC.
-
 gen groups6 = .
 replace groups6 = 3 if s116 == 1  // Dalit
 replace groups6 = 4 if s116 == 2 // Adivasi
@@ -39,6 +40,10 @@ label define grouplbl ///
     5 "Muslim" 
 label values groups6 grouplbl
 
+
+
+
+**************************** GESTATIONAL DURATION ******************************
 
 //generate months since last period in order to exclude women who are 1 or 2 months pregnant from the analysis.
 gen moperiod = .
@@ -81,6 +86,9 @@ gen preg = v213 == 1
 tab preg, m
 
 
+
+**************************** CONTRACEPTIVE USE ********************************
+
 //Create the variables that will be used to match pregnant and nonpregnant women for the estimation of prepregnancy underweight.
 *contraceptive user (binary)
 *age (4 categories)
@@ -119,28 +127,8 @@ label define c_userlbl ///
 label values c_user c_userlbl
 
 
-*education
-//this is a binary indicator for whether the woman's highest completed grade is "no education" or in the "primary" grades.
-//it is not missing for any of the pregnant or nonpregnant women.
-gen less_edu = inlist(v106,0,1)
-tab less_edu, m
 
-label define lessedulbl ///
-    0 "none or incomplete primary education" ///
-    1 "primary education or higher" 
-label values less_edu lessedulbl
-
-
-* rural resident
-//it is not missing for any of the pregnant or nonpregnant women.
-gen rural = v025==2
-tab rural, m
-
-label define rurallbl ///
-    0 "not a rural resident" ///
-    1 "rural resident" 
-label values rural rurallbl
-
+**************************** BIRTH HISTORY ********************************
 
 * has living boy
 //v202 is "sons at home"
@@ -176,6 +164,13 @@ gen parity = bord_01 + 1 if !missing(bord_01)
 replace parity = 1 if missing(bord_01)
 replace parity = 4 if parity>=4 
 
+gen parity0 = parity==0
+gen parity1 = parity==1
+gen parity2 = parity==2
+gen parity3 = parity==3
+gen parity4 = parity==4
+
+
 //birth spacing is time between last delivery and interview for non-pregnant women and time between last delivery and estimated conception of current pregnancy for pregnant women
 //it is only defined for women that have had at least one live birth
 //v008 is the date of the interview and b3 is the date of birth of the child
@@ -199,7 +194,6 @@ label define paritylbl ///
 	3 "3 (2 live births)" ///
 	4 "4+ (3+ live births)" 	
 label values parity paritylbl
-
 
 label define birth_space_catlbl /// 
 	1 "under 2 years" ///
@@ -239,6 +233,34 @@ label define parity_bs_lbl ///
     9 "3+ births, 2–3y spacing" ///
    10 "3+ births, 3+y spacing"
 label values parity_bs parity_bs_lbl
+
+
+
+**************************** SOCIOECONOMIC ************************************
+
+*education
+//this is a binary indicator for whether the woman's highest completed grade is "no education" or in the "primary" grades.
+//it is not missing for any of the pregnant or nonpregnant women.
+gen less_edu = inlist(v106,0,1)
+tab less_edu, m
+
+label define lessedulbl ///
+    0 "none or incomplete primary education" ///
+    1 "primary education or higher" 
+label values less_edu lessedulbl
+
+
+* rural resident
+//it is not missing for any of the pregnant or nonpregnant women.
+gen rural = v025==2
+tab rural, m
+
+label define rurallbl ///
+    0 "not a rural resident" ///
+    1 "rural resident" 
+label values rural rurallbl
+
+
 
 *wealth (4)
 //it is not missing for any of the pregnant or nonpregnant women.
