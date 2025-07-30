@@ -279,6 +279,8 @@ label define wealthlbl ///
     4 "4th quartile" 
 label values wealth wealthlbl
 
+**************************** OUTCOME ************************************
+
 
 //Our outcome variable is "underweight," defined as having a BMI less than 18.5.
 gen bmi = v445 if v445!=9998 & v445!= 9999

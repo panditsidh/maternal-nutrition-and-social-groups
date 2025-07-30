@@ -1,21 +1,6 @@
 ** This do-file graphs underweight, weight, and gainhat with bootstrapped CIs
 
-
-* @DIANE: should I make this just for NFHS-5 to keep the code simpler? or would we show the change from NFHS-3 in an appendix
-
-
-local rounds 5
-
-foreach round in `rounds' {
-
-if `round'==3 {
-	use "data/bootstrapresults_full_nfhs3.dta", clear
-}
-
-
-else {
-	use "data/bootstrapresults_full.dta", clear
-}
+use "data/bootstrapresults_full.dta", clear
 
 reshape long preg pct_drop bins dropbins pct_zero count9plus bmi underweight weight nineweighthat coeffhat gainhat, ///
     i(iteration) j(groups6)

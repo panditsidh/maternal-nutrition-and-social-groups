@@ -1,4 +1,4 @@
-* this do file takes about 5 hours to run, uses bootstrapping to estimate pre-pregnancy outcomes by social group, predictors, and for all India with confidence intervals
+*This do file creates bootstrapped confidence intervals for estimates of maternal nutrition outcomes by social group and for the five social groups studied in the paper combined. It also creates bootstrapped confidences intervals for estimates of maternal nutrition outcomes by parity, birth spacing category, parity + birthspacing category, and wealth quartile. It takes about 5 hours to run. 
 
 set more off 
 clear all
@@ -12,7 +12,7 @@ local B = 1000 //how many times to bootstrap
 * initialize results dataset and results we want from each iteration
 set obs 20000
 
-* create variables to store outcomes for all social groups (0)
+* create variables to store outcomes for all five social groups combined (0)
 gen bmi0 = .
 gen underweight0 = .
 gen weight0 = .
@@ -37,10 +37,10 @@ foreach g of numlist 1/5 {
 	gen nineweighthat`g' = .
 	gen coeffhat`g' = .
 	gen gainhat`g' = .
-	
+		
 }
 
-* create variables to store outcomes by predictor variables
+* create variables to store outcomes by predictor variables (parity, birth spacing category, parity + birthspacing category, and wealth quartile)
 foreach p in 1 2 3 4 {
 	
 	gen underweight_parity`p' = .
@@ -72,6 +72,8 @@ save "data/bootstrapresults_full.dta", replace
 * starting point for each bootstrap iteration
 qui do "dofiles/assemble data/00_assemble prepreg sample.do"
 tempfile prepared_dataset
+
+*rural Chandigarh has only 13 observations, 2 of whom are pregnant, so we combine with urban Chandigarh
 replace strata = 7 if strata==8
 save `prepared_dataset'
 
