@@ -2,6 +2,8 @@ use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s
 
 //generate variables for analyzing surveys with complex designs
 egen strata = group(v000 v024 v025) 
+*Rural Chandigarh has a very small number of observations, so we combine with urban Chandigarh.
+replace strata = 7 if strata==8
 egen psu = group(v000 v001 v024 v025)
 
 // keep currently married women because the NFHS only asks childbearing questions to married women
@@ -136,11 +138,14 @@ label values c_user c_userlbl
 //it is not missing for any pregnant or nonpregnant women
 gen hasboy = v202 >0 & v202!=.
 replace hasboy = 1 if v204 >0 & v204!=.
+gen noboy = hasboy
+recode noboy (1=0) (0=1)
+tab hasboy noboy, m
 
-label define hasboylbl ///
-    0 "does not have boy child" ///
-    1 "has at least one boy child" 
-label values hasboy hasboylbl
+label define noboylbl ///
+    1 "does not have boy child" ///
+    0 "has at least one boy child" 
+label values noboy noboylbl
 
 *age
 gen agebin = .
@@ -281,7 +286,6 @@ label values wealth wealthlbl
 
 **************************** OUTCOME ************************************
 
-
 //Our outcome variable is "underweight," defined as having a BMI less than 18.5.
 gen bmi = v445 if v445!=9998 & v445!= 9999
 replace bmi = bmi/100
@@ -293,3 +297,4 @@ gen weight = v437
 replace weight =. if v437>9990
 replace weight =weight/10
 
+save "data\prepared_dataset.dta", replace

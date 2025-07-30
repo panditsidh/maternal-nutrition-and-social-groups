@@ -73,8 +73,6 @@ save "data/bootstrapresults_full.dta", replace
 qui do "dofiles/assemble data/00_assemble prepreg sample.do"
 tempfile prepared_dataset
 
-*rural Chandigarh has only 13 observations, 2 of whom are pregnant, so we combine with urban Chandigarh
-replace strata = 7 if strata==8
 save `prepared_dataset'
 
 * bootstrapping loop start
