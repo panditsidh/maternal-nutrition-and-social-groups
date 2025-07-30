@@ -10,7 +10,7 @@ if "`c(username)'" == "sidhpandit" {
 	global nfhs5br "/Users/sidhpandit/Desktop/nfhs/nfhs5br/IABR7EFL.DTA"
 	global dataset "/Users/sidhpandit/Dropbox/maternal nutrition by social group/data/prepared_dataset.dta"
 
-	* cd
+	cd "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups"
 	
 }
 

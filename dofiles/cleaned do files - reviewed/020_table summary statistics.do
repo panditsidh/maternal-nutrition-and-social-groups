@@ -1,7 +1,7 @@
 * This file computes summary statistics and arranges them in a latex table.
 * We first create a matrix of all calculated quantities of interest then use svmat to format it into strings, and listtex to export to latex
 
-use "prepared_dataset.dta", clear
+use "$dataset", clear
 
 gen blank = .
 
@@ -72,17 +72,17 @@ matrix results_all = results_1, results_0
 
 matrix colnames results_all = ///
     mean_india_p  ///
-    mean_adivasi_p  ///
-    mean_dalit_p  ///
-    mean_obc_p  ///
-    mean_muslim_p  ///
     mean_forward_p  ///
+    mean_obc_p  ///
+    mean_dalit_p  ///
+    mean_adivasi_p_p  ///
+    mean_muslim_p  ///
     mean_india_np  ///
-    mean_adivasi_np  ///
-    mean_dalit_np  ///
+    mean_forward_np  ///
     mean_obc_np  ///
-    mean_muslim_np  ///
-    mean_forward_np 	
+    mean_dalit_np  ///
+    mean_adivasi_np  ///
+    mean_muslim_np 	
 
 
 * use svmat to bring the matrix into the stata data environment and edit strings from there
