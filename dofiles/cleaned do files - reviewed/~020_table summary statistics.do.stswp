@@ -157,7 +157,7 @@ foreach var of varlist ci_* {
 drop if missing(insert_blank)
 drop is_header order insert_blank
 
-
+drop if _n>31
 
 
 * export results
