@@ -34,13 +34,13 @@ gen dalit = groups==3
 gen adivasi = groups==4
 gen muslim = groups==5
 
-label define grouplbl ///
+label define groupslbl ///
     1 "Forward" ///
     2 "OBC" ///
     3 "Dalit" ///
     4 "Adivasi" ///
     5 "Muslim" 
-label values groups grouplbl
+label values groups groupslbl
 
 
 

@@ -1,5 +1,7 @@
 * this file creates the regression table
 
+// use "$dataset", clear
+
 
 #delimit ;
 reghdfe preg
@@ -25,7 +27,7 @@ reghdfe preg
 	i.noboy
 	i.agebin
 	i.parity_bs
-	i.wealth if groups==`g', cluster(psu);
+	i.wealth if group==`g', cluster(psu);
 #delimit cr	
 
 
@@ -45,7 +47,7 @@ esttab model4 model3 model2 model5 model1 model0,
     label se star(* 0.05 ** 0.01)
 	b(a3) se(a3)
 	stats(N, fmt(%15.0fc) label(N))
-	mtitle("Adivasi" "Dalit" "OBC" "Muslim" "Forward" "All 5 Social Groups");
+	mtitle("Adivasi" "Dalit" "OBC" "Forward" "Muslim" "All 5 Social Groups");
 	
 
 #delimit ;
@@ -54,10 +56,10 @@ esttab model4 model3 model2 model5 model1 model0 using "tables/predictor_regress
 	refcat(1.not_c_user "\textbf{Binary predictors of pregnancy and underweight}" 2.agebin "\textbf{Age categories}" 2.parity_bs "\textbf{Parity \& time since last live birth categories}" 2.wealth "\textbf{Wealth categories}", nolabel)
     drop(0.not_c_user 0.less_edu 0.rural 0.noboy 1.agebin 1.parity_bs 1.wealth) 
 	nonumbers 
-    label se star(* 0.1 ** 0.05 *** 0.01)
+    label se star(* 0.5 ** 0.01)
 	b(a3) se(a3)
 	stats(N, fmt(%15.0fc) label(N))
-	mtitle("Adivasi" "Dalit" "OBC" "Muslim" "Forward" "\shortstack{All five\\social groups}")
+	mtitle("Adivasi" "Dalit" "OBC" "Forward" "Muslim" "\shortstack{All five\\social groups}")
 	booktabs 
 	substitute("Uses modern contraception" "\hspace*{1em}Uses modern contraception" ///
            "None or incomplete primary education" "\hspace*{1em}None or incomplete primary education" ///

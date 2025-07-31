@@ -3,6 +3,9 @@
 
 // use "$dataset", clear
 
+*groups forward obc dalit adivasi muslim
+*group adivasi dalit obc forward muslim
+
 gen blank = .
 gen group = 1 if groups==4
 replace group = 2 if groups==3
