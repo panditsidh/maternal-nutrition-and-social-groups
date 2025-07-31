@@ -12,16 +12,71 @@ columns: mean ll ul for every outcome
 
 ** clean up this part so that there's consistent variable naming 
 
-replace birth_space_cat = . if birth_space_cat == 9 
-rename birth_space_cat bs
-gen allfivegroups = 1
-rename groups6 group
-gen gainhat = .
+//
+// * right now, the varnames in bootstrap results dataset are coded according to the old groups6 variable
+// * let's fix that
+//
+// use "data/bootstrapresults_full.dta", clear
+//
+// foreach outcome in bmi underweight weight nineweighthat coeffhat gainhat preg pct_drop bins dropbins pct_zero count9plus {
+//	
+//	
+// 	// forward 
+// 	rename `outcome'_group1 `outcome'_temp4
+//	
+// 	// OBC
+// 	rename `outcome'_group2 `outcome'_temp3
+//	
+// 	// Dalit
+// 	rename `outcome'_group3 `outcome'_temp2
+//	
+// 	// Adivasi
+// 	rename `outcome'_group4 `outcome'_temp1
+//	
+//	
+//	
+//	
+// 	rename `outcome'_temp1 `outcome'_group1
+// 	rename `outcome'_temp2 `outcome'_group2
+// 	rename `outcome'_temp3 `outcome'_group3
+// 	rename `outcome'_temp4 `outcome'_group4
+//	
+//	
+//	
+// }
+//
+// save, replace
+
+
+
+
+
+
+
+//
+// label define grouplbl ///
+//     1 "Adivasi" ///
+//     2 "Dalit" ///
+//     3 "OBC" ///
+//     4 "Forward" ///
+//     5 "Muslim" 
+// label values group grouplbl
+//
+//
+// label define groups6lbl ///
+//     1 "Forward" ///
+//     2 "OBC" ///
+//     3 "Dalit" ///
+//     4 "Adivasi" ///
+//     5 "Muslim" 
+// label values groups6 groups6lbl
+//
+
 
 
 
 * todo: add the other outcomes: overweight, obesity, weight gain method 1, weight gain method 2
-local outcomes bmi weight underweight gainhat
+local outcomes bmi weight underweight 
 
 
 matrix results = J(17, `=3 * wordcount("`outcomes'")', .)

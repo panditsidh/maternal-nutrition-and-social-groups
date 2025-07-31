@@ -41,7 +41,7 @@ gen dalit = group==2
 gen obc = group==3
 gen forward = group==4
 gen muslim = group==5
-
+gen allfivegroups = 1
 
 
 ***** old groups6 coding, I've kept it in case of dependencies I haven't fixed yet
@@ -205,16 +205,15 @@ gen parity4 = parity==4
 gen birth_space = (v008 - b3_01) + 9 if preg==0 & !missing(b3_01)
 replace birth_space = (v008 - b3_01) + (9-gestdur) if preg==1 & !missing(b3_01)
 
-gen birth_space_cat = .
-replace birth_space_cat = 1 if birth_space < 24
-replace birth_space_cat = 2 if inrange(birth_space, 24, 36)
-replace birth_space_cat = 3 if birth_space > 36
-replace birth_space_cat = 9 if parity<2 // so that it can still be a reweighting bin
+gen bs = .
+replace bs = 1 if birth_space < 24
+replace bs = 2 if inrange(birth_space, 24, 36)
+replace bs = 3 if birth_space > 36
 
-gen bs_below2 = birth_space_cat==1
-gen bs_2to3 = birth_space_cat==2
-gen bs_above3 = birth_space_cat==3
-gen bs_noprior = birth_space_cat==9
+gen bs_below2 = bs==1
+gen bs_2to3 = bs==2
+gen bs_above3 = bs==3
+gen bs_noprior = bs==9
 
 label define paritylbl ///
     1 "1 (no live births)" ///
@@ -223,12 +222,11 @@ label define paritylbl ///
 	4 "4+ (3+ live births)" 	
 label values parity paritylbl
 
-label define birth_space_catlbl /// 
+label define bslbl /// 
 	1 "under 2 years" ///
 	2 "2-3 years" ///
 	3 "over 3 years" ///
- 	9 "no previous birth" 
-label values birth_space_cat birth_space_catlbl
+label values bs bslbl
 
 //now generate a variable that combines parity and birth spacing
 gen parity_bs = .
@@ -239,7 +237,7 @@ foreach p of numlist 2/4 {
 	
 	foreach b of numlist 1/3 {
 		
-		replace parity_bs = `i' if parity==`p' & birth_space_cat==`b'		
+		replace parity_bs = `i' if parity==`p' & bs==`b'		
 		local i = `i' + 1
 	}
 }

@@ -94,7 +94,7 @@ bsample, strata(strata) cluster(psu)
 * @DIANE: I could replace this section of the code by just calling 020
 
 * generate bins for reweighting (within social group and parity)
-egen bin = group(c_user agebin less_edu urban hasboy wealth parity_bs groups6)
+egen bin = group(c_user agebin less_edu urban hasboy wealth parity_bs group)
 gen counter=1
 
 // binvars
@@ -140,11 +140,11 @@ foreach g of numlist 1/5 {
 	******** get reweighting diagnostics ********
 	
 	* number of bins per social group
-	distinct bin if groups6==`g'
+	distinct bin if group==`g'
 	local bins`g' = r(ndistinct)
 	
 	* percent pregnant per social group
-	sum preg if groups6==`g'
+	sum preg if group==`g'
 	local preg`g' = r(mean)
 	
 	
@@ -153,15 +153,15 @@ foreach g of numlist 1/5 {
 	local dropbins`g' = r(N)
 	
 	* percent pregnant dropped within social group
-	sum dropbin if preg==1 & groups6==`g'
+	sum dropbin if preg==1 & group==`g'
 	local pct_drop`g' = r(mean)
 	
 	* percent of nonpregnant women in bins without pregnant women (reweighted to zero)
-	sum zerobin if groups6==`g' & preg==0
+	sum zerobin if group==`g' & preg==0
 	local pct_zero`g' = r(mean)
 	
 	* count of nine plus pregnant women per social group
-	count if mopreg>=9 & mopreg!=. & groups6==`g'
+	count if mopreg>=9 & mopreg!=. & group==`g'
 	local count9plus`g' = r(N)
 	
 	
@@ -169,16 +169,16 @@ foreach g of numlist 1/5 {
 	
 	
 	foreach var of varlist bmi underweight weight {
-		qui sum `var' [aw=reweightingfxn] if preg==0 & groups6==`g' & dropbin!=1
+		qui sum `var' [aw=reweightingfxn] if preg==0 & group==`g' & dropbin!=1
 		local `var'`g' = r(mean)
 	}
 	
 	* calculate weight at 9+ mopreg
-	qui sum weight [aw=v005] if mopreg>=9 & mopreg!=. & groups6==`g'
+	qui sum weight [aw=v005] if mopreg>=9 & mopreg!=. & group==`g'
 	local nineweighthat`g' = r(mean)
 	
 	* get beta from weight on mopreg regression
-	qui reg weight mopreg i.v012 i.v133 i.v218 i.urban i.v190 i.v024##v006 [aw=v005] if groups6==`g'& inrange(mopreg,3,9)
+	qui reg weight mopreg i.v012 i.v133 i.v218 i.urban i.v190 i.v024##v006 [aw=v005] if group==`g'& inrange(mopreg,3,9)
 	local coeffhat`g' = _b[mopreg]
 
 	

@@ -1,21 +1,5 @@
 * This dofile generates the top row of panels in the 6 panel figure
 
-* create a reordered social group variable 
-gen groups = 1 if groups6==4
-replace groups = 2 if groups6==3 
-replace groups = 3 if groups6==2
-replace groups = 4 if groups6==1 
-replace groups = 5 if groups6==5 
-
-label define groupslbl ///
-    1 "Adivasi" ///
-    2 "Dalit" ///
-    3 "OBC" ///
-    4 "Forward" ///
-    5 "Muslim"
-
-label values groups grouplbl
-
 * rescale outcome variables so they show up as percents
 replace parity1 = parity1*100
 replace parity2 = parity2*100
@@ -46,7 +30,7 @@ local sample_size : display %15.0fc r(N)
 
 #delimit ;
 graph hbar (mean) parity1 parity2 parity3 parity4 [aw=v005], 
-    over(groups, label(angle(0))) 
+    over(group, label(angle(0))) 
     stack 
     legend(order(1 "Parity 1" 2 "Parity 2" 3 "Parity 3" 4 "Parity 4+") 
        cols(4) pos(6) region(lstyle(none))) 
@@ -75,7 +59,7 @@ local sample_size : display %15.0fc r(N)
 
 # delimit ;
 graph hbar (mean) bs_below2 bs_2to3 bs_above3 [aw=v005], 
-    over(groups) 
+    over(group) 
     stack 
 	legend(order(1 "below 2 years" 2 "2-3 years" 3 "above 3 years") 
        cols(4) pos(6) region(lstyle(none))) 
@@ -101,7 +85,7 @@ keep if preg==1
 
 #delimit ;
 graph hbar (mean) wealth1 wealth2 wealth3 wealth4 [aw=v005], 
-    over(groups) 
+    over(group) 
     stack 
 	legend(order(1 "1st quartile" 2 "2nd quartile" 3 "3rd quartile" 4 "4th quartile") 
        cols(4) pos(6) region(lstyle(none))) 
