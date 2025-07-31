@@ -177,7 +177,7 @@ replace agebin = 2 if inrange(v012, 20, 24)     // Highest fertility
 replace agebin = 3 if inrange(v012, 25, 29)     // Lower fertility
 replace agebin = 4 if inrange(v012, 30, 49)     // Lowest fertility
 
-label define agebinlbl 1 "15–19" 2 "20–24" 3 "25–29" 4 "30–34" 5 "35–49"
+label define agebinlbl 1 "15–19" 2 "20–24" 3 "25–29" 4 "30–49"
 label values agebin agebinlbl
 
 gen age1519 = agebin==1
@@ -213,7 +213,7 @@ replace bs = 3 if birth_space > 36
 gen bs_below2 = bs==1
 gen bs_2to3 = bs==2
 gen bs_above3 = bs==3
-gen bs_noprior = bs==9
+gen bs_noprior = parity<2
 
 label define paritylbl ///
     1 "1 (no live births)" ///
