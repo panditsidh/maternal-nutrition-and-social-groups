@@ -225,7 +225,8 @@ label values parity paritylbl
 label define bslbl /// 
 	1 "under 2 years" ///
 	2 "2-3 years" ///
-	3 "over 3 years" ///
+	3 "over 3 years" 
+
 label values bs bslbl
 
 //now generate a variable that combines parity and birth spacing

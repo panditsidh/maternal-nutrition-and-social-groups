@@ -1,5 +1,10 @@
 //This file creates the weights that are used in the 
 
+
+
+use "$dataset", clear
+
+
 * ----------- PARAMETERS-----------
 local binvars c_user agebin less_edu rural hasboy wealth parity_bs group
 * ----------------------------------------------------
