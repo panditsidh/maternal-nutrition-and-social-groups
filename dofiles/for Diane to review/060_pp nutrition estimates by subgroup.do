@@ -7,76 +7,11 @@ columns: mean ll ul for every outcome
 */
 
 
-
-
-
-** clean up this part so that there's consistent variable naming 
-
-//
-// * right now, the varnames in bootstrap results dataset are coded according to the old groups6 variable
-// * let's fix that
-//
-// use "data/bootstrapresults_full.dta", clear
-//
-// foreach outcome in bmi underweight weight nineweighthat coeffhat gainhat preg pct_drop bins dropbins pct_zero count9plus {
-//	
-//	
-// 	// forward 
-// 	rename `outcome'_group1 `outcome'_temp4
-//	
-// 	// OBC
-// 	rename `outcome'_group2 `outcome'_temp3
-//	
-// 	// Dalit
-// 	rename `outcome'_group3 `outcome'_temp2
-//	
-// 	// Adivasi
-// 	rename `outcome'_group4 `outcome'_temp1
-//	
-//	
-//	
-//	
-// 	rename `outcome'_temp1 `outcome'_group1
-// 	rename `outcome'_temp2 `outcome'_group2
-// 	rename `outcome'_temp3 `outcome'_group3
-// 	rename `outcome'_temp4 `outcome'_group4
-//	
-//	
-//	
-// }
-//
-// save, replace
-
-
-
-
-
-
-
-//
-// label define grouplbl ///
-//     1 "Adivasi" ///
-//     2 "Dalit" ///
-//     3 "OBC" ///
-//     4 "Forward" ///
-//     5 "Muslim" 
-// label values group grouplbl
-//
-//
-// label define groups6lbl ///
-//     1 "Forward" ///
-//     2 "OBC" ///
-//     3 "Dalit" ///
-//     4 "Adivasi" ///
-//     5 "Muslim" 
-// label values groups6 groups6lbl
-//
-
-
+* we're adding gainhatm1 and gainhatm2 so create those in bootstrapresults dta
 
 
 * todo: add the other outcomes: overweight, obesity, weight gain method 1, weight gain method 2
-local outcomes bmi weight underweight 
+local outcomes bmi weight underweight gainhat_m1 gainhat_m2
 
 
 matrix results = J(17, `=3 * wordcount("`outcomes'")', .)
@@ -99,7 +34,7 @@ matrix colnames results = `colnames'
 
 local row = 1
 
-foreach overvar in allfivegroups group parity bs wealth {
+foreach overvar in allfivegroups group parity bs wealth  {
 	
 	levelsof(`overvar'), local(levels)
 	
@@ -109,11 +44,49 @@ foreach overvar in allfivegroups group parity bs wealth {
 		
 		local col = 1
 		foreach outcome in `outcomes' {
+			
+			
+			if "`outcome'"=="gainhat_m1" {
+				matrix results[`row', `col'] = .
+				
+				qui reg weight gestdur i.v012 i.v133 i.v218 i.rural i.v190 i.v024##v006 [aw=v005] ///
+				if `overvar'==`i' & inrange(gestdur,3,9)
+				local coeffhat_`overvar'`i' = _b[gestdur]
+				
+				// Method 1: 6 months * beta, plus 10% first trimester assumption
+				local gainhat_`overvar'`i' = 1.1 * 6 * `coeffhat_`overvar'`i''
+				
+				matrix results[`row', `col'] = `gainhat_`overvar'`i''
+			}
+			
+			if "`outcome'"=="gainhat_m2" {
+				
+				qui sum weight [aw=reweightingfxn] if preg==0 & `overvar'==`i' & dropbin!=1
+				local weight_`overvar'`i' = r(mean)
+				
+				
+				* calculate weight at 9+ mopreg
+				qui sum weight [aw=v005] if gestdur>=9 & gestdur!=. & `overvar'==`i'
+				local nineweighthat_`overvar'`i' = r(mean)
+				
+				* get beta from weight on mopreg regression
+				qui reg weight gestdur i.v012 i.v133 i.v218 i.rural i.v190 i.v024##v006 [aw=v005] if `overvar'==`i'& inrange(gestdur,3,9)
+				local coeffhat_`overvar'`i' = _b[gestdur]
+				
+				
+				local gainhat_`overvar'`i' = `nineweighthat_`overvar'`i''-`weight_`overvar'`i''+(0.5)*`coeffhat_`overvar'`i''
+				
+				matrix results[`row', `col'] = `gainhat_`overvar'`i''
+				
+			}
+			
+			if strpos("`outcome'", "gainhat")==0 {
 
-			qui sum `outcome' if `overvar'==`i' & preg==0 [aw=reweightingfxn]
+				qui sum `outcome' if `overvar'==`i' & preg==0 [aw=reweightingfxn]
+				
+				matrix results[`row', `col'] = r(mean)
 			
-			matrix results[`row', `col'] = r(mean)
-			
+			}
 					
 			
 			preserve
@@ -168,12 +141,11 @@ end
 
 svmat results, names(col)
 
-keep rows-gainhat_ul
 
 drop if missing(rows)
 
-*local outcomes bmi weight underweight gainhat
-*local last_outcome : word `=wordcount("`outcomes'")' of `outcomes'
-*keep rows-`last_outcome'_ul
+local outcomes bmi weight underweight gainhat_m1 gainhat_m2
+local last_outcome : word `=wordcount("`outcomes'")' of `outcomes'
+keep rows-`last_outcome'_ul
 
 save "data/results.dta", replace

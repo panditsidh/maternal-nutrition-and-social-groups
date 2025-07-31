@@ -313,6 +313,8 @@ gen bmi = v445 if v445!=9998 & v445!= 9999
 replace bmi = bmi/100
 
 gen underweight = bmi<18.5
+gen overweight = bmi>25 
+gen obesity = bmi>30
 
 //We may use measured weight as an outcome in supplementary analyses.
 gen weight = v437
