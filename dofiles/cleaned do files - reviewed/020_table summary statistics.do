@@ -1,9 +1,16 @@
 * This file computes summary statistics and arranges them in a latex table.
 * We first create a matrix of all calculated quantities of interest then use svmat to format it into strings, and listtex to export to latex
 
-use "$dataset", clear
+// use "$dataset", clear
 
 gen blank = .
+gen group = 1 if groups6==4
+replace group = 2 if groups6==3
+replace group = 3 if groups6==2
+replace group = 4 if groups6==1
+replace group = 5 if groups6==5
+
+
 
 svyset psu [pw=v005], strata(strata) singleunit(centered)
 
@@ -37,7 +44,7 @@ foreach var in `varlist' {
         if "`var'"!="blank" {
 						
 			if `g'==0 quietly svy: mean `var' if preg==`i'
-			if `g'!=0 quietly svy: mean `var' if groups==`g' & preg==`i'
+			if `g'!=0 quietly svy: mean `var' if group==`g' & preg==`i'
 		
             matrix temp = r(table)
             
@@ -59,7 +66,7 @@ foreach var in `varlist' {
 	foreach g of numlist 0/5 {
 		
 		if `g' == 0 count if preg==`i'
-		if `g' != 0 count if preg==`i' & groups==`g'
+		if `g' != 0 count if preg==`i' & group==`g'
 		matrix results_`i'[`row', `col'] = r(N)
 		local col = `col' + 1
 		
@@ -72,18 +79,17 @@ matrix results_all = results_1, results_0
 
 matrix colnames results_all = ///
     mean_india_p  ///
-    mean_forward_p  ///
-    mean_obc_p  ///
+    mean_adivasi_p  ///
     mean_dalit_p  ///
-    mean_adivasi_p_p  ///
+    mean_obc_p  ///
+    mean_forward_p  ///
     mean_muslim_p  ///
     mean_india_np  ///
-    mean_forward_np  ///
-    mean_obc_np  ///
-    mean_dalit_np  ///
     mean_adivasi_np  ///
-    mean_muslim_np 	
-
+    mean_dalit_np  ///
+    mean_obc_np  ///
+    mean_forward_np  ///
+    mean_muslim_np 
 
 * use svmat to bring the matrix into the stata data environment and edit strings from there
 input str100 rows

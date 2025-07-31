@@ -13,56 +13,55 @@ local B = 1000 //how many times to bootstrap
 set obs 20000
 
 * create variables to store outcomes for all social groups (0)
-gen bmi0 = .
-gen underweight0 = .
-gen weight0 = .
-gen nineweighthat0 = .
-gen coeffhat0 = .
-gen gainhat0 = .
+gen bmi_allfivegroups1 = .
+gen underweight_allfivegroups1 = .
+gen weight_allfivegroups1 = .
+gen nineweighthat_allfivegroups1 = .
+gen coeffhat_allfivegroups1 = .
+gen gainhat_allfivegroups1 = .
 
 * create variables by social group (1-5)
 foreach g of numlist 1/5 {
 	* reweighting diagnostics
-	gen preg`g' = .
-	gen pct_drop`g' = .
-	gen bins`g' = .
-	gen dropbins`g' = .
-	gen pct_zero`g' = .
-	gen count9plus`g' = .
+	gen preg_group`g' = .
+	gen pct_drop_group`g' = .
+	gen bins_group`g' = .
+	gen dropbins_group`g' = .
+	gen pct_zero_group`g' = .
+	gen count9plus_group`g' = .
 	
 	* outcomes by social group
-	gen bmi`g' = .
-	gen underweight`g' = .
-	gen weight`g' = .
-	gen nineweighthat`g' = .
-	gen coeffhat`g' = .
-	gen gainhat`g' = .
+	gen bmi_group`g' = .
+	gen underweight_group`g' = .
+	gen weight_group`g' = .
+	gen nineweighthat_group`g' = .
+	gen coeffhat_group`g' = .
+	gen gainhat_group`g' = .
 	
 }
 
 * create variables to store outcomes by predictor variables
-foreach p in 1 2 3 4 {
+
+foreach overvar in parity bs parity_bs wealth {
 	
-	gen underweight_parity`p' = .
+	if "`overvar'"=="parity" local levels 1 2 3 4
+	if "`overvar'"=="bs" local levels 1 2 3
+	if "`overvar'"=="parity_bs" local levels 1 2 3 4 5 6 7 8 9 10
+	if "`overvar'"=="wealth" local levels 1 2 3 4 
+	
+	foreach outcome in underweight bmi weight nineweighthat coeffhat gainhat {
+		
+		foreach i in `levels' {
+			
+			gen `outcome'_`overvar'`i' = .
+		}
+	}
 }
 
 
-foreach b in 1 2 3 9 {
-	
-	gen underweight_bs`b' = .
-}
 
 
-foreach pb in 1 2 3 4 5 6 7 8 9 10 {
-	
-	gen underweight_parity_bs`pb' = .
-}
 
-
-foreach w in 1 2 3 4 {
-	
-	gen underweight_wealth`w' = .
-}
 
 
 save "data/bootstrapresults_full.dta", replace
@@ -242,27 +241,27 @@ use "data/bootstrapresults_full.dta", clear
 foreach g of numlist 1/5 {
 			
 	* Reweighting diagnostics
-	replace preg`g'       = `preg`g''       if _n == `i'
-	replace pct_drop`g'   = `pct_drop`g''   if _n == `i'
-	replace bins`g'       = `bins`g''       if _n == `i'
-	replace dropbins`g'   = `dropbins`g''   if _n == `i'
-	replace pct_zero`g'   = `pct_zero`g''   if _n == `i'
-	replace count9plus`g' = `count9plus`g'' if _n == `i'
+	replace preg_group`g'       = `preg`g''       if _n == `i'
+	replace pct_drop_group`g'   = `pct_drop`g''   if _n == `i'
+	replace bins_group`g'       = `bins`g''       if _n == `i'
+	replace dropbins_group`g'   = `dropbins`g''   if _n == `i'
+	replace pct_zero_group`g'   = `pct_zero`g''   if _n == `i'
+	replace count9plus_group`g' = `count9plus`g'' if _n == `i'
 
 	* Prepregnancy outcomes for non-pregnant women
 	
-	replace bmi`g' = `bmi`g'' if _n == `i'
-	replace underweight`g' = `underweight`g'' if _n == `i'
-	replace weight`g' = `weight`g'' if _n == `i'
+	replace bmi_group`g' = `bmi`g'' if _n == `i'
+	replace underweight_group`g' = `underweight`g'' if _n == `i'
+	replace weight_group`g' = `weight`g'' if _n == `i'
 	
 	* late pregnancy weight
-	replace nineweighthat`g' = `nineweighthat`g'' if _n == `i'
+	replace nineweighthat_group`g' = `nineweighthat`g'' if _n == `i'
 	
 	* beta from weight on mopreg regression
-	replace coeffhat`g' = `coeffhat`g'' if _n == `i'
+	replace coeffhat_group`g' = `coeffhat`g'' if _n == `i'
 	
 	* weight gain from method 2
-	replace gainhat`g' = nineweighthat`g'-weight`g'+(0.5)*coeffhat`g' if _n==`i'
+	replace gainhat_group`g' = nineweighthat_group`g'-weight_group`g'+(0.5)*coeffhat_group`g' if _n==`i'
 }
 
 *outcomes by predictor category
@@ -288,17 +287,17 @@ foreach w in `wealth_levels' {
 
 
 * general outcomes
-replace bmi = `bmi' if _n==`i'
-replace underweight = `underweight' if _n==`i'
-replace weight = `weight' if _n==`i'
-replace nineweighthat = `nineweighthat' if _n==`i'
-replace coeffhat = `coeffhat' if _n==`i'
+replace bmi_allfivegroups1 = `bmi' if _n==`i'
+replace underweight_allfivegroups1 = `underweight' if _n==`i'
+replace weight_allfivegroups1 = `weight' if _n==`i'
+replace nineweighthat_allfivegroups1 = `nineweighthat' if _n==`i'
+replace coeffhat_allfivegroups1 = `coeffhat' if _n==`i'
 
-replace nineweighthat = `nineweighthat' if _n == `i'
+replace nineweighthat_allfivegroups1 = `nineweighthat' if _n == `i'
 * beta from weight on mopreg regression
-replace coeffhat = `coeffhat' if _n == `i'
+replace coeffhat_allfivegroups1 = `coeffhat' if _n == `i'
 * weight gain from method 2
-replace gainhat = nineweighthat-weight+(0.5)*coeffhat if _n==`i'
+replace gainhat_allfivegroups1 = nineweighthat_allfivegroups1-weight_allfivegroups1+(0.5)*coeffhat_allfivegroups1 if _n==`i'
 
 
 save, replace
