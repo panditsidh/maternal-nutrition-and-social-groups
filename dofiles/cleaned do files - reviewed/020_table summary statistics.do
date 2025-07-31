@@ -1,7 +1,7 @@
 * This file computes summary statistics and arranges them in a latex table.
 * We first create a matrix of all calculated quantities of interest then use svmat to format it into strings, and listtex to export to latex
 
-use "$dataset", clear
+// use "$dataset", clear
 
 gen blank = .
 gen group = 1 if groups6==4
@@ -89,7 +89,7 @@ matrix colnames results_all = ///
     mean_dalit_np  ///
     mean_obc_np  ///
     mean_forward_np  ///
-    mean_muslim_np 	
+    mean_muslim_np 
 
 * use svmat to bring the matrix into the stata data environment and edit strings from there
 input str100 rows
