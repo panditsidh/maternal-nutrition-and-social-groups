@@ -7,12 +7,6 @@
 *group adivasi dalit obc forward muslim
 
 gen blank = .
-gen group = 1 if groups==4
-replace group = 2 if groups==3
-replace group = 3 if groups==2
-replace group = 4 if groups==1
-replace group = 5 if groups==5
-
 
 svyset psu [pw=v005], strata(strata) singleunit(centered)
 
@@ -97,7 +91,7 @@ matrix colnames results_all = ///
 input str100 rows
 "\textbf{Binary Predictors of Pregnancy and Underweight}"
 "\hspace*{2em}not using modern contraception" 
-"\hspace*{2em}no education or incomplete primary" 
+"\hspace*{2em}less than primary education" 
 "\hspace*{2em}rural resident" 
 "\hspace*{2em}does not have boy child" 
 "\textbf{Age Categories}"

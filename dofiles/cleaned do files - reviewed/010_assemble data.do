@@ -149,7 +149,7 @@ gen not_c_user = c_user
 recode not_c_user (0=1) (1=0)
 
 label define not_c_userlbl ///
-    1 "not using contraception" ///
+    1 "not using modern contraception" ///
     0 "using contraception" 
 label values not_c_user not_c_userlbl
 
@@ -251,13 +251,13 @@ forvalues i = 1/10 {
 
 label define parity_bs_lbl ///
     1 "No births/1 birth, NA spacing" ///
-    2 "1 birth, <2y spacing" ///
+    2 "1 birth, below 2y spacing" ///
     3 "1 birth, 2–3y spacing" ///
     4 "1 birth, 3+y spacing" ///
-    5 "2 births, <2y spacing" ///
+    5 "2 births, below 2y spacing" ///
     6 "2 births, 2–3y spacing" ///
     7 "2 births, 3+y spacing" ///
-    8 "3+ births, <2y spacing" ///
+    8 "3+ births, below 2y spacing" ///
     9 "3+ births, 2–3y spacing" ///
    10 "3+ births, 3+y spacing"
 label values parity_bs parity_bs_lbl
@@ -273,8 +273,8 @@ gen less_edu = inlist(v106,0,1)
 tab less_edu, m
 
 label define lessedulbl ///
-    0 "none or incomplete primary education" ///
-    1 "primary education or higher" 
+    0 "primary education or higher" ///
+    1 "less than primary education" 
 label values less_edu lessedulbl
 
 
