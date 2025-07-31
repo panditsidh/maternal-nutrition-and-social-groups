@@ -1,4 +1,4 @@
-qui do "dofiles/assemble data/00_assemble prepreg sample.do"
+// qui do "dofiles/assemble data/00_assemble prepreg sample.do"
 
 gen blank = .
 
@@ -11,6 +11,13 @@ parity_bs1 parity_bs2 parity_bs3 parity_bs4 parity_bs5 parity_bs6 parity_bs7 par
 wealth1 wealth2 wealth3 wealth4;
 #delimit cr
 
+
+
+gen group = 1 if groups6==4
+replace group = 2 if groups6==3
+replace group = 3 if groups6==2
+replace group = 4 if groups6==1
+replace group = 5 if groups6==5
 
 
 // foreach var in `varlist' {
@@ -39,7 +46,7 @@ foreach var in `varlist' {
         if "`var'"!="blank" {
 						
 			if `g'==0 quietly svy: mean `var' if preg==`i'
-			if `g'!=0 quietly svy: mean `var' if groups6==`g' & preg==`i'
+			if `g'!=0 quietly svy: mean `var' if group==`g' & preg==`i'
 		
             matrix temp = r(table)
             
@@ -61,7 +68,7 @@ foreach var in `varlist' {
 	foreach g of numlist 0/5 {
 		
 		if `g' == 0 count if preg==`i'
-		if `g' != 0 count if preg==`i' & groups6==`g'
+		if `g' != 0 count if preg==`i' & group==`g'
 		matrix results_`i'[`row', `col'] = r(N)
 		local col = `col' + 1
 		
@@ -77,14 +84,14 @@ matrix colnames results_all = ///
     mean_adivasi_p  ///
     mean_dalit_p  ///
     mean_obc_p  ///
-    mean_muslim_p  ///
     mean_forward_p  ///
+    mean_muslim_p  ///
     mean_india_np  ///
     mean_adivasi_np  ///
     mean_dalit_np  ///
     mean_obc_np  ///
-    mean_muslim_np  ///
-    mean_forward_np 	
+    mean_forward_np  ///
+    mean_muslim_np 	
 
 
 local nrows = rowsof(results_all)
