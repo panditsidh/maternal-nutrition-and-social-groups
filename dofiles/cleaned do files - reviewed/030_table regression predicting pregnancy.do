@@ -38,9 +38,19 @@ eststo model`g'
 }
 
 
-
 #delimit ;
-esttab model4 model3 model2 model5 model1 model0,
+esttab model1 model2 model3 model4 model5 model0,
+    drop(1.agebin 1.parity_bs 1.wealth) 
+	refcat("\textbf{Binary predictors of pregnancy and underweight}" 2.agebin "\textbf{Age categories}" 2.parity_bs "\textbf{Parity \& time since last live birth categories}" 2.wealth "\textbf{Wealth categories}", nolabel)
+	nonumbers 
+    label se star(* 0.05 ** 0.01)
+	b(3) se(4)
+	stats(N, fmt(%15.0fc) label(N))
+	mtitle("Adivasi" "Dalit" "OBC" "Forward" "Muslim" "All 5 Social Groups");
+
+/*
+#delimit ;
+esttab model1 model2 model3 model4 model5 model0,
     drop(0.not_c_user 0.less_edu 0.rural 0.noboy 1.agebin 1.parity_bs 1.wealth) 
 	refcat(1.not_c_user "\textbf{Binary predictors of pregnancy and underweight}" 2.agebin "\textbf{Age categories}" 2.parity_bs "\textbf{Parity \& time since last live birth categories}" 2.wealth "\textbf{Wealth categories}", nolabel)
 	nonumbers 
@@ -48,10 +58,11 @@ esttab model4 model3 model2 model5 model1 model0,
 	b(a3) se(a3)
 	stats(N, fmt(%15.0fc) label(N))
 	mtitle("Adivasi" "Dalit" "OBC" "Forward" "Muslim" "All 5 Social Groups");
+*/
 	
 
 #delimit ;
-esttab model4 model3 model2 model5 model1 model0 using "tables/predictor_regression.tex",
+esttab model1 model2 model3 model4 model5 model0 using "tables/predictor_regression.tex",
 	replace
 	refcat(1.not_c_user "\textbf{Binary predictors of pregnancy and underweight}" 2.agebin "\textbf{Age categories}" 2.parity_bs "\textbf{Parity \& time since last live birth categories}" 2.wealth "\textbf{Wealth categories}", nolabel)
     drop(0.not_c_user 0.less_edu 0.rural 0.noboy 1.agebin 1.parity_bs 1.wealth) 
