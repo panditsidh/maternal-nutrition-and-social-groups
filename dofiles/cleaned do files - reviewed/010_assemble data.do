@@ -10,37 +10,59 @@ egen psu = group(v000 v001 v024 v025)
 keep if v501==1 
 
 ********************************* SOCIAL GROUP *********************************
-
 //This paper only analyzes data for women beloning to the following groups:
 *Adivasi and Dalit (all religions)
 *OBC (Hindu and Sikh)
 *Forward Caste (Hindu)
 *Muslim 
 //It does not include women who are Christians or Jains who do not identify as Dalit or Adivasi, and it does not include women who are Sikhs who do not identify as Adivasi, Dalit, or OBC.
-gen groups = .
-replace groups = 3 if s116 == 1  // Dalit
-replace groups = 4 if s116 == 2 // Adivasi
-replace groups = 5 if v130 == 2 & groups==.   // Muslim
-replace groups = 6 if (v130 == 3| v130==4 | v130==6) & groups==. // Christian, Sikh, Jain
-replace groups = 2 if (v130 == 1 |v130==4) & s116 == 3 // OBC - hindu and sikh
-replace groups = 1 if v130 == 1 & (s116 == 4 | s116==8 |s116==.) // Forward Caste
 
-drop if groups==6
-drop if groups==.
+gen group = .
+replace group = 1 if s116 == 2 									// Adivasi
+replace group = 2 if s116 == 1 									// Dalit
+replace group = 6 if (v130 == 3| v130==4 | v130==6) & group==. // Christian, Sikh, Jain
+replace group = 5 if v130 == 2 & group==. 						// Muslims that aren't Adivasi or Dalit
+replace group = 3 if (v130 == 1 |v130==4) & s116 == 3 			// OBC that are Hindu or Sikh
+replace group = 4 if v130 == 1 & (s116 == 4 | s116==8 |s116==.) // Forward caste Hindus
 
-gen forward = groups==1
-gen obc = groups==2
-gen dalit = groups==3
-gen adivasi = groups==4
-gen muslim = groups==5
+drop if group==6
+drop if group==.
 
-label define groupslbl ///
+label define grouplbl ///
+    1 "Adivasi" ///
+    2 "Dalit" ///
+    3 "OBC" ///
+    4 "Forward" ///
+    5 "Muslim" 
+label values group grouplbl
+
+gen adivasi = group==1
+gen dalit = group==2
+gen obc = group==3
+gen forward = group==4
+gen muslim = group==5
+
+
+
+***** old groups6 coding, I've kept it in case of dependencies I haven't fixed yet
+gen groups6 = .
+replace groups6 = 3 if s116 == 1  // Dalit
+replace groups6 = 4 if s116 == 2 // Adivasi
+replace groups6 = 5 if v130 == 2 & groups6==.   // Muslim
+replace groups6 = 6 if (v130 == 3| v130==4 | v130==6) & groups6==. // Christian, Sikh, Jain
+replace groups6 = 2 if (v130 == 1 |v130==4) & s116 == 3 // OBC - hindu and sikh
+replace groups6 = 1 if v130 == 1 & (s116 == 4 | s116==8 |s116==.) // Forward Caste
+
+drop if groups6==6
+drop if groups6==.
+
+label define groups6lbl ///
     1 "Forward" ///
     2 "OBC" ///
     3 "Dalit" ///
     4 "Adivasi" ///
     5 "Muslim" 
-label values groups groupslbl
+label values groups6 groups6lbl
 
 
 
