@@ -64,7 +64,7 @@ esttab model1 model2 model3 model4 model5 model0,
 #delimit ;
 esttab model1 model2 model3 model4 model5 model0 using "tables/predictor_regression.tex",
 	replace
-	refcat(1.not_c_user "\textbf{Binary predictors of pregnancy and underweight}" 2.agebin "\textbf{Age categories}  (15-19 omitted)" 2.parity_bs "\textbf{Parity \& time since last live birth categories}" 2.wealth "\textbf{Wealth categories}", nolabel)
+	refcat(1.not_c_user "\textbf{Binary predictors of pregnancy and underweight}" 2.agebin "\textbf{Age categories}  (15-19 omitted)" 2.parity_bs "\textbf{Parity \& time since last live birth categories} (No births omitted)" 2.wealth "\textbf{Wealth categories} (1st quartile omitted)", nolabel)
     drop(0.not_c_user 0.less_edu 0.rural 0.noboy 1.agebin 1.parity_bs 1.wealth) 
 	nonumbers 
     label se star(* 0.5 ** 0.01)

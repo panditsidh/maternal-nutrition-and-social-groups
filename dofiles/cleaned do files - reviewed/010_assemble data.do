@@ -64,9 +64,6 @@ label define groups6lbl ///
     5 "Muslim" 
 label values groups6 groups6lbl
 
-
-
-
 **************************** GESTATIONAL DURATION ******************************
 
 //generate months since last period in order to exclude women who are 1 or 2 months pregnant from the analysis.
@@ -114,15 +111,15 @@ tab preg, m
 **************************** CONTRACEPTIVE USE ********************************
 
 //Create the variables that will be used to match pregnant and nonpregnant women for the estimation of prepregnancy underweight.
-*contraceptive user (binary)
+*not using modern contraception (binary)
 *age (4 categories)
-*education (binary)
+*less education (binary)
 *rural resident (binary)
 *parity and time since last birth (10 categories)
 *wealth (4 categories)
 // 
 
-*contraceptive user
+*not a contraceptive user
 //This code identifies contraceptive use at the time of the survey for non-pregnant women and the contraceptive use before pregnancy for women who are currently pregnant.
 //The Stata code below only accomodates numeric options as answers for the contraceptive use questions. In the NFHS-5 women's questionnaire, "other modern contraception" is listed as an option denoted by an "X," but no "Xs" were recorded in the contraceptive calendars.  So, the code can be used as is.
 //We note that 1,554 pregnant women (7% of pregnant women) became pregnant while using a modern method.  337 (1.4%) of pregnant women became pregnant while sterilized.
@@ -155,7 +152,7 @@ label values not_c_user not_c_userlbl
 
 **************************** BIRTH HISTORY ********************************
 
-* has living boy
+* does not have living boy child
 //v202 is "sons at home"
 //v204 is "sons elsewhere"
 //it is not missing for any pregnant or nonpregnant women
