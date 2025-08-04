@@ -32,11 +32,11 @@ local sample_size : display %15.0fc r(N)
 graph hbar (mean) parity1 parity2 parity3 parity4 [aw=v005], 
     over(group, label(angle(0))) 
     stack 
-    legend(order(1 "Parity 1" 2 "Parity 2" 3 "Parity 3" 4 "Parity 4+") 
+    legend(order(1 "parity 1" 2 "parity 2" 3 "parity 3" 4 "parity 4+") 
        cols(4) pos(6) region(lstyle(none))) 
     blabel(bar, format(%4.1f) position(inside) ) 
     ytitle("Percent") 
-    title("A. Distribution of pregnant women by parity") 
+*    title("A. Distribution of pregnant women by parity") 
 	note("n=`sample_size' (3+ month pregnant women)", size(medsmall)) name(c, replace);
 #delimit cr
 
@@ -45,7 +45,7 @@ graph export "figures/parity distribution of pregnant women by social group.png"
 
 restore
 
-************* FIGURE B: prepregnancy underweight by parity ***************
+************* FIGURE C: distribution of partiy 2+ pregnant women by birth spacing***************
 preserve
 
 
@@ -65,7 +65,7 @@ graph hbar (mean) bs_below2 bs_2to3 bs_above3 [aw=v005],
        cols(4) pos(6) region(lstyle(none))) 
 	blabel(bar, format(%4.1f) position(inside) ) 
 	ytitle("Percent") 
-    title("C. Distribution of pregnant women who have had " "at least one live birth by birth spacing", size(large)) 
+*    title("C. Distribution of pregnant women who have had " "at least one live birth by birth spacing", size(large)) 
     note("n=`sample_size' (3+ month pregnant women who have at least 1 live birth)", size(medsmall)) ;
 # delimit cr
 
@@ -77,7 +77,7 @@ graph export "figures/birth spacing distribution of pregnant women by social gro
 restore
 
 
-********** FIGURE C: distribution of pregnant women by birth spacing ***********
+********** FIGURE E: distribution of pregnant women by birth spacing ***********
 
 preserve
 
@@ -91,7 +91,7 @@ graph hbar (mean) wealth1 wealth2 wealth3 wealth4 [aw=v005],
        cols(4) pos(6) region(lstyle(none))) 
 	blabel(bar, format(%4.1f) position(inside) ) 
 	ytitle("Percent") 
-    title("E. Distribution of pregnant women by wealth quartile") 
+*    title("E. Distribution of pregnant women by wealth quartile") 
 	note("n=`sample_size' (3+ month pregnant women)", size(medsmall)) name(c, replace) ;
 # delimit cr
 graph save "figures/e.gph", replace

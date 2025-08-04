@@ -115,7 +115,7 @@ input str100 rows
 "\hspace*{2em}2nd quartile" 
 "\hspace*{2em}3rd quartile" 
 "\hspace*{2em}4th quartile" 
-"\textbf{Sample size}"
+"\textbf{N}"
 end
 
 
@@ -126,13 +126,13 @@ svmat results_all, names(col)
 foreach group in india adivasi dalit obc muslim forward {
 	
     
-    gen ci_`group'_p = substr(string(mean_`group'_p, "%4.2f"), 2, .) if row!="\textbf{Sample size}"
+    gen ci_`group'_p = substr(string(mean_`group'_p, "%4.2f"), 2, .) if row!="\textbf{N}"
 
 	
-    gen ci_`group'_np = substr(string(mean_`group'_np, "%4.2f"), 2, .) if row!="\textbf{Sample size}"
+    gen ci_`group'_np = substr(string(mean_`group'_np, "%4.2f"), 2, .) if row!="\textbf{N}"
 						 
-	replace ci_`group'_p = string(mean_`group'_p, "%15.0fc") if row == "\textbf{Sample size}"
-	replace ci_`group'_np = string(mean_`group'_np, "%15.0fc") if row == "\textbf{Sample size}"
+	replace ci_`group'_p = string(mean_`group'_p, "%15.0fc") if row == "\textbf{N}"
+	replace ci_`group'_np = string(mean_`group'_np, "%15.0fc") if row == "\textbf{N}"
 
 }
 
@@ -147,7 +147,7 @@ gen insert_blank = is_header[_n+1]  // this flags the row *before* each header
 replace insert_blank = 0 if missing(insert_blank)
 
 expand 2 if insert_blank
-expand 2 if missing(row) & row[_n+1]=="\textbf{Sample size}"
+expand 2 if missing(row) & row[_n+1]=="\textbf{N}"
 
 bysort order (insert_blank): replace row = "" if _n == 2 & insert_blank
 
