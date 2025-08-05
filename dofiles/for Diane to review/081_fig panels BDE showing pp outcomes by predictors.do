@@ -70,14 +70,11 @@ foreach overvar in parity bs wealth {
 		   text(`outcome_1' `textpos_1' "`=string(`outcome_1', "%4.2f")'", placement(west) size(small)) ///
 		   text(`outcome_2' `textpos_2' "`=string(`outcome_2', "%4.2f")'", placement(west) size(small)) 
 		   text(`outcome_3' `textpos_3' "`=string(`outcome_3', "%4.2f")'", placement(west) size(small))
-		   text(`outcome_4' `textpos_4' "`=string(`outcome_4', "%4.2f")'", placement(west) size(small)) 
-		   text(`outcome_5' `textpos_5' "`=string(`outcome_5', "%4.2f")'", placement(west) size(small))
-		   text(`outcome_6' `textpos_6' "`=string(`outcome_6', "%4.2f")'", placement(west) size(small)) ///
-		   text(0.077 6.4 "Social Groups", placement(west)); ///;
+		   text(`outcome_4' `textpos_4' "`=string(`outcome_4', "%4.2f")'", placement(west) size(small)) ; ///;
 	#delimit cr
 
 //     graph export "figures/bootstrapped_underweight_by_`overvar'_5.png", replace
-// 	graph save "figures/`overvar'.gph", replace
+	graph save "figures/`overvar'.gph", replace
 	
     
 	

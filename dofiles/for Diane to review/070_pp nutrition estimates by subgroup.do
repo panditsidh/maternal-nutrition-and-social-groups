@@ -9,8 +9,6 @@ columns: mean ll ul for every outcome
 
 */
 
-
-
 * initialize results matrix
 local outcomes bmi weight underweight overweight obesity gainhatm1 gainhatm2
 
@@ -90,7 +88,7 @@ The weight gain regression controls for age fixed effects, years of schooling fi
 			* get confidence intervals for all variables from bootstrap results dataset
 			preserve
 			
-			use "data/bootstrapresults_full.dta", clear
+			use "data/bootstrapresults_test.dta", clear
 			
 			if "`outcome'"!="gainhatm1" sum `outcome'_`overvar'`i', detail
 				
@@ -120,12 +118,12 @@ The weight gain regression controls for age fixed effects, years of schooling fi
 
 * convert matrix into a dataset using svmat
 input str100 rows
-"All five social groups"
 "Adivasi"
 "Dalit"
 "OBC"
 "Forward"
 "Muslim"
+"All five social groups"
 "Parity 1"
 "Parity 2"
 "Parity 3"
@@ -133,6 +131,16 @@ input str100 rows
 "\textless{}2y birth spacing"
 "2-3y birth spacing"
 "\textgreater{}3y birth spacing"
+"No births"  
+"1 birth, \textless{}2y spacing"
+"1 birth, 2–3y spacing"
+"1 birth, \textgreater{}3y spacing"
+"2 births, \textless{}2y spacing"
+"2 births, 2–3y spacing"
+"2 births, \textgreater{}3y spacing"
+"3+ births, \textless{}2y spacing"
+"3+ births, 2–3y spacing"
+"3+ births, \textgreater{}3y spacing"
 "Wealth quartile 1"
 "Wealth quartile 2"
 "Wealth quartile 3"

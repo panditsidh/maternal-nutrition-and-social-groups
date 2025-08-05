@@ -4,10 +4,7 @@ clear all
 set seed 8062011
 local B = 1000 //how many times to bootstrap
 
-
-
 ******************* PREPARING BOOTSTRAP RESULTS DATASET ************************
-
 
 set obs 20000
 
@@ -26,9 +23,9 @@ weight 			// average pre-pregnancy weight of subgroup (calculated using reweight
 overweight		// average pre-pregnancy overweight of subgroup (calculated using reweighting)
 obesity			// average pre-pregnancy obesity of subgroup (calculated using reweighting)
 nineweighthat	// average weight of 9+ month pregnant 
-coeffhat 		// coefficient for method 1 weight gain calculation of subgroup
-gainhatm2		// method 2 weight gain of subgroup
-;
+coeffhat 		// coefficient for method 2 weight gain calculation of subgroup
+gainhatm2;		// method 2 weight gain of subgroup
+#delimit cr
 
 
 * initialize variables to later store these variables for all subgroups
@@ -37,7 +34,7 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 	
 	preserve
 	
-	use "$dataset"
+	use "$dataset", clear
 	levelsof(`overvar'), local(levels)
 	
 	restore
@@ -52,12 +49,12 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 }
 
 
-save "data/bootstrapresults_full.dta", replace
+save "data/bootstrapresults_test.dta", replace
 
 **************************** BOOTSTRAPPING LOOP ********************************
 
 * bootstrapping loop start
-forvalues i = 1(1)`B'{ 
+forvalues iteration = 1(1)`B'{ 
 	
 	
 di "ITERATION ", `iteration', " of ", `B'
@@ -71,7 +68,9 @@ use "$dataset", clear
 bsample, strata(strata) cluster(psu) 
 
 * generate weights for calculating pre-pregnancy outcomes
-do "cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
+qui do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
+
+
 
 
 *-------------- get reweghting diagnostics and outcomes by subgroups --------------
@@ -83,6 +82,7 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 	
 	foreach i in `levels' {
 		
+		qui {
 		
 		* preg: percent pregnant in subgroup
 		sum preg if `overvar'==`i'
@@ -105,7 +105,7 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 		local pct_zero_`overvar'`i' = r(mean)
 		
 		* count9plus: number of 9+ mo pregnant women in subgroup (for weight gain calculation)
-		count if mopreg>=9 & mopreg!=. & `overvar'==`i'
+		count if gestdur>=9 & gestdur!=. & `overvar'==`i'
 		local count9plus_`overvar'`i' = r(N)
 		
 		* bmi, underweight, weight, overweight, obesity - pre-pregnancy outcomes by subgroup (calculated using reweighting)
@@ -115,27 +115,28 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 		}
 		
 		* nineweighthat: average weight of 9+ month pregnant women
-		sum weight [aw=v005] if mopreg>=9 & mopreg!=. & `overvar'==`i'
+		sum weight [aw=v005] if gestdur>=9 & gestdur!=. & `overvar'==`i'
 		local nineweighthat_`overvar'`i' = r(mean)
 		
 		* coeffhat: coefficient for method 2 weight gain calculation of subgroup 
-		reg weight mopreg i.v012 i.v133 i.v218 i.urban i.v190 i.v024##v006 [aw=v005] if inrange(mopreg,3,9) & `overvar'==`i'
-		local coeffhat_`overvar'`i' = _b[mopreg]
+		reg weight gestdur i.v012 i.v133 i.v218 i.urban i.v190 i.v024##v006 [aw=v005] if inrange(gestdur,3,9) & `overvar'==`i'
+		local coeffhat_`overvar'`i' = _b[gestdur]
+		
+		}
 		
 	}
 }
 
-
 *-------------- add everything to the bootstrap results dataset  --------------
 
-use "data/bootstrapresults_full.dta", clear
+use "data/bootstrapresults_test.dta", clear
 
 
 foreach overvar in allfivegroups group parity bs parity_bs wealth {
 	
 	preserve
 	
-	use "$dataset"
+	use "$dataset", clear
 	levelsof(`overvar'), local(levels)
 	
 	restore
@@ -144,10 +145,10 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 		
 		foreach var in `vars' {
 			
-			if !inlist("`var'", "gainhatm1", "gainhatm2") replace `var'_`overvar'_`i' = ``var'_`overvar'_`i'' if _n == `iteration'
+			if !inlist("`var'", "gainhatm1", "gainhatm2") qui replace `var'_`overvar'`i' = ``var'_`overvar'`i'' if _n == `iteration'
 			
 			* method 2 weight gain calculation
-			else if "`var'"=="gainhatm2" replace gainhatm2_`overvar'_`i' = nineweighthat_`overvar'_`i' - weight_`overvar'_`i' + (0.5)*coeffhat_`overvar'_`i' if _n==`iteration'
+			else if "`var'"=="gainhatm2" qui replace gainhatm2_`overvar'`i' = nineweighthat_`overvar'`i' - weight_`overvar'`i' + (0.5)*coeffhat_`overvar'`i' if _n==`iteration'
 		}
 		
 	}
