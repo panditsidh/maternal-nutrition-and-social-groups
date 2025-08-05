@@ -51,13 +51,12 @@ foreach overvar in parity bs wealth {
 	foreach i in `levels' {
 		sum underweight_mean if group==`i'
 		local outcome_`i' = r(mean)
-		local textpos_`i' = 0.28+`i'
+		local textpos_`i' = 0.18+`i'
 	}
 	
 	
 	
 	
-		   
 	#delimit ;
 	twoway (rcap `var'_ul `var'_ll group, lcolor(black)) ///
 		   (scatter `var'_mean group, msymbol(circle) mcolor(black)),
