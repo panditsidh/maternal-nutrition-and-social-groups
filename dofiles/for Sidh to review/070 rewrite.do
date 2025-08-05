@@ -28,7 +28,7 @@ obesity			// average pre-pregnancy obesity of subgroup (calculated using reweigh
 nineweighthat	// average weight of 9+ month pregnant 
 coeffhat 		// coefficient for method 2 weight gain calculation of subgroup
 gainhatm2;		// method 2 weight gain of subgroup
-
+#delimit cr
 
 
 * initialize variables to later store these variables for all subgroups
