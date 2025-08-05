@@ -60,7 +60,7 @@ foreach over_predictor in blank parity_bs blank blank wealth blank all_predictor
 			if `g'==0 qui sum dropbin if preg==1 & `over_predictor'==`i'
 			else qui sum dropbin if preg==1 & groups6==`g' & `over_predictor'==`i'
 			
-			matrix results[`row', `col'+1] = r(mean)
+			matrix results[`row', `col'+1] = round(r(mean)*100, .01)
 			
 			local col = `col'+2
 		}
