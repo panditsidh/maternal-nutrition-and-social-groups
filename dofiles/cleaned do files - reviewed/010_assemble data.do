@@ -277,6 +277,8 @@ label values less_edu lessedulbl
 * rural resident
 //it is not missing for any of the pregnant or nonpregnant women.
 gen rural = v025==2
+
+gen urban = rural==0
 tab rural, m
 
 label define rurallbl ///
