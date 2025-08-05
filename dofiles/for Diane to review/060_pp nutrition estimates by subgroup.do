@@ -1,6 +1,3 @@
-* todo: 
-
-
 
 /* this dofile generates a dataset that has 
 
@@ -42,6 +39,9 @@ foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 			
 			
 			* weight gain method 1
+/*
+The weight gain regression controls for age fixed effects, years of schooling fixed effects, number of living children fixed effects, an urban fixed effect, wealth quinitile FEs, and state interacted with month of interview.  This is the most controlled specification of the regression from Coffey,2015. 
+*/
 			if "`outcome'"=="gainhatm1" {
 				matrix results[`row', `col'] = .
 				
@@ -116,13 +116,6 @@ foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 	
 	
 }
-
-
-
-
-
-
-
 
 
 * convert matrix into a dataset using svmat
