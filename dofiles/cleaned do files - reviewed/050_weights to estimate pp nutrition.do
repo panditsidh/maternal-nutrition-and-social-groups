@@ -1,8 +1,6 @@
 //This file creates the weights that are applied to non-pregnant women to compute pre-pregnancy nutrition estimates.
 
-
-use "$dataset", clear
-
+// use "$dataset", clear
 
 * ----------- PARAMETERS-----------
 local binvars not_c_user agebin less_edu rural noboy wealth parity_bs group
@@ -39,7 +37,6 @@ egen nonpregweight = sum(v005) if preg==0, by(bin)
 egen transferpreg = mean(pregweight), by(bin)
 egen transfernonpreg = mean(nonpregweight), by(bin)
 gen reweightingfxn = v005*transferpreg/transfernonpreg if dropbin!=1 & preg==0
-
 
 
 

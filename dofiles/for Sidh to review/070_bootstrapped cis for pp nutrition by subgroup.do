@@ -7,6 +7,7 @@ set seed 8062011
 local B = 1000 //how many times to bootstrap
 
 
+
 ******************* PREPARING BOOTSTRAP RESULTS DATASET ************************
 
 * initialize results dataset and results we want from each iteration
@@ -150,7 +151,7 @@ foreach g of numlist 1/5 {
 	
 	
 	* number of bins that need to be dropped for having only pregnant women
-	distinct bin if dropbin==1
+	distinct bin if dropbin==1 & groups6==`g'
 	local dropbins`g' = r(N)
 	
 	* percent pregnant dropped within social group

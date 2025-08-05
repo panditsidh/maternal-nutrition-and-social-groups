@@ -67,3 +67,6 @@ foreach overvar in parity bs wealth {
 	
 }
 
+
+
+
