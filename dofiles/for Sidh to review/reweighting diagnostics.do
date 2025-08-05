@@ -26,14 +26,23 @@ so cols 6*2
 
 */
 
+
 gen all_predictors = 1
+gen blank = .
 
-
-matrix results = J(15, 12, .)
+matrix results = J(19, 12, .)
 local row = 1
 
 
-foreach over_predictor in all_predictors parity_bs wealth {
+foreach over_predictor in blank parity_bs blank blank wealth blank all_predictors {
+	
+	
+	if "`over_predictor'"=="blank" {
+		foreach i of numlist 1/12 { 
+			matrix results[`row', `i'] = .
+		}
+		local ++row
+	}
 	
 	levelsof(`over_predictor'), local(predictor_levels)
 	
@@ -59,14 +68,10 @@ foreach over_predictor in all_predictors parity_bs wealth {
 		local ++row		
 	}
 	
-	
-	
-	
-	
 }
 
 
-matrix colnames results_all = ///
+matrix colnames results = ///
 	n_allgroups /// 
 	pctdrop_allgroups ///
 	n_group1 ///
@@ -80,3 +85,53 @@ matrix colnames results_all = ///
 	n_group5 ///
 	pctdrop_group5 ///
 	
+	
+
+input str100 rows
+"\textbf{Parity and time since last live birth categories}"
+"\hspace*{2em}No births"  
+"\hspace*{2em}1 birth, \textless{}2y spacing"
+"\hspace*{2em}1 birth, 2–3y spacing"
+"\hspace*{2em}1 birth, \textgreater{}3y spacing"
+"\hspace*{2em}2 births, \textless{}2y spacing"
+"\hspace*{2em}2 births, 2–3y spacing"
+"\hspace*{2em}2 births, \textgreater{}3y spacing"
+"\hspace*{2em}3+ births, \textless{}2y spacing"
+"\hspace*{2em}3+ births, 2–3y spacing"
+"\hspace*{2em}3+ births, \textgreater{}3y spacing"
+" "
+"\textbf{Wealth Categories}"
+"\hspace*{2em}1st quartile" 
+"\hspace*{2em}2nd quartile" 
+"\hspace*{2em}3rd quartile" 
+"\hspace*{2em}4th quartile"
+" " 
+"\textbf{All predictor groups}"
+end
+
+svmat results, names(col)
+
+
+drop if missing(rows)
+
+keep rows-pctdrop_group5
+
+#delimit ;
+listtex rows ///
+    n_allgroups pctdrop_allgroups ///
+    n_group1 pctdrop_group1 ///
+    n_group2 pctdrop_group2 ///
+    n_group3 pctdrop_group3 ///
+    n_group4 pctdrop_group4 ///
+    n_group5 pctdrop_group5 ///
+    using "tables/table_percent_dropped.tex", replace ///
+    rstyle(tabular) ///
+    head("\begin{tabular}{l*{12}{>{\centering\arraybackslash}p{1.2cm}}}" ///
+         "\toprule" ///
+         "& \multicolumn{2}{c}{All groups} & \multicolumn{2}{c}{Group 1} & \multicolumn{2}{c}{Group 2} & \multicolumn{2}{c}{Group 3} & \multicolumn{2}{c}{Group 4} & \multicolumn{2}{c}{Group 5} \\\\" ///
+         "\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11} \cmidrule(lr){12-13}" ///
+         "Predictor Group & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped \\\\" ///
+         "\midrule") ///
+    foot("\bottomrule" ///
+         "\end{tabular}");
+#delimit cr

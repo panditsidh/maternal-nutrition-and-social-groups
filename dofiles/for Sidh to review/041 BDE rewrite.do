@@ -52,9 +52,7 @@ foreach overvar in parity bs wealth {
 		sum underweight_mean if group==`i'
 		local outcome_`i' = r(mean)
 		local textpos_`i' = 0.18+`i'
-	}
-	
-	
+	}	
 	
 	
 	#delimit ;

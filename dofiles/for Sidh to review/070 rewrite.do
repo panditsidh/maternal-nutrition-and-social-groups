@@ -44,7 +44,7 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 	
 	foreach i in `levels' {
 			
-		foreach var of `vars' {
+		foreach var in `vars' {
 				
 			gen `var'_`overvar'`i' = .
 		}
@@ -60,7 +60,7 @@ save "data/bootstrapresults_full.dta", replace
 forvalues i = 1(1)`B'{ 
 	
 	
-di "ITERATION ", `i', " of ", `B'
+di "ITERATION ", `iteration', " of ", `B'
 
 
 * ensure working directory hasn't changed
@@ -98,7 +98,7 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 		
 		* dropbins: number of reweighting bins with only pregnant women in subgroup
 		distinct bin if dropbin==1 & `overvar'==`i'
-		local dropbins_`overvar'`i' = r(N)
+		local dropbins_`overvar'`i' = r(ndistinct)
 		
 		* pct_zero: number of reweighting bins with only non-pregnant women in subgroup
 		sum zerobin if preg==0 & `overvar'==`i'
@@ -122,7 +122,7 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 		reg weight mopreg i.v012 i.v133 i.v218 i.urban i.v190 i.v024##v006 [aw=v005] if inrange(mopreg,3,9) & `overvar'==`i'
 		local coeffhat_`overvar'`i' = _b[mopreg]
 		
-	
+	}
 }
 
 
@@ -144,10 +144,10 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 		
 		foreach var in `vars' {
 			
-			if !inlist("`var'", "gainhatm1", "gainhatm2") replace `var'_`overvar'_`i' = ``var'_`overvar'_`i'' if _n == `i'
+			if !inlist("`var'", "gainhatm1", "gainhatm2") replace `var'_`overvar'_`i' = ``var'_`overvar'_`i'' if _n == `iteration'
 			
 			* method 2 weight gain calculation
-			else if "`var'"=="gainhatm2" replace gainhatm2_`overvar'_`i' = nineweighthat_`overvar'_`i' - weight_`overvar'_`i' + (0.5)*coeffhat_`overvar'_`i' if _n==`i'
+			else if "`var'"=="gainhatm2" replace gainhatm2_`overvar'_`i' = nineweighthat_`overvar'_`i' - weight_`overvar'_`i' + (0.5)*coeffhat_`overvar'_`i' if _n==`iteration'
 		}
 		
 	}
