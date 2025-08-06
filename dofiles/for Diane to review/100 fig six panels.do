@@ -5,7 +5,7 @@ do "dofiles/cleaned do files - reviewed/040_fig panel ACE showing distribution o
 
 do "dofiles/for Diane to review/081_fig panels BDE showing pp outcomes by predictors.do"
 
-
+use "$dataset", clear
 * calculate sample sizes for figure notes
 count if preg==1 
 local sample_size_ae = r(N)
