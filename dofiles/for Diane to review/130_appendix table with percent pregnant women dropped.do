@@ -53,12 +53,12 @@ foreach over_predictor in blank parity_bs blank blank wealth blank all_predictor
 			
 			
 			if `g'==0 qui count if preg==1 & `over_predictor'==`i'
-			else qui count if preg==1 & groups6==`g' & `over_predictor'==`i'
+			else qui count if preg==1 & group==`g' & `over_predictor'==`i'
 			
 			matrix results[`row', `col'] = r(N)
 			
 			if `g'==0 qui sum dropbin if preg==1 & `over_predictor'==`i'
-			else qui sum dropbin if preg==1 & groups6==`g' & `over_predictor'==`i'
+			else qui sum dropbin if preg==1 & group==`g' & `over_predictor'==`i'
 			
 			matrix results[`row', `col'+1] = round(r(mean)*100, .01)
 			
@@ -128,7 +128,7 @@ listtex rows ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{12}{>{\centering\arraybackslash}p{1.2cm}}}" ///
          "\toprule" ///
-         "& \multicolumn{2}{c}{All groups} & \multicolumn{2}{c}{Group 1} & \multicolumn{2}{c}{Group 2} & \multicolumn{2}{c}{Group 3} & \multicolumn{2}{c}{Group 4} & \multicolumn{2}{c}{Group 5} \\\\" ///
+         "& \multicolumn{2}{c}{All groups} & \multicolumn{2}{c}{Adivasi} & \multicolumn{2}{c}{Dalit} & \multicolumn{2}{c}{OBC} & \multicolumn{2}{c}{Forward} & \multicolumn{2}{c}{Muslim} \\\\" ///
          "\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11} \cmidrule(lr){12-13}" ///
          "Predictor Group & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped \\\\" ///
          "\midrule") ///
