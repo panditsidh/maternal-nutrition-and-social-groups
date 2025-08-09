@@ -71,7 +71,12 @@ bsample, strata(strata) cluster(psu)
 qui do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
 
 
+/*
+we want all outcomes for social groups
+only underweight for predictor groups
+reweighting diagnostics for all
 
+*/
 
 *-------------- get reweghting diagnostics and outcomes by subgroups --------------
 
@@ -108,21 +113,36 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 		count if gestdur>=9 & gestdur!=. & `overvar'==`i'
 		local count9plus_`overvar'`i' = r(N)
 		
-		* bmi, underweight, weight, overweight, obesity - pre-pregnancy outcomes by subgroup (calculated using reweighting)
-		foreach outcome of varlist bmi underweight weight overweight obesity {
-			sum `outcome' [aw=reweightingfxn] if preg==0 & dropbin!=1 & `overvar'==`i'
-			local `outcome'_`overvar'`i' = r(mean)
+		
+		* for allfivegroups and each social group, we want all outcomes
+		* for predictor groups, we only need underweight
+		if inlist("`overvar'", "allfivegroups", "group") local outcomes bmi underweight weight overweight obesity gainhat
+		else local outcomes underweight		
+		
+	
+		* pre-pregnancy outcomes by subgroup (calculated using reweighting)
+		foreach outcome in `outcomes' {
+			
+			if "`outcome'"=="gainhat" {			
+				* nineweighthat: average weight of 9+ month pregnant women
+				sum weight [aw=v005] if gestdur>=9 & gestdur!=. & `overvar'==`i'
+				local nineweighthat_`overvar'`i' = r(mean)
+				
+				* coeffhat: coefficient for method 2 weight gain calculation of subgroup 
+				reg weight gestdur i.v012 i.v133 i.v218 i.urban i.v190 i.v024##v006 [aw=v005] if inrange(gestdur,3,9) & `overvar'==`i'
+				local coeffhat_`overvar'`i' = _b[gestdur]
+			}
+			
+			else {
+				sum `outcome' [aw=reweightingfxn] if preg==0 & dropbin!=1 & `overvar'==`i'
+				local `outcome'_`overvar'`i' = r(mean)
+			}
 		}
+				
 		
-		* nineweighthat: average weight of 9+ month pregnant women
-		sum weight [aw=v005] if gestdur>=9 & gestdur!=. & `overvar'==`i'
-		local nineweighthat_`overvar'`i' = r(mean)
 		
-		* coeffhat: coefficient for method 2 weight gain calculation of subgroup 
-		reg weight gestdur i.v012 i.v133 i.v218 i.urban i.v190 i.v024##v006 [aw=v005] if inrange(gestdur,3,9) & `overvar'==`i'
-		local coeffhat_`overvar'`i' = _b[gestdur]
 		
-		}
+	}
 		
 	}
 }
@@ -145,10 +165,20 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 		
 		foreach var in `vars' {
 			
-			if !inlist("`var'", "gainhatm1", "gainhatm2") qui replace `var'_`overvar'`i' = ``var'_`overvar'`i'' if _n == `iteration'
+			* record all outcomes only for allfivegroups and groups
+			if inlist("`overvar'", "allfivegroups", "group") | !inlist("`var'", "bmi", "weight", "overweight", "obesity", "gainhatm1", "gainhatm2", "nineweighthat", "coeffhat")  {
+				
+				if !inlist("`var'", "gainhatm1", "gainhatm2") qui replace `var'_`overvar'`i' = ``var'_`overvar'`i'' if _n == `iteration'
 			
 			* method 2 weight gain calculation
-			else if "`var'"=="gainhatm2" qui replace gainhatm2_`overvar'`i' = nineweighthat_`overvar'`i' - weight_`overvar'`i' + (0.5)*coeffhat_`overvar'`i' if _n==`iteration'
+				else if "`var'"=="gainhatm2" qui replace gainhatm2_`overvar'`i' = nineweighthat_`overvar'`i' - weight_`overvar'`i' + (0.5)*coeffhat_`overvar'`i' if _n==`iteration'
+				
+			}
+			
+			
+ 
+			
+			
 		}
 		
 	}

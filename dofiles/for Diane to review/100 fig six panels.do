@@ -3,7 +3,7 @@
 
 do "dofiles/cleaned do files - reviewed/040_fig panel ACE showing distribution of pregnant women by predictors.do"
 
-do "dofiles/for Diane to review/081_fig panels BDE showing pp outcomes by predictors.do"
+do "dofiles/for Diane to review/090_fig panels BDE showing pp outcomes by predictors.do"
 
 use "$dataset", clear
 * calculate sample sizes for figure notes
@@ -32,4 +32,6 @@ graph combine a.gph c.gph e.gph parity.gph bs.gph  wealth.gph, cols(3) ///
 	
 cd "`orig_dir'"
 graph export "figures/six panel figure.png", replace
-	
+
+
+

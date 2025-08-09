@@ -39,9 +39,10 @@ foreach i in `levels' {
 twoway (rcap `var'_ul `var'_ll group, lcolor(black)) ///
        (scatter `var'_mean group, msymbol(circle) mcolor(black)),
        xlabel(1 "Adivasi" 2 "Dalit" 3 "OBC" 4 "Forward" 5 "Muslim" 6 "All five", nogrid) ///
-       ylabel(, grid) ///
+       ylabel(0(.05)0.3, grid) ///
        ytitle("`prettyname'") ///
        xtitle("") ///
+	   yscale(range(0 .)) ///
        graphregion(color(white)) ///
        legend(off) ///
 	   text(`outcome_1' `textpos_1' "`=string(`outcome_1', "%4.2f")'", placement(west) size(small)) ///
@@ -49,8 +50,8 @@ twoway (rcap `var'_ul `var'_ll group, lcolor(black)) ///
 	   text(`outcome_3' `textpos_3' "`=string(`outcome_3', "%4.2f")'", placement(west) size(small))
 	   text(`outcome_4' `textpos_4' "`=string(`outcome_4', "%4.2f")'", placement(west) size(small)) 
 	   text(`outcome_5' `textpos_5' "`=string(`outcome_5', "%4.2f")'", placement(west) size(small))
-	   text(`outcome_6' `textpos_6' "`=string(`outcome_6', "%4.2f")'", placement(west) size(small)) ///
-	   text(0.077 6.4 "Social Groups", placement(west)) ///
+	   text(`outcome_6' `textpos_6' "`=string(`outcome_6', "%4.2f")'", a) ///
+	   text(-0.035 6.5 "Social Groups", placement(west)) ///
 	   graphregion(color(white) margin(r+12));
 #delimit cr
 
