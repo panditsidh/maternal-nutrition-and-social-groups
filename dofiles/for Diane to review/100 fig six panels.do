@@ -1,10 +1,5 @@
 * This dofile generates the individual panels of the 6 panel figure and combines them
 
-do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
-do "dofiles/cleaned do files - reviewed/040_fig panel ACE showing distribution of pregnant women by predictors.do"
-
-do "dofiles/for Diane to review/090_fig panels BDE showing pp outcomes by predictors.do"
-
 use "$dataset", clear
 * calculate sample sizes for figure notes
 count if preg==1 

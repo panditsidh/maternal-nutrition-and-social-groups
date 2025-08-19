@@ -3,6 +3,10 @@
 * we use esttab in a clever way to add custom statistics
 
 
+use "$dataset", clear
+do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
+
+
 eststo clear
 local outcome underweight
 local overvars parity_bs wealth

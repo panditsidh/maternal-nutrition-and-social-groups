@@ -90,7 +90,9 @@ The weight gain regression controls for age fixed effects, years of schooling fi
 			* get confidence intervals for all variables from bootstrap results dataset
 			preserve
 			
-			use "data/bootstrapresults_test.dta", clear
+// 			use "data/bootstrapresults_test.dta", clear
+
+			use "bootstrap_new_test.dta", clear
 			
 			if "`outcome'"!="gainhatm1" {	
 				sum `outcome'_`overvar'`i', detail
@@ -98,7 +100,9 @@ The weight gain regression controls for age fixed effects, years of schooling fi
 				matrix results[`row', `col'+1] = r(p5)
 				matrix results[`row', `col'+2] = r(p95)
 			}
-	
+			
+			
+			else if "`var'"=="gainhatm2" qui replace gainhatm2_`overvar'`i' = nineweighthat_`overvar'`i' - weight_`overvar'`i' + (0.5)*coeffhat_`overvar'`i' if _n==`iteration'
 	
 			
 			restore

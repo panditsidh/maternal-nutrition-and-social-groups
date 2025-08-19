@@ -5,9 +5,6 @@
 
 use "$dataset", clear
 
-// tabexp [pweight=v005], length(5) ageg(5) bvar(b3_*) dates(v008) wbirth(v011)
-
-tfr2 [pweight=v005], len(5) ageg(5) bvar(b3_*) dates(v008) wbirth(v011)
 
 /*
 
@@ -28,4 +25,54 @@ then, 5 times the sum of ASFRs gives you TFR
    
 standard errors for TFR?
 
+
+
+
+
 */
+
+
+
+
+
+matrix results = J(6, 3, .)
+
+
+local row = 1
+foreach i of numlist 1/6 {
+	
+
+	preserve
+	
+	if `i'!=6 keep if group==`i'
+	
+	tfr2 [pweight=v005], len(5) ageg(5) bvar(b3_*) dates(v008) wbirth(v011)
+	
+	matrix tfr_results = r(table)
+	
+	
+	matrix results[`row', 1] = tfr_results[1,8]
+	
+	matrix results[`row', 2] = tfr_results[5,8]
+	
+	matrix results[`row', 3] = tfr_results[6,8]
+	
+	restore
+	
+	local row = `row'+1
+}
+
+
+matrix colnames results = tfr tfr_ll tfr_ul
+
+* use svmat to bring the matrix into the stata data environment and edit strings from there
+input str100 rows
+"Adivasi"
+"Dalit"
+"OBC"
+"Forward"
+"Muslim"
+"All five social groups"
+end
+
+

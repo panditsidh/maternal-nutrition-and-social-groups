@@ -1,6 +1,12 @@
+
+
 * this table gets us reweighting diagnostics
 
+use "$dataset", clear
+do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
+
 /*
+
 
 
 
