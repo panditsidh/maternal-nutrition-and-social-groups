@@ -1,4 +1,4 @@
-* this do file takes about 5 hours to run, uses bootstrapping to estimate pre-pregnancy outcomes by social group, predictors, and for all India with confidence intervals
+s* this do file takes about 5 hours to run, uses bootstrapping to estimate pre-pregnancy outcomes by social group, predictors, and for all India with confidence intervals
 
 set more off 
 clear all

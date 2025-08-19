@@ -1,35 +1,70 @@
 
-// 0, 1 : create dataset for analysis 
-do "dofiles/cleaned do files for submission/010_assemble data.do"
-do "dofiles/cleaned do files for submission/020_create weights to estimate pp nutrition.do"
+// 1 : create dataset for analysis 
+do "dofiles/cleaned do files - reviewed/010_assemble data.do"
+
+
+// 2 : summary statistics
+do "dofiles/cleaned do files - reviewed/020_table summary statistics.do"
+
+
+// 3 : regression predicting pregnancy
+do "dofiles/cleaned do files - reviewed/030_table regression predicting pregnancy.do"
+
+
+
+* issue - right before this the dataset is different
+
+// // 4 : figures showing distribution of pregnant women by parity, birth spacing, social group
+// do "dofiles/cleaned do files - reviewed/040_fig panel ACE showing distribution of pregnant women by predictors.do"
+
+
+// 5 : reweighting
+
+do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
 
 
 
 
-// 2 : get bootstrap results (alr have them)
+* TODO fix this to run faster and rerun
 
-* this one takes like 5 hours 
-// do "dofiles/cleaned do files for submission/030_pp outcomes with bootstrapped CIs.do"
+// 6 : get bootstrapped confidence intervals for pre-pregnancy outcomes (takes forever to run)
 
-
-// 3 : main result graph
-
-do "dofiles/cleaned do files for submission/031_fig_ppUW_by_socialgroup.do"
+// do "dofiles/for Diane to review/060_bootstrapped cis for pp nutrition by subgroup.do"
 
 
+// 7 : compile a results dataset
 
-// 4 : six panel figure
-
-
-
-* first, refresh original dataset for analysis (current storage has bootstrap results.dta)
-do "dofiles/cleaned do files for submission/010_assemble data.do"
-do "dofiles/cleaned do files for submission/020_create weights to estimate pp nutrition.do"
-
-* @DIANE: I've just been re-running these two dofiles everytime I want to refresh the dataset (since they run so fast). Would it make more sense to save it in the project folder given the order of the dofiles? I was just trying to avoid copies of NFHS wherever possible, so as to preserve storage, but we can do this if it makes it simpler!
+do "dofiles/for Diane to review/070_pp nutrition estimates by subgroup.do"
 
 
-do "dofiles/cleaned do files for submission/040_distributions of pregnant women by predictors.do"
+// 8 : main result figure 
+
+do "dofiles/for Diane to review/080_fig pp underweight by subgroup.do"
 
 
-do "dofiles/cleaned do files for submission/041_pp outcomes by predictors.do"
+// // 9 : figures of pp outcomes by predictors
+// do "dofiles/for Diane to review/090_fig panels BDE showing pp outcomes by predictors.do"
+
+
+// 10 : combine the figures from 4 and 9 to get one six panel figure
+do "dofiles/for Diane to review/100 fig six panels.do"
+
+// 11 : kitagawa decomposition
+
+do "dofiles/for Diane to review/110 table kitagawa results.do"
+
+
+* TODO
+
+// 12 : tfrs
+
+
+
+// 13 : reweighting diagnostics
+
+do "dofiles/for Diane to review/130_appendix table with percent pregnant women dropped.do"
+
+
+// 15 : additional outcomes
+
+do "dofiles/for Diane to review/150_appendix table additional maternal nutrition indicators.do"

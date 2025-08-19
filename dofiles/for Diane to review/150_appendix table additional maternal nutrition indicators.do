@@ -32,8 +32,7 @@ keep rows bmi_ci weight_ci overweight_ci obesity_ci gainhatm1_ci gainhatm2_ci
 
 
 #delimit ;
-listtex rows ///
-    bmi_ci weight_ci overweight_ci obesity_ci gainhatm1_ci gainhatm2_ci ///
+listtex rows  bmi_ci weight_ci overweight_ci obesity_ci gainhatm1_ci gainhatm2_ci ///
     using "tables/addl_maternal_nutrition_table.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{3.5cm}}}" ///

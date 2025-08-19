@@ -50,7 +50,7 @@ twoway (rcap `var'_ul `var'_ll group, lcolor(black)) ///
 	   text(`outcome_3' `textpos_3' "`=string(`outcome_3', "%4.2f")'", placement(west) size(small))
 	   text(`outcome_4' `textpos_4' "`=string(`outcome_4', "%4.2f")'", placement(west) size(small)) 
 	   text(`outcome_5' `textpos_5' "`=string(`outcome_5', "%4.2f")'", placement(west) size(small))
-	   text(`outcome_6' `textpos_6' "`=string(`outcome_6', "%4.2f")'", a) ///
+	   text(`outcome_6' `textpos_6' "`=string(`outcome_6', "%4.2f")'") ///
 	   text(-0.035 6.5 "Social Groups", placement(west)) ///
 	   graphregion(color(white) margin(r+12));
 #delimit cr

@@ -2,7 +2,7 @@
 
 
 * for testing - this should be commented otherwise
-use "$dataset", clear
+// use "$dataset", clear
 
 * ----------- PARAMETERS-----------
 local binvars not_c_user agebin less_edu rural noboy wealth parity_bs group

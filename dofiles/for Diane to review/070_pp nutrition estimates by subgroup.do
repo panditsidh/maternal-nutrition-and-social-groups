@@ -43,14 +43,16 @@ The weight gain regression controls for age fixed effects, years of schooling fi
 			if "`outcome'"=="gainhatm1" {
 				matrix results[`row', `col'] = .
 				
-				qui reg weight gestdur i.v012 i.v133 i.v218 i.rural i.v190 i.v024##v006 [aw=v005] ///
-				if `overvar'==`i' & inrange(gestdur,3,9)
-				local coeffhat_`overvar'`i' = _b[gestdur]
+				reghdfe weight gestdur i.v012 i.v133 i.v218 i.rural i.v190 if `overvar'==`i' & inrange(gestdur,3,9) [aw=v005],absorb(v024#v006) vce(cluster v021)
 				
+				
+
+				matrix regtable = r(table)
+										
 				// Method 1: 6 months * beta, plus 10% first trimester assumption
-				local gainhatm1_`overvar'`i' = 1.1 * 6 * `coeffhat_`overvar'`i''
-				
-				matrix results[`row', `col'] = `gainhatm1_`overvar'`i''
+				matrix results[`row', `col'] = 1.1 * 6 * _b[gestdur]
+				matrix results[`row', `col'+1] = 1.1 * 6 * regtable[5,1]
+				matrix results[`row', `col'+2] = 1.1 * 6 * regtable[6,1]
 				
 				
 			}
@@ -90,10 +92,13 @@ The weight gain regression controls for age fixed effects, years of schooling fi
 			
 			use "data/bootstrapresults_test.dta", clear
 			
-			if "`outcome'"!="gainhatm1" sum `outcome'_`overvar'`i', detail
-				
-			matrix results[`row', `col'+1] = r(p5)
-			matrix results[`row', `col'+2] = r(p95)
+			if "`outcome'"!="gainhatm1" {	
+				sum `outcome'_`overvar'`i', detail
+					
+				matrix results[`row', `col'+1] = r(p5)
+				matrix results[`row', `col'+2] = r(p95)
+			}
+	
 	
 			
 			restore

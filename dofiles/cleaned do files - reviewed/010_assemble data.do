@@ -7,7 +7,7 @@ replace strata = 7 if strata==8
 egen psu = group(v000 v001 v024 v025)
 
 // keep currently married women because the NFHS only asks childbearing questions to married women
-keep if v501==1 
+// keep if v501==1 
 
 ********************************* SOCIAL GROUP *********************************
 //This paper only analyzes data for women beloning to the following groups:
