@@ -1,8 +1,3 @@
- 
-
-// use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 using $nfhs5ir, clear
-
-
 use "$dataset", clear
 
 
@@ -24,10 +19,6 @@ at that point, get ASFR by number of births/ total person years lived
 then, 5 times the sum of ASFRs gives you TFR 
    
 standard errors for TFR?
-
-
-
-
 
 */
 
@@ -65,51 +56,71 @@ foreach i of numlist 1/6 {
 }
 
 
-matrix colnames results = asfr1519 asfr2024 asfr2529 asfr3034 asfr3539 asfr4044 asfr4549 tfr tfrll tfrul
 
+
+
+matrix results = results'
+
+
+
+matrix colnames results = c1 c2 c3 c4 c5 c6
+
+
+drop *
 * use svmat to bring the matrix into the stata data environment and edit strings from there
 input str100 rows
-"Adivasi"
-"Dalit"
-"OBC"
-"Forward"
-"Muslim"
-"All five social groups"
+"ASFR 15-19"
+"ASFR 20-24"
+"ASFR 25-29"
+"ASFR 30-34"
+"ASFR 35-39"
+"ASFR 40-44"
+"ASFR 45-49"
+"TFR"
+"TFR ll"
+"TFR ul"
+"TFR confidence interval"
 end
 
 
 
 svmat results, names(col)
 
-
-
-
-foreach v in asfr1519 asfr2024 asfr2529 asfr3034 asfr3539 asfr4044 asfr4549 tfr tfrll tfrul {
+foreach i of numlist 1/6 {
 	
-	gen str_`v' = string(`v', "%9.2g")
-	replace str_`v' = "0" + str_`v' if substr(str_`v',1,1)=="."
+	gen group`i' = string(c`i', "%9.2f")
+	
+	
+	
+	gen str20 tfr_ci`i' = ""
+	
+	
+	
+	
+	sum c`i' if _n==9
+	local tfr_ll = r(mean)
+	
+	sum c`i' if _n==10
+	local tfr_ul = r(mean)
+	
+	
+	replace tfr_ci`i' = "(" + string(`tfr_ll',"%9.2f") + ", " + string(`tfr_ul',"%9.2f") + ")" if _n==11
+	
+	replace group`i' = tfr_ci`i' if !missing(tfr_ci`i')
+	
+	
+	
+	drop c`i' tfr_ci`i'
+	
 }
 
-
-keep rows str_*
-
-
-drop if missing(rows)
-
-
-
-
+drop if _n==9 | _n==10
 
 #delimit ;
-listtex row str* using "tables/tfr.tex", replace rstyle(tabular) ///
-    head("\begin{tabular}{l>{\centering\arraybackslash}p{1.4cm}}" ///
-         "\toprule" ///
-         "Social group & ASFR 15-19 & ASFR 20-24 & ASFR 30-34 & ASFR 40-44 & ASFR 45-49 \\\\" ///
-         "\midrule") ///
-    foot("\bottomrule" "\end{tabular}");
+listtex row group* using "tables/tfr.tex", replace rstyle(tabular) ///
+  head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{1.4cm}}}" ///
+       "\toprule" ///
+       " & Adivasi & Dalit & OBC & Forward & Muslim & All five social groups \\\\" ///
+       "\midrule") ///
+  foot("\bottomrule" "\end{tabular}");
 #delimit cr
-
-
-
-
-
