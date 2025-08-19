@@ -46,7 +46,7 @@ foreach i of numlist 1/6 {
 	
 	if `i'!=6 keep if group==`i'
 	
-	tfr2 [pweight=v005], len(5) ageg(5) bvar(b3_*) dates(v008) wbirth(v011)
+	tfr2 [pweight=v005], len(3) ageg(5) bvar(b3_*) dates(v008) wbirth(v011)
 	
 	matrix tfr_results = r(table)
 	
@@ -63,7 +63,7 @@ foreach i of numlist 1/6 {
 }
 
 
-matrix colnames results = tfr tfr_ll tfr_ul
+matrix colnames results = TFR tfr_ll tfr_ul
 
 * use svmat to bring the matrix into the stata data environment and edit strings from there
 input str100 rows
@@ -74,5 +74,30 @@ input str100 rows
 "Muslim"
 "All five social groups"
 end
+
+
+
+svmat results, names(col)
+
+
+keep rows tfr tfr_ll tfr_ul
+
+
+
+
+drop if missing(rows)
+
+
+#delimit ;
+listtex row TFR using "tables/tfr.tex", replace rstyle(tabular) ///
+    head("\begin{tabular}{l>{\centering\arraybackslash}p{1.4cm}}" ///
+         "\toprule" ///
+         "Social group & TFR \\\\" ///
+         "\midrule") ///
+    foot("\bottomrule" "\end{tabular}");
+#delimit cr
+
+
+
 
 
