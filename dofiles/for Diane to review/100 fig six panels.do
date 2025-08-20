@@ -26,7 +26,7 @@ graph combine a.gph c.gph e.gph parity.gph bs.gph  wealth.gph, cols(3) ///
 
 	
 cd "`orig_dir'"
-graph export "figures/six panel figure.png", replace
+graph export "figures/fig_predictors_by_social_group_and_gradients.png", replace
 
 
 

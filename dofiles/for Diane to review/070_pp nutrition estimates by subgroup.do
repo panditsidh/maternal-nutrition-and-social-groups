@@ -90,9 +90,15 @@ The weight gain regression controls for age fixed effects, years of schooling fi
 			* get confidence intervals for all variables from bootstrap results dataset
 			preserve
 			
+			
+			*OLD
 // 			use "data/bootstrapresults_test.dta", clear
 
+			*TEST
 			use "bootstrap_new_test.dta", clear
+			
+			*NEW
+// 			use "bootstrap cis for pp outcomes.dta", clear
 			
 			if "`outcome'"!="gainhatm1" {	
 				sum `outcome'_`overvar'`i', detail

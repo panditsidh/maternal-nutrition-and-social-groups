@@ -113,6 +113,6 @@ drop overvar level
 
 reshape wide bmi underweight weight overweight obesity gainhatm2, i(iteration) j(overlevel) string
 
-save "bootstrap_new_test.dta", replace
+save "bootstrap cis for pp outcomes.dta", replace
 
 

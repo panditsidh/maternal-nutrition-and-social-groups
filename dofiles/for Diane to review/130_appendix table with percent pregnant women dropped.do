@@ -5,32 +5,6 @@
 use "$dataset", clear
 do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
 
-/*
-
-
-
-
-rows are predictor groups
-
-- all 
-- levels of paritybs
-- levels of wealth
-
-columns are social groups
-- all 
-- 1-5
-
-
-each column has actually 2 columns
-- sample size of pregnant
-- % pregnant dropped
-
-
-
-so cols 6*2 
-
-
-*/
 
 
 gen all_predictors = 1
@@ -92,7 +66,7 @@ matrix colnames results = ///
 	pctdrop_group5 ///
 	
 	
-
+drop *
 input str100 rows
 "\textbf{Parity and time since last live birth categories}"
 "\hspace*{2em}No births"  
@@ -121,6 +95,13 @@ svmat results, names(col)
 drop if missing(rows)
 
 keep rows-pctdrop_group5
+
+
+foreach v of varlist pctdrop_* {
+    format `v' %04.2f
+}
+
+
 
 #delimit ;
 listtex rows ///

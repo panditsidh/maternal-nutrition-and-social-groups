@@ -51,7 +51,12 @@ foreach overvar in parity bs wealth {
 	foreach i in `levels' {
 		sum underweight_mean if group==`i'
 		local outcome_`i' = r(mean)
-		local textpos_`i' = 0.18+`i'
+		
+		
+		if inlist("`overvar'", "wealth", "parity") local text_shift = 0.2
+		else local text_shift = 0.18
+		
+		local textpos_`i' = `text_shift'+`i'
 	}	
 	
 	
@@ -73,8 +78,12 @@ foreach overvar in parity bs wealth {
 		   text(`outcome_4' `textpos_4' "`=string(`outcome_4', "%4.2f")'", placement(west) size(small)) ; ///;
 	#delimit cr
 
-//     graph export "figures/bootstrapped_underweight_by_`overvar'_5.png", replace
-	graph save "figures/`overvar'.gph", replace
+    graph export "figures/pp_underweight_by_`overvar'.png", replace
+	
+	if "`overvar'"=="parity" local graph b
+	if "`overvar'"=="bs" local graph d
+	if "`overvar'"=="wealth" local graph f
+	graph save "figures/`graph'.gph", replace
 	
     
 	

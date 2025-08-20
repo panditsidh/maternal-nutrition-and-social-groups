@@ -56,4 +56,4 @@ twoway (rcap `var'_ul `var'_ll group, lcolor(black)) ///
 #delimit cr
 
 
-graph export "figures/bootstrapped_`var'_by_group_5.png", replace
+graph export "figures/figppUW_by_socialgroup.png", replace

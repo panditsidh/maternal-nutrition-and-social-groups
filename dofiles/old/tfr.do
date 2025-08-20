@@ -89,7 +89,7 @@ drop if missing(rows)
 
 
 #delimit ;
-listtex row TFR using "tables/tfr.tex", replace rstyle(tabular) ///
+listtex row group* using "tables/tfr.tex", replace rstyle(tabular) ///
     head("\begin{tabular}{l>{\centering\arraybackslash}p{1.4cm}}" ///
          "\toprule" ///
          "Social group & TFR \\\\" ///
