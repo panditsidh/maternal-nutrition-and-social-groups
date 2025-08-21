@@ -197,7 +197,7 @@ Results from the decomposition of Muslim women and forwards caste women had the 
     \setlength{\tabcolsep}{2pt}
     \renewcommand{\arraystretch}{1.2}
     % \input{tables/sumstats}
-    % \input{tables/table_sumstats}
+    \input{tables/table_sum_stats}
     
 \end{table}
 
@@ -213,8 +213,8 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/bootstrapped_underweight_by_group_5.png}
-    % {figures/figppUW_by_socialgroup.png}
+    \includegraphics[width=\textwidth]
+    {figures/figPPUW_by_socialgroup.png}
     \caption{: CIs of pre-pregnancy underweight by social group}
 \end{figure}
 
@@ -229,8 +229,8 @@ Results from the decomposition of Muslim women and forwards caste women had the 
     \caption{: Kitagawa decomposition results}
     % \setlength{\tabcolsep}{1pt}
     \renewcommand{\arraystretch}{1.5}
-    {\input{tables/kitagawa_all}}
-    % {\input{tables/kitagawa_results}}
+    % {\input{tables/kitagawa_all}}
+    {\input{tables/table_kitagawa_results}}
 \end{table}
 
 \end{landscape}
@@ -246,8 +246,8 @@ Results from the decomposition of Muslim women and forwards caste women had the 
     \caption{: OLS regressions predicting pregnancy with covariates that also predict underweight}
     \setlength{\tabcolsep}{1pt}
     \renewcommand{\arraystretch}{0.81}
-    {\input{tables/predictor_regression}}
-    % {\input{tables/table_reg_results}}
+    % {\input{tables/predictor_regression}}
+    {\input{tables/table_reg_results}}
 \end{table}
 
 % \restoregeometry
@@ -260,9 +260,9 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \vspace*{-2cm}  % Pull table upward on the 
 \begin{figure}[H]
   \makebox[\textwidth][c]{%
-    \includegraphics[width=0.95\textwidth]{figures/six panel figure.png}
+    % \includegraphics[width=0.95\textwidth]{figures/six panel figure.png}
 
-    % \includegraphics[width=0.95\textwidth]{figures/fig_predictors_by_social_group_and_gradients.png}
+    \includegraphics[width=0.95\textwidth]{figures/fig_predictors_by_social_group_and_gradients.png}
   }
   \caption{: Differences in parity, birth spacing, and wealth quartile by social group, and the relationship between these characteristics and prepregnancy underweight}
   \label{fig:sixpanel}
@@ -315,8 +315,8 @@ Results from the decomposition of Muslim women and forwards caste women had the 
     \caption{: TFR table}
     \renewcommand{\arraystretch}{1.5}
     \resizebox{\textwidth}{!}{%
-        \input{tables/tfr}
-        % \input{tables/table_tfr_by_socialgroup}
+        % \input{tables/tfr}
+        \input{tables/table_tfr_by_socialgroup}
     }
     % \input{tables/tfr}
 \end{table}
