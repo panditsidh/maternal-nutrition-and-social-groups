@@ -117,7 +117,7 @@ foreach i of numlist 1/6 {
 drop if _n==9 | _n==10
 
 #delimit ;
-listtex row group* using "tables/tfr.tex", replace rstyle(tabular) ///
+listtex row group* using "tables/table_tfr_by_socialgroup.tex", replace rstyle(tabular) ///
   head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{1.4cm}}}" ///
        "\toprule" ///
        " & Adivasi & Dalit & OBC & Forward & Muslim & All five social groups \\\\" ///

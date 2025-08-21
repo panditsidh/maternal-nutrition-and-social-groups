@@ -94,11 +94,11 @@ The weight gain regression controls for age fixed effects, years of schooling fi
 			*OLD
 // 			use "data/bootstrapresults_test.dta", clear
 
-			*TEST
-			use "bootstrap_new_test.dta", clear
+// 			*TEST
+// 			use "bootstrap_new_test.dta", clear
 			
 			*NEW
-// 			use "bootstrap cis for pp outcomes.dta", clear
+			use "data/bootstrap cis for pp outcomes.dta", clear
 			
 			if "`outcome'"!="gainhatm1" {	
 				sum `outcome'_`overvar'`i', detail

@@ -6,6 +6,16 @@ local B = 1000 //how many times to bootstrap
 
 ******************* PREPARING BOOTSTRAP RESULTS DATASET ************************
 
+
+foreach var in iteration overvar level bmi underweight weight overweight obesity gainhatm2 {
+	if "`var'"=="overvar" gen str20 overvar = ""
+	else gen `var' = .
+	
+}
+
+
+save "bootstrap cis for pp outcomes.dta", replace
+
 tempname H
 tempfile results
 
@@ -22,11 +32,12 @@ postfile `H' ///
 
 * bootstrapping loop start
 forvalues iteration = 1(1)`B'{ 
-	
+		
 		
 di "ITERATION ", `iteration', " of ", `B'
 
 qui {
+
 
 
 /*
@@ -99,9 +110,13 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 	}
 		
 	}
+	
 }
+	
+
 
 }
+
 
 postclose `H'
 use `results', clear
@@ -113,6 +128,6 @@ drop overvar level
 
 reshape wide bmi underweight weight overweight obesity gainhatm2, i(iteration) j(overlevel) string
 
-save "bootstrap cis for pp outcomes.dta", replace
+save "data/bootstrap cis for pp outcomes.dta", replace
 
 

@@ -167,7 +167,7 @@ drop if _n>31
 listtex row ///
      ci_adivasi_p ci_dalit_p ci_obc_p ci_forward_p ci_muslim_p ci_india_p ///
      ci_adivasi_np ci_dalit_np ci_obc_np ci_forward_np ci_muslim_np ci_india_np ///
-    using "tables/sumstats.tex", replace ///
+    using "tables/table_sum_stats.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{0.9cm}}@{\hspace{3em}}*{6}{>{\centering\arraybackslash}p{0.9cm}}}" ///
          "\toprule" ///

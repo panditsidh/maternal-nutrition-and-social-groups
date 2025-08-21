@@ -96,7 +96,7 @@ esttab underweight*,
 	mtitles("Adivasi-Forward" "Dalit-Forward" "OBC-Forward" "Muslim-Forward")
 	;
 
-esttab underweight* using "tables/kitagawa_all.tex",  replace
+esttab underweight* using "tables/table_kitagawa_results.tex",  replace
 	stats(underweight_diff blank blank within_parity_bs between_parity_bs pct_parity_bs blank blank within_wealth between_wealth pct_wealth, labels(`labels') fmt(2))
 	drop(v201 _cons)
 	nonumbers nostar noobs not
