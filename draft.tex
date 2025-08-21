@@ -196,7 +196,8 @@ Results from the decomposition of Muslim women and forwards caste women had the 
     \scriptsize	
     \setlength{\tabcolsep}{2pt}
     \renewcommand{\arraystretch}{1.2}
-    \input{tables/sumstats}
+    % \input{tables/sumstats}
+    % \input{tables/table_sumstats}
     
 \end{table}
 
@@ -213,6 +214,7 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/bootstrapped_underweight_by_group_5.png}
+    % {figures/figppUW_by_socialgroup.png}
     \caption{: CIs of pre-pregnancy underweight by social group}
 \end{figure}
 
@@ -228,6 +230,7 @@ Results from the decomposition of Muslim women and forwards caste women had the 
     % \setlength{\tabcolsep}{1pt}
     \renewcommand{\arraystretch}{1.5}
     {\input{tables/kitagawa_all}}
+    % {\input{tables/kitagawa_results}}
 \end{table}
 
 \end{landscape}
@@ -244,6 +247,7 @@ Results from the decomposition of Muslim women and forwards caste women had the 
     \setlength{\tabcolsep}{1pt}
     \renewcommand{\arraystretch}{0.81}
     {\input{tables/predictor_regression}}
+    % {\input{tables/table_reg_results}}
 \end{table}
 
 % \restoregeometry
@@ -257,6 +261,8 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \begin{figure}[H]
   \makebox[\textwidth][c]{%
     \includegraphics[width=0.95\textwidth]{figures/six panel figure.png}
+
+    % \includegraphics[width=0.95\textwidth]{figures/fig_predictors_by_social_group_and_gradients.png}
   }
   \caption{: Differences in parity, birth spacing, and wealth quartile by social group, and the relationship between these characteristics and prepregnancy underweight}
   \label{fig:sixpanel}
@@ -310,15 +316,52 @@ Results from the decomposition of Muslim women and forwards caste women had the 
     \renewcommand{\arraystretch}{1.5}
     \resizebox{\textwidth}{!}{%
         \input{tables/tfr}
+        % \input{tables/table_tfr_by_socialgroup}
     }
     % \input{tables/tfr}
 \end{table}
 
+\section{Discussion}
+
+Reiterate finding on social group disparities in pre-pregnancy underweight
+
+Does this mirror social group disparities in downstream outcomes?
+- preterm birth
+- miscarriage/ stillbirth
+- low birthweight
+- maternal mortality
+- later life women's health
+
+Quantify the risk ratios for these downstream outcomes, then ...
+
+Back of the envelope calculations to say things like:
+- if Adivasi women had the same rate of pre-pregnancy underweight as forward caste women, low birth weight among Adivasi children would decline by X\%
+
+- Given ~B births annually among Adivasi women, this reduction corresponds to ~Y neonatal deaths averted each year and ~Z maternal deaths averted
+
+- Targeted investments in women's nutrition on most marginalized communities could save many lives and reduce health disparities
+
+- Inequality is not just unfair, it's very costly at the population level
+
+Reiterate finding: social group disparities in pre-pregnancy underweight are almost entirely unexplained by parity + birth spacing
+- misconception that more marginalized women's pregnancies are higher parity and lower birth spacing to where they are more depleted (maternal depletion hypothesis) 
+- actually, at any given parity, more marginalized women are just as underweight as forwards caste women
+
+Reiterate finding: social group disparities in pre-pregnancy underweight are largely explained by wealth
+- structural poverty and deprivation is what causes the gap
+- the drop in fertility isn't going to reduce pre-pregnancy underweight
+
+
+Reiterate finding: pre-pregnancy underweight is not higher among Muslims,
+- contrary to expectations given that they are far more economically disadvantaged
+
+- contrary to expectations given higher parities and lower birth spacing (I think the birth spacing decomposition is spurious and not meaningful here)
+
+
+Alright so we can make a claim about 
+
+
+
+
 
 \end{document}
-
-            | Adivasi | Dalit | ... 
-ASFR 15-19
-ASFR 20-25
-TFR           2.1 
-CI for TFR  (ll, ul)
