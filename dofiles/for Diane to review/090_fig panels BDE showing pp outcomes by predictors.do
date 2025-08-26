@@ -1,5 +1,6 @@
 ** This do-file graphs outcomes (with bootstrapped ci) by parity, wealth, and birth spacing
 
+do "$paths"
 local var underweight
 
 
@@ -56,7 +57,8 @@ foreach overvar in parity bs wealth {
 		if inlist("`overvar'", "wealth", "parity") local text_shift = 0.2
 		else local text_shift = 0.18
 		
-		local textpos_`i' = `text_shift'+`i'
+		if "`overvar'"=="bs" & `i'==3 local textpos_`i' = `i'-0.1
+		else local textpos_`i' = `text_shift'+`i'
 	}	
 	
 	

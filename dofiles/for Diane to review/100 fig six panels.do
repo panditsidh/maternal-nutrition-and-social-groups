@@ -1,5 +1,7 @@
 * This dofile generates the individual panels of the 6 panel figure and combines them
 
+
+do "$paths"
 use "$dataset", clear
 * calculate sample sizes for figure notes
 count if preg==1 
