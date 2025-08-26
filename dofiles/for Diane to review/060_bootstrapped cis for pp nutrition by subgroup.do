@@ -5,56 +5,58 @@ clear all
 
 set seed 8062011
 local B = 1000 //how many times to bootstrap
-
+local chunk_size = 50
 ******************* PREPARING BOOTSTRAP RESULTS DATASET ************************
-
-
-foreach var in iteration overvar level bmi underweight weight overweight obesity gainhatm2 {
-	if "`var'"=="overvar" gen str20 overvar = ""
-	else gen `var' = .
-	
-}
-
-
-save "data/bootstrap cis for pp outcomes.dta", replace
-
-tempname H
-tempfile results
-
-#delimit ;
-postfile `H' ///
-    int    iteration ///
-    str20  overvar ///
-    double level ///
-    double bmi underweight weight overweight obesity ///
-    double gainhatm2 ///
-    using `results', replace ;
-#delimit cr
-
 
 * bootstrapping loop start
 forvalues iteration = 1(1)`B'{ 
-		
-		
+
 di "ITERATION ", `iteration', " of ", `B'
 
 qui {
 
+do "$paths"
+	
+* every 50 iterations, save the data
+if mod(`iteration', `chunk_size')==0 | `iteration'==1{
+	
+	
+	if `iteration'!=1 {
+		
+		
+		postclose `H'
+		
+		* first "chunk": create the results file
+		if `iteration'==`chunk_size' {
+			use `results', clear
+			save "data/bootstrap cis for pp outcomes.dta", replace
+			
+		}
+		
+		* all later chunks: append to the results file
+		else {
+			use "data/bootstrap cis for pp outcomes.dta", clear
+			append using `results'
+			save "data/bootstrap cis for pp outcomes.dta", replace
+		}
+		
+		
+	}
+	
+	* start new postfile
+	tempname H
+	tempfile results
 
-
-/*
-
-the problem is that if your working directory somehow changes (by moving around in your file explorer) while this is running (for 2+ hours) then the code will fail because it won't be able to find these paths
-
-the results are written to a local postfile that isn't saved until all iterations are complete - meaning if the code fails, all of that is lost
-
-so if anyone wants to run this, I recommend them to just let it go overnight, change the following line so that your path resets at the beginning of every iteration but that won't really solve the problem
-
-*/
-
-* ensure working directory hasn't changed
-* REPLACE THIS LINE WITH YOUR 000 PATH
-qui do "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/cleaned do files - reviewed/000_paths.do"
+	#delimit ;
+	postfile `H' ///
+		int    iteration ///
+		str20  overvar ///
+		double level ///
+		double bmi underweight weight overweight obesity ///
+		double gainhatm2 ///
+		using `results', replace ;
+	#delimit cr
+}	
 
 * get bootstrap sample
 use "$dataset", clear
@@ -120,16 +122,13 @@ foreach overvar in allfivegroups group parity bs parity_bs wealth {
 }
 
 
-postclose `H'
-use `results', clear
-describe
-list
-
 gen str overlevel = "_" + overvar + string(level)
 drop overvar level
 
 reshape wide bmi underweight weight overweight obesity gainhatm2, i(iteration) j(overlevel) string
 
 save "data/bootstrap cis for pp outcomes.dta", replace
+
+
 
 
