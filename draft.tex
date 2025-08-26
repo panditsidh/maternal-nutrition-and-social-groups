@@ -10,6 +10,9 @@
 \usepackage{import}
 \usepackage{array}
 \usepackage{booktabs}
+\setlength{\parindent}{1.5em}   % standard indent (~0.25 inch)
+\setlength{\parskip}{0em}       % no extra vertical space between paragraphs
+\usepackage{indentfirst}
 \usepackage{afterpage}
 \usepackage{floatrow}
 \usepackage{pdflscape}
@@ -39,7 +42,6 @@
 
 
 \begin{document}
-\raggedright
 
 \title{Fertility and Maternal Nutrition by Indian Social Group}
 \author{authors}
@@ -54,69 +56,18 @@ Maternal undernutrition is an important cause of child mortality and morbidity. 
 
 \maketitle
 
-\section{things to think about}
-\begin{itemize}
-    \item comparison of underweight between pre-pregnancy and later life - are women still most likely to become pregnant in periods of higher undernourishment? how is this changing with decreasing parity? maybe this is for another paper
-    \item DC: yes, I think this is part of the intro or background sections.  I can draft some text and perhaps you can fill in the numbers?
-
-    \item in the discussion section: talk about social group disparities in access to healthcare? things that might account for the gap that are unobserved?
-
-    \item DC: my sense is that better healthcare would not make young women less likely to be underweight.  I think it has more to do with what resources the family has for food, how much of its resources it devotes to food (rather than other things), and how much the food that the household buys and make goes to young women as opposed to other family members.  Health is about getting advice from doctors, getting medicines, or procedures.  Those things don't make young women eat more. 
-
-    
-\end{itemize}
-
-
 \section*{Introduction}
 
-Pre-pregnancy undernutrition is an important determinant of maternal morbidity and mortality, women's long term wellbeing, and intergenerational population health outcomes.
+Prepregnancy undernutrition is an important determinant of maternal mortality, women's long term wellbeing, and intergenerational population health outcomes. In undernourished women, limited fat, muscle, and micronutrient reserves—combined with reduced immune function and blood volume—make it difficult to meet the additional energy demands of pregnancy, increasing the risk of complications for both mother and child. Evidence suggests that fetal growth is most vulnerable to undernutrition "during the peri-implantation period and the period of rapid placental development", a window that often precedes pregnancy recognition among Indian women. \cite{bazer2004maternal}
 
-\cite{king2003risk}: pregnancy introduces biological competition for nutrition between mother and fetus. the mother's pre-conception nutritional status is important for determining pregnancy outcomes. marginally undernourished mothers will lose weight during reproductive cycles but see smaller or no losses to infant birth weight. chronically undernourished mothers will surprisingly gain weight during reproductive cycles at the cost of large losses to infant birth weight. 
+India is a unique case with disproportionately poor prepregnancy health outcomes. \cite{coffey2015prepregnancy} finds that 42.2\% of prepregnant women in India are underweight compared with 16.5\% of prepregnant women in sub-Saharan Africa, and weight gain during pregnancy does not compensate. Additionally, \cite{miller2025preconception} finds that India shows the highest rates of "pre-conception" underweight in South Asia. This can be linked to India's poor child health outcomes. \cite{ahmed2013global} finds that in South Asia, maternal malnutrition alone is responsible for 25–50\% of intrauterine growth restriction. (I can't find the proper source of this, but it's widely cited). 
 
-\vspace{1.5em}
+Despite the urgency, India has no national pregnancy monitoring system for accurate estimation of the national prevalence of prepregnancy health outcomes. Few reliable studies exist that estimate it using demographic health survey data. \cite{coffey2015prepregnancy} uses a novel reweighting method to estimate the nutritional status of women at the time of conception by adjusting the distribution of non-pregnant women to match the observable characteristics of pregnant women in large-scale survey data. This method resulted in a 6.7\% higher pre-pregnancy underweight prevalence when using reweighting methods compared to non-pregnant WRA as a proxy. This paper follows the same method to produce more recent estimates using the NFHS-5 and also the first estimates of pre-pregnancy underweight by social group.
 
+Disaggregation by social group is important because disparities in maternal health and nutrition across caste and religion are well documented, and national averages mask stark inequalities. \cite{borooah2010inequality} shows that, even after controlling for socioeconomic and demographic factors, life expectancy among Scheduled Tribes (STs) was 5 years lower, Scheduled Castes (SCs) 7 years lower, and OBC Muslims 8.6 years lower than among upper-caste Hindus (M\&HC Survey 2004). \cite{ramaiah2015health} the under-five mortality rate (U5MR) was 14 deaths higher among Scheduled Castes (88 vs. 74 nationally), while infant mortality among SCs and STs was 13.1 and 12.3 deaths higher, respectively, compared to the general category (NFHS-3). \cite{let2024prevalence}: the prevalence of anemia among women of reproductive age was 66.9\% among Adivasi women compared to a national average of 54\%.
 
-India is a unique case with disproportionately poor pre-pregnancy health outcomes. This can be linked to its disproportionately poor child health outcomes.
-
-\cite{coffey2015prepregnancy}:  42.2\% of prepregnant women in India are underweight compared with 16.5\% of prepregnant women in sub-Saharan Africa. weight gain during pregnancy does not compensate
-
-\cite{miller2025preconception}: India shows the highest rates of "pre-conception" underweight in South Asia
-
-\cite{ahmed2013global}:  In South Asia, maternal malnutrition alone is responsible for 25–50\% of intrauterine growth restriction (IUGR)
-
-\vspace{1.5em}
-
-
-India has no national pregnancy monitoring system for accurate estimation of the national prevalence of pre-pregnancy health outcomes. Few reliable studies exist that estimate it using demographic health survey data.
-
-
-\cite{coffey2015prepregnancy} uses a novel reweighting method to estimate the nutritional status of women at the time of conception by adjusting the distribution of non-pregnant women to match the observable characteristics of pregnant women in large-scale survey data. This method resulted in a 6.7\% higher pre-pregnancy underweight prevalence when using reweighting methods compared to non-pregnant WRA as a proxy.
-
-This paper follows this method to produce more recent estimates using the NFHS-5 and also the first estimates of pre-pregnancy underweight by social group.
-
-\vspace{1.5em}
-
-
-Disaggregation by social group is important because disparities in maternal health and nutrition across caste and religion are well documented. National averages mask stark inequalities [CITE].
-
-\cite{borooah2010inequality} shows that, even after controlling for socioeconomic and demographic factors, life expectancy among Scheduled Tribes (STs) was 5 years lower, Scheduled Castes (SCs) 7 years lower, and OBC Muslims 8.6 years lower than among upper-caste Hindus (M\&HC Survey 2004).
-
-\cite{ramaiah2015health} the under-five mortality rate (U5MR) was 14 deaths higher among Scheduled Castes (88 vs. 74 nationally), while infant mortality among SCs and STs was 13.1 and 12.3 deaths higher, respectively, compared to the general category (NFHS-3).
-
-
-\vspace{1.5em}
-
-
-
-
-To our knowledge, there are no papers providing nationally representative estimates of pre-pregnancy health outcomes by social group in India.
 
 We find that 26.5\% of Adivasi women and 22.3\% of Dalit women were underweight before pregnancy, compared to 15.5\% of forward-caste Hindus and Muslims. This represents a 70\% higher rate among Adivasis and a 43\% higher rate among Dalits. 
-
-\cite{doke2022prevalence}: in a survey of women desiring pregnancy in Nashik, the mean BMI of women was 19.73 (±3.51), and a higher proportion (40.5\%) of women from tribal areas had BMI<18.5.
-
-\vspace{1.5em}
-
 
 This paper also contributes to a growing literature on the determinants of social group disparities in health. A prominent explanation for poor maternal health among marginalized women is the maternal depletion hypothesis, which posits that repeated, closely spaced pregnancies lead to cumulative physiological stress and undernutrition. Indeed, preconception risk, low birth spacing, and high parity is higher among women of marginalized communities and of low socioeconomic status.
 
@@ -126,7 +77,6 @@ This paper also contributes to a growing literature on the determinants of socia
 \cite{kuppusamy2023high}: women with no formal education and in the poorest wealth quintile were much more likely to have high risk pregnancy (NFHS-5)
 
 \cite{doke2022prevalence} found that among women desiring pregnancy in Nashik, selected risk factors were significantly more prevalent in tribal areas, where 7.7\% of high-parity women (4 or more births) still wished to conceive, compared to 3\% in non-tribal areas.
-
 
 \vspace{1.5em}
 
@@ -141,7 +91,7 @@ Studies have shown associations between short birth intervals, high parity, and 
 
 \vspace{1.5em}
 
-However, the extent to which maternal depletion explains social group disparities in health remains an open empirical question. We find that differences in parity and birth spacing account for only up to 10\% of the gap despite forwards caste women being more likely to be on their first birth or have 3+ years of birth spacing. This implies that other structural factors—such as poverty, discrimination, or access to health services—may play a larger role in driving these disparities.
+However, the extent to which maternal depletion explains social group disparities in health remains an open empirical question. We find that \textbf{differences in parity and birth spacing account for only up to 5\% of the gap} (between forward caste and Adivasi or Dalit or OBC women) despite forwards caste women being more likely to be on their first birth or have 3+ years of birth spacing. This implies that other structural factors—such as poverty, discrimination, or access to health services—may play a larger role in driving these disparities.
 
 \vspace{1.5em}
 
@@ -149,7 +99,10 @@ To further investigate these structural factors, we conduct a decomposition by w
 
 Indeed, wealth accounts for about 60\% of the gap between Dalit and forward-caste women and Adivasi and forward-caste women, and  53.3\% of the gap between OBC and forward-caste women.
 
-Although deprivation can explain a majority of the gap, up to 40\%, a very large component, remains unexplained. This adds to a growing literature on the unobservable effects of caste on health in India [CITE].
+\vspace{1.5em}
+\textbf{Although deprivation can explain a majority of the gap, up to 40\%, a very large component, remains unexplained.} This adds to a growing literature on the unobservable effects of caste on health in India.
+
+[\cite{geruso2014sanitation}, \cite{gupta2020caste}, \cite{lopalo2019consequences}]
 
 
 \cite{bora2019persistent}: 83\% of the caste-based gap in the under-five deaths
@@ -165,18 +118,86 @@ between the SC/ST and non-SC/ST population (NFHS).
 
 \vspace{1.5em}
 
+The gap between pre-pregnancy underweight of Muslim women that weren't SC or ST and forwards caste women was not statistically significant. 
 
-Results from the decomposition of Muslim women and forwards caste women had the opposite result. Despite multidimensional disadvantage, Muslims have lower rates of pre-pregnancy underweight than forward caste Hindus, and this gap widens after accounting for wealth differences.
-
-
-% \section{Method}
+Despite multidimensional disadvantage, Muslims have lower rates of pre-pregnancy underweight than forward caste Hindus, and this gap widens after accounting for wealth differences.
 
 
 
+\section{Method}
+
+\subsection{Data}
+
+This paper uses data from the DHS, which are publicly available from dhsprogram.com. Specifically, we use the fifth round of India's National Family Health Survey (NFHS-5) conducted from 2019-2021. BMI measurements, from which all outcomes in this paper are constructed, are missing from 2.8\% of pregnant women and 3.4\% of non-pregnant women; these observations are dropped from the analysis. Women's sampling weights are used for computation of all summary statistics.
+
+We define five mutually exclusive social groups for which we restrict the sample for analysis: Adivasi, Dalit, OBC (Other Backward Class), forward caste, and Muslim. Adivasi and Dalit women are those who report belonging to a Scheduled Tribe or Scheduled Caste, respectively. Muslim women are those who report being Muslim and not belonging to a Scheduled Caste or Tribe. OBC women are Hindu or Sikh women who report belonging to an Other Backward Class. Thus, we restrict the sample for analysis to women who are Scheduled Tribe, Scheduled Caste, Muslim, both OBC and Sikh, and Hindu. This leads to 2.32\% of the original sample being dropped (do we need to justify this decision, add more about the dropped women's characteristics?). 
+
+Gestational duration of women who report being pregnant in the sample is defined as months since last menstrual period. 4.58\% of women who report being pregnant are missing data for months since last menstrual period. In these cases, gestational duration is defined as the self reported duration of current pregnancy in months. Only five cases were missing both months since last menstrual period and self reported duration of current pregnancy. To avoid biasing the results due to selection into reporting of early pregnancies, only women of 3 or more months of gestational duration are included in the sample of women who report being pregnant (todo appendix table \textbf{???}).
+
+Modern contraceptive use is categorized by whether or not the woman reports using birth control pills, IUD, birth control injections, diaphragm or a condom in the 15 months preceding the survey. (need to decide about cases with periodic abstinence or sterilization\textbf{???}).
+
+Parity is defined as the number of .... (1 + number of live births\textbf{???})
+
+\subsection{Estimation of pre-pregnancy indicators}
+
+Following \cite{coffey2015prepregnancy}, we apply a nonparametric reweighting procedure to nonpregnant women in the sample so that their distribution of key predictors of pregnancy matches that of pregnant women in the sample. This counterfactual distribution upweights nonpregnant women who are more likely to become pregnant and downweights those less likely, producing estimates that more closely approximate the true values of women's nutritional outcomes at the onset of pregnancy in India. This method addresses the challenge that the NFHS doesn't collect longitudinal data, making it impossible to directly observe prepregnancy outcomes. 
 
 
-% \section{Results}
+The reweighting procedure was conducted within each social group for estimation of prepregnancy outcomes by social groups. First, all women in the sample were assigned to bins defined by the intersection of indicators that are important determinants of the likelihood of women becoming pregnant in India and are plausibly correlated with body mass [CITE]. 
 
+These indicators include women's use of modern contraception, having either less than two years, between 2 and 3 years, or 3 or more years since their last birth, and being of the age groups 15-19, 20-24, 25-29, or 30-49 (defined for pregnant women based on what is true in the month of conception and for nonpregnant women based on what is true when they are surveyed). The remaining indicators are based on women's having below secondary education, living in rural residence, having one or more living sons, and belonging to each wealth quartile, which are defined for all women based on what is true at the time of the survey. This allows for 2,560 bins, but in the data, the number of bins per social group ranges from 1636-1882. 
+
+Next, the reweighting function \(\psi\) is defined as \(\psi(x)=[f(x|P=1)]/[f(x|P=0)]\), the ratio of the weighted counts of pregnant to nonpregnant women in each bin \(x\).
+
+Finally, the reweighting function is applied as \(\tilde{W}_i = W_i * \psi(x_i)\) where nonpregnant woman \(i\) has original NFHS sampling weight \(\tilde{W}_i\) and bin \(x_i\). By construction, the distribution of \(\tilde{W}_i\) across bins matches that 
+of pregnant women, so population averages using these weights provides an estimate of the prepregnancy distribution of maternal nutrition outcomes.
+
+\subsection{Kitagawa(1955)-style decomposition}
+
+India's demographic transition has not occurred uniformly across social groups, reflecting inequalities in socioeconomic development and differences in the pace of fertility decline and birth spacing practices. 
+
+To understand the determinants of differences in prepregnancy underweight across social groups, we conduct a decomposition into the component of the difference due to composition across categories and the component due to differences in within category means, following \cite{kitagawa1955components}. Specifically, we conduct two decompositions. The first is over a 10 category parity variable, where parities above 1 are divided into three subgroups based on whether the woman's last birth was less than 2 years ago, between 2 and 3 years ago, or above 3 years ago. The second is over wealth quartiles. 
+
+Following \cite{kitagawa1955components}, we decompose differences in prepregnancy underweight as
+
+\begin{equation}
+\label{eq:kitagawa}
+\Delta \equiv \bar Y^{f} - \bar Y^{g}
+= \Delta_{explained} + \Delta_{unexplained}
+\end{equation}
+
+\begin{equation}
+    \Delta_{explained} = \sum_{j=1}^{J} \big(p_j^{f} - p_j^{g}\big)\,\frac{Y_j^{f} + Y_j^{g}}{2}
+\end{equation}
+
+\begin{equation}
+    \Delta_{unexplained} = \sum_{j=1}^{J} \big(Y_j^{f} - Y_j^{g}\big)\,\frac{p_j^{f} + p_j^{g}}{2}
+\end{equation}
+
+\begin{itemize}
+    \item where \(i=1,...,J\) indexes categories of the decomposition variable (e.g. parity/spacing, for which J=10)
+    \item \( \bar Y^f\) and \(\bar Y^g\) are the overall means for groups \(f\) (forward caste) and \(g\) (comparison group)
+    \item \(Y_i^f\) and \(Y_i^g\) are the means within category i of groups \(f\) and \(g\) respectively
+    \item \(p_i^f\) and \(p_i^g\) are the proportions of women in category \(i\)
+    
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+\section{Results}
+
+Table 1 shows sample means by social group and pregnancy status of pregnancy covariates later used in reweighting the sample to estimate prepregnancy outcomes. This highlights the systematic differences between pregnant and nonpregnant women in the sample, and the potential biases that come with estimating prepregnancy outcomes simply based on the distribution of nonpregnant women. For instance, within and across all social groups, over 92\% of pregnant women aren't using modern contraception, wheras the figure for nonpregnant women is only up to 59\%. 
+
+Pregnant women in all social groups are also more likely to have no prior births or 1 birth with over 3 years of spacing before the start of their current pregnancy. Nonpregnant women are more likely to have two births with over 3 years since their last birth. This reflects the trend in fertility that many Indian women are increasingly giving birth only once or twice. Mention appendix table 6 about TFRs here?
+
+Differences across social groups are also evident. Adivasi, Dalit, OBC, and Muslim women, both pregnant and nonpregnant, are much more likely than forward caste women to have less than primary education or be in the lowest wealth quartile. 
 
 
 \begin{landscape}
@@ -187,17 +208,17 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 
 % \vspace*{-2cm}
 
-\subsection*{Summary statistics}
+\subsection*{Sample means of pregnancy covariates}
 
 \begin{table}[H]
     \centering
-    \caption{: Summary statistics of the reweighting variables by pregnancy status}
+    \caption{:  Summary statistics of the reweighting variables by pregnancy status}
     
     \scriptsize	
     \setlength{\tabcolsep}{2pt}
     \renewcommand{\arraystretch}{1.2}
-    % \input{tables/sumstats}
     \input{tables/table_sum_stats}
+    \parbox{1.2\linewidth}{\footnotesize \textit{Notes:} Sample means for women who are 3+ months pregnant are calculated based on what was true in the month of conception. Sample means for nonpregnant women are calculated based on what was true at the time of the survey.}
     
 \end{table}
 
@@ -208,42 +229,19 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 
 
 
-\subsection*{Main result}
+\subsection*{Regressions predicting pregnancy}
 
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]
-    {figures/figPPUW_by_socialgroup.png}
-    \caption{: CIs of pre-pregnancy underweight by social group}
-\end{figure}
-
-\begin{landscape}
-    
-
-\subsection*{Kitagawa decomposition}
-
-\begin{table}[H]
-    \centering
-    \small % shrink text
-    \caption{: Kitagawa decomposition results}
-    % \setlength{\tabcolsep}{1pt}
-    \renewcommand{\arraystretch}{1.5}
-    % {\input{tables/kitagawa_all}}
-    {\input{tables/table_kitagawa_results}}
-\end{table}
-
-\end{landscape}
+Table 2 reports regressions of pregnancy status on the covariates later used in the reweighting procedure. The coefficients are large and precise, and vary slightly across social groups. 
 
 \begin{minipage}{\textwidth}
-\subsection*{Regression}
+
 
 % \newgeometry{left=1.2in, right=1.2in}  % or smaller margins
 
 \begin{table}[H]
     \centering
     \scriptsize % shrink text
-    \caption{: OLS regressions predicting pregnancy with covariates that also predict underweight}
+    \caption{: OLS regressions predicting pregnancy with covariates that also predict underweight, later used in reweighting}
     \setlength{\tabcolsep}{1pt}
     \renewcommand{\arraystretch}{0.81}
     % {\input{tables/predictor_regression}}
@@ -255,9 +253,36 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \end{minipage}
 
 
+
+\subsection*{Prepregnancy underweight by social group}
+
+Figure 1 shows the estimates of prepregnancy underweight by social group. Confidence intervals don't overlap for any two social groups besides forward caste and Muslim, confirming statistically significant social inequalities in prepregnancy underweight at the 95\% level. The burden of prepregnancy undernutrition is highest among Adivasi women: 28\% are underweight at the onset of pregnancy, compared with 18\% of forward caste women and 17\% for Muslim women. Dalit and OBC prepregnant women are also at higher risk, with 25\% and 23\% underweight, respectively. Across all five groups, 22\% of prepregnant women are underweight, suggesting a relatively larger representation of Adivasi, Dalit, and OBC women among India's prepregnant population. 
+
+
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]
+    {figures/figPPUW_by_socialgroup.png}
+    \caption{: Prepregnancy underweight by social group}
+    \parbox{1\linewidth}{\footnotesize \textit{Notes:} Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state.}
+\end{figure}
+
+
+\newpage
+\subsection*{Prepregnancy underweight by parity, birth spacing, and wealth quartile}
+
+Figure 2 shows the distributions of and prepregnancy estimates by parity, birth spacing, and wealth quartile categories. 
+
+
 \begin{landscape}
 
-\vspace*{-2cm}  % Pull table upward on the 
+
+\vspace*{-2.5cm}  % Pull table upward on the page
+
+
 \begin{figure}[H]
   \makebox[\textwidth][c]{%
     % \includegraphics[width=0.95\textwidth]{figures/six panel figure.png}
@@ -269,73 +294,63 @@ Results from the decomposition of Muslim women and forwards caste women had the 
 \end{figure}
 
 \end{landscape}
-\bibliographystyle{apalike}
-\bibliography{writing/references}
-
 
 
 \begin{landscape}
-\section*{appendix}
+    
 
-\subsection*{additional maternal nutrition indicators table}
+\subsection*{Decompositions of social group differences}
 
 \begin{table}[H]
     \centering
     \small % shrink text
-    \caption{: addl outcomes}
-    \setlength{\tabcolsep}{0.8pt}
+    \caption{: Decomposition of social group differences in pre-pregnancy underweight}
+    % \setlength{\tabcolsep}{1pt}
     \renewcommand{\arraystretch}{1.5}
-    {\input{tables/addl_maternal_nutrition_table}}
+    % {\input{tables/kitagawa_all}}
+    {\input{tables/table_kitagawa_results}}
+    \parbox{0.9\linewidth}{\footnotesize \textit{Notes:} Prepregnancy estimates used in decompositions are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. There are 10 parity + birth spacing categories, including parity 1, and parities 2, 3 and 4+ each divided by birth spacing of less than 2 years, between 2 and 3 years, and 3 or more years. Wealth categories are created by dividing the wealth index distribution into quartiles.}
 \end{table}
 
 \end{landscape}
 
 
-
-\begin{landscape}
-\subsection{reweighting diagnostics table}
-
-\begin{table}[H]
-    \centering
-    \small % shrink text
-    \caption{: Reweighting diagnostics table}
-    \renewcommand{\arraystretch}{1.5}
-    \resizebox{\textwidth}{!}{%
-        \input{tables/table_percent_dropped}
-    }
-\end{table}
-
-
-\end{landscape}
-
-
-\begin{table}[H]
-    \centering
-    \small % shrink text
-    \caption{: TFR table}
-    \renewcommand{\arraystretch}{1.5}
-    \resizebox{\textwidth}{!}{%
-        % \input{tables/tfr}
-        \input{tables/table_tfr_by_socialgroup}
-    }
-    % \input{tables/tfr}
-\end{table}
 
 \section{Discussion}
 
-Reiterate finding on social group disparities in pre-pregnancy underweight
+The prevalence of pre-pregnancy underweight in India is highly unequal across social groups. 28\% of Adivasi women, 25\% of Dalit women, and 23\% of OBC women are underweight pre-pregnancy, compared to only 18\% of forward caste women.
 
 Does this mirror social group disparities in downstream outcomes?
-- preterm birth
+- preterm birth (no papers disaggregated by social group)
 - miscarriage/ stillbirth
-- low birthweight
-- maternal mortality
-- later life women's health
+- low birthweight (no papers disaggregated by social group)
+- infant mortality (papers exist on this)
+- maternal mortality (no papers disaggregated by social group)
+- later life women's health (which outcomes?)
 
-Quantify the risk ratios for these downstream outcomes, then ...
+
+Quantify the risk ratios for these downstream outcomes
+\cite{girsen2016women} among California deliveries 2007-2010, pre-term birth adjusted risk ratio for underweight
+- 1.22 in mild
+- 1.41 in moderate
+- 1.61 in severe
+
+\cite{hur2009512} among South Korea deliveries, 
+- 1.91 odds ratio for pre-term birth for underweight mothers
+- 3.4 during pregnancy odds ratio
+
+\cite{diamond2024impact} in the US
+- 1.3 odds of pre-term birth for underweight mothers 
+- after controlling for underweight, all nonwhite race/ethnic groups had increased odds of PTB compared to white women
+
+\cite{wenman2004prospective} among China 
+- 1.58 risk ratio of low birth weight from pre-pregnancy underweight
+- 1.68 risk ratio of small for gestational age from pre-pregnancy underweight
+
 
 Back of the envelope calculations to say things like:
 - if Adivasi women had the same rate of pre-pregnancy underweight as forward caste women, low birth weight among Adivasi children would decline by X\%
+
 
 - Given ~B births annually among Adivasi women, this reduction corresponds to ~Y neonatal deaths averted each year and ~Z maternal deaths averted
 
@@ -358,10 +373,63 @@ Reiterate finding: pre-pregnancy underweight is not higher among Muslims,
 - contrary to expectations given higher parities and lower birth spacing (I think the birth spacing decomposition is spurious and not meaningful here)
 
 
-Alright so we can make a claim about 
 
 
 
+\bibliographystyle{apalike}
+\bibliography{writing/references}
 
+
+
+\begin{landscape}
+\section*{Appendix}
+
+\subsection*{Additional prepregnancy outcomes by social group}
+
+\begin{table}[H]
+    \centering
+    \small % shrink text
+    \caption{: Additional maternal nutrition indicators by social group}
+    \setlength{\tabcolsep}{0.8pt}
+    \renewcommand{\arraystretch}{1.5}
+    {\input{tables/addl_maternal_nutrition_table}}
+    \parbox{1\linewidth}{\footnotesize \textit{Notes:} Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state. Weight gain M1 and M2 refer to method 1 and method 2, discussed in the methods section.}
+\end{table}
+
+\end{landscape}
+
+
+
+\begin{landscape}
+\subsection{Sample sizes and percent dropped by subgroup}
+
+\begin{table}[H]
+    \centering
+    \small % shrink text
+    \caption{: Sample sizes of 3+ month pregnant women in each subgroup and the \% of pregnant women dropped to estimate pre-pregnancy underweight}
+    \renewcommand{\arraystretch}{1.5}
+    \resizebox{\textwidth}{!}{%
+        \input{tables/table_percent_dropped}
+    }
+    \parbox{1\linewidth}{\footnotesize \textit{Notes:} Pregnant women are dropped in reweighting if they are categorized into bins based on the reweighting covariates with no nonpregnant women.}
+\end{table}
+
+
+\end{landscape}
+
+
+
+\subsection{TFRs by social group for all women}
+\begin{table}[H]
+    \centering
+    \small % shrink text
+    \caption{: TFR table}
+    \renewcommand{\arraystretch}{1.5}
+    \resizebox{\textwidth}{!}{%
+        % \input{tables/tfr}
+        \input{tables/table_tfr_by_socialgroup}
+    }
+    \parbox{1\linewidth}{\footnotesize \textit{Notes:} TFRs are computed based on the 3 years prior to when each woman was surveyed using 5 year age groups for ASFRs.}
+\end{table}
 
 \end{document}
