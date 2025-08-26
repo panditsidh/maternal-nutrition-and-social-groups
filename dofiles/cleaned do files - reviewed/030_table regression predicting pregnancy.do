@@ -1,5 +1,6 @@
 * this file creates the regression table
 
+do "$paths"
 use "$dataset", clear
 
 

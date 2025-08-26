@@ -1,3 +1,5 @@
+do "$paths"
+
 set more off 
 clear all
 
@@ -14,7 +16,7 @@ foreach var in iteration overvar level bmi underweight weight overweight obesity
 }
 
 
-save "bootstrap cis for pp outcomes.dta", replace
+save "data/bootstrap cis for pp outcomes.dta", replace
 
 tempname H
 tempfile results

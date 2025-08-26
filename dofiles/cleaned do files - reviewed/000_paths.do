@@ -12,7 +12,15 @@ if "`c(username)'" == "sidhpandit" {
 
 	cd "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups"
 	
+	global path "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/cleaned do files - reviewed/000_paths.do"
+	
+	
+
 }
+
+
+
+
 
 if "`c(username)'" == "dc42724" {
 	global nfhs3ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\ir\IAIR52FL.dta"
@@ -25,6 +33,8 @@ if "`c(username)'" == "dc42724" {
 	global dataset "C:\Users\dc42724\Dropbox\K01\maternal-nutrition-social-group\data\prepared_dataset.dta"
 	
 	cd "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups"
+	
+	global path "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\cleaned do files - reviewed\000_paths.do"
 }
 
 

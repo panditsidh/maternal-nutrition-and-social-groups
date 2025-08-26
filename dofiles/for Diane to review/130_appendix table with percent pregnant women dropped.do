@@ -1,22 +1,23 @@
+* This dofile gets us appendix table #???? which shows the number of women in each subgroup and percent of pregnant women dropped in reweighting.
 
-
-* this table gets us reweighting diagnostics
-
+ 
+do "$paths"
 use "$dataset", clear
 do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
 
 
-
+* dummy variables for looping and table format
 gen all_predictors = 1
 gen blank = .
+
 
 matrix results = J(19, 12, .)
 local row = 1
 
-
+* loop over the predictor variables: 10 category parity & birth spacing and wealth quartiles
 foreach over_predictor in blank parity_bs blank blank wealth blank all_predictors {
 	
-	
+	* creates blank rows in the table
 	if "`over_predictor'"=="blank" {
 		foreach i of numlist 1/12 { 
 			matrix results[`row', `i'] = .
@@ -24,8 +25,9 @@ foreach over_predictor in blank parity_bs blank blank wealth blank all_predictor
 		local ++row
 	}
 	
-	levelsof(`over_predictor'), local(predictor_levels)
 	
+	* we want N and % pregnant women dropped for each predictor level within each social group
+	levelsof(`over_predictor'), local(predictor_levels)
 	foreach i in `predictor_levels' {
 		
 		local col = 1
@@ -50,7 +52,7 @@ foreach over_predictor in blank parity_bs blank blank wealth blank all_predictor
 	
 }
 
-
+* now the matrix is populated, use svmat to bring it into the stata data environment and export using listtex
 matrix colnames results = ///
 	n_allgroups /// 
 	pctdrop_allgroups ///

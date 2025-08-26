@@ -1,8 +1,4 @@
-
-
-if "`c(username)'" == "sidhpandit" {
-	do "dofiles/cleaned do files - reviewed/000_paths.do"
-}
+do "$path"
 
 // 1 : create dataset for analysis 
 do "dofiles/cleaned do files - reviewed/010_assemble data.do"

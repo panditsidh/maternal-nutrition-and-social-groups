@@ -3,11 +3,16 @@
 
 rows: 5 social groups + 1 all groups + 4 parity + 3 birth spacing + 4 wealth = 17
 
-
 rows: 1 all groups + 5 social groups + 4 parity + 3 birth spacing + 10 parity and birth spacing + 4 wealth = 27
 columns: mean ll ul for every outcome
 
 */
+
+
+
+qui do "$paths"
+use "$dataset", clear
+qui do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
 
 * initialize results matrix
 local outcomes bmi weight underweight overweight obesity gainhatm1 gainhatm2
@@ -21,9 +26,7 @@ foreach outcome in `outcomes' {
 
 matrix colnames results = `colnames'
 
-
-* calculate means and confidence intervals for all subgroups
-
+* calculate means and confidence intervals for all subgroups (predictor level * social group)
 local row = 1
 
 foreach overvar in group allfivegroups parity bs parity_bs wealth  {
@@ -36,17 +39,12 @@ foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 		foreach outcome in `outcomes' {
 			
 			
-			* weight gain method 1
-/*
-The weight gain regression controls for age fixed effects, years of schooling fixed effects, number of living children fixed effects, an urban fixed effect, wealth quinitile FEs, and state interacted with month of interview.  This is the most controlled specification of the regression from Coffey,2015. 
-*/
+			* weight gain method 1 - doesn't use reweighting so can directly get confidence intervals
 			if "`outcome'"=="gainhatm1" {
 				matrix results[`row', `col'] = .
 				
 				reghdfe weight gestdur i.v012 i.v133 i.v218 i.rural i.v190 if `overvar'==`i' & inrange(gestdur,3,9) [aw=v005],absorb(v024#v006) vce(cluster v021)
 				
-				
-
 				matrix regtable = r(table)
 										
 				// Method 1: 6 months * beta, plus 10% first trimester assumption
@@ -56,8 +54,7 @@ The weight gain regression controls for age fixed effects, years of schooling fi
 				
 				
 			}
-			
-			
+						
 			* weight gain method 2
 			if "`outcome'"=="gainhatm2" {
 				
@@ -87,17 +84,9 @@ The weight gain regression controls for age fixed effects, years of schooling fi
 			}
 					
 
-			* get confidence intervals for all variables from bootstrap results dataset
+			* get confidence intervals for all variables except gainhatm1 from bootstrap results dataset
 			preserve
 			
-			
-			*OLD
-// 			use "data/bootstrapresults_test.dta", clear
-
-// 			*TEST
-// 			use "bootstrap_new_test.dta", clear
-			
-			*NEW
 			use "data/bootstrap cis for pp outcomes.dta", clear
 			
 			if "`outcome'"!="gainhatm1" {	

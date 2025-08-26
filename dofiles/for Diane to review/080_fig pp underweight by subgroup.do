@@ -1,32 +1,32 @@
 * ok so this file needs to do 080 
 
-
+do "$paths"
 use "data/results.dta", clear
 
 
-
-
 local var underweight
-
 
 local prettyname = upper("`var'")
 if "`var'" == "underweight" local prettyname "Rate of pre-pregnancy underweight"
 if "`var'" == "weight" local prettyname "Prepregnancy Weight (kg)"
 if "`var'" == "gainhat" local prettyname "Pregnancy Weight Gain (kg)"
 
-keep if inlist(rows, "Forward", "OBC", "Dalit", "Adivasi", "Muslim", "All five social groups")
 
+* only need pp outcome by social groups for this figure
+keep if inlist(rows, "Forward", "OBC", "Dalit", "Adivasi", "Muslim", "All five social groups")
+* focus on one variable
 keep `var'_ll `var'_mean `var'_ul
 
 gen group = _n
 
-
+* get point estimates of pp outcome for each social group
 levelsof(group), local(levels)
 foreach i in `levels' {
 	
 	sum `var'_mean if group==`i'
 	local outcome_`i' =  r(mean)
 	
+	* for formatting the point estimates on the figure later
 	if inlist("`var'", "underweight", "overweight", "obesity") local textpos_`i' = 0.28+`i'
 	
 	else local textpos_`i' = 0.34+`i'

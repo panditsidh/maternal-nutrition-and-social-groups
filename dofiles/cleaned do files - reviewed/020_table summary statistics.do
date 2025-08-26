@@ -1,7 +1,9 @@
 * This file computes summary statistics and arranges them in a latex table.
 * We first create a matrix of all calculated quantities of interest then use svmat to format it into strings, and listtex to export to latex
 
-// use "$dataset", clear
+
+do "$paths"
+use "$dataset", clear
 
 *groups forward obc dalit adivasi muslim
 *group adivasi dalit obc forward muslim

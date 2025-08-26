@@ -1,30 +1,9 @@
+do "$paths"
 use "$dataset", clear
 
 
-/*
 
-
-ASFRs in 5 year age groups?
-
-in the 5 years before a women was surveyed, 
-   - she contributes 2 person-years lived and 1 child born to age group 15-20 
-   - and 3 person-years lived and 1 child born to age group 20-25 
-      
-
-then you can get a table that is, by age group:
-   - total person years lived
-   - number of births	  
-
-at that point, get ASFR by number of births/ total person years lived
-then, 5 times the sum of ASFRs gives you TFR 
-   
-standard errors for TFR?
-
-*/
-
-
-
-
+* we want 7 age specific fertility rates (5 year age groups), total fertility rate, and confidence intervals for total fertility rate by social group
 matrix results = J(6, 10, .)
 
 
@@ -58,11 +37,8 @@ foreach i of numlist 1/6 {
 
 
 
-
+* use svmat to bring the matrix into the stata data environment and export using listtex
 matrix results = results'
-
-
-
 matrix colnames results = c1 c2 c3 c4 c5 c6
 
 
@@ -95,8 +71,6 @@ foreach i of numlist 1/6 {
 	gen str20 tfr_ci`i' = ""
 	
 	
-	
-	
 	sum c`i' if _n==9
 	local tfr_ll = r(mean)
 	
@@ -115,6 +89,7 @@ foreach i of numlist 1/6 {
 }
 
 drop if _n==9 | _n==10
+
 
 #delimit ;
 listtex row group* using "tables/table_tfr_by_socialgroup.tex", replace rstyle(tabular) ///

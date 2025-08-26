@@ -1,3 +1,5 @@
+do "$paths"
+
 use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 using $nfhs5ir, clear
 
 //generate variables for analyzing surveys with complex designs
@@ -5,9 +7,6 @@ egen strata = group(v000 v024 v025)
 *Rural Chandigarh has a very small number of observations, so we combine with urban Chandigarh.
 replace strata = 7 if strata==8
 egen psu = group(v000 v001 v024 v025)
-
-// keep currently married women because the NFHS only asks childbearing questions to married women
-// keep if v501==1 
 
 ********************************* SOCIAL GROUP *********************************
 //This paper only analyzes data for women beloning to the following groups:
@@ -44,25 +43,6 @@ gen muslim = group==5
 gen allfivegroups = 1
 
 
-***** old groups6 coding, I've kept it in case of dependencies I haven't fixed yet
-gen groups6 = .
-replace groups6 = 3 if s116 == 1  // Dalit
-replace groups6 = 4 if s116 == 2 // Adivasi
-replace groups6 = 5 if v130 == 2 & groups6==.   // Muslim
-replace groups6 = 6 if (v130 == 3| v130==4 | v130==6) & groups6==. // Christian, Sikh, Jain
-replace groups6 = 2 if (v130 == 1 |v130==4) & s116 == 3 // OBC - hindu and sikh
-replace groups6 = 1 if v130 == 1 & (s116 == 4 | s116==8 |s116==.) // Forward Caste
-
-drop if groups6==6
-drop if groups6==.
-
-label define groups6lbl ///
-    1 "Forward" ///
-    2 "OBC" ///
-    3 "Dalit" ///
-    4 "Adivasi" ///
-    5 "Muslim" 
-label values groups6 groups6lbl
 
 **************************** GESTATIONAL DURATION ******************************
 

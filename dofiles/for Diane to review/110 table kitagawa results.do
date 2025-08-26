@@ -1,8 +1,3 @@
-* this makes the kitagawa tables
-
-* we use esttab in a clever way to add custom statistics
-
-
 use "$dataset", clear
 do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
 
@@ -18,7 +13,7 @@ levelsof `overvar', local(over)
 foreach g of numlist 2/5 {
 	
 	
-	* dummy regression for esttab formatting later
+	* dummy regression for esttab formatting
 	eststo `outcome'`g': reg v201 v201 
 	
 	
@@ -26,49 +21,55 @@ foreach g of numlist 2/5 {
 	sum underweight [aw=reweightingfxn] if groups6==1
 	local fwd_`outcome' = r(mean)
 	
+	
+	* overall prepreg outcome for social group g
 	sum underweight [aw=reweightingfxn] if groups6==`g'
 	local `g'_`outcome' = r(mean)
 	
+	* gap to be explained
 	local `outcome'_diff = (``g'_`outcome'' - `fwd_`outcome'')*100
-	
 	eststo `outcome'`g': estadd scalar `outcome'_diff = ``outcome'_diff'
 	
+	
+	* do the decomposition for predictors: parity + birth spacing and wealth quartiles
 	foreach overvar in parity_bs wealth {
+	
 	levelsof `overvar', local(over)
-
-	
-	
 	
 	local within_group = 0
 	local between_group = 0
 	
+	* loop over levels of the predictor (ie ...parity 2, birth spacing >3yrs, parity 3 birth spacing <2 years...)
 	foreach p in `over' {
 		
-		display(`p')
-				
+		* proportion of fwd caste pregnant women at that predictor level (weight)
 		sum `overvar'`p' if groups6==1 & preg==1 [aw=v005]
 		local fwd_wt_`p' = r(mean)
 		
-		
+		* proportion of group g pregnant women at that predictor level (weight)
 		sum `overvar'`p' if groups6==`g' & preg==1 [aw=v005]
 		local g_wt_`p' = r(mean)
 		
+		* prepreg outcome of forward caste women at that predictor level
 		sum `outcome' if groups6==1 & `overvar'==`p' & preg==0 [aw=reweightingfxn]
 		local fwd_outcome_`p' = r(mean)
 		
 		if "`outcome'"=="underweight" local fwd_outcome_`p' = r(mean)*100 // rescale to % for underweight
 		
-		
+		* prepreg outcome of group g women at that predictor level
 		sum `outcome' if groups6==`g' & `overvar'==`p' & preg==0 [aw=reweightingfxn]
 		
 		local g_outcome_`p' = r(mean)
 		
 		if "`outcome'"=="underweight" local g_outcome_`p' = r(mean)*100 // rescale to % for underweight		
 		
+		* within group (unexplained) difference contributed at this predictor level
 		local within_group_`p' = (`g_outcome_`p''-`fwd_outcome_`p'')*(`g_wt_`p''+`fwd_wt_`p'')/2
 		
+		* between group/compositional (explained) difference contributed at this predictor level
 		local between_group_`p' = (`g_wt_`p''-`fwd_wt_`p'')*(`g_outcome_`p''+`fwd_outcome_`p'')/2
 		
+		* add to overall explained/unexplained components
 		local within_group = `within_group' + `within_group_`p''
 		local between_group = `between_group' + `between_group_`p''
 		
@@ -77,9 +78,9 @@ foreach g of numlist 2/5 {
 		
 	}
 	
+	* scale to percent and format in table
 	eststo `outcome'`g': estadd scalar within_`overvar' = `within_group'
 	eststo `outcome'`g': estadd scalar between_`overvar' = `between_group'
-	
 	eststo `outcome'`g': estadd scalar pct_`overvar' = (`between_group'/``outcome'_diff')*100
 
 	}
