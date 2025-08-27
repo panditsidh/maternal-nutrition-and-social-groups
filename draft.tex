@@ -478,12 +478,21 @@ This offers a benchmark to method 1, which may be inaccurate if the assumption i
 \begin{table}[H]
     \centering
     \small % shrink text
+
+    \begin{threeparttable}
+        
+    
     \caption{: Sample sizes of 3+ month pregnant women in each subgroup and the \% of pregnant women dropped to estimate pre-pregnancy underweight}
     \renewcommand{\arraystretch}{1.5}
     \resizebox{\textwidth}{!}{%
         \input{tables/table_percent_dropped}
     }
-    \parbox{1\linewidth}{\footnotesize \textit{Notes:} Pregnant women are dropped in reweighting if they are categorized into bins based on the reweighting covariates with no nonpregnant women.}
+    
+    \begin{tablenotes}
+        \item \textit{Notes:} Pregnant women are dropped in reweighting if they are categorized into bins based on the reweighting covariates \item with no nonpregnant women.
+    \end{tablenotes}
+
+    \end{threeparttable}
 \end{table}
 
 
@@ -499,16 +508,24 @@ This offers a benchmark to method 1, which may be inaccurate if the assumption i
 \subsection{TFRs by social group for all women}
 \begin{table}[H]
     \centering
-    \small % shrink text
-    \caption{: TFR table}
+
+    \begin{threeparttable}
+            
+    \caption{: Fertility rates by social group}
     \renewcommand{\arraystretch}{1.5}
     \scriptsize
-    \setlength{\tabcolsep}{10pt}
+    \setlength{\tabcolsep}{5pt}
     \resizebox{\textwidth}{!}{%
         % \input{tables/tfr}
         \input{tables/table_tfr_by_socialgroup}
     }
-    \parbox{1\linewidth}{\footnotesize \textit{Notes:} TFRs are computed based on the 3 years prior to when each woman was surveyed using 5 year age groups for ASFRs.}
+    
+    \small
+    \begin{tablenotes}
+        \item  \textit{Notes:} As in the DHS reports, fertility rates are based on births in the three years before the survey.
+    \end{tablenotes}
+
+    \end{threeparttable}
 \end{table}
 
 \end{landscape}
