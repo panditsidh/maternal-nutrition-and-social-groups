@@ -27,6 +27,7 @@
 \usepackage[round]{natbib}
 \usepackage{hyperref}
 \usepackage{titlesec}
+\usepackage{threeparttable}
 
 \titleformat{\section}
   {\normalfont\bfseries\fontsize{14}{16}\selectfont}  % Bold 14pt
@@ -295,14 +296,20 @@ Reiterate finding: pre-pregnancy underweight is not higher among Muslims,
 
 \begin{table}[H]
     \centering
+
+    \begin{threeparttable}
+        
+    
     \caption{:  Summary statistics of the reweighting variables by pregnancy status}
     
     \scriptsize	
     \setlength{\tabcolsep}{2pt}
     \renewcommand{\arraystretch}{1.2}
     \input{tables/table_sum_stats}
-    \parbox{1.2\linewidth}{\footnotesize \textit{Notes:} Sample means for women who are 3+ months pregnant are calculated based on what was true in the month of conception. Sample means for nonpregnant women are calculated based on what was true at the time of the survey.}
-    
+    \begin{tablenotes}
+        \item \textit{Notes:} Sample means for women who are 3+ months pregnant are calculated based on what was true in the month of conception. Sample means for nonpregnant women are calculated based on what was true at the time of the survey.
+    \end{tablenotes}
+    \end{threeparttable}
 \end{table}
 
 
@@ -339,13 +346,22 @@ Reiterate finding: pre-pregnancy underweight is not higher among Muslims,
 
 \begin{table}[H]
     \centering
+
+    \begin{threeparttable}
+        
+    
     \small % shrink text
     \caption{: Decomposition of social group differences in pre-pregnancy underweight}
     % \setlength{\tabcolsep}{1pt}
     \renewcommand{\arraystretch}{1.5}
     % {\input{tables/kitagawa_all}}
     {\input{tables/table_kitagawa_results}}
-    \parbox{0.9\linewidth}{\footnotesize \textit{Notes:} Prepregnancy estimates used in decompositions are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. There are 10 parity + birth spacing categories, including parity 1, and parities 2, 3 and 4+ each divided by birth spacing of less than 2 years, between 2 and 3 years, and 3 or more years. Wealth categories are created by dividing the wealth index distribution into quartiles.}
+
+    \begin{tablenotes}
+        \item \textit{Notes:} Prepregnancy estimates used in decompositions are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. There are 10 parity + birth spacing categories, including parity 1, and parities 2, 3 and 4+ each divided by birth spacing of less than 2 years, between 2 and 3 years, and 3 or more years. Wealth categories are created by dividing the wealth index distribution into quartiles.
+    \end{tablenotes}
+
+    \end{threeparttable}
 \end{table}
 
 \end{landscape}
@@ -391,7 +407,7 @@ Reiterate finding: pre-pregnancy underweight is not higher among Muslims,
 
 
 
-\begin{landscape}
+
 \section*{Appendix}
 
 \setcounter{table}{0}
@@ -400,18 +416,38 @@ Reiterate finding: pre-pregnancy underweight is not higher among Muslims,
 \subsection*{Additional prepregnancy outcomes by social group}
 
 \subsubsection{Weight gain M1}
+Estimates labeled weight gain M1 in table 2 present average weight gain for a full-term pregnancy estimated as 1.1*6*$\hat{\beta}$ where $\hat{\beta}$ is the coefficient on month of gestation from an OLS regression of weight on month of gestation for women 3+ mo pregnant. This method of computing weight gain assumes that women gain an additional 10\% of their second and third trimester weight gain in pregnancy computed using estimates of $\hat{\beta}$ from OLS regressions of the form
+\begin{equation}
+    weight_i = \alpha + \beta month_i + \tau C_i + \epsilon_i
+\end{equation}
+
+where $weight_i$ is the weight in kilograms of pregnant woman $i$. $month_i$ is month of gestation, calculated as described above. Controls, $C_i$ include women's current ages (single year), years of education, number of living children, urban or rural residence, wealth quintile, as well as state-month fixed effects. 95\% confidence intervals of weight gain for method 1 results in table A1 are calculated as $1.1*6*\hat{\beta} \pm 1.96*se_{\hat{\beta}}$.
 
 \subsubsection{Weight gain M2}
 
 
+
+\begin{landscape}
 \begin{table}[H]
+
+\begin{threeparttable}
+    
     \centering
     \small % shrink text
     \caption{: Means and 95\% CIs for additional maternal nutrition indicators by social group}
     \setlength{\tabcolsep}{0.8pt}
     \renewcommand{\arraystretch}{1.5}
     {\input{tables/addl_maternal_nutrition_table}}
-    \parbox{1\linewidth}{\footnotesize \textit{Notes:} Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state. Weight gain M1 and M2 refer to method 1 and method 2, discussed in the methods section.}
+
+    \begin{tablenotes}
+        \item \textit{Notes:} Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state.
+        \item $^{a}$ Overweight defined as BMI above 25.
+        \item $^{b}$ Obesity defined as BMI above 30
+        \item $^{c}$ Weight gain M1 
+        \item $^{d}$ Weight gain M2
+    \end{tablenotes}
+
+\end{threeparttable}
 \end{table}
 
 \end{landscape}
