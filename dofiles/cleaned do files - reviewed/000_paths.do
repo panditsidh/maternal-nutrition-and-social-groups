@@ -12,13 +12,11 @@ if "`c(username)'" == "sidhpandit" {
 
 	cd "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups"
 	
-	global path "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/cleaned do files - reviewed/000_paths.do"
+	global paths "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/cleaned do files - reviewed/000_paths.do"
 	
 	
 
 }
-
-
 
 
 
@@ -34,7 +32,7 @@ if "`c(username)'" == "dc42724" {
 	
 	cd "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups"
 	
-	global path "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\cleaned do files - reviewed\000_paths.do"
+	global paths "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\cleaned do files - reviewed\000_paths.do"
 }
 
 

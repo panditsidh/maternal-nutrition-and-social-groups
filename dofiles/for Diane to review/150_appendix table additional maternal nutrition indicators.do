@@ -8,7 +8,7 @@ cols are: BMI, weight, overweight, obesity, weight gain m1, weight gain m2
 */
 
 
-
+do "$paths"
 use "data/results.dta", clear
 
 keep if inlist(rows, "All five social groups", "Adivasi", "Dalit", "OBC", "Forward", "Muslim")
@@ -18,10 +18,20 @@ keep if inlist(rows, "All five social groups", "Adivasi", "Dalit", "OBC", "Forwa
 foreach var in bmi weight overweight obesity gainhatm1 gainhatm2 {
 	
 	
+	if inlist("`var'", "bmi", "weight", "gainhatm1", "gainhatm2") {
+		
+		gen `var'_ci = string(`var'_mean, "%9.1f") + " (" + ///
+                   string(`var'_ll, "%9.1f") + ", " + ///
+                   string(`var'_ul, "%9.1f") + ")"
+		
+	}
 	
-	gen `var'_ci = string(`var'_mean, "%9.3g") + " (" + ///
-                   string(`var'_ll, "%9.3g") + ", " + ///
-                   string(`var'_ul, "%9.3g") + ")"
+	if inlist("`var'", "overweight", "obesity") {
+		
+		gen `var'_ci = string(`var'_mean, "%9.2f") + " (" + ///
+                   string(`var'_ll, "%9.2f") + ", " + ///
+                   string(`var'_ul, "%9.2f") + ")"
+	}
 				   
 	
 }
