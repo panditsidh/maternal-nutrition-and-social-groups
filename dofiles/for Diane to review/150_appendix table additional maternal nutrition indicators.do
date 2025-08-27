@@ -41,13 +41,27 @@ keep rows bmi_ci weight_ci overweight_ci obesity_ci gainhatm1_ci gainhatm2_ci
 
 
 
+// #delimit ;
+// listtex rows  bmi_ci weight_ci overweight_ci obesity_ci gainhatm1_ci gainhatm2_ci ///
+//     using "tables/addl_maternal_nutrition_table.tex", replace ///
+//     rstyle(tabular) ///
+//     head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{3.5cm}}}" ///
+//          "\toprule" ///
+//          "Social Group & \$^{a}\$BMI & \$^{b}\$Weight (kg) & \$^{c}\$Overweight & \$^{d}\$Obesity & \$^{e}\$Weight gain M1 & \$^{f}\$Weight gain M2 \\\\" ///
+//          "\midrule") ///
+//     foot("\bottomrule" ///
+//          "\end{tabular}");
+// #delimit cr
+
+
+
 #delimit ;
 listtex rows  bmi_ci weight_ci overweight_ci obesity_ci gainhatm1_ci gainhatm2_ci ///
     using "tables/addl_maternal_nutrition_table.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{3.5cm}}}" ///
          "\toprule" ///
-         "Social Group & BMI & Weight (kg) & Overweight & Obesity & Weight gain M1 & Weight gain M2 \\\\" ///
+         "\Social Group & BMI & Weight (kg) & Overweight^a & Obesity^b & Weight gain \newline M1^c & Weight gain M2^d \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
