@@ -415,15 +415,33 @@ Reiterate finding: pre-pregnancy underweight is not higher among Muslims,
 
 \subsection*{Additional prepregnancy outcomes by social group}
 
-\subsubsection{Weight gain M1}
-Estimates labeled weight gain M1 in table 2 present average weight gain for a full-term pregnancy estimated as 1.1*6*$\hat{\beta}$ where $\hat{\beta}$ is the coefficient on month of gestation from an OLS regression of weight on month of gestation for women 3+ mo pregnant. This method of computing weight gain assumes that women gain an additional 10\% of their second and third trimester weight gain in pregnancy computed using estimates of $\hat{\beta}$ from OLS regressions of the form
+\subsubsection{Weight gain method 1}
+
+The first method of estimating weight gain starts by estimating monthly weight gain of pregnant women at 3+ months gestational duration as $\hat{\beta}$ from an OLS regression of the form
 \begin{equation}
     weight_i = \alpha + \beta month_i + \tau C_i + \epsilon_i
 \end{equation}
 
-where $weight_i$ is the weight in kilograms of pregnant woman $i$. $month_i$ is month of gestation, calculated as described above. Controls, $C_i$ include women's current ages (single year), years of education, number of living children, urban or rural residence, wealth quintile, as well as state-month fixed effects. 95\% confidence intervals of weight gain for method 1 results in table A1 are calculated as $1.1*6*\hat{\beta} \pm 1.96*se_{\hat{\beta}}$.
+where $weight_i$ is the weight in kilograms of pregnant woman $i$. $month_i$ is month of gestation, calculated as described in the methods section, and $C_i$ are controls, including women's current ages (single year), years of education, number of living children, urban or rural residence, wealth quintile, as well as state-month fixed effects.
 
-\subsubsection{Weight gain M2}
+Assuming women gain 10 times more weight in their second and third trimesters than in their first, we estimate weight gain for a full-term pregnancy as 
+\begin{equation}
+    \hat{weight gain} = 1.1\times6\times\hat{\beta}
+\end{equation}
+
+In table A1, the 95\% confidence intervals for weight gain method 1 are calculated as $1.1\times6\times\hat{\beta} \pm 1.96\times se_{\hat{\beta}}$.
+
+\subsubsection{Weight gain method 2}
+
+The second method of estimating weight gain takes the difference of the average weight of pregnant women at gestational duration of 9 months or more and the average prepregnancy weight using the nonparametric reweighting method. 
+
+
+\begin{equation}
+    \hat{weight gain} = (\bar{W}_9-\bar{W}_0)+(0.5)\hat{\beta}
+\end{equation}
+where $\bar{W}_9$ is the average weight of pregnant women at gestational duration of 9 months or more, and $\bar{W}_0$ is the average prepregnancy weight using the nonparametric reweighting method. To account for additional weight gain between the time of survey and the end of pregnancy for women of gestational duration of 9 months or more, we assume these women are at the midpoint of their last month of pregnancy and add the accordingly scaled $\hat{\beta}$ from the regression in weight gain method 1.
+
+This offers a benchmark to method 1, which may be inaccurate if the assumption is false that women gain 10 times more weight in their second and third trimesters than in their first, or if gestational durations are incorrectly reported.
 
 
 
@@ -441,10 +459,9 @@ where $weight_i$ is the weight in kilograms of pregnant woman $i$. $month_i$ is 
 
     \begin{tablenotes}
         \item \textit{Notes:} Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state.
-        \item $^{a}$ Overweight defined as BMI above 25.
+        \item $^{a}$ Overweight defined as BMI above 25
         \item $^{b}$ Obesity defined as BMI above 30
-        \item $^{c}$ Weight gain M1 
-        \item $^{d}$ Weight gain M2
+        \item $^{c}$ Weight gain method 1 and $^{d}$ weight gain method 2 explained above, reported in 
     \end{tablenotes}
 
 \end{threeparttable}
@@ -472,9 +489,12 @@ where $weight_i$ is the weight in kilograms of pregnant woman $i$. $month_i$ is 
 
 \end{landscape}
 
+
+
 \setcounter{table}{2}
 \renewcommand{\thetable}{A\arabic{table}}
 
+\begin{landscape}
 
 \subsection{TFRs by social group for all women}
 \begin{table}[H]
@@ -482,11 +502,15 @@ where $weight_i$ is the weight in kilograms of pregnant woman $i$. $month_i$ is 
     \small % shrink text
     \caption{: TFR table}
     \renewcommand{\arraystretch}{1.5}
+    \scriptsize
+    \setlength{\tabcolsep}{10pt}
     \resizebox{\textwidth}{!}{%
         % \input{tables/tfr}
         \input{tables/table_tfr_by_socialgroup}
     }
     \parbox{1\linewidth}{\footnotesize \textit{Notes:} TFRs are computed based on the 3 years prior to when each woman was surveyed using 5 year age groups for ASFRs.}
 \end{table}
+
+\end{landscape}
 
 \end{document}
