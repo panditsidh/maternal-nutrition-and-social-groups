@@ -20,17 +20,17 @@ foreach var in bmi weight overweight obesity gainhatm1 gainhatm2 {
 	
 	if inlist("`var'", "bmi", "weight", "gainhatm1", "gainhatm2") {
 		
-		gen `var'_ci = string(`var'_mean, "%9.1f") + " (" + ///
+		gen `var'_ci = string(`var'_mean, "%9.1f") + " [" + ///
                    string(`var'_ll, "%9.1f") + ", " + ///
-                   string(`var'_ul, "%9.1f") + ")"
+                   string(`var'_ul, "%9.1f") + "]"
 		
 	}
 	
 	if inlist("`var'", "overweight", "obesity") {
 		
-		gen `var'_ci = string(`var'_mean, "%9.2f") + " (" + ///
+		gen `var'_ci = string(`var'_mean, "%9.2f") + " [" + ///
                    string(`var'_ll, "%9.2f") + ", " + ///
-                   string(`var'_ul, "%9.2f") + ")"
+                   string(`var'_ul, "%9.2f") + "]"
 	}
 				   
 	

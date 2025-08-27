@@ -45,17 +45,17 @@ matrix colnames results = c1 c2 c3 c4 c5 c6
 drop *
 * use svmat to bring the matrix into the stata data environment and edit strings from there
 input str100 rows
-"ASFR 15-19"
-"ASFR 20-24"
-"ASFR 25-29"
-"ASFR 30-34"
-"ASFR 35-39"
-"ASFR 40-44"
-"ASFR 45-49"
+"15-19"
+"20-24"
+"25-29"
+"30-34"
+"35-39"
+"40-44"
+"45-49"
 "TFR"
 "TFR ll"
 "TFR ul"
-"TFR confidence interval"
+"95\% CI for TFR"
 end
 
 
@@ -78,7 +78,7 @@ foreach i of numlist 1/6 {
 	local tfr_ul = r(mean)
 	
 	
-	replace tfr_ci`i' = "(" + string(`tfr_ll',"%9.2f") + ", " + string(`tfr_ul',"%9.2f") + ")" if _n==11
+	replace tfr_ci`i' = "[" + string(`tfr_ll',"%9.2f") + ", " + string(`tfr_ul',"%9.2f") + "]" if _n==11
 	
 	replace group`i' = tfr_ci`i' if !missing(tfr_ci`i')
 	
@@ -93,9 +93,9 @@ drop if _n==9 | _n==10
 
 #delimit ;
 listtex row group* using "tables/table_tfr_by_socialgroup.tex", replace rstyle(tabular) ///
-  head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{1.4cm}}}" ///
+  head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{1.9cm}}}" ///
        "\toprule" ///
-       " & Adivasi & Dalit & OBC & Forward & Muslim & All five social groups \\\\" ///
+       "ASFR & Adivasi & Dalit & OBC & Forward & Muslim & All five social groups \\\\" ///
        "\midrule") ///
   foot("\bottomrule" "\end{tabular}");
 #delimit cr
