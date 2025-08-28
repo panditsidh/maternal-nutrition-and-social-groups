@@ -91,14 +91,14 @@ foreach g of numlist 2/5 {
 local labels `"  "percentage point difference in pre-pregnancy underweight" " " "\textbf{Panel A: Decompositions of parity + birthspacing}" "pp difference within parity + birthspacing category" "pp different across parity + birthspacing category" "\% explained by parity + birthspacing" " "  "\textbf{Panel B. Decompositions of wealth}"  "pp difference within wealth category"  "pp different across wealth category"  "\% explained by wealth"  "'
 
 #delimit ;
-esttab underweight*, 
+esttab underweight1 underweight2 underweight3 underweight5, 
 	stats(underweight_diff blank blank within_parity_bs between_parity_bs pct_parity_bs blank blank within_wealth between_wealth pct_wealth, labels(`labels') fmt(2))
 	drop(v201 _cons)
 	nonumbers nostar noobs not
 	mtitles("Adivasi-Forward" "Dalit-Forward" "OBC-Forward" "Muslim-Forward")
 	;
 
-esttab underweight* using "tables/table_kitagawa_results.tex",  replace
+esttab underweight1 underweight2 underweight3 underweight5 using "tables/table_kitagawa_results.tex",  replace
 	stats(underweight_diff blank blank within_parity_bs between_parity_bs pct_parity_bs blank blank within_wealth between_wealth pct_wealth, labels(`labels') fmt(2))
 	drop(v201 _cons)
 	nonumbers nostar noobs not
