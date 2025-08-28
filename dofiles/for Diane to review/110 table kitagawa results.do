@@ -11,7 +11,7 @@ local overvar parity_bs
 levelsof `overvar', local(over)
 
 
-foreach g of numlist 2/5 {
+foreach g in 1 2 3 5 {
 	
 	
 	* dummy regression for esttab formatting
@@ -19,7 +19,7 @@ foreach g of numlist 2/5 {
 	
 	
 	* calculate quantities and add as scalars under the dummy model
-	sum underweight [aw=reweightingfxn] if group==1
+	sum underweight [aw=reweightingfxn] if group==4
 	local fwd_`outcome' = r(mean)
 	
 	
