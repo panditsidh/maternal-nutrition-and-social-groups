@@ -1,3 +1,4 @@
+do "$paths"
 use "$dataset", clear
 do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
 
@@ -18,12 +19,12 @@ foreach g of numlist 2/5 {
 	
 	
 	* calculate quantities and add as scalars under the dummy model
-	sum underweight [aw=reweightingfxn] if groups6==1
+	sum underweight [aw=reweightingfxn] if group==1
 	local fwd_`outcome' = r(mean)
 	
 	
 	* overall prepreg outcome for social group g
-	sum underweight [aw=reweightingfxn] if groups6==`g'
+	sum underweight [aw=reweightingfxn] if group==`g'
 	local `g'_`outcome' = r(mean)
 	
 	* gap to be explained
@@ -43,21 +44,21 @@ foreach g of numlist 2/5 {
 	foreach p in `over' {
 		
 		* proportion of fwd caste pregnant women at that predictor level (weight)
-		sum `overvar'`p' if groups6==1 & preg==1 [aw=v005]
+		sum `overvar'`p' if group==1 & preg==1 [aw=v005]
 		local fwd_wt_`p' = r(mean)
 		
 		* proportion of group g pregnant women at that predictor level (weight)
-		sum `overvar'`p' if groups6==`g' & preg==1 [aw=v005]
+		sum `overvar'`p' if group==`g' & preg==1 [aw=v005]
 		local g_wt_`p' = r(mean)
 		
 		* prepreg outcome of forward caste women at that predictor level
-		sum `outcome' if groups6==1 & `overvar'==`p' & preg==0 [aw=reweightingfxn]
+		sum `outcome' if group==1 & `overvar'==`p' & preg==0 [aw=reweightingfxn]
 		local fwd_outcome_`p' = r(mean)
 		
 		if "`outcome'"=="underweight" local fwd_outcome_`p' = r(mean)*100 // rescale to % for underweight
 		
 		* prepreg outcome of group g women at that predictor level
-		sum `outcome' if groups6==`g' & `overvar'==`p' & preg==0 [aw=reweightingfxn]
+		sum `outcome' if group==`g' & `overvar'==`p' & preg==0 [aw=reweightingfxn]
 		
 		local g_outcome_`p' = r(mean)
 		
