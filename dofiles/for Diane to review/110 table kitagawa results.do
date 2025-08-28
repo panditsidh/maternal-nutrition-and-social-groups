@@ -44,7 +44,7 @@ foreach g in 1 2 3 5 {
 	foreach p in `over' {
 		
 		* proportion of fwd caste pregnant women at that predictor level (weight)
-		sum `overvar'`p' if group==1 & preg==1 [aw=v005]
+		sum `overvar'`p' if group==4 & preg==1 [aw=v005]
 		local fwd_wt_`p' = r(mean)
 		
 		* proportion of group g pregnant women at that predictor level (weight)
@@ -52,7 +52,7 @@ foreach g in 1 2 3 5 {
 		local g_wt_`p' = r(mean)
 		
 		* prepreg outcome of forward caste women at that predictor level
-		sum `outcome' if group==1 & `overvar'==`p' & preg==0 [aw=reweightingfxn]
+		sum `outcome' if group==4 & `overvar'==`p' & preg==0 [aw=reweightingfxn]
 		local fwd_outcome_`p' = r(mean)
 		
 		if "`outcome'"=="underweight" local fwd_outcome_`p' = r(mean)*100 // rescale to % for underweight
