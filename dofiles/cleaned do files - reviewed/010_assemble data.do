@@ -116,7 +116,7 @@ forvalues i = 1(1)15 {
 }
 gen modernmethod = .
 replace modernmethod = 0 if answer==0
-replace modernmethod = 1 if answer>0 & answer <=8 
+replace modernmethod = 1 if answer>0 & answer <8 
 
 gen sterilized = answer==1 | answer ==2
 gen c_user = (sterilized==1 | modernmethod==1)
