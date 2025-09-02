@@ -154,6 +154,17 @@ replace agebin = 2 if inrange(v012, 20, 24)     // Highest fertility
 replace agebin = 3 if inrange(v012, 25, 29)     // Lower fertility
 replace agebin = 4 if inrange(v012, 30, 49)     // Lowest fertility
 
+
+*age
+gen agebin2 = .
+replace agebin2 = 1 if inrange(v012, 15, 19)     // Teens
+replace agebin2 = 2 if inrange(v012, 20, 24)     // Highest fertility
+replace agebin2 = 3 if inrange(v012, 25, 29)     // Lower fertility
+replace agebin2 = 4 if inrange(v012, 30, 34)     // Lowest fertility
+replace agebin2 = 5 if inrange(v012, 35, 49)     // Lowest fertility
+
+
+
 label define agebinlbl 1 "15–19" 2 "20–24" 3 "25–29" 4 "30–49"
 label values agebin agebinlbl
 
@@ -219,6 +230,7 @@ foreach p of numlist 2/4 {
 		local i = `i' + 1
 	}
 }
+
 
 
 forvalues i = 1/10 {
