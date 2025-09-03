@@ -4,7 +4,7 @@ do "$paths"
 
 use "$dataset", clear
 * ----------- PARAMETERS-----------
-local binvars not_c_user agebin rural less_edu noboy wealth parity_bs group
+// local binvars not_c_user agebin rural less_edu noboy wealth parity_bs group
 * ----------------------------------------------------
 
 * generate bins for reweighting

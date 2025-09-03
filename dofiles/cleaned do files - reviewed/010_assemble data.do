@@ -155,6 +155,17 @@ replace agebin = 3 if inrange(v012, 25, 29)     // Lower fertility
 replace agebin = 4 if inrange(v012, 30, 49)     // Lowest fertility
 
 
+label define agebinlbl 1 "15–19" 2 "20–24" 3 "25–29" 4 "30–49"
+label values agebin agebinlbl
+
+gen age1519 = agebin==1
+gen age2024 = agebin==2
+gen age2529 = agebin==3
+gen age3049 = agebin==4
+
+
+
+
 *age
 gen agebin2 = .
 replace agebin2 = 1 if inrange(v012, 15, 19)     // Teens
@@ -163,15 +174,22 @@ replace agebin2 = 3 if inrange(v012, 25, 29)     // Lower fertility
 replace agebin2 = 4 if inrange(v012, 30, 34)     // Lowest fertility
 replace agebin2 = 5 if inrange(v012, 35, 49)     // Lowest fertility
 
+gen agebin3 = .
+replace agebin3 = 1 if inrange(v012, 15, 19)     // Teens
+replace agebin3 = 2 if inrange(v012, 20, 22)     // Highest fertility
+replace agebin3 = 3 if inrange(v012, 23, 25)     // Lower fertility
+replace agebin3 = 4 if inrange(v012, 26, 29)     // Lowest fertility
+replace agebin3 = 5 if inrange(v012, 30, 34)     // Lowest fertility
+replace agebin3 = 6 if inrange(v012, 35, 49)
 
-
-label define agebinlbl 1 "15–19" 2 "20–24" 3 "25–29" 4 "30–49"
-label values agebin agebinlbl
-
-gen age1519 = agebin==1
-gen age2024 = agebin==2
-gen age2529 = agebin==3
-gen age3049 = agebin==4
+gen agebin4 = .
+replace agebin4 = 1 if inrange(v012, 15, 17)     // Teens
+replace agebin4 = 2 if inrange(v012, 18, 20)     // Highest fertility
+replace agebin4 = 3 if inrange(v012, 21, 23)     // Lower fertility
+replace agebin4 = 4 if inrange(v012, 24, 26)     // Lowest fertility
+replace agebin4 = 5 if inrange(v012, 27, 30)     // Lowest fertility
+replace agebin4 = 6 if inrange(v012, 31, 34)
+replace agebin4 = 7 if inrange(v012, 35, 49)
 
 *parity and time since last birth (10 categories)
 //bord_01 tells us how many live births the woman has had
