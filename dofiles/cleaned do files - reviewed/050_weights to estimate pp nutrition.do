@@ -1,10 +1,8 @@
 //This file creates the weights that are applied to non-pregnant women to compute pre-pregnancy nutrition estimates.
 do "$paths"
 
-
-use "$dataset", clear
 * ----------- PARAMETERS-----------
-// local binvars not_c_user agebin rural less_edu noboy wealth parity_bs group
+local binvars not_c_user agebin rural less_edu noboy wealth parity_bs group
 * ----------------------------------------------------
 
 * generate bins for reweighting

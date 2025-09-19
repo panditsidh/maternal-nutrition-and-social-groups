@@ -69,6 +69,7 @@ matrix colnames results = ///
 	
 	
 drop *
+
 input str100 rows
 "\textbf{Parity and time since last live birth categories}"
 "\hspace*{2em}No births"  
