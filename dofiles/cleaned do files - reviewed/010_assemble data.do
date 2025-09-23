@@ -2,6 +2,8 @@ do "$paths"
 
 use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 using $nfhs5ir, clear
 
+
+
 //generate variables for analyzing surveys with complex designs
 egen strata = group(v000 v024 v025) 
 *Rural Chandigarh has a very small number of observations, so we combine with urban Chandigarh.
@@ -268,6 +270,18 @@ label define parity_bs_lbl ///
    10 "3+ births, 3+y spacing"
 label values parity_bs parity_bs_lbl
 
+ 
+
+No births/1 birth, NA spacing
+    1 birth, below 2y spacing 
+        1 birth, 2–3y spacing
+         1 birth, 3+y spacing 
+   2 births, below 2y spacing 
+       2 births, 2–3y spacing 
+        2 births, 3+y spacing 
+  3+ births, below 2y spacing 
+      3+ births, 2–3y spacing 
+       3+ births, 3+y spacing 
 
 
 **************************** SOCIOECONOMIC ************************************
