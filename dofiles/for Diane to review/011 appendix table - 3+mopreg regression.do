@@ -2,7 +2,6 @@
 
 use "$dataset", clear
 
-
 keep if v213==1
 gen gestdur_3plus = v214>=3
 

@@ -79,11 +79,6 @@ tab gestdur if v213==1, m
 //create an appendix table to explain why we drop women who report 1, 2, or missing months of gestational duration.
 tab gestdur if v213==1, m
 
-//for the purpose of computing synthetic prepregnancy underweight, we will count women as pregnant if they have gestational duration as 3 or more months.  Those who report 1 or 2 months, or no duration, are a select sample who know about their pregnancies earlier than others.
-drop if gestdur == 1 & v213==1
-drop if gestdur == 2 & v213==1
-drop if gestdur==. & v213==1
-
 //Create a variable "preg" to distinguish between the two groups.
 gen preg = v213 == 1
 tab preg, m
@@ -270,18 +265,6 @@ label define parity_bs_lbl ///
    10 "3+ births, 3+y spacing"
 label values parity_bs parity_bs_lbl
 
- 
-
-No births/1 birth, NA spacing
-    1 birth, below 2y spacing 
-        1 birth, 2–3y spacing
-         1 birth, 3+y spacing 
-   2 births, below 2y spacing 
-       2 births, 2–3y spacing 
-        2 births, 3+y spacing 
-  3+ births, below 2y spacing 
-      3+ births, 2–3y spacing 
-       3+ births, 3+y spacing 
 
 
 **************************** SOCIOECONOMIC ************************************
