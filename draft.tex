@@ -164,13 +164,13 @@ Slower fertility decline in disadvantaged social groups can increase relative ex
 
 \subsection{Data}
 
-This paper uses the most recent data from the National Family Health Survey (NFHS), India's Demographic and Health Survey (DHS). These data are is publicly available from dhsprogram.com. Specifically, we use the fifth round of the NFHS, which was conducted from 2019-2021.  The NFHS-5 is a multi-stage, clustered sample survey that interviewed over X households and over X women about a range of topics related to health and family.  
+This paper uses the most recent data from the National Family Health Survey (NFHS), India's Demographic and Health Survey (DHS). These data are is publicly available from dhsprogram.com. Specifically, we use the fifth round of the NFHS, which was conducted from 2019-2021.  The NFHS-5 is a multi-stage, clustered sample survey that interviewed over 635,000 households and over 720,000 women about a range of topics related to health and family. 
 
 \subsection{Variables}
 
 {\bf{Body mass index.}} Body mass index (BMI) is a person's weight in kilograms divided by her height in meters squared.  The World Health Organization (WHO) classifies someone as ``underweight'' if her body mass index is less than 18.5.  Weight and/or height measurements are missing from 2.8\% of pregnant women and 3.4\% of non-pregnant women; these observations are dropped from the analysis.
 
-{\bf{Pregnancy.}}  The NFHS asks all women ages 15-49 whether they are currently pregnant, and, if so, how many months pregnant they are.  We code a woman as pregnant if she reports being three or more months pregnant.\footnote{If the question on months of pregnancy is not answered, we use reported time since last menstrual period as a measure of gestational duration among women who report that they are pregnant at the time of the survey. Months of pregnancy is missing for only 0.06\% of the pregnant sample.}  We drop women who report pregnancies of one or two months duration because they are a select group of women who are aware of early pregnancies and willing to report them.  As table \ref{gestdur_distribution} in the online appendix shows, these women are X and X relative to women reporting longer durations of pregnancy. Table \ref{gestdur_distribution} in the online appendix shows the distribution of reported months of gestational duration among women pregnant at the time of the survey. A similar proportion of women report being 3, 4, 5, 6, 7, and 8 months pregnant.
+{\bf{Pregnancy.}}  The NFHS asks all women ages 15-49 whether they are currently pregnant, and, if so, how many months pregnant they are.  We code a woman as pregnant if she reports being three or more months pregnant.\footnote{If the question on months of pregnancy is not answered, we use reported time since last menstrual period as a measure of gestational duration among women who report that they are pregnant at the time of the survey. Months of pregnancy is missing for only 0.06\% of the pregnant sample.}  We drop women who report pregnancies of one or two months duration because they are a select group of women who are aware of early pregnancies and willing to report them.  As table \ref{regression3plusmopreg} in the online appendix shows, these women are X and X relative to women reporting longer durations of pregnancy. Table \ref{gestdur_distribution} in the online appendix shows the distribution of reported months of gestational duration among women pregnant at the time of the survey. A similar proportion of women report being 3, 4, 5, 6, 7, and 8 months pregnant.
 
 {\bf{Social group.}} The NFHS asks respondents whether their caste is among the constitutionally recognized``Scheduled Castes,'' ``Scheduled Tribes,'' or ``Other Backward Classes.''  It also asks respondents' religion (Hindu, Muslim, Christian, Sikh, Buddhist, Jain, and others).  Following the India Human Development Survey (IHDS) \citep{IHDS2005}. we combine these variables to define mutually exclusive social groups.  Adivasi and Dalit women are defined as those who report belonging to a Scheduled Tribe or a Scheduled Caste, respectively. Muslim women are defined as those who report their religion as Muslim and do not belong to a Scheduled Caste or Tribe. OBC women are defined as Hindu or Sikh women who report belonging to an Other Backward Class.  Forward Caste women are Hindus who do not belong to a Scheduled Tribe, a Scheduled Caste, or an Other Backward Caste.  About 2.3\% of the women's sample does not fall into one of these categories, e.g. Christians, Jains.  These women are dropped from the analysis for ease of interpretation. Beyond conformity with IHDS social group definitions, we focus on non SC and ST Muslims because Muslims are officially excluded from the Scheduled Caste constitutional provision (and comprise only 2\% of SCs in the sample), but are meaningfully distinct from non-Muslim OBCs. 
 
@@ -178,25 +178,12 @@ This paper uses the most recent data from the National Family Health Survey (NFH
 \begin{itemize}
 \item not using modern contraception: a binary indicator for not using pill, IUD, injectables, diaphragm, condom, or male or female sterilization in the last 15 months for non-pregnant women and in the 15 months prior to conception for pregnant women. 
 \item less than a primary education: a binary indicator for women self reporting their highest completed grade as "no education" or in the "primary" grades.
-\item rural resident: determined by NFHS surveyors based on where women are surveyed.
-\item does not have a body child: an indicator for if women report having at least 1 son at home or elsewhere.
+\item rural resident: determined by NFHS surveyors. Each district is stratified into urban and rural areas which are then further stratified into primary sampling units. 
+\item does not have a body child: an indicator for if women don't report having at least 1 son at home or elsewhere.
 \item age category: 15-19, 20-24, 25-29, 30-49
-\item parity and birthspacing: no births or 1 birth with NA spacing, No births/1 birth, NA spacing
-    1 birth, below 2y spacing 
-        1 birth, 2–3y spacing
-         1 birth, 3+y spacing 
-   2 births, below 2y spacing 
-       2 births, 2–3y spacing 
-        2 births, 3+y spacing 
-  3+ births, below 2y spacing 
-      3+ births, 2–3y spacing 
-       3+ births, 3+y spacing 
-\item wealth quartile: quartiles based on wealth index factor score combined
+\item parity and birthspacing: combination of parity (0, 1, 2, 3+) with months since the previous live birth (below 2 years, 2-3 years, 3 or more years). For pregnant women, spacing is measured from the previous live birth to the estimated conception date of the index pregnancy (birth date - 9 months). For non-pregnant women, spacing is measured from the previous live birth to the interview date.
+\item wealth quartile: quartiles based on wealth index factor score, which is a score generated using principal component analysis of a set of indicators for each household's ownership of owning various goods, ranging from a television to a bicycle or car, source of drinking water, toilet facilities, and flooring materials.
 \end{itemize}
-
-Modern contraceptive use is categorized by whether or not the woman reports using birth control pills, IUD, birth control injections, diaphragm or a condom in the 15 months preceding the survey. (need to decide about cases with periodic abstinence or sterilization\textbf{???}).
-
-Parity is defined as the number of .... (1 + number of live births\textbf{???})
 
 \subsection{Estimation of pre-pregnancy indicators}
 
@@ -714,7 +701,7 @@ This offers a benchmark to method 1, which may be inaccurate if the assumption i
     \scriptsize % shrink text
     
     \caption{: OLS regressions predicting 3+ months gestational duration with covariates later used in reweighting}
-    \label{regression}
+    \label{regression3plusmopreg}
     \setlength{\tabcolsep}{1pt}
     \renewcommand{\arraystretch}{0.81}
     % {\input{tables/predictor_regression}}
