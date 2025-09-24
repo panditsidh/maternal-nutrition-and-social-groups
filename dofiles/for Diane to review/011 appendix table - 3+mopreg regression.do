@@ -2,16 +2,15 @@
 
 use "$dataset", clear
 
+eststo clear
+
 keep if v213==1
-gen gestdur_3plus = v214>=3
+gen gestdur_1or2 = inlist(v214,1,2)
 
-
-* choose the group you want (e.g., 4 = Forward)
-local g = 4
 
 * run model for that group
 #delimit ;
-reghdfe gestdur_3plus
+reghdfe gestdur_1or2
     i.not_c_user
     i.less_edu
     i.rural
@@ -28,7 +27,7 @@ eststo model_g
 #delimit ;
 esttab model_g,
     drop(1.agebin 1.parity_bs 1.wealth) 
-    refcat(1.not_c_user "\textbf{Predictors of gestation ≥3 months}" ///
+    refcat(1.not_c_user "\textbf{Predictors of gestation 1 or 2 months}" ///
            2.agebin "\textbf{Age categories}" ///
            2.parity_bs "\textbf{Parity \& time since last live birth categories}" ///
            2.wealth "\textbf{Wealth quartiles}", nolabel)
@@ -65,7 +64,7 @@ esttab model_g,
 #delimit ;
 esttab model_g using "tables/table_gestdur3plus_group.tex",
     replace
-    refcat(1.not_c_user "\textbf{Predictors of gestation ≥3 months}" ///
+    refcat(1.not_c_user "\textbf{Predictors of gestation 1 or 2 months}" ///
            2.agebin "\textbf{Age categories} \\ (15–19 omitted)" ///
            2.parity_bs "\textbf{Parity \& time since last live birth categories} \\ (No prior births omitted)" ///
            2.wealth "\textbf{Wealth quartiles} \\ (1st quartile omitted)", nolabel)

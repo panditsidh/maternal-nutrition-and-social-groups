@@ -8,6 +8,10 @@ local B = 1000 //how many times to bootstrap
 local chunk_size = 50
 ******************* PREPARING BOOTSTRAP RESULTS DATASET ************************
 
+
+
+
+
 * bootstrapping loop start
 forvalues iteration = 1(1)`B'{ 
 

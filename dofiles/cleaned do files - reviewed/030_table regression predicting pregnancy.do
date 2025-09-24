@@ -67,7 +67,7 @@ esttab model1 model2 model3 model4 model5 model0 using "tables/table_gestdur3plu
     label se star(* 0.05 ** 0.01 *** 0.001)
     b(3) se(4)
     stats(N, fmt(%15.0fc) label("\textbf{N}"))
-    mtitle("Adivasi" "Dalit" "OBC" "Forward" "Muslim" "\shortstack{All five\\social groups}")
+    mtitle("Adivasi" "Dalit" "OBC$^{1}$" "Forward" "Muslim$^{2}$" "\shortstack{All five\\social groups}")
     booktabs 
     substitute("not using modern contraception" "\hspace*{1em}Not using modern contraception" ///
                "less than primary education" "\hspace*{1em}Less than primary education" ///

@@ -3,12 +3,9 @@
 
 use "$dataset", clear
 
-	
+
+eststo clear
 estpost tabulate v214 [aw=v005]
-
-
-
-
 
 #delimit ;
 esttab using "tables/apdxtabl_gestdur.tex", 

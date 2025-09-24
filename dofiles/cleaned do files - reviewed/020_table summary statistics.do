@@ -157,7 +157,6 @@ foreach var of varlist ci_* {
     replace `var' = "" if row == ""
 }
 
-
 drop if missing(insert_blank)
 drop is_header order insert_blank
 
@@ -174,7 +173,7 @@ listtex row ///
     head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{0.9cm}}@{\hspace{3em}}*{6}{>{\centering\arraybackslash}p{0.9cm}}}" ///
          "\toprule" ///
          "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{6}{c}{Nonpregnant women} \\\\" ///
-         "Social Group & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny All five & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny All five \\\\" ///
+         "Social Group & \tiny Adivasi & \tiny Dalit & \tiny OBC$^{1}$ & \tiny Forward & \tiny Muslim$^{2}$ & \tiny All five & \tiny Adivasi & \tiny Dalit & \tiny OBC$^{1}$ & \tiny Forward & \tiny Muslim$^{2}$ & \tiny All five \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
