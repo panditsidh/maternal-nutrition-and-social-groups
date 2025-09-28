@@ -27,7 +27,7 @@ do "dofiles/cleaned do files - reviewed/040_fig panel ACE showing distribution o
 do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
 
 // 6 : get bootstrapped confidence intervals for pre-pregnancy outcomes (takes forever to run)
-do "dofiles/for Diane to review/060_bootstrapped cis for pp nutrition by subgroup.do"
+// do "dofiles/for Diane to review/060_bootstrapped cis for pp nutrition by subgroup.do"
 
 // 7 : compile a results dataset
 do "dofiles/for Diane to review/070_pp nutrition estimates by subgroup.do"
