@@ -5,9 +5,9 @@ import delimited "data/API_SH.DYN.NMRT_DS2_en_csv_v2_1034803.csv", varnames(4) n
 
 rename v1 country_name
 rename v2 country_code
-rename v68 nnm_2023
+rename v64 nnm_2019
 
-keep country_name country_code nnm_2023
+keep country_name country_code nnm_2019
 
 
 tempfile nnm 
@@ -18,9 +18,9 @@ import delimited "data/API_NY.GDP.PCAP.CD_DS2_en_csv_v2_1076250.csv", clear
 
 rename v1 country_name
 rename v2 country_code
-rename v68 gdppc_2023
+rename v64 gdppc_2019
 
-keep country_name country_code gdppc_2023
+keep country_name country_code gdppc_2019
 
 // drop if missing(gdppc_2023)
 
@@ -34,10 +34,10 @@ import delimited "data/API_SP.POP.TOTL_DS2_en_csv_v2_1075736.csv", varnames(4)cl
 
 rename v1 country_name
 rename v2 country_code
-rename v68 pop_2023
+rename v64 pop_2019
 
 
-keep country_name country_code pop_2023
+keep country_name country_code pop_2019
 
 
 * merge
@@ -77,7 +77,7 @@ drop if inlist(country_name,
 "Middle East, North Africa, Afghanistan & Pakistan (IDA & IBRD)",
 "South Asia (IDA & IBRD)", "Sub-Saharan Africa (IDA & IBRD countries)")
 | inlist(country_name,
-"Upper middle income", "World", "Not classified", "Country Name");
+"Upper middle income", "World", "Not classified", "Country Name", "Early-demographic dividend");
 
 drop if inlist(country_name, "Andorra", "Antigua and Barbuda", "Aruba", "Bahamas, The", "Barbados", "Belize", "Bermuda", "Bhutan", "Brunei Darussalam");
 
@@ -90,22 +90,24 @@ drop if inlist(country_name, "Palau", "San Marino", "Seychelles", "Solomon Islan
 drop if inlist(country_name, "Suriname", "Tonga", "Trinidad and Tobago", "Tuvalu", "Vanuatu");
 #delimit cr
 
-gen log_gdppc_2023 = log(gdppc_2023)
+gen log_gdppc_2019 = log(gdppc_2019)
 
-qui sum log_gdppc_2023
+qui sum log_gdppc_2019
 
 local xmin = r(min)
 local xmax = r(max)
 
+replace nnm_2019 = 25.9 if country_name == "India"
+
 
 #delimit ;
-twoway (scatter nnm_2023 log_gdppc_2023 [fw=pop_2023], 
+twoway (scatter nnm_2019 log_gdppc_2019 [fw=pop_2019], 
 			msymbol(Oh) mcolor(black)) 
-	   (lfit nnm_2023 log_gdppc_2023, 
+	   (lfit nnm_2019 log_gdppc_2019, 
 			lcolor(black) range(`xmin' `xmax')), 
 			legend(off) graphregion(color(white))
 	   xtitle("log of GDP per capita in current US dollars")
 	   ytitle("neonatal mortality, per 1000 live births");
 
 	   
-graph export "figures/world bank data nnm vs gdp_pc.png", as(png) name("Graph") replace
+graph export "figures/world bank data nnm vs gdp_pc.png", as(png) name("Graph") replace;
