@@ -35,7 +35,7 @@ esttab model_g,
     label se star(* 0.05 ** 0.01 *** 0.001)
     b(3) se(4)
     stats(N, fmt(%15.0fc) label(N))
-    mtitle("All social groups")
+    mtitle("reports 1 or 2" "months of pregnancy")
     substitute("not using modern contraception" "\hspace*{1em}Not using modern contraception" ///
                "less than primary education" "\hspace*{1em}Less than primary education" ///
                "rural resident" "\hspace*{1em}Rural resident" ///
@@ -64,7 +64,7 @@ esttab model_g,
 #delimit ;
 esttab model_g using "tables/table_gestdur3plus_group.tex",
     replace
-    refcat(1.not_c_user "\textbf{Predictors of gestation 1 or 2 months}" ///
+    refcat(1.not_c_user "\textbf{Binary predictors}" ///
            2.agebin "\textbf{Age categories} \\ (15–19 omitted)" ///
            2.parity_bs "\textbf{Parity \& time since last live birth categories} \\ (No prior births omitted)" ///
            2.wealth "\textbf{Wealth quartiles} \\ (1st quartile omitted)", nolabel)
@@ -73,7 +73,7 @@ esttab model_g using "tables/table_gestdur3plus_group.tex",
     label se star(* 0.05 ** 0.01 *** 0.001)
     b(3) se(4)
     stats(N, fmt(%15.0fc) label("\textbf{N}"))
-    mtitle("\shortstack{All social groups}")
+    mtitle("\shortstack{reports of 1 or 2 months of pregnancy}")
     booktabs 
     substitute("not using modern contraception" "\hspace*{1em}Not using modern contraception" ///
                "less than primary education" "\hspace*{1em}Less than primary education" ///

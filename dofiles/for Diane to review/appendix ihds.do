@@ -7,8 +7,10 @@ replace GROUPS=2 if GROUPS==1
 
 drop if GROUPS==7
 
+drop if missing(GR25)
 gen eat_last = GR25==3
 
+keep if inrange(EW6, 15,49)
 
 collapse (mean) mean_eatlast=eat_last (sd) sd_eatlast=eat_last (count) n=eat_last [aw=WT], by(GROUP)
 
@@ -26,9 +28,9 @@ twoway
     xlabel( 2 "Fwd caste" 3 "OBC" 4 "Dalit" 5 "Adivasi" 6 "Muslim")
 	xtitle("Social group")
     ytitle("Women eating last (proportion)")
-    title("Proportion of women eating last by social group")
     legend(off)
     graphregion(color(white));
 
 
 graph export "figures/appendix ihds.png", as(png) name("Graph") replace;
+
