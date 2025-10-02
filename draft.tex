@@ -116,13 +116,11 @@ Whether differences in fertility and birth spacing will explain differences in p
 
 There are several pathways through which household wealth protects against undernutrition: it allows people to buy more and higher quality food \citep{raghunathan2021affordability}, they are more likely to have tools and technology that reduce their energy output \citep{deaton2009food}, and they may be able to afford cleaner water and better sanitation, which reduces energy loss to disease \citep{bhutta2008works}.  Since marginalized castes are more likely to be poor, and to remain poor over time, than forward castes \citep{thorat2012has, thorat2017escaping}, we expect differences in household wealth to explain differences in undernutrition across Indian social groups.  Scheduled Castes and Scheduled Tribes have household incomes up to 30\% less than the national average, and OBCs and Muslims own up to 10\% less \citep{bharti2018wealth}. 
 
-We note that the relationship between economic status and nutrition is not straightforward.  Calorie consumption in India declined between the 1980s and early 2000s, despite economic growth and reductions in poverty, and despite the fact that underweight rates among Indian adults and children remained high compared to low- and middle-income countries \citep{deaton2009food}.  The low social status of women adds nuance to the relationship.  Data from the 1980s found that, more so than the nutrient intake of men in the same household, women's nutrient intake declined when food prices rose \citep{behrman1990intrahousehold}.  The 2011 Indian Human Development Survey found that in a quarter of Indian households, women are expected to eat after men \citep{hathi2021women}.  
+We note that the relationship between economic status and nutrition is not straightforward.  Calorie consumption in India declined between the 1980s and early 2000s, despite economic growth and reductions in poverty, and despite the fact that underweight rates among Indian adults and children remained high compared to low- and middle-income countries \citep{deaton2009food}.  The low social status of women adds nuance to the relationship.  Data from the 1980s found that, more so than the nutrient intake of men in the same household, women's nutrient intake declined when food prices rose \citep{behrman1990intrahousehold}.  The 2011 Indian Human Development Survey found that in a quarter of Indian households, women are expected to eat after men \citep{hathi2021women}.  Figure \ref{fig:ihds_eat_last} in the online appendix shows that the proportion of  women who regularly eat last in their household is similar across the five social groups that we study.
 
-\section{Method}
+\section{Data and Methods}
  
 The ideal data for measuring the proportion of women who are underweight before pregnancy would come from a national pregnancy monitoring system tracking women before, during, and after pregnancy.  However, no such representative, longitudinal data exist.  Therefore, we use \cite{coffey2015prepregnancy}'s method of estimating the prevalence of prepregnancy underweight from cross-sectional data.  We construct a nonparametric reweighting function based on observable characteristics of pregnant women, and apply it to representative cross-sectional data on body mass index scores among non-pregnant women.  
-
-\subsection{Data}
 
 We use the most recent Demographic and Health Survey (DHS) from India, the National Family Health Survey (2019-21) (NFHS 5). These data are publicly available from dhsprogram.com.  NFHS 5 is a clustered multistage sample survey that interviewed over 635,000 households and over 720,000 women between the ages of 15 and 49. 
 
@@ -134,33 +132,29 @@ We use the most recent Demographic and Health Survey (DHS) from India, the Natio
 
 {\bf{Social group.}} The NFHS asks respondents whether they belong a Scheduled Caste, a Scheduled Tribe, an Other Backward Class, or a Forward Caste.  It also asks respondents their religion, listing Hindu, Muslim, Christian, Sikh, Buddhist, Jain, and ``others'' as options.  Following the India Human Development Survey (IHDS) \citep{IHDS2005}, we combine these variables into five mutually exclusive, socially meaningful groups.  Adivasi and Dalit women are those who report belonging to a Scheduled Tribe or a Scheduled Caste, respectively, regardless of religion.  Muslim women are those who report their religion as Muslim and who do not belong to a Scheduled Caste or Tribe. OBC women are Hindu or Sikh women who report belonging to an Other Backward Class.  Forward caste women are Hindus who do not belong to a Scheduled Tribe, a Scheduled Caste, or Other Backward Class.  2.3\% of the women interviewed by the NFHS 5 do not fall into any of these categories.  They may identify as Christians, Jains, or as not having a religious or caste identity.  These women are dropped from the analysis for ease of interpretation. 
 
-{\bf{Predictors of maternal undernutrition and pregnancy.}} Our method for estimating pre-pregnancy underweight, described below, involves matching non-pregnant to pregnant women on variables that predict both pregnancy and body weight.  We construct the following variables:
+{\bf{Predictors of maternal undernutrition and pregnancy used in nonparametric reweighting.}} Our method for estimating pre-pregnancy underweight, described below, involves matching non-pregnant to pregnant women on variables that predict both pregnancy and body weight.  We construct the following variables for use in the nonparametric reweighting analysis:
 \begin{itemize}
 \item {\bf{not using modern contraception:}} A binary indicator that the woman is not using a modern method at the time of the survey (non-pregnant women) or was not using modern contraception in the month before becoming pregnant (pregnant women).   Modern contraception is defined as the pill, an IUD, injectables, a diaphragm, condoms, or male or female sterilization. 
 \item {\bf{less than a primary education:}} A binary indicator for not having finished primary school.
 \item {\bf{rural resident:}} A respondent is a rural resident if she was interviewed in a rural primary sampling unit. 
 \item {\bf{does not have a boy child:}} A binary indicator that a woman does not have any sons.
 \item {\bf{age group:}} 15-19, 20-24, 25-29, 30-49
-\item {\bf{parity and birthspacing:}} A categorical variable that captures both parity (0, 1, 2, 3+) and birth spacing (below 2 years, 2-3 years, 3 or more years). For pregnant women, spacing is measured from the previous live birth to the estimated end date of the current pregnancy. For non-pregnant women, spacing is measured from the previous live birth to the esimated date of birth of the current pregnancy (assuming 9 months of gestation). This gives the following categories: (1) No births; (2) 1 birth, below 2-year spacing; (3) 1 birth, 2–3 year spacing; (4) 1 birth, 3+ year spacing; (5) 2 births, below 2-year spacing; (6) 2 births, 2–3 year spacing; (7) 2 births, 3+ year spacing; (8) 3+ births, below 2-year spacing; (9) 3+ births, 2–3 year spacing; and (10) 3+ births, 3+ year spacing.
-
-\item {\bf{wealth quartile:}} The NFHS publishes a wealth index score based on a principal component analysis of a set of indicators for each household's ownership of various goods, the source of drinking water, toilet facilities, and flooring materials \citep{iips_icf_nfhs5_2022}.  We split the wealth index score into quartiles.
+\item {\bf{parity and birthspacing:}} A categorical variable that captures both parity (0, 1, 2, 3+) and birth spacing (below 2 years, 2-3 years, 3 or more years). For pregnant women, spacing is measured from the previous live birth to the estimated end date of the current pregnancy. For non-pregnant women, spacing is measured from the previous live birth to the estimated date of birth of the current pregnancy (assuming 9 months of gestation). This gives the following categories: (1) No births; (2) 1 birth, below 2-year spacing; (3) 1 birth, 2–3 year spacing; (4) 1 birth, 3+ year spacing; (5) 2 births, below 2-year spacing; (6) 2 births, 2–3 year spacing; (7) 2 births, 3+ year spacing; (8) 3+ births, below 2-year spacing; (9) 3+ births, 2–3 year spacing; and (10) 3+ births, 3+ year spacing.
+\item {\bf{wealth quartile:}} The NFHS publishes a wealth index score for each household based on a principal component analysis of a set of assets that the household may or may not own (for example, a bicycle, a television, or a car), and housing characteristics (for example, source of drinking water, toilet facilities, and flooring materials) \citep{iips_icf_nfhs5_2022}. We split the wealth index score into quartiles.
 \end{itemize}
 
-%DC START HERE.
+\subsection{Estimation of prepregnancy nutrition}
 
-\subsection{Estimation of pre-pregnancy indicators}
+Following \cite{coffey2015prepregnancy}, we apply a nonparametric reweighting function to the body mass index scores of nonpregnant women so that their distribution of predictors of pregnancy and nutrition status matches that of pregnant women. This counterfactual distribution up-weights nonpregnant women who are more likely to become pregnant and down-weights those who are less likely to become pregnant, producing estimates that more closely approximate women's nutritional status at the beginning of pregnancy. This method addresses the challenge that we do not have longitudinal data to directly observe the nutrition status of women who become pregnant. The reweighting procedure was conducted for the five social groups together, and then within each social group.  
 
-Following \cite{coffey2015prepregnancy}, we apply a nonparametric reweighting procedure to nonpregnant women in the sample so that their distribution of key predictors of pregnancy matches that of pregnant women in the sample. This counterfactual distribution upweights nonpregnant women who are more likely to become pregnant and downweights those less likely, producing estimates that more closely approximate the true values of women's nutritional outcomes at the onset of pregnancy in India. This method addresses the challenge that the NFHS doesn't collect longitudinal data, making it impossible to directly observe prepregnancy outcomes. 
-
-
-The reweighting procedure was conducted within each social group for estimation of prepregnancy outcomes by social groups. First, all women in the sample were assigned to bins defined by the intersection of indicators that are important determinants of the likelihood of women becoming pregnant in India and are plausibly correlated with body mass [CITE]. 
-
-These indicators include women's use of modern contraception, having either less than two years, between 2 and 3 years, or 3 or more years since their last birth, and being of the age groups 15-19, 20-24, 25-29, or 30-49 (defined for pregnant women based on what is true in the month of conception and for nonpregnant women based on what is true when they are surveyed). The remaining indicators are based on women's having below secondary education, living in rural residence, having one or more living sons, and belonging to each wealth quartile, which are defined for all women based on what is true at the time of the survey. This allows for 2,560 bins, but in the data, the number of bins per social group ranges from 1636-1882. 
-
-Next, the reweighting function \(\psi\) is defined as \(\psi(x)=[f(x|P=1)]/[f(x|P=0)]\), the ratio of the weighted counts of pregnant to nonpregnant women in each bin \(x\).
+The reweighting function \(\psi\) is defined as \(\psi(x)=[f(x|P=1)]/[f(x|P=0)]\), the ratio of the weighted counts of pregnant to nonpregnant women in each bin \(x\), where a ``bin'' is a unique combination of the predictors.  There are 2,560 bins, though not all of them correspond to both pregnant and nonpregnant women in the dataset.  Bins in which .
 
 Finally, the reweighting function is applied as \(\tilde{W}_i = W_i * \psi(x_i)\) where nonpregnant woman \(i\) has original NFHS sampling weight \(\tilde{W}_i\) and bin \(x_i\). By construction, the distribution of \(\tilde{W}_i\) across bins matches that 
 of pregnant women, so population averages using these weights provides an estimate of the prepregnancy distribution of maternal nutrition outcomes.
+
+Standard errors for pregnancy nutrition are constructed by cluster-bootstrapping.  We draw 30,131  clusters (slightly less than the number of primary sampling units in the NFHS 5 because we drop women from the analysis who do not belong to one of the social groups we study) with replacement and compute the proportion of prepregnancy underweight in that sample, and repeat this procedure 1,000 times.  We present confidence intervals spanning the 5th and 95th percentiles of the distribution of resulting proportions of prepregnancy underweight.
+
+
 
 \subsection{Kitagawa(1955)-style decomposition}
 
@@ -205,7 +199,7 @@ Second, there are stark differences across social groups, highlighting inequalit
 
 \subsection*{Regressions predicting pregnancy (Table \ref{regression})}
 
-The covariates used in the reweighting procedure are characteristics that demography research has linked to fertility and are also plausibly correlated with body mass [28-34 in \referen{coffey2015prepregnancy}]. To test this, we regress an indicator of pregnancy on these covariates using the full sample of pregnant and nonpregnant women and observe if they are predictive of pregnancy risk. Table \ref{regression} reports results from these linear probability regressions conducted separately for each social group in our analysis. Almost all coefficients are significant in predicting pregnancy, highlighting their importance in being used in reweighting.
+The covariates used in the reweighting procedure are characteristics that demography research has linked to fertility and are also plausibly correlated with body mass [28-34 in \ref{coffey2015prepregnancy}]. To test this, we regress an indicator of pregnancy on these covariates using the full sample of pregnant and nonpregnant women and observe if they are predictive of pregnancy risk. Table \ref{regression} reports results from these linear probability regressions conducted separately for each social group in our analysis. Almost all coefficients are significant in predicting pregnancy, highlighting their importance in being used in reweighting.
 
 For instance, women that didn't use modern contraception when they were most recently nonpregnant were up to 6.5\% more likely to be pregnant across all social groups. Also, women who did not yet have a son were up to 2.6\% more likely to be pregnant across all social groups. Considering parity and birth spacing simultaneously is also important - women who had 1 birth between 2 and 3 years ago were 10.4\% more likely to be pregnant for all social groups combined.
 
@@ -512,14 +506,14 @@ This offers a benchmark to method 1, which may be inaccurate if the assumption i
     \centering
     \scriptsize % shrink text
     
-    \caption{: Women reporting 1 or 2 months of pregnancy are different than those reporting 3 or more months of pregnancy}
+    \caption{: Women reporting one or two months of pregnancy are different than those reporting three or more months of pregnancy}
     \label{regression3plusmopreg}
     \setlength{\tabcolsep}{1pt}
     \renewcommand{\arraystretch}{0.81}
     % {\input{tables/predictor_regression}}
     {\input{tables/table_gestdur3plus_group}}
     \begin{tablenotes}
-        \item \textit{Notes}: Observations are women interviewed by the NFHS 5 who report being currently pregnant. Standard errors, shown in parentheses, are clustered at the primary sampling unit level. 
+        \item Observations are women interviewed by the NFHS 5 who report being currently pregnant. Standard errors, shown in parentheses, are clustered at the primary sampling unit level. 
         \item * $p<0.5$, ** $p<0.01$
     \end{tablenotes}
 \end{threeparttable}
@@ -528,6 +522,44 @@ This offers a benchmark to method 1, which may be inaccurate if the assumption i
 % \restoregeometry
 
 \end{minipage}
+
+\newpage
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]
+    {figures/appendix ihds.png}
+    \caption{: Proportion of households in which women eat last, by social group}
+    \label{fig:ihds_eat_last}
+    \parbox{1\linewidth}{\footnotesize \textit{Notes:} India Human Development Survey (2011). Sample includes 34,216 women ages 15 to 49.  All ever-married women aged 15-49 in each household, and those who were interviewed in the previous panel of the IHDS were interviewed.}
+\end{figure}
+
+\newpage
+
+\begin{table}[H]
+    \centering
+
+    \begin{threeparttable}
+            
+    \caption{: Distribution of self-reported gestational ages}
+    \label{gestdur_distribution}
+    \scriptsize
+    \setlength{\tabcolsep}{5pt}
+    \resizebox{\textwidth}{!}{%
+        % \input{tables/tfr}
+        \input{tables/apdxtabl_gestdur}
+    }
+    
+    \small
+    \begin{tablenotes}
+        \item Observations are women interviewed by the NFHS 5 who report being currently pregnant.
+        
+        
+    \end{tablenotes}
+
+    \end{threeparttable}
+\end{table}
 
 
 \begin{landscape}
@@ -653,34 +685,25 @@ This offers a benchmark to method 1, which may be inaccurate if the assumption i
 
 \end{landscape}
 
-\subsection{Distribution of gestational ages}
 
-\begin{table}[H]
-    \centering
+\subsection{Wealth index construction in NFHS-5}
 
-    \begin{threeparttable}
-            
-    \caption{: Distribution of self-reported gestational ages}
-    \label{gestdur_distribution}
-    \scriptsize
-    \setlength{\tabcolsep}{5pt}
-    \resizebox{\textwidth}{!}{%
-        % \input{tables/tfr}
-        \input{tables/apdxtabl_gestdur}
-    }
-    
-    \small
-    \begin{tablenotes}
-        \item insert table notes
-        
-        
-    \end{tablenotes}
+The wealth index is constructed as the first principal component from a set of household-level indicators of living standards \citep{DHSIndiaWealth2019}:
 
-    \end{threeparttable}
-\end{table}
+\begin{itemize}
+\item \textbf{Water and sanitation:} source of drinking water (piped, tubewell/borehole, dug well, spring, rainwater, tanker/cart supply, surface water, bottled/RO) and type of toilet facility (flush to sewer/septic/pit/other, ventilated improved pit/composting/dry toilet, open defecation), including whether facilities are shared.
+\item \textbf{Drainage and infrastructure:} presence and type of drainage (closed, open, none) and availability of electricity.
+\item \textbf{Household durables:} common assets such as mattress, pressure cooker, chair, bed, table, fan, radio, television, sewing machine, phone (mobile/landline), internet, computer, refrigerator, air conditioner/cooler, washing machine, watch/clock.
+\item \textbf{Transport and productive assets:} bicycle, motorcycle/scooter, animal-drawn cart, car, water pump, thresher, tractor.
+\item \textbf{Cooking fuel:} electricity, LPG/natural gas, biogas, kerosene, coal/lignite, charcoal, wood, crop waste, dung cakes, and related categories (including “no food cooked”).
+\item \textbf{Housing materials:} main floor (e.g., earth/dung, stone, ceramic tiles, cement, polished stone/marble), main roof (e.g., thatch/grass, metal, cement/concrete, tiles, slate), and main walls (e.g., mud, bamboo/cane, stone with mud, burnt brick, cement/concrete, blocks, metal sheeting).
+\item \textbf{Livestock, land, housing tenure, services:} ownership of livestock (e.g., cattle, goats, sheep, poultry), bank account, home ownership, land ownership, and presence of domestic staff.
+\item \textbf{Crowding (continuous):} number of household members per sleeping room.
+
+\end{itemize}
 
 
-
+The resulting wealth score is equally assigned to each household member, individuals are ranked nationally, and the distribution is split into four quartiles to create our wealth index.
 
 
 \end{document}
