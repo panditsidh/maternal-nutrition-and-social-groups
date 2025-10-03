@@ -84,6 +84,9 @@ gen preg = v213 == 1
 tab preg, m
 
 
+gen gestdur_3plus = gestdur>=3 if !missing(gestdur)
+
+
 
 **************************** CONTRACEPTIVE USE ********************************
 

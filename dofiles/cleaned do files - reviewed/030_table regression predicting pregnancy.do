@@ -6,6 +6,8 @@
 do "$paths"
 use "$dataset", clear
 
+
+
 *--------------------------
 * Overall model
 *--------------------------
@@ -63,11 +65,11 @@ esttab model1 model2 model3 model4 model5 model0 using "tables/table_gestdur3plu
            2.parity_bs "\textbf{Parity \& time since last live birth categories} \\ (No prior births omitted)" ///
            2.wealth "\textbf{Wealth quartiles} \\ (1st quartile omitted)", nolabel)
     drop(0.not_c_user 0.less_edu 0.rural 0.noboy 1.agebin 1.parity_bs 1.wealth) 
-    nonumbers 
+    nonumbers nonote
     label se star(* 0.05 ** 0.01 *** 0.001)
     b(3) se(4)
     stats(N, fmt(%15.0fc) label("\textbf{N}"))
-    mtitle("Adivasi" "Dalit" "OBC$^{1}$" "Forward" "Muslim$^{2}$" "\shortstack{All five\\social groups}")
+    mtitle("Adivasi" "Dalit" "OBC" "Forward" "Muslim" "\shortstack{All five\\social groups}")
     booktabs 
     substitute("not using modern contraception" "\hspace*{1em}Not using modern contraception" ///
                "less than primary education" "\hspace*{1em}Less than primary education" ///

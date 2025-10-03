@@ -25,12 +25,11 @@ twoway
     (rcap hi low GROUP, lcolor(black))
     (scatter mean_eatlast GROUP, msymbol(none) mlabel(mean_eatlast) mlabformat(%4.2f) mlabpos(4) mlabsize(small) mlabcolor(black)),
     ///
-    xlabel( 2 "Fwd caste" 3 "OBC" 4 "Dalit" 5 "Adivasi" 6 "Muslim")
+    xlabel( 2 "Forward caste" 3 "OBC" 4 "Dalit" 5 "Adivasi" 6 "Muslim")
 	xtitle("Social group")
     ytitle("Women eating last (proportion)")
     legend(off)
     graphregion(color(white));
-
 
 graph export "figures/appendix ihds.png", as(png) name("Graph") replace;
 

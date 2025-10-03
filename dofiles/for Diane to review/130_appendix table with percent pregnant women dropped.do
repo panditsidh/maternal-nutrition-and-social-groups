@@ -105,7 +105,6 @@ foreach v of varlist pctdrop_* {
 }
 
 
-
 #delimit ;
 listtex rows ///
     n_allgroups pctdrop_allgroups ///
@@ -118,7 +117,7 @@ listtex rows ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{12}{>{\centering\arraybackslash}p{1.2cm}}}" ///
          "\toprule" ///
-         "& \multicolumn{2}{c}{All groups} & \multicolumn{2}{c}{Adivasi} & \multicolumn{2}{c}{Dalit} & \multicolumn{2}{c}{OBC} & \multicolumn{2}{c}{Forward} & \multicolumn{2}{c}{Muslim} \\\\" ///
+         "& \multicolumn{2}{c}{\shortstack{All five \\\\ social groups}} & \multicolumn{2}{c}{Adivasi} & \multicolumn{2}{c}{Dalit} & \multicolumn{2}{c}{OBC} & \multicolumn{2}{c}{Forward} & \multicolumn{2}{c}{Muslim} \\\\" ///
          "\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11} \cmidrule(lr){12-13}" ///
          "Predictor Group & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped \\\\" ///
          "\midrule") ///
