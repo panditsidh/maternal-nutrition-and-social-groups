@@ -27,6 +27,25 @@
 \usepackage{titlesec}
 \usepackage{threeparttable}
 \usepackage{setspace}
+\usepackage{float}
+\floatstyle{plaintop}
+\restylefloat{table}
+\usepackage{rotating}
+\usepackage{authblk}
+
+% Optional styling for nicer author/affil typography
+\renewcommand\Authfont{\normalsize\bfseries}
+\renewcommand\Affilfont{\small\normalfont}
+\setlength{\affilsep}{0.3em} % space between author and affiliation
+
+\author[1,2]{Diane Coffey\thanks{Corresponding author: coffey@utexas.edu}}
+
+\author[1]{Siddhant Pandit}
+
+\affil[1]{Population Research Center, University of Texas at Austin}
+\affil[2]{r.i.c.e., a research institute for compassionate economics}
+
+
 
 
 \setlength{\parindent}{0pt}   % standard indent (~0.25 inch)
@@ -48,7 +67,6 @@
 \begin{document}
 
 \title{Fertility, Economic Status, and Maternal Nutrition among Indian Social Groups}
-\author{authors}
 \date{\today}
 
 \maketitle
@@ -114,9 +132,7 @@ Research on maternal health in low and middle income countries studies ``materna
 
 Whether differences in fertility and birth spacing will explain differences in prepregnancy underweight will depend both on the magnitude of fertility and birth spacing differences across groups, and on the relationship between parity progression and birth spacing, on the one hand, and nutrition, on the other. \cite{coffey2021neonatal} provide suggestive evidence that, in India, higher parity births may not lead to maternal depletion.  They find that controlling for siblingship size, higher-parity births are less likely to die in the first month of life than lower-parity births.  They posit that this may be because women gain weight with successive pregnancies as a result of increases in social status that accompany ageing and parity progression. 
 
-There are several pathways through which household wealth protects against undernutrition: it allows people to buy more and higher quality food \citep{raghunathan2021affordability}, they are more likely to have tools and technology that reduce their energy output \citep{deaton2009food}, and they may be able to afford cleaner water and better sanitation, which reduces energy loss to disease \citep{bhutta2008works}.  Since marginalized castes are more likely to be poor, and to remain poor over time, than forward castes \citep{thorat2012has, thorat2017escaping}, we expect differences in household wealth to explain differences in undernutrition across Indian social groups.  Scheduled Castes and Scheduled Tribes have household incomes up to 30\% less than the national average, and OBCs and Muslims own up to 10\% less \citep{bharti2018wealth}. 
-
-
+There are several pathways through which household wealth protects against undernutrition: it allows people to buy more and higher quality food \citep{raghunathan2021affordability}, they are more likely to have tools and technology that reduce their energy output \citep{deaton2009food}, and they may be able to afford cleaner water and better sanitation, which reduces energy loss to disease \citep{bhutta2008works}.  Since marginalized castes are more likely to be poor, and to remain poor over time, than forward castes \citep{thorat2012has, thorat2017escaping}, we expect differences in household wealth to explain differences in undernutrition across Indian social groups.  In 2013, two-thirds of India's wealth was controlled by Hindu forward caste and OBC groups. Meanwhile, Scheduled Castes, Scheduled Tribes, and Muslims each had 10\%, 6\%, and 9\% of total wealth, respectively, which was considerably less than their 2013 population shares of 18\%, 9\%, and 12\% respectively \citep{tagade2020intergroup}.
 
 We note that the relationship between economic status and nutrition is not straightforward.  Calorie consumption in India declined between the 1980s and early 2000s, despite economic growth and reductions in poverty, and despite the fact that underweight rates among Indian adults and children remained high compared to low- and middle-income countries \citep{deaton2009food}.  The low social status of women adds nuance to the relationship.  Data from the 1980s found that, more so than the nutrient intake of men in the same household, women's nutrient intake declined when food prices rose \citep{behrman1990intrahousehold}.  The 2011 Indian Human Development Survey found that in a quarter of Indian households, women are expected to eat after men \citep{hathi2021women}.  Figure \ref{fig:ihds_eat_last} in the online appendix shows that the proportion of  women who regularly eat last in their household is similar across the five social groups that we study.
 
@@ -142,7 +158,7 @@ We use the most recent Demographic and Health Survey (DHS) from India, the Natio
 \item {\bf{does not have a boy child:}} A binary indicator that a woman does not have any sons.
 \item {\bf{age group:}} 15-19, 20-24, 25-29, 30-49
 \item {\bf{parity and birthspacing:}} A categorical variable that captures both parity (0, 1, 2, 3+) and birth spacing (below 2 years, 2-3 years, 3 or more years). For pregnant women, birth spacing is measured from the month of the previous live birth to the end of the current pregnancy, assuming that the pregnancy will last nine months. For non-pregnant women, spacing is measured from the previous live birth to nine months after the date of the interview. This gives the following categories: (1) No births; (2) 1 birth, below 2-year spacing; (3) 1 birth, 2–3 year spacing; (4) 1 birth, 3+ year spacing; (5) 2 births, below 2-year spacing; (6) 2 births, 2–3 year spacing; (7) 2 births, 3+ year spacing; (8) 3+ births, below 2-year spacing; (9) 3+ births, 2–3 year spacing; and (10) 3+ births, 3+ year spacing.
-\item {\bf{wealth quartile:}} The NFHS publishes a wealth index score for each household based on a principal component analysis of whether or not the household owns set of assets (for example, a bicycle, a television, or a car), and housing characteristics (for example, source of drinking water, toilet facilities, and flooring materials) \citep{iips_icf_nfhs5_2022}. We split the wealth index score into quartiles. More information about the variables and methods used in creation of the NFHS wealth index can be found in section 1 of the appendix.
+\item {\bf{wealth quartile:}} The NFHS publishes a wealth index score for each household based on a principal component analysis of whether or not the household owns set of assets (for example, a bicycle, a television, or a car), and housing characteristics (for example, source of drinking water, toilet facilities, and flooring materials) \citep{iips_icf_nfhs5_2022}. We split the wealth index score into quartiles. More information about the variables and methods used in creation of the NFHS wealth index can be found in section \ref{wealth_index} of the appendix.
 \end{itemize}
 
 \subsection{Estimation of prepregnancy nutrition}
@@ -155,165 +171,137 @@ Standard errors for the prevalence of prepregnancy underweight are constructed u
 
 \subsection{Kitagawa decomposition of differences in prepregnancy underweight between marginalized groups and forward castes}
 
-To better understand the gaps in prepregnancy underweight between marginalized groups and forward castes, we conduct two Kitagawa-style decompositions \cite{kitagawa1955components}.  The first decomposes gaps by the parity and birth spacing variable described above.  The second decomposes gaps by wealth quartile.  
-
-% To understand if gaps in prepregnancy underweight between marginalized groups and forward castes can be be explained by differences in covariates of maternal health, we conduct two Kitagawa-style decompositions \cite{kitagawa1955components}. The first decomposes gaps by the parity and birth spacing variable described above.  The second decomposes gaps by wealth quartile.  
-
-
-
-
-
-
-
-Following \cite{kitagawa1955components}, we decompose differences in the prevalence of prepregnancy underweight as:
+To better understand gaps in the prevalence of prepregnancy underweight between marginalized groups and forward castes, we conduct two Kitagawa-style decompositions \cite{kitagawa1955components}.  The first decomposes gaps by the parity and birth spacing variable described above.  The second decomposes gaps by wealth quartile.  The overall gap in the prevalence of prepregnancy underweight between the marginalized group and forward caste Hindus can be expressed as the sum of differences explained the variable of interest and differences that remain unexplained:
 
 \begin{equation}
 \label{eq:kitagawa}
-\Delta \equiv \bar Y^{f} - \bar Y^{g}
+\Delta \equiv \bar Y^{g} - \bar Y^{f}
 = \Delta_{explained} + \Delta_{unexplained}
 \end{equation}
 
 \begin{equation}
-    \Delta_{explained} = \sum_{j=1}^{J} \big(p_j^{f} - p_j^{g}\big)\,\frac{Y_j^{f} + Y_j^{g}}{2}
+    \Delta_{explained} = \sum_{j=1}^{J} \big(p_j^{g} - p_j^{f}\big)\,\frac{Y_j^{g} + Y_j^{f}}{2}
 \end{equation}
 
 \begin{equation}
-    \Delta_{unexplained} = \sum_{j=1}^{J} \big(Y_j^{f} - Y_j^{g}\big)\,\frac{p_j^{f} + p_j^{g}}{2}
+    \Delta_{unexplained} = \sum_{j=1}^{J} \big(Y_j^{g} - Y_j^{f}\big)\,\frac{p_j^{g} + p_j^{f}}{2}
 \end{equation}
 
 \begin{itemize}
-    \item where \(i=1,...,J\) indexes categories of the decomposition variable (e.g. parity/spacing, for which J=10, and wealth, for which J=4)
-    \item \( \bar Y^f\) and \(\bar Y^g\) are the overall means for groups \(f\) (forward caste) and \(g\) (marginalized group)
-    \item \(Y_i^f\) and \(Y_i^g\) are the means of prepregnancy underweight within category \(j\) of groups \(f\) and \(g\) respectively
-    \item \(p_i^f\) and \(p_i^g\) are the proportions of women in category \(j\)
+    \item where \(j=1,...,J\) indexes categories of the decomposition variable (for parity and birth spacing J=10, for wealth quartiles J=4)
+    \item \( \bar Y^g\) and \(\bar Y^f\) are the overall means for groups \(g\) (marginalized group) and \(f\) (forward caste Hindu)
+    \item \(Y_i^g\) and \(Y_i^f\) are the means of prepregnancy underweight within category \(j\) of groups \(g\) and \(f\) respectively
+    \item \(p_i^g\) and \(p_i^f\) are the proportions of women in each category \(j\) of the variable of interest
     
 \end{itemize}
 
+The percent of the difference explained by the variable of interest is computed as:
+
+\begin{equation}
+    \frac{\Delta_{explained}}{\Delta}
+\end{equation}
+
 \section{Results}
 
-\subsection*{Sample means of pregnancy covariates (Table \ref{sumstats})}
+\subsection*{Descriptive statistics}
 
-Table \ref{sumstats} shows sample means of the covariates of pregnancy later used in the reweighting procedure, illustrating two sets of contrasts.
+Table \ref{sumstats} shows sample means for the variables we use in the reweighting decomposition, separately by social group and pregnancy status. Pregnant and nonpregnant women have systematically different characteristics. Pregnant women are younger and at lower parities: 43\% are aged 20–24 (versus 16\% of nonpregnant women), and 42\% have no prior births (versus 30\% of nonpregnant women). The differences of these means across pregnancy status highlights the potential biases of estimating prepregnancy outcomes based on nonpregnant women. This motivates our use of these covariates in the reweighting procedure.
 
-First, pregnant and nonpregnant women have systematically different characteristics. Pregnant women are much younger and at lower parities - 43\% are aged 20–24 (versus 16\% of nonpregnant women), and 42\% have no prior births (versus 30\%). In contrast, nonpregnant women in the sample are much older and at higher parity: 25\% have had 3 or more births with over 3 years of birth spacing from their last birth, compared to only 4\% of pregnant women. This is likely to be the end of childbearing for most women, as total fertility rates are close to 2 for all social groups as seen in table \ref{tfr}. The differences of these means across pregnancy status highlights the the potential biases that come with estimating prepregnancy outcomes simply based on nonpregnant women. This motivates our inclusion of these covariates in the reweighting procedure to alter the distribution of nonpregnant women to match that of pregnant women in our sample.
+There are meaningful differences across social groups in these predictors of pregnancy and nutrition status. Nearly half of Adivasi women who are not pregnant have less than primary education, compared to only 21\% of forwards caste women who are not pregnant. Nearly half of Adivasi women who are not pregnant and more than a quarter of Dalit women who are not pregnant, compared with only 10\% of forwards caste women who are not pregnant have household wealth in the first quartile. Adivasi and Dalit women are also overrepresented in the first quartile of household wealth among pregnant women.
 
-Second, there are stark differences across social groups, highlighting inequality that reflects in comparisons of prepregnancy nutrition. Nearly half of Adivasi nonpregnant women have less than primary education, compared to only 21\% of forwards caste nonpregnant women. Women in the the lowest wealth quartile makes up nearly half of Adivasi and 27\% of Dalit nonpregnant women, compared to only 10\% of forwards caste nonpregnant women. These patterns are also consistent for pregnant women.
+To demonstrate the relevance of the variables used in the reweighting procedure, we regress an indicator of pregnancy on these covariates using the full sample of pregnant and nonpregnant women. Table \ref{regression} reports results of OLS linear probability models estimated separately for each social group in our analysis, and for all five groups combined. Almost all of the variables statistically significantly predict pregnancy.
 
+\subsection*{The prevalence of prepregnancy underweight by social group}
 
-\subsection*{Regressions predicting pregnancy (Table \ref{regression})}
+Figure \ref{fig:mainresult} shows estimates of the prevalence of prepregnancy underweight by social group, and for all five groups combined. With the exception of forward caste Hindus and Muslims, confidence intervals do not overlap for any two social groups.  There are statistically significant differences in the prevalence of prepregnancy underweight at the 95\% level. The burden of prepregnancy undernutrition is highest among Adivasi women: 28\% are underweight at the onset of pregnancy. Dalit and OBC prepregnant women are also at higher risk, with 25\% and 23\% underweight before pregnancy, respectively. The prevalence of prepregnancy underweight is lowest, although nevertheless high in international comparison, among the forward caste Hindus (18\%) and Muslims (17\%). Combining all five social groups, we find that 22\% of prepregnant women in India are underweight. 
 
-The covariates used in the reweighting procedure are characteristics that demography research has linked to fertility and are also plausibly correlated with body mass [28-34 in \cite{coffey2015prepregnancy}]. To test this, we regress an indicator of pregnancy on these covariates using the full sample of pregnant and nonpregnant women and observe if they are predictive of pregnancy risk. Table \ref{regression} reports results from these linear probability regressions conducted separately for each social group in our analysis. Almost all coefficients are significant in predicting pregnancy, highlighting their importance in being used in reweighting.
+We note that these estimates are robust to changes in the variables used in the reweighting procedure.  Table \ref{specifications} in the online appendix shows the estimated prevalence of prepregnancy underweight, by social group, using alternative sets of reweighting variables.  It shows results with finer age bins and omitting rural residence and education.
 
-For instance, women that didn't use modern contraception when they were most recently nonpregnant were up to 6.5\% more likely to be pregnant across all social groups. Also, women who did not yet have a son were up to 2.6\% more likely to be pregnant across all social groups. Considering parity and birth spacing simultaneously is also important - women who had 1 birth between 2 and 3 years ago were 10.4\% more likely to be pregnant for all social groups combined.
+\subsection*{Social group differences in parity, birth spacing, and household wealth}
 
-The less predictive, but still statistically significant covariates of pregnancy were wealth quartile, less than primary education, and rural resident. We retain wealth so that we can get accurate pre-pregnancy underweight estimates by wealth quartile. However, we consider reweighting specifications without rural residence and less and primary education, and with finer age bins in Table \ref{specifications}. We find that prepregnancy underweight estimates are relatively stable across these specifications, confirming the validity of our method.
-
-\subsection*{Prepregnancy underweight by social group (Figure \ref{fig:mainresult})}
-
-Figure \ref{fig:mainresult} shows the estimates of prepregnancy underweight by social group. Confidence intervals don't overlap for any two social groups besides forward caste and Muslim, confirming statistically significant social inequalities in prepregnancy underweight at the 95\% level. The burden of prepregnancy undernutrition is highest among Adivasi women: 28\% are underweight at the onset of pregnancy. Dalit and OBC prepregnant women are also at higher risk, with 25\% and 23\% underweight, respectively. On the other hand, prepregnancy underweight is lowest among the forward caste (18\%) and Muslim (17\%) subgroups. Though prepregnancy underweight is lower among Muslim women than forward caste women, this difference is not statistically significant. Across all five groups, 22\% of prepregnant women are underweight, suggesting a relatively larger representation of Adivasi, Dalit, and OBC women among India's prepregnant population. 
-
-\subsection*{Prepregnancy underweight by parity, birth spacing, and wealth quartile (Figure \ref{fig:sixpanel})}
-
-Figure \ref{fig:sixpanel} shows distributions of pregnant women and prepregnancy underweight estimates by parity, birth spacing, and wealth quartile categories. These categories are central to understanding social group disparities in prepregnancy health - repeated childbearing with limited recovery time may lead to maternal depletion, and poverty constrains access to adequate nutrition and healthcare.
+In order to motivate the Kitagawa decompositions of differences in the prevalence of prepregnancy underweight by social group, Figure \ref{fig:sixpanel} shows the distributions of pregnant women, by social group, into parity, birth spacing, and household wealth categories.  It also shows estimates of the prevalence of prepregnany underweight, for all social groups combined, within each category that is used in the Kitagawa decompositions.
 
 \subsubsection*{Parity}
 
-Among currently pregnant women, those who are forward caste were most likely among all social groups to be on their first or second birth - almost half are at parity 1, compared to 38-39\% of Muslim and Adivasi pregnant women (Panel A). On the other hand, Muslim pregnant women are the most likely to be at higher parities, with 16\% at parity 4 or higher compared to only 5\% among forward caste and 8\% of OBC pregnant women. This underscores how fertility patterns differ by social group, and is reflected in differences of total fertility rates in table \ref{tfr}.
+Panel A of Figure \ref{fig:sixpanel} shows that, among pregnant women, forward caste Hindus are most likely than women from other social groups to be pregnant women with their first child (parity 1).   Almost half of pregnant forward caste Hindu women are at parity 1, compared to 38-39\% of Muslim and Adivasi pregnant women. Muslim pregnant women are the most likely to be at higher parities, with 16\% at parity 4 or higher compared to only 5\% among forward caste Hindu women and 8\% among OBC women. We note that, although present, these fertility differences are not very large.  Table \ref{tfr} in the online appendix complements the information in Panel A of Figure \ref{fig:sixpanel} by showing total fertility rates (TFR) for the five social groups computed from births in the three years prior to the NFHS 5.  TFR for forward caste Hindu women is 1.6, compared to 2.3 among Muslims, and 2.1 among Adivasis and Dalits.  Fertility in India today is very close to replacement; higher order births are increasingly rare.
 
-Prepregnancy underweight is highest among women who have no prior births at 26\%, and drops steeply at parity 2 and 3, where in both cases 19\% of prepregnant women are underweight (Panel B). At parities of 4 or higher, 21\% are underweight.
+Panel B of Figure \ref{fig:sixpanel} shows that, consistent with \cite{coffey2021neonatal}, who used data from the NFHS-3 to look at the relationship between birth order and neonatal mortality, the prevalence of prepregnancy underweight is estimated to be highest among women who have no prior births.  One in four women who have no prior births are estimated to be underweight at the start of pregnancy, compared to about one in five women at parities two, three, and four.  We note that the cross-sectional nature of the data influences the interpretation of this finding.  It is consistent with these results that poorer women (who are more likely to be undernourished) are more likely to have higher order births, and that as the same woman progresses through her childbearing career, she is less likely to be underweight in successive pregnancies.   
 
 \subsubsection*{Birth spacing}
 
-Low birth spacing (below 2 years) was most common in the Dalit subgroup of currently pregnant women (28\%) compared to around 19\% among the Adivasi and Muslim subgroups (Panel C). Healthy birth spacing (above 3 years) was most common in the Muslim and forward caste subgroup of currently pregnant women at around 55\%. Prepregnancy underweight is highest among women who have had 2-3 years since their most recent birth (25\%) compared to less than 2 years (23\%) and above 3 years (21\%).
+Panel C of Figure \ref{fig:sixpanel} summarizes birth spacing for the 14,304 pregnant women in the NFHS 5 who had at least one prior birth.  Birth spacing below two years was most common among Dalit women (28\%) compared to around 20\% among forward caste Hindus, Adivasis and Muslims. Longer birth spacing (above 3 years) was most common was most common among Muslims and forward caste Hindus at around 55\%. Panel D of Figure \ref{fig:sixpanel} shows that prepregnancy underweight is highest among women with 2-3 years birth spacing (25\%) compared to less than 2 years (23\%) and above 3 years (21\%).  We note, though, that these differences in the prevalence of pregnancy underweight by birth spacing category are small.
 
 \subsubsection*{Wealth}
 
-Wealth distributions reveal stark inequality (Panel E). Half of Adivasi pregnant women fall in the lowest wealth quartile, compared to only 12\% of forward caste pregnant women. By contrast, nearly 44\% of forward caste women are in the top quartile, compared with fewer than one in five Dalit or Adivasi women. Prepregnancy underweight decreases steadily with wealth, from roughly 30\% in the poorest quartile to 13\% in the richest (declining about 5 percentage points per quartile).
+Panel E of Figure \ref{fig:sixpanel} shows stark differences in the distribution of household wealth across Indian social groups. Half of Adivasi pregnant women fall in the lowest wealth quartile, compared to only 12\% of forward caste Hindu pregnant women. By contrast, nearly 44\% of forward caste Hindu pregnant women are in the top quartile, compared with fewer than one in five Dalit or Adivasi pregnant women. Panel F of Figure \ref{fig:sixpanel} shows estimates of prepregnancy underweight by household wealth category.  In contrast to panels B and D, which show the prevalences of prepregnancy underweight by parity and birth spacing, respectively, a clear and quantitatively important pattern emerges in panel F.  The prevalence of prepregnancy underweight is inversely related to household wealth.  30\% of women in the poorest quartile are estimated to be underweight at the start of pregnancy, compared to 13\% in the top quartile.  
 
-\subsection*{Decompositions of social group differences (Table 3)}
+\subsection*{Decompositions of differences in prepregnancy underweight across social groups}
 
-Table \ref{decomposition} shows decompositions of the difference between underweight among forward caste prepregnant women and prepregnant women from other social groups.
+Table \ref{decomposition} summarizes decompositions of the difference between the prevalence of prepregnancy underweight between women from marginalized groups and forward caste Hindu women.
 
-Panel A shows that a combined parity and birthspacing variable explains very little of the forward caste advantage in prepregnancy nutrition compared to Adivasi, Dalit, and OBC prepregnant women (-2\% to 4\%). Although a majority of the gap between Muslim and Forward caste prepregnancy underweight is explained by the combined parity and birthspacing variable, the gap is statistically insignificant to begin with.
+Panel A shows that the combined parity and birthspacing variable explains little to none of the forward caste advantage in prepregnancy nutrition relative to Adivasi, Dalit, and OBC women (-1\% to 5\%).  We note that there was no statistically significant gap to be explained between Muslim and forward caste Hindu women.
 
-On the other hand, wealth quartile explains a large portion of the forward caste advantage in prepregnancy underweight relative to the Adivasi, Dalit, and OBC subgroups - between 49\% and 69\%. On the other hand, the small and statistically insignificant difference between forward caste and Muslim prepregnancy underweight becomes 185\% larger when standardizing for wealth quartile. These results are all consistent with the economic advantage of forward caste Indians and the positive relationship between wealth and health. 
-
+Differences in the distributions of household wealth, in contrast, explains a large portion of the forward caste Hindu advantage in prepregnancy underweight relative to Adivasis, Dalits, and OBCs, 73\%, 65\%, and 52\% respectively.  The decomposition of the (small, and negative) gap between Muslims and forward castes, suggests that if Muslims had the same distribution of wealth as forward caste Hindus, they would have face a lower burden of prepregnancy underweight. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Discussion}
 
+This paper updates the literature on the burden of maternal undernutrition in India and contributes the first estimates of differences in the prevalence of prepregnancy underweight by social group.  Notably, more than one in five women in India is underweight at the beginning of pregnancy, resulting in risks to her own health and to her child's health.  The burden of maternal undernutrition falls disproportionately on Adivasi, Dalit, and OBC women.  Although not the focus of this paper, we confirm that disparities in maternal nutrition across social groups at the beginning of pregnancy are not mitigated by greater weight gain during pregnancy for women from marginalized caste backgrounds.  Table \ref{tab:addnut} in the online appendix shows estimated weight gain during pregnancy for women in each social group.  Methods for estimating weight gain in pregnancy from cross-sectional data were developed by \cite{coffey2015prepregnancy} and are detailed in section \ref{sec:weightgain} of the online appendix.  Weight gain is not statistically significantly different across social groups.  For all groups, it is lower than what is recommended by the United States' Institute of Medicine guidelines \cite{iom2009weightgain}.  We cite these guidelines because, to our knowledge, no guidelines on pregnancy weight gain have been issued by the Government of India.
+
+The Kitagawa decompositions of differences in the prevalence of prepregnancy nutrition show that higher fertility and more closely spaced births among Adivasis, Dalits, and OBCs do not explain why forward caste Hindu women experience less prepregnancy underweight.  This is in part because the differences by social group in parity and birth spacing are small, and in part because these variables have little correlation with prepregnancy underweight in the most recent Indian data. Differences in household wealth, in contrast, explain large proportions of the gaps.  These results suggest that policies such as maternity entitlements, which provide cash transfers to pregnant women, may have health equity impacts in addition to other welfare impacts \citep{coffey2016underweight, dreze2021maternity, kalra2020birth}.  We also note that a significant fraction of the gaps in the prevalence of prepregnancy underweight remain unexplained by differences in household wealth.  We expect that if we were able to measure differences in the social experience of discrimination, that variable would explain at least some of the remaining gaps.  We note that both discrimination that results from social group membership, and gender discrimination -- both inside and outside the home -- matter for maternal health, and that the nature of gender discrimination may differ across social groups \citep{desai2014muslim, desai2010gender}.  Although our preliminary analysis of the proportion of women who report eating last, presented in Figure \ref{fig:ihds_eat_last} of the online appendix, suggests that practices that compromise women's nutrition are prevalent in all social groups, further research is needed to understand variation in how gender impacts nutrition across social groups. 
+
+We note the similarity in the burden of prepregnancy underweight between forward caste Hindu and Muslim women.  Despite social and economic disadvantage, Muslim women are no more likely to be underweight before pregnancy, and are less likely to be underweight accounting for their lower household wealth.  This results joins other findings in the literature that suggest Muslim advantage in women and children's health relative to Hindus.  It is beyond the scope of this paper to investigate the reasons for this pattern.  Future research investigating this question could usefully investigate how food and work are distributed in Muslim and Hindu households.
+
+\newpage
 
 \section*{Tables and figures}
 
 \begin{landscape}
 
-\begin{minipage}{\textwidth}
-
-% \subsection*{Sample means of pregnancy covariates (Table 1)}
-
-\begin{table}[H]
+\begin{table}[!htbp]
     \centering
+    \begin{threeparttable}[t]
+        \caption{:  Descriptive statistics by social group and pregnancy status}
+        \label{sumstats}
 
+        \scriptsize
+        \setlength{\tabcolsep}{2pt}
+        \renewcommand{\arraystretch}{1.2}
+
+        \input{tables/table_sum_stats}
+
+        \begin{tablenotes}
+            \item Sample means for women who are 3+ months pregnant are calculated based on what was true in the month of conception. Sample means for nonpregnant women are calculated based on what was true at the time of the survey. Social groups are defined based on caste and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+\end{landscape}
+
+\vspace{2em}
+
+\begin{table}[!htbp]
+    \centering
     \begin{threeparttable}
-        
-    
-    \caption{:  Summary statistics of the reweighting variables by pregnancy status}
+        \caption{: OLS linear probability models of pregnancy on variables used in the nonparametric reweighting}
+        \label{regression}
 
-    \label{sumstats}
-    
-    \scriptsize	
-    \setlength{\tabcolsep}{2pt}
-    \renewcommand{\arraystretch}{1.2}
-    \input{tables/table_sum_stats}
-    \begin{tablenotes}
-        \item \textit{Notes:} Sample means for women who are 3+ months pregnant are calculated based on what was true in the month of conception. Sample means for nonpregnant women are calculated based on what was true at the time of the survey. Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
-    \end{tablenotes}
+        \scriptsize
+        \setlength{\tabcolsep}{1pt}
+        \renewcommand{\arraystretch}{0.81}
+
+        % {\input{tables/predictor_regression}}
+        {\input{tables/table_reg_results}}
+
+        \begin{tablenotes}
+            \item Standard errors are in parentheses and are clustered at the primary sampling unit level. Social groups are defined based on caste and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
+            \item * $p<0.5$, ** $p<0.01$
+        \end{tablenotes}
     \end{threeparttable}
 \end{table}
 
 
 
-\end{minipage}
-\end{landscape}
-
-% \subsection*{Regressions predicting pregnancy (Table 2)}
-\begin{minipage}{\textwidth}
-
-
-% \newgeometry{left=1.2in, right=1.2in}  % or smaller margins
-
-\begin{table}[H]
-
-\begin{threeparttable}
-    
-    \centering
-    \scriptsize % shrink text
-    
-    \caption{: OLS regressions predicting pregnancy with covariates that also predict underweight, later used in reweighting}
-    \label{regression}
-    \setlength{\tabcolsep}{1pt}
-    \renewcommand{\arraystretch}{0.81}
-    % {\input{tables/predictor_regression}}
-    {\input{tables/table_reg_results}}
-    \begin{tablenotes}
-        \item \textit{Notes}: Standard errors are in parentheses and are clustered at the primary sampling unit level. Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
-        \item * $p<0.5$, ** $p<0.01$
-    \end{tablenotes}
-\end{threeparttable}
-\end{table}
-
-% \restoregeometry
-
-\end{minipage}
-
-
-
 \begin{landscape}
-    
-
-% \subsection*{Decompositions of social group differences (Table 3)}
-
-
 % Percentage of differences in prepregnancy underweight explained are obtained from Kitagawa-style decompositions.
 
 \begin{table}[H]
@@ -323,7 +311,7 @@ On the other hand, wealth quartile explains a large portion of the forward caste
         
     
     \small % shrink text
-    \caption{: Decomposition of social group differences in pre-pregnancy underweight}
+    \caption{: Decomposition of social group differences in the prevalence of prepregnancy underweight}
     \label{decomposition}
     % \setlength{\tabcolsep}{1pt}
     \renewcommand{\arraystretch}{1.5}
@@ -331,7 +319,7 @@ On the other hand, wealth quartile explains a large portion of the forward caste
     {\input{tables/table_kitagawa_results}}
 
     \begin{tablenotes}
-        \item \textit{Notes:} Prepregnancy estimates used in decompositions are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. There are 10 parity + birth spacing categories, including parity 1, and parities 2, 3 and 4+ each divided by birth spacing of less than 2 years, between 2 and 3 years, and 3 or more years. Wealth categories are created by dividing the wealth index distribution into quartiles. Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
+        \item Prepregnancy estimates used in decompositions are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. There are 10 parity + birth spacing categories, including parity 1, and parities 2, 3 and 4+ each divided by birth spacing of less than 2 years, between 2 and 3 years, and 3 or more years. Wealth categories are created by dividing the wealth index distribution into quartiles. Social groups are defined based on caste and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
     \end{tablenotes}
 
     \end{threeparttable}
@@ -346,7 +334,7 @@ On the other hand, wealth quartile explains a large portion of the forward caste
     {figures/figPPUW_by_socialgroup.png}
     \caption{: Prepregnancy underweight by social group}
     \label{fig:mainresult}
-    \parbox{1\linewidth}{\footnotesize \textit{Notes:} Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state. Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).}
+    \parbox{1\linewidth}{\footnotesize Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the NFHS 5. Confidence intervals are computed using cluster bootstrapping. Social groups are defined based on caste and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).}
 \end{figure}
 
 
@@ -367,7 +355,7 @@ On the other hand, wealth quartile explains a large portion of the forward caste
   \caption{: Differences in parity, birth spacing, and wealth quartile by social group, and the relationship between these characteristics and prepregnancy underweight.}
   \label{fig:sixpanel}
 
-  \parbox{1\linewidth}{\footnotesize \textit{Notes:} NFHS-5 data. In panels A and E, n=27,944 (3+ months pregnant women), in panel C,  n=16,516 (3+ months pregnant women who have at least one live" "birth). In panels B and F, n=679,369 (non-pregnant women), and in panel E, n=466,149 (non-pregnant women who have at least one live birth). Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).}
+  \parbox{1\linewidth}{\footnotesize \textit{Notes:} NFHS-5 data. In panels A and E, n=27,944 (3+ months pregnant women), in panel C,  n=16,516 (3+ months pregnant women who have at least one live" "birth). In panels B and F, n=679,369 (non-pregnant women), and in panel E, n=466,149 (non-pregnant women who have at least one live birth). Social groups are defined based on caste and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).}
 
 
   
@@ -385,21 +373,28 @@ On the other hand, wealth quartile explains a large portion of the forward caste
 \bibliographystyle{apalike}
 \bibliography{writing/references}
 
-
 \newpage
+\clearpage
+\appendix
 
+% Print a visible Appendix title, but don't break numbering
 \section*{Appendix}
 
+% Reset and format appendix numbering
+\setcounter{section}{-1}
+\renewcommand{\thesection}{S.\arabic{section}}
+\renewcommand{\thesubsection}{S.\arabic{section}.\arabic{subsection}}
 
+% Make tables/figures labeled A.1, A.2, etc.
 \setcounter{table}{0}
 \renewcommand{\thetable}{A\arabic{table}}
-
-
 \setcounter{figure}{0}
 \renewcommand{\thefigure}{A\arabic{figure}}
 
-
-\subsection{S.1 Wealth index construction in NFHS 5}
+% Now numbered sections start from S.1
+\stepcounter{section}
+\section{S.\arabic{section} Wealth index construction in NFHS-5}
+\label{wealth_index}
 
 The wealth index is constructed as the first principal component from a set of household-level indicators of asset ownership and household level facilities \citep{DHSIndiaWealth2019}:
 
@@ -418,10 +413,9 @@ The wealth index is constructed as the first principal component from a set of h
 The resulting wealth score is equally assigned to each household member, individuals are ranked nationally, and the distribution is split into four quartiles to create our wealth index.
 
 
-\subsection*{S.2 Measuring weight gain during pregnancy}
+\section{S.\arabic{section} Measuring weight gain during pregnancy} \label{sec:weightgain}
 
-
-\subsubsection{S.2.1 Weight gain method 1}
+\subsection{S.\arabic{section}.\arabic{subsection} Weight gain method 1} \label{sec:weightgainm1}
 
 The first method of estimating weight gain starts by estimating monthly weight gain of pregnant women at 3+ months gestational duration as $\hat{\beta}$ from an OLS regression of the form
 \begin{equation}
@@ -437,7 +431,10 @@ Assuming women gain 10 times more weight in their second and third trimesters th
 
 In table A1, the 95\% confidence intervals for weight gain method 1 are calculated as $1.1\times6\times\hat{\beta} \pm 1.96\times se_{\hat{\beta}}$.
 
-\subsubsection{S.2.2 Weight gain method 2}
+
+
+\subsection{S.\arabic{section}.\arabic{subsection} Weight gain method 2} \label{sec:weightgainm2}
+
 
 The second method of estimating weight gain takes the difference of the average weight of pregnant women at gestational duration of 9 months or more and the average prepregnancy weight using the nonparametric reweighting method. 
 
@@ -452,6 +449,8 @@ This offers a benchmark to method 1, which may be inaccurate if the assumption i
 
 \begin{minipage}{\textwidth}
 
+
+\section{S.\arabic{section} Tables and figures} \label{sec:appendixexhibits}
 
 % \newgeometry{left=1.2in, right=1.2in}  % or smaller margins
 
@@ -485,15 +484,13 @@ This offers a benchmark to method 1, which may be inaccurate if the assumption i
 
 \begin{landscape}
 
-% \subsection{TFRs by social group for all women}
-
 \newpage
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]
     {figures/appendix ihds.png}
-    \caption{: Proportion of households in which women eat last, by social group}
+    \caption{: Proportion of women who report eating last, by social group}
     \label{fig:ihds_eat_last}
     \parbox{1\linewidth}{\footnotesize \textit{Notes:} India Human Development Survey (2011). Sample includes 34,216 women ages 15 to 49.  All ever-married women aged 15-49 in each household, and those who were interviewed in the previous panel of the IHDS were interviewed. Social groups are defined at the household level based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).}
 \end{figure}
@@ -549,65 +546,7 @@ This offers a benchmark to method 1, which may be inaccurate if the assumption i
     \end{threeparttable}
 \end{table}
 
-
-% \end{landscape}
-
-\begin{table}[H]
-    \centering
-
-    \begin{threeparttable}
-            
-    \caption{: Fertility rates by social group}
-    \label{fig:tfr}
-    \renewcommand{\arraystretch}{1.5}
-    \scriptsize
-    \setlength{\tabcolsep}{5pt}
-    \resizebox{\textwidth}{!}{%
-        % \input{tables/tfr}
-        \input{tables/table_tfr_by_socialgroup}
-    }
-    
-    \small
-    \begin{tablenotes}
-        \item  \textit{Notes:} As in the DHS reports, fertility rates are based on births in the three years before the survey. Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
-    \end{tablenotes}
-
-    \end{threeparttable}
-\end{table}
-
-\end{landscape}
-
-
-
-
-\begin{landscape}
-\begin{table}[H]
-
-\begin{threeparttable}
-    
-    \centering
-    \small % shrink text
-    \caption{: Means and 95\% CIs for additional maternal nutrition indicators by social group}
-    \setlength{\tabcolsep}{0.8pt}
-    \renewcommand{\arraystretch}{1.5}
-    {\input{tables/addl_maternal_nutrition_table}}
-
-    \begin{tablenotes}
-        \item \textit{Notes:} Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state.
-        \item $^{a}$ Overweight defined as BMI above 25
-        \item $^{b}$ Obesity defined as BMI above 30
-        \item $^{c}$ Weight gain method 1 and $^{d}$ weight gain method 2 explained above
-        \item Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
-    \end{tablenotes}
-
-\end{threeparttable}
-\end{table}
-
-\end{landscape}
-
-
-
-\begin{landscape}
+% \begin{landscape}
 
 % \subsection{Outcomes and percent dropped for different reweighting specifications}
 
@@ -642,7 +581,65 @@ This offers a benchmark to method 1, which may be inaccurate if the assumption i
     \end{threeparttable}
 \end{table}
 
+% \end{landscape}
+
+
+
+% \end{landscape}
+
+\begin{table}[H]
+    \centering
+
+    \begin{threeparttable}
+            
+    \caption{: Fertility rates by social group}
+    \label{fig:tfr}
+    \renewcommand{\arraystretch}{1.5}
+    \scriptsize
+    \setlength{\tabcolsep}{5pt}
+    \resizebox{\textwidth}{!}{%
+        % \input{tables/tfr}
+        \input{tables/table_tfr_by_socialgroup}
+    }
+    
+    \small
+    \begin{tablenotes}
+        \item  \textit{Notes:} As in the DHS reports, fertility rates are based on births in the three years before the survey. Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
+    \end{tablenotes}
+
+    \end{threeparttable}
+\end{table}
+
 \end{landscape}
+
+
+\begin{landscape}
+\begin{table}[!htbp]
+\centering
+\begin{adjustbox}{center, max width=0.95\linewidth} % <-- reduced slightly from 1.0 to 0.95
+\begin{threeparttable}
+    \small
+    \caption{: Means and 95\% CIs for additional maternal nutrition indicators by social group}
+    \label{tab:addnut}
+
+    \setlength{\tabcolsep}{2pt}
+    \renewcommand{\arraystretch}{1.35}
+
+    \input{tables/addl_maternal_nutrition_table}
+
+    \begin{tablenotes}[para,flushleft]
+        \item Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample. Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state.
+        \item $^{a}$ Overweight defined as BMI above 25.
+        \item $^{b}$ Obesity defined as BMI above 30.
+        \item $^{c}$ Weight gain method 1 and $^{d}$ weight gain method 2 explained above.
+        \item Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
+    \end{tablenotes}
+
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+\end{landscape}
+
 
 
 
