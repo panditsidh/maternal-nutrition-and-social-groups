@@ -7,7 +7,7 @@ use "data/results.dta", clear
 local var underweight
 
 local prettyname = upper("`var'")
-if "`var'" == "underweight" local prettyname "Rate of pre-pregnancy underweight"
+if "`var'" == "underweight" local prettyname "Prevalence of pre-pregnancy underweight"
 if "`var'" == "weight" local prettyname "Prepregnancy Weight (kg)"
 if "`var'" == "gainhat" local prettyname "Pregnancy Weight Gain (kg)"
 
