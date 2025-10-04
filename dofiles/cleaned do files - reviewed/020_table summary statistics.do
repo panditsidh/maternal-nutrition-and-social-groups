@@ -113,7 +113,7 @@ input str100 rows
 "\hspace*{2em}3+ births, 2–3y spacing"
 "\hspace*{2em}3+ births, \textgreater{}3y spacing"
 "\textbf{Wealth Categories}"
-"\hspace*{2em}1st quartile" 
+"\hspace*{2em}1st (bottom) quartile" 
 "\hspace*{2em}2nd quartile" 
 "\hspace*{2em}3rd quartile" 
 "\hspace*{2em}4th quartile" 
