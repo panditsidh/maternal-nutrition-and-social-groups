@@ -23,7 +23,7 @@ local sample_size : display %15.0fc r(N)
 graph hbar (mean) parity1 parity2 parity3 parity4 [aw=v005], 
     over(group, label(angle(0))) 
     stack 
-    legend(order(1 "parity 1" 2 "parity 2" 3 "parity 3" 4 "parity 4+") 
+    legend(order(1 "parity 0" 2 "parity 1" 3 "parity 2" 4 "parity 3+") 
        cols(4) pos(6) region(lstyle(none))) 
     blabel(bar, format(%4.1f) position(inside) ) 
     ytitle("Percent") 

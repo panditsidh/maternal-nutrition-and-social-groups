@@ -15,7 +15,7 @@ foreach overvar in parity bs wealth {
 	local xlabel ""
 	if "`overvar'" == "parity" {
 		local xtitle "parity"
-		local xlabel `"1 "Parity 1" 2 "Parity 2" 3 "Parity 3" 4 "Parity 4""'
+		local xlabel `"1 "Parity 0" 2 "Parity 1" 3 "Parity 2" 4 "Parity 3+""'
 		local title "B. Prepregnancy underweight by `xtitle'"
 		local note "n=474,664 (non-pregnant women)" 
 		
