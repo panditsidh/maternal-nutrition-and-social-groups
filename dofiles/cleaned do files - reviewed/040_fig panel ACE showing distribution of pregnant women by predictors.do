@@ -1,7 +1,7 @@
 * This dofile generates the top row of panels in the 6 panel figure
 
 do "$paths"
-use "$dataset"
+use "$dataset", clear
 
 ************* FIGURE A: distribution of pregnant women by parity ***************
 preserve
