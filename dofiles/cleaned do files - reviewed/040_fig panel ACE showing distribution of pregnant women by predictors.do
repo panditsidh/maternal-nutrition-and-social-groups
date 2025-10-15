@@ -14,6 +14,9 @@ replace parity4 = parity4*100
 
 keep if preg==1
 
+keep if gestdur>=3
+
+
 * for displaying the sample size in the graph
 count
 local sample_size : display %15.0fc r(N)
@@ -46,6 +49,10 @@ replace bs_above3 = bs_above3*100
 keep if parity>=2	
 keep if preg==1
 
+keep if gestdur>=3
+
+
+
 * for displaying the sample size in the graph
 count
 local sample_size : display %15.0fc r(N)
@@ -71,11 +78,13 @@ graph export "figures/birth spacing distribution of pregnant women by social gro
 restore
 
 
-********** FIGURE E: distribution of pregnant women by birth spacing ***********
+********** FIGURE E: distribution of pregnant women by wealth quartile ***********
 
 preserve
 
 keep if preg==1
+keep if gestdur>=3
+
 
 replace wealth1 = wealth1*100
 replace wealth2 = wealth2*100
