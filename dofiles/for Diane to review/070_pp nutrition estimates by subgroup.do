@@ -43,7 +43,12 @@ foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 			if "`outcome'"=="gainhatm1" {
 				matrix results[`row', `col'] = .
 				
-				reghdfe weight gestdur i.v012 i.v133 i.v218 i.rural i.v190 if `overvar'==`i' & inrange(gestdur,3,9) [aw=v005],absorb(v024#v006) vce(cluster v021)
+				
+				preserve
+				replace gestdur = 9 if inrange(gestdur,10,11)
+
+				
+				reghdfe weight gestdur i.v012 i.v133 i.v218 i.rural i.v190 if `overvar'==`i' & inrange(gestdur,3,9) & preg==1 [aw=v005],absorb(v024#v006) vce(cluster v021)
 				
 				matrix regtable = r(table)
 										
@@ -52,6 +57,7 @@ foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 				matrix results[`row', `col'+1] = 1.1 * 6 * regtable[5,1]
 				matrix results[`row', `col'+2] = 1.1 * 6 * regtable[6,1]
 				
+				restore
 				
 			}
 						
@@ -62,12 +68,20 @@ foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 				local weight_`overvar'`i' = r(mean)
 				
 				* calculate weight at 9+ mopreg
-				qui sum weight [aw=v005] if gestdur>=9 & gestdur!=. & `overvar'==`i'
+				qui sum weight [aw=v005] if preg==1 & gestdur>=9 & gestdur!=. & `overvar'==`i'
 				local nineweighthat_`overvar'`i' = r(mean)
 				
 				* get beta from weight on mopreg regression
-				qui reg weight gestdur i.v012 i.v133 i.v218 i.rural i.v190 i.v024##v006 [aw=v005] if `overvar'==`i'& inrange(gestdur,3,9)
+				
+				preserve
+				replace gestdur = 9 if inrange(gestdur,10,11)
+				qui reg weight gestdur i.v012 i.v133 i.v218 i.rural i.v190 i.v024##v006 [aw=v005] if `overvar'==`i'& inrange(gestdur,3,9) & preg==1
 				local coeffhat_`overvar'`i' = _b[gestdur]
+
+				restore 
+				
+				
+				
 				
 				local gainhatm2_`overvar'`i' = `nineweighthat_`overvar'`i''-`weight_`overvar'`i''+(0.5)*`coeffhat_`overvar'`i''
 				

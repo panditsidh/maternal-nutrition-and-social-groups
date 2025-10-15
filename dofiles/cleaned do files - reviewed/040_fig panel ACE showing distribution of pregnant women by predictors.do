@@ -85,7 +85,6 @@ preserve
 keep if preg==1
 keep if gestdur>=3
 
-
 replace wealth1 = wealth1*100
 replace wealth2 = wealth2*100
 replace wealth3 = wealth3*100
