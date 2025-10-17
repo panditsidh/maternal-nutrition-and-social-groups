@@ -1,7 +1,8 @@
 do "$paths"
 
 // 1 : create dataset for analysis 
-do "dofiles/cleaned do files - reviewed/010_assemble data.do"
+do "dofiles/for Diane to review/010_assemble data.do"
+
 
 // 1.1: look for bias among 1 and 2 month pregnant sample
 do "dofiles/for Diane to review/011 appendix table - 3+mopreg regression.do"
@@ -27,7 +28,7 @@ do "dofiles/cleaned do files - reviewed/040_fig panel ACE showing distribution o
 do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
 
 // 6 : get bootstrapped confidence intervals for pre-pregnancy outcomes (takes forever to run)
-do "dofiles/for Diane to review/060_bootstrapped cis for pp nutrition by subgroup.do"
+// do "dofiles/for Diane to review/060_bootstrapped cis for pp nutrition by subgroup.do"
 
 // 7 : compile a results dataset
 do "dofiles/for Diane to review/070_pp nutrition estimates by subgroup.do"
