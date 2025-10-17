@@ -4,13 +4,13 @@ do "$paths"
 local var underweight
 
 
-
+* one graph for pp outcomes by each of these overvars
 foreach overvar in parity bs wealth {
 	
 	
 	use "data/results.dta", clear
 	
-	
+	* customized graph labels to avoid duplicate code later on
 	local xtitle ""
 	local xlabel ""
 	if "`overvar'" == "parity" {
@@ -40,20 +40,22 @@ foreach overvar in parity bs wealth {
 		keep if inlist(_n, 11,12,13)
 	}
 	
-	
+	* focus on the outcome at hand - underweight for the main paper result
 	keep `var'_ll `var'_mean `var'_ul
 	gen group = _n
 	
+	* get the levels of the overvar from original data for the next foreach loop
 	preserve
 	use "$dataset", clear
 	levelsof(`overvar'), local(levels)
 	restore
 	
+	* get the points to be graphed
 	foreach i in `levels' {
 		sum underweight_mean if group==`i'
 		local outcome_`i' = r(mean)
 		
-		
+		* for labeling purposes
 		if inlist("`overvar'", "wealth", "parity") local text_shift = 0.2
 		else local text_shift = 0.18
 		

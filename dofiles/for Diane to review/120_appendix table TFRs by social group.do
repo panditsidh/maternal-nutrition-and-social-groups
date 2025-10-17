@@ -1,12 +1,10 @@
 do "$paths"
 use "$dataset", clear
 
-
-
 * we want 7 age specific fertility rates (5 year age groups), total fertility rate, and confidence intervals for total fertility rate by social group
 matrix results = J(6, 10, .)
 
-
+* use tfr 2 command and hard code the stored results into a matrix with our formatting requirement
 local row = 1
 foreach i of numlist 1/6 {
 	

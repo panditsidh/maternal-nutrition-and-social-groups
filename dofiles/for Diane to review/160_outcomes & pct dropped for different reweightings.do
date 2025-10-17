@@ -8,7 +8,7 @@ Reweighting variables | outcome 1 | outcome 2 …. | outcome 5 | # subgroups wit
 */
 
 
-* define specs
+* define different specifications
 local binvars1 not_c_user agebin rural less_edu noboy wealth parity_bs group
 local binvars2 not_c_user agebin2 rural less_edu noboy wealth parity_bs group
 local binvars3 not_c_user agebin2 rural noboy wealth parity_bs group
@@ -28,7 +28,7 @@ local titles7 "7 cat age, - rural & less edu"
 
 matrix results = J(7, 7, .)
 
-* loop through them
+* loop through the different specifications
 forvalues i=1/7 {
 	
 	use "$dataset", clear
@@ -69,11 +69,13 @@ forvalues i=1/7 {
 	gen reweightingfxn = v005*transferpreg/transfernonpreg if dropbin!=1 & preg==0
 
 
-	
+	* this is the most pct pregnant women dropped in any subgroup 
 	local biggest_problem = 0
+	
+	* this is the number of subgroups for which pct pregnant dropped > 3%
 	local problem_counter = 0 
 	
-	
+	* get the outcome and problem report for each specification 
 	forvalues g=1/5 {
 		
 		sum underweight if preg==0 & group==`g' [aw=reweightingfxn]

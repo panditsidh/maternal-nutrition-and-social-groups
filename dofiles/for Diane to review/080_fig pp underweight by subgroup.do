@@ -1,9 +1,9 @@
-* ok so this file needs to do 080 
+* This file gets the main result figure 1
 
 do "$paths"
 use "data/results.dta", clear
 
-
+* you can change this to any outcome
 local var underweight
 
 local prettyname = upper("`var'")
@@ -11,9 +11,9 @@ if "`var'" == "underweight" local prettyname "Prevalence of pre-pregnancy underw
 if "`var'" == "weight" local prettyname "Prepregnancy Weight (kg)"
 if "`var'" == "gainhat" local prettyname "Pregnancy Weight Gain (kg)"
 
-
 * only need pp outcome by social groups for this figure
 keep if inlist(rows, "Forward", "OBC", "Dalit", "Adivasi", "Muslim", "All five social groups")
+
 * focus on one variable
 keep `var'_ll `var'_mean `var'_ul
 

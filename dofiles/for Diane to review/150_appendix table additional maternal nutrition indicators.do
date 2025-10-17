@@ -11,13 +11,15 @@ cols are: BMI, weight, overweight, obesity, weight gain m1, weight gain m2
 do "$paths"
 use "data/results.dta", clear
 
+* focus on social groups, not other subgroup divisions
 keep if inlist(rows, "All five social groups", "Adivasi", "Dalit", "OBC", "Forward", "Muslim")
-
 
 
 foreach var in bmi weight overweight obesity gainhatm1 gainhatm2 {
 	
 	
+	
+	* create CI variable for display purposes
 	if inlist("`var'", "bmi", "weight", "gainhatm1", "gainhatm2") {
 		
 		gen `var'_ci = string(`var'_mean, "%9.1f") + " [" + ///

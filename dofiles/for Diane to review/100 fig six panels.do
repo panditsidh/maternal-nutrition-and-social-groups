@@ -3,6 +3,8 @@
 
 do "$paths"
 use "$dataset", clear
+
+
 * calculate sample sizes for figure notes
 count if preg==1 
 local sample_size_ae = r(N)

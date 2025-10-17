@@ -1,5 +1,5 @@
 
-* 1960 starts at v5
+* 1960 starts at v5 - not able to import csv perfectly so we hard code this
 
 local year = 2019
 local sub = `year'-1960+5
@@ -75,7 +75,7 @@ drop if m1!=3 | m2!=3
 drop m1 m2
 
 
-
+* get rid of non countries 
 #delimit ;
 drop if inlist(country_name,
 "Africa Eastern and Southern", "Africa Western and Central", "Arab World",
@@ -122,6 +122,7 @@ merge 1:1 country_code using `births'
 keep if _merge==3
 drop _merge
 
+
 gen log_gdppc = log(gdppc)
 qui reg nnm log_gdppc
 predict predicted_nnm
@@ -136,7 +137,7 @@ local xmax = r(max)
 if `year'==2019 replace nnm = 24.9 if country_name == "India" 
 
 
-
+* get some formatting stuff for our focus countries - you can change the names if you want
 foreach country in India Nigeria Pakistan {
 	
 	qui sum log_gdppc if country_name=="`country'"
