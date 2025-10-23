@@ -18,6 +18,13 @@ keep if inlist(rows, "All five social groups", "Adivasi", "Dalit", "OBC", "Forwa
 foreach var in bmi weight overweight obesity gainhatm1 gainhatm2 {
 	
 	
+	if inlist("`var'", "weight", "gainhatm1", "gainhatm2") {
+		
+		replace `var'_mean = `var'_mean *2.20462
+		replace `var'_ll = `var'_ll *2.20462
+		replace `var'_ul = `var'_ul *2.20462
+	}
+	
 	
 	* create CI variable for display purposes
 	if inlist("`var'", "bmi", "weight", "gainhatm1", "gainhatm2") {
