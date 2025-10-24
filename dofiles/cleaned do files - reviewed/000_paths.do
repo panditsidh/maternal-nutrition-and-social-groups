@@ -18,6 +18,7 @@ if "`c(username)'" == "sidhpandit" {
 	
 	global nfhs5hmr "/Users/sidhpandit/Desktop/nfhs/nfhs5hmr/IAPR7EFL.DTA"
 	
+	global nfhs5hr "/Users/sidhpandit/Desktop/nfhs/nfhs5hr/IAHR7EFL.DTA"
 	
 	global ihds1 "/Users/sidhpandit/Desktop/IHDS/IHDS-1/DS0002/22626-0002-Data.dta"
 	
