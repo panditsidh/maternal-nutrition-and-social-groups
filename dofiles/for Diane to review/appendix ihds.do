@@ -35,3 +35,7 @@ twoway
 
 graph export "figures/appendix ihds.png", as(png) name("Graph") replace;
 
+
+
+
+

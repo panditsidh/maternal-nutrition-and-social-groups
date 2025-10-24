@@ -92,7 +92,7 @@ local labels `"  "percentage point difference in pre-pregnancy underweight" " " 
 
 #delimit ;
 esttab underweight1 underweight2 underweight3 underweight5, 
-	stats(underweight_diff blank blank within_parity_bs between_parity_bs pct_parity_bs blank blank within_wealth between_wealth pct_wealth, labels(`labels') fmt(2))
+	stats(underweight_diff blank blank within_parity_bs between_parity_bs pct_parity_bs blank blank within_wealth between_wealth pct_wealth, labels(`labels') fmt(4))
 	drop(v201 _cons)
 	nonumbers nostar noobs not
 	mtitles("Adivasi-Forward" "Dalit-Forward" "OBC-Forward" "Muslim-Forward")
