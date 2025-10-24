@@ -11,17 +11,6 @@ another column: husbands underweight whose
 
 
 
-use "data/results.dta", clear
-
-keep if _n<=6
-
-gen underweight_ci = string(underweight_mean, "%9.2f") + " [" + ///
-                   string(underweight_ll, "%9.2f") + ", " + ///
-                   string(underweight_ul, "%9.2f") + "]"
-
-keep rows underweight_ci
-
-
 
 /*
 
@@ -29,7 +18,6 @@ we want underweight among men who's wives are pregnant or gave birth in the last
 
 */
 
-use "$dataset", clear
 
 
 
@@ -106,6 +94,8 @@ use "$dataset", clear
 * married women
 keep if v501==1
 
+gen birthinlastyear = v209>=1
+
 * merge women to their households to determine men's bmi measurement eligibility
 merge m:1 v000 v001 v002 using `nfhs5hr'
 keep if _merge==3
@@ -123,12 +113,14 @@ drop if _merge==2
 * via questionnaire: men should be measured if "household selected for state module" & age 15-54
 
 
-gen state_module = shmweight!=0
+gen husband_not_home = v034==0
+gen state_module = shmweight!=0 if !missing(shmweight)
 gen husband_eligible_age = inrange(hb1, 15, 54)
 gen husband_ineligible = shmweight==0 | husband_eligible_age==0
 gen bmi_measured = hb13==0
-
 gen bmi_notmeasured = hb13!=0
+
+replace state_module = hh_shmweight!=0 if missing(state_module)
 
 * we need to know whether if a woman's husband WAS present, he would be measured (based on household in state module, and his age)
 
@@ -138,21 +130,27 @@ gen bmi_notmeasured = hb13!=0
 
 * 
 
-
-
-
 svyset psu [pw=v005], strata(strata) singleunit(centered)
-matrix R = J(5, 4, .)
-matrix colnames R = mean ll ul refusals
-matrix rownames R = Adivasi Dalit OBC Forward Muslim
+matrix R = J(6, 5, .)
+matrix colnames R = mean ll ul refusals migrants
+matrix rownames R = Adivasi Dalit OBC Forward Muslim All_groups
 
-foreach i of numlist 1/5 {
+foreach i of numlist 1/6 {
     preserve
+		
+		* focus on men who's wife is currently pregnant
+		keep if preg==1
+		
+		* focus on men in social group i (& all groups i==6)
+		if `i'!=6 keep if group==`i'
+		
+		* get the percent of men missing from eligible households 
+		keep if state_module
+		svy: mean husband_not_home
+		matrix H = r(table)
+        local migrant = H[1,1]
 	
-		* focus on men in social group i who's wife is currently pregnant
-		keep if group==`i' & preg==1
-	
-		* focus husbands that we were able to match that are eligible for bmi measurement
+		 * now focus on husbands that we were able to match that are eligible for bmi measurement
         keep if husband_ineligible==0 & _merge==3
 		
 		* get the percent not measured
@@ -160,7 +158,7 @@ foreach i of numlist 1/5 {
 		matrix U = r(table)
         local refusals = U[1,1]
 		
-		* now restrict to men who were actually measured (were present and didn't refuse)
+		* now restrict to men who were actually measured (were present and didn't refuse) and get percent underweight
         keep if bmi_measured
 		
         svy: mean husband_underweight 
@@ -177,105 +175,92 @@ foreach i of numlist 1/5 {
     matrix R[`i', 2] = `ll'
     matrix R[`i', 3] = `ul'
 	matrix R[`i', 4] = `refusals'
+	matrix R[`i', 5] = `migrant'
 }
 
 matlist R
 
+clear
+* convert matrix into a dataset using svmat
+input str100 rows
+"Adivasi"
+"Dalit"
+"OBC"
+"Forward"
+"Muslim"
+"All five social groups"
+end
 
 
+svmat R, names(col)
+
+drop if missing(rows)
+
+keep rows-migrants
 
 
-svyset psu [pw=v005], strata(strata) singleunit(centered)
+gen husband_underweight = string(mean, "%9.2f") + " [" + ///
+                   string(ll, "%9.2f") + ", " + ///
+                   string(ul, "%9.2f") + "]"
+
+gen refusals_ci = string(refusals, "%9.2f")
+
+gen migrants_ci = string(migrants, "%9.2f")
+				   
+				   
+keep rows husband_underweight refusals_ci migrants_ci
 
 
-preserve 
-
-keep if state_module & husband_eligible_age & _merge==3
-
-svy: mean husband_underweight if group==1 & preg==1
+tempfile husband_results
+save `husband_results'
 
 
+use "data/results.dta", clear
 
-mat M = r(table)
+keep if _n<=6
 
-local mean = M[1,1]
-local ll   = M[5,1]
-local ul   = M[6,1]
-
-display "Mean: `mean'"
-display "95% CI: (`ll', `ul')"
+gen underweight_ci = string(underweight_mean, "%9.2f") + " [" + ///
+                   string(underweight_ll, "%9.2f") + ", " + ///
+                   string(underweight_ul, "%9.2f") + "]"
 
 
+keep rows underweight_ci
+
+gen __ord = _n
+
+				   
+merge 1:1 rows using `husband_results', nogen
 
 
+sort __ord
+drop __ord
 
-// do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
-//
-// eststo clear
-// eststo woman: reg v201 v201
-//
-// foreach i of numlist 1/5 {
-//	
-// 	sum underweight [aw=reweightingfxn] if group==`i' & preg==0
-//	
-// 	local group`i' = r(mean)*100
-//	
-// 	eststo woman: estadd scalar group`i' = `group`i''
-// }
-//
-// eststo husband: reg v201 v201
-//
-// foreach i of numlist 1/5 {
-//	
-// 	sum husband_underweight [aw=reweightingfxn] if group==`i' & !missing(husband_underweight) & preg==0
-//	
-// 	local group`i' = r(mean)*100
-//	
-// 	eststo husband: estadd scalar group`i' = `group`i''
-//	
-// 	count if !missing(husband_underweight) & preg==0 & group==`i'
-//	
-// 	local sample1`i' = r(N)
-// }
-//
-//
-// eststo men_1yo: reg v201 v201
-//
-// foreach i of numlist 1/5 {
-//	
-// 	sum husband_underweight [aw=v005] if group==`i' & !missing(husband_underweight) & v209==1
-//	
-// 	local group`i' = r(mean)*100
-//	
-// 	eststo men_1yo: estadd scalar group`i' = `group`i''
-//	
-// 	count if !missing(husband_underweight) & v209==1 & group==`i'
-//	
-// 	local sample2`i' = r(N)
-//	
-// }
-//
-//
+#delimit ;
+listtex rows underweight_ci husband_underweight refusals_ci migrants_ci ///
+    using "tables/husband_underweight_table.tex", replace ///
+    rstyle(tabular) ///
+    head("\begin{tabular}{l>{\centering\arraybackslash}p{3cm}>{\centering\arraybackslash}p{3.6cm}*{2}{>{\centering\arraybackslash}p{3cm}}}" ///
+     "\toprule" ///
+     "Social Group & \shortstack{Underweight \\ (prepregnant women)$^1$} & \shortstack{Underweight \\ (husbands \\ of pregnant women)$^2$} & \shortstack{Eligible but \\ not measured (\%)$^3$} & Not at home (\%)$^4$ \\\\" ///
+     "\midrule") ///
+    foot("\bottomrule" ///
+         "\end{tabular}");
+#delimit cr
+
+
+* this code is in case you have keep if preg==1 | birthinlastyear instead of just keep if preg==1
+
 // #delimit ;
-// esttab woman husband using "tables/apdx_husbands.tex", replace 
-//     stats(group1 group2 group3 group4 group5, 
-//           label("Adivasi n=`sample11'" "Dalit n=`sample12'" "OBC n=`sample13'" "Forward n=`sample14'" "Muslim n=`sample15'")) 
-//     drop(v201 _cons)
-//     mtitles("\shortstack{Underweight among \\ prepregnant women}"
-//             "\shortstack{Underweight among \\ prepregnant women's \\ husbands}")
-//     nonumbers nonote;
+// listtex rows underweight_ci husband_underweight refusals_ci migrants_ci ///
+//     using "tables/husband_underweight_table2.tex", replace ///
+//     rstyle(tabular) ///
+//     head("\begin{tabular}{l>{\centering\arraybackslash}p{3cm}>{\centering\arraybackslash}p{3.6cm}*{2}{>{\centering\arraybackslash}p{3cm}}}" ///
+//      "\toprule" ///
+//      "Social Group & \shortstack{Underweight \\ (prepregnant women)$^1$} & \shortstack{Underweight \\ (husbands of women \\ pregnant or \\ $\le$1 year postpartum)$^2$} & \shortstack{Eligible but \\ not measured (\%)$^3$} & Not at home (\%)$^4$ \\\\" ///
+//      "\midrule") ///
+//     foot("\bottomrule" ///
+//          "\end{tabular}");
 // #delimit cr
-//
-// #delimit ;
-// esttab men_1yo using "tables/apdx_men1yo.tex", replace
-//     stats(group1 group2 group3 group4 group5, 
-//           label("Adivasi n=`sample21'" "Dalit n=`sample22'" "OBC n=`sample23'" "Forward n=`sample24'" "Muslim n=`sample25'")) 
-//     drop(v201 _cons)
-//     mtitles("\shortstack{Underweight among men \\ whose wife gave birth \\ in the last year}")
-//     nonumbers nonote;
-// #delimit cr
-
-
 
 
 
