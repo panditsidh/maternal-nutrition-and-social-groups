@@ -32,6 +32,8 @@
 \restylefloat{table}
 \usepackage{rotating}
 \usepackage{authblk}
+\usepackage{makecell}
+
 
 % Optional styling for nicer author/affil typography
 \renewcommand\Authfont{\normalsize\bfseries}
@@ -70,11 +72,23 @@
         \setlength{\tabcolsep}{2pt}
         \renewcommand{\arraystretch}{1.2}
 
-        \input{tables/table_sum_stats}
+        \input{tables/apdx_husbands}
+    \end{threeparttable}
+\end{table}
 
-        \begin{tablenotes}
-            \item Sample means for women who are 3+ months pregnant are calculated based on what was true in the month of conception. Sample means for nonpregnant women are calculated based on what was true at the time of the survey. Social groups are defined based on caste and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
-        \end{tablenotes}
+
+
+\begin{table}[!htbp]
+    \centering
+    \begin{threeparttable}[t]
+        \caption{:  Descriptive statistics by social group and pregnancy status}
+        \label{tab:sumstats}
+
+        \scriptsize
+        \setlength{\tabcolsep}{2pt}
+        \renewcommand{\arraystretch}{1.2}
+
+        \input{tables/apdx_men1yo}
     \end{threeparttable}
 \end{table}
 
