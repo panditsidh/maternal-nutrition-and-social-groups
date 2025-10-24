@@ -106,7 +106,7 @@ foreach i of numlist 1/5 {
 	
 }
 #delimit ;
-esttab woman husband, 
+esttab woman husband using "tables/apdx_husbands.tex", replace 
     stats(group1 group2 group3 group4 group5, 
           label("Adivasi n=`sample11'" "Dalit n=`sample12'" "OBC n=`sample13'" "Forward n=`sample14'" "Muslim n=`sample15'")) 
     drop(v201 _cons)

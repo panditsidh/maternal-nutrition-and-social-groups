@@ -14,7 +14,14 @@ if "`c(username)'" == "sidhpandit" {
 	
 	global paths "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/cleaned do files - reviewed/000_paths.do"
 	
+	global nfhs5mr "/Users/sidhpandit/Desktop/nfhs/nfhs5mr/IAMR7EFL.DTA"
 	
+	global nfhs5hmr "/Users/sidhpandit/Desktop/nfhs/nfhs5hmr/IAPR7EFL.DTA"
+	
+	
+	global ihds1 "/Users/sidhpandit/Desktop/IHDS/IHDS-1/DS0002/22626-0002-Data.dta"
+	
+	global ihds2 "/Users/sidhpandit/Desktop/IHDS/IHDS-2/DS0003/36151-0003-Data.dta"
 
 }
 

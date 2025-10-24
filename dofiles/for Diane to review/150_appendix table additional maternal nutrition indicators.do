@@ -70,7 +70,7 @@ listtex rows  bmi_ci weight_ci overweight_ci obesity_ci gainhatm1_ci gainhatm2_c
     rstyle(tabular) ///
     head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{3.5cm}}}" ///
          "\toprule" ///
-         "\Social Group & BMI & Weight (kg) & Overweight^a & Obesity^b & Weight gain \newline method 1 (kg)^c & Weight gain \newline method 2 (kg)^d \\\\" ///
+         "\Social Group & BMI & Weight (lbs) & Overweight^a & Obesity^b & Weight gain \newline method 1 (lbs)^c & Weight gain \newline method 2 (lbs)^d \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
