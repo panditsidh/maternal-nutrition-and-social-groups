@@ -105,14 +105,13 @@ foreach i of numlist 1/5 {
 	local sample2`i' = r(N)
 	
 }
-
 #delimit ;
-esttab woman husband using "tables/apdx_husbands.tex", replace 
+esttab woman husband, 
     stats(group1 group2 group3 group4 group5, 
           label("Adivasi n=`sample11'" "Dalit n=`sample12'" "OBC n=`sample13'" "Forward n=`sample14'" "Muslim n=`sample15'")) 
     drop(v201 _cons)
-    mtitles("Underweight among \\\\ prepregnant women" 
-             "Underweight among \\\\ prepregnant women's \\\\ husbands")
+    mtitles("\shortstack{Underweight among \\ prepregnant women}"
+            "\shortstack{Underweight among \\ prepregnant women's \\ husbands}")
     nonumbers nonote;
 #delimit cr
 
@@ -121,9 +120,10 @@ esttab men_1yo using "tables/apdx_men1yo.tex", replace
     stats(group1 group2 group3 group4 group5, 
           label("Adivasi n=`sample21'" "Dalit n=`sample22'" "OBC n=`sample23'" "Forward n=`sample24'" "Muslim n=`sample25'")) 
     drop(v201 _cons)
-    mtitles("Underweight among men \\\\ whose wife gave birth \\\\ in the last year")
+    mtitles("\shortstack{Underweight among men \\ whose wife gave birth \\ in the last year}")
     nonumbers nonote;
 #delimit cr
+
 
 
 
