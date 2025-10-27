@@ -10,27 +10,25 @@ local overvars parity_bs wealth
 local overvar parity_bs
 levelsof `overvar', local(over)
 
-
 foreach g in 1 2 3 5 {
 	
 	
 	* dummy regression for esttab formatting
 	eststo `outcome'`g': reg v201 v201 
 	
-	
 	* calculate quantities and add as scalars under the dummy model
-	sum underweight [aw=reweightingfxn] if group==4
+	sum underweight [aw=reweightingfxn] if group==4 & preg==0
 	local fwd_`outcome' = r(mean)
 	
-	
 	* overall prepreg outcome for social group g
-	sum underweight [aw=reweightingfxn] if group==`g'
+	sum underweight [aw=reweightingfxn] if group==`g' & preg==0
 	local `g'_`outcome' = r(mean)
 	
 	* gap to be explained
 	local `outcome'_diff = (``g'_`outcome'' - `fwd_`outcome'')*100
-	eststo `outcome'`g': estadd scalar `outcome'_diff = ``outcome'_diff'
 	
+	
+	eststo `outcome'`g': estadd scalar `outcome'_diff = ``outcome'_diff'
 	
 	* do the decomposition for predictors: parity + birth spacing and wealth quartiles
 	foreach overvar in parity_bs wealth {

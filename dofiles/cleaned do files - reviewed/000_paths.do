@@ -20,10 +20,18 @@ if "`c(username)'" == "sidhpandit" {
 	
 	global nfhs5hr "/Users/sidhpandit/Desktop/nfhs/nfhs5hr/IAHR7EFL.DTA"
 	
-	global ihds1 "/Users/sidhpandit/Desktop/IHDS/IHDS-1/DS0002/22626-0002-Data.dta"
+	global ihds1_individual "/Users/sidhpandit/Desktop/IHDS/IHDS-1/DS0001/22626-0001-Data.dta"
 	
-	global ihds2 "/Users/sidhpandit/Desktop/IHDS/IHDS-2/DS0003/36151-0003-Data.dta"
-
+	global ihds1_household "/Users/sidhpandit/Desktop/IHDS/IHDS-1/DS0002/22626-0002-Data.dta"
+	
+	
+	global ihds2_individual "/Users/sidhpandit/Desktop/IHDS/IHDS-2/DS0001/36151-0001-Data.dta"
+	
+	
+	global ihds2_household "/Users/sidhpandit/Desktop/IHDS/IHDS-2/DS0002/36151-0002-Data.dta"
+	
+	global ihds2_ewomen "/Users/sidhpandit/Desktop/IHDS/IHDS-2/DS0003/36151-0003-Data.dta"
+	
 }
 
 
