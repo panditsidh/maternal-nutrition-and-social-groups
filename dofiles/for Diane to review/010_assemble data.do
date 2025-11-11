@@ -1,6 +1,6 @@
 do "$paths"
 
-use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 using $nfhs5ir, clear
+use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 using "$nfhs5ir", clear
 
 
 
@@ -26,8 +26,10 @@ replace group = 5 if v130 == 2 & group==. 						// Muslims that aren't Adivasi o
 replace group = 3 if (v130 == 1 |v130==4) & s116 == 3 			// OBC that are Hindu or Sikh
 replace group = 4 if v130 == 1 & (s116 == 4 | s116==8 |s116==.) // Forward caste Hindus
 
-drop if group==6
+// drop if group==6
 drop if group==.
+
+
 
 label define grouplbl ///
     1 "Adivasi" ///

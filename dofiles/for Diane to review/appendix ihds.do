@@ -37,34 +37,3 @@ graph export "figures/appendix ihds.png", as(png) name("Graph") replace;
 
 
 
-
-use "$ihds2", clear
-
-drop if missing(GR25)
-
-tab GR25 [aw=WT]
-
-gen eat_last = GR25==3
-
-sum eat_last [aw=WT]
-
-* IHDS2 example
-// bys HHID: egen min_ans = min(eat_last)
-// bys HHID: egen max_ans = max(eat_last)
-// gen disagree = (min_ans != max_ans)
-// tab disagree [aw=WTEW]
-
-use "$ihds1", clear
-
-drop if missing(GR13)
-
-drop if !inlist(GR13, 1,2,3,4)
-
-tab GR13 [aw=WT]
-
-
-gen eat_last = GR13==3
-
-
-sum eat_last [aw=WT]
-
