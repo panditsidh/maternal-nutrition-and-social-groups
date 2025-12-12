@@ -113,7 +113,7 @@ listtex rows ///
     n_group3 pctdrop_group3 ///
     n_group4 pctdrop_group4 ///
     n_group5 pctdrop_group5 ///
-    using "tables/tableA5 percent dropped and robustness.tex", replace ///
+    using "tables/tableA5 percent dropped.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{12}{>{\centering\arraybackslash}p{1.2cm}}}" ///
          "\toprule" ///
