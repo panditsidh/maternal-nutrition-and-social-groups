@@ -1,6 +1,6 @@
 
 * @Diane, please add your ihds2 filepath to the 000_paths for this to work
-use $ihds2, clear
+use "$ihds2_ewomen", clear
 
 * combine Brahmins into Forward
 replace GROUPS=2 if GROUPS==1
@@ -33,7 +33,7 @@ twoway
     legend(off)
     graphregion(color(white));
 
-graph export "figures/appendix ihds.png", as(png) name("Graph") replace;
+graph export "figures/figureA1 women eating last ihds.png", as(png) name("Graph") replace;
 
 
 
