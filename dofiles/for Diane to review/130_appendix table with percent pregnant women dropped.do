@@ -3,7 +3,7 @@
  
 do "$paths"
 use "$dataset", clear
-do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
+do "dofiles/050_weights to estimate pp nutrition.do"
 
 
 * dummy variables for looping and table format
@@ -113,7 +113,7 @@ listtex rows ///
     n_group3 pctdrop_group3 ///
     n_group4 pctdrop_group4 ///
     n_group5 pctdrop_group5 ///
-    using "tables/table_percent_dropped.tex", replace ///
+    using "tables/tableA5 percent dropped and robustness.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{12}{>{\centering\arraybackslash}p{1.2cm}}}" ///
          "\toprule" ///
