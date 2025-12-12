@@ -24,7 +24,7 @@ local sample_size_e = r(N)
 local orig_dir = c(pwd)
 cd figures/
 
-graph combine figure2a.gph figure2c.gph figure2e.gph b.gph d.gph f.gph, cols(3) ///
+graph combine figure2a.gph figure2c.gph figure2e.gph figure2b.gph figure2d.gph figure2f.gph, cols(3) ///
     scale(0.7) iscale(0.55) imargin(6 6 6 6) ///
     xsize(10) ysize(6) graphregion(color(white)) 
 
