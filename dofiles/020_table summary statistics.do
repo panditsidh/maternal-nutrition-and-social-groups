@@ -160,16 +160,19 @@ foreach var of varlist ci_* {
 drop if missing(insert_blank)
 drop is_header order insert_blank
 
-drop if _n>31
+drop if _n>31	
 
+
+
+	
 * export results
 #delimit ;
 listtex row ///
      ci_adivasi_p ci_dalit_p ci_obc_p ci_forward_p ci_muslim_p ci_india_p ///
      ci_adivasi_np ci_dalit_np ci_obc_np ci_forward_np ci_muslim_np ci_india_np ///
-    using "tables/table_sum_stats.tex", replace ///
+    using "tables/table1 sumstats.tex", replace ///
     rstyle(tabular) ///
-    head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{0.9cm}}@{\hspace{3em}}*{6}{>{\centering\arraybackslash}p{0.9cm}}}" ///
+    head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{1.2cm}}@{\hspace{3em}}*{6}{>{\centering\arraybackslash}p{1.2cm}}}" ///
          "\toprule" ///
          "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{6}{c}{Nonpregnant women} \\\\" ///
          "Social Group & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\\\ social groups} & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\\\ social groups} \\\\" ///
@@ -178,5 +181,9 @@ listtex row ///
          "\end{tabular}");
 #delimit cr
 
+
+display("BROWSE DATA EDITOR TO SEE RESULTS IN STATA DIRECTLY")
+
+browse 
 
 
