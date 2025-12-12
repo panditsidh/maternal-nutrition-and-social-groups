@@ -32,7 +32,7 @@ graph hbar (mean) parity1 parity2 parity3 parity4 [aw=v005],
     ytitle("Percent") 
 	title("A. Distribution of parity among pregnant women")
 	note("n=`sample_size' (3+ month pregnant women)", size(medsmall)) name(c, replace);
-#delimit cr
+#delimit cr 
 
 graph save "figures/a.gph", replace
 graph export "figures/parity distribution of pregnant women by social group.png", replace
@@ -48,7 +48,6 @@ replace bs_above3 = bs_above3*100
 
 keep if parity>=2	
 keep if preg==1
-
 keep if gestdur>=3
 
 

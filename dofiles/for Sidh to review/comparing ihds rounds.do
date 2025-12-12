@@ -4,9 +4,11 @@
 * Cols: ET_mean ET_ll ET_ul EL_mean EL_ll EL_ul
 *==========================================================
 tempname OUT
-matrix `OUT' = J(4,6,.)
+matrix `OUT' = J(6,6,.)
 matrix colnames `OUT' = ET_mean ET_ll ET_ul EL_mean EL_ll EL_ul
-matrix rownames `OUT' = Hindu_IHDS1 Muslim_IHDS1 Hindu_IHDS2 Muslim_IHDS2
+matrix rownames `OUT' = ///
+    Hindu_IHDS1 Muslim_IHDS1 Total_IHDS1 ///
+    Hindu_IHDS2 Muslim_IHDS2 Total_IHDS2
 
 *-------------------------*
 * IHDS-1 (household ET/EL)
@@ -74,6 +76,27 @@ matrix `OUT'[2,4] = `el_mean'
 matrix `OUT'[2,5] = `el_ll'
 matrix `OUT'[2,6] = `el_ul'
 
+* Row 3: Total IHDS1
+quietly svy: mean eat_together
+matrix T = r(table)
+local et_mean = T[1,1]
+local et_ll   = T[5,1]
+local et_ul   = T[6,1]
+
+quietly svy: mean eat_last
+matrix U = r(table)
+local el_mean = U[1,1]
+local el_ll   = U[5,1]
+local el_ul   = U[6,1]
+
+matrix `OUT'[3,1] = `et_mean'
+matrix `OUT'[3,2] = `et_ll'
+matrix `OUT'[3,3] = `et_ul'
+matrix `OUT'[3,4] = `el_mean'
+matrix `OUT'[3,5] = `el_ll'
+matrix `OUT'[3,6] = `el_ul'
+
+
 
 *-------------------------*
 * IHDS-2 (ewomen ET/EL)
@@ -106,12 +129,12 @@ local el_mean = U[1,1]
 local el_ll   = U[5,1]
 local el_ul   = U[6,1]
 
-matrix `OUT'[3,1] = `et_mean'
-matrix `OUT'[3,2] = `et_ll'
-matrix `OUT'[3,3] = `et_ul'
-matrix `OUT'[3,4] = `el_mean'
-matrix `OUT'[3,5] = `el_ll'
-matrix `OUT'[3,6] = `el_ul'
+matrix `OUT'[4,1] = `et_mean'
+matrix `OUT'[4,2] = `et_ll'
+matrix `OUT'[4,3] = `et_ul'
+matrix `OUT'[4,4] = `el_mean'
+matrix `OUT'[4,5] = `el_ll'
+matrix `OUT'[4,6] = `el_ul'
 
 * Row 4: Muslim IHDS2
 quietly svy: mean eat_together if muslim
@@ -126,12 +149,34 @@ local el_mean = U[1,1]
 local el_ll   = U[5,1]
 local el_ul   = U[6,1]
 
-matrix `OUT'[4,1] = `et_mean'
-matrix `OUT'[4,2] = `et_ll'
-matrix `OUT'[4,3] = `et_ul'
-matrix `OUT'[4,4] = `el_mean'
-matrix `OUT'[4,5] = `el_ll'
-matrix `OUT'[4,6] = `el_ul'
+matrix `OUT'[5,1] = `et_mean'
+matrix `OUT'[5,2] = `et_ll'
+matrix `OUT'[5,3] = `et_ul'
+matrix `OUT'[5,4] = `el_mean'
+matrix `OUT'[5,5] = `el_ll'
+matrix `OUT'[5,6] = `el_ul'
+
+
+* Row 6: Total IHDS2
+quietly svy: mean eat_together
+matrix T = r(table)
+local et_mean = T[1,1]
+local et_ll   = T[5,1]
+local et_ul   = T[6,1]
+
+quietly svy: mean eat_last
+matrix U = r(table)
+local el_mean = U[1,1]
+local el_ll   = U[5,1]
+local el_ul   = U[6,1]
+
+matrix `OUT'[6,1] = `et_mean'
+matrix `OUT'[6,2] = `et_ll'
+matrix `OUT'[6,3] = `et_ul'
+matrix `OUT'[6,4] = `el_mean'
+matrix `OUT'[6,5] = `el_ll'
+matrix `OUT'[6,6] = `el_ul'
+
 
 * Display nicely
 matlist `OUT', format(%6.3f)

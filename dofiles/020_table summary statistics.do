@@ -172,7 +172,7 @@ listtex row ///
     head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{0.9cm}}@{\hspace{3em}}*{6}{>{\centering\arraybackslash}p{0.9cm}}}" ///
          "\toprule" ///
          "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{6}{c}{Nonpregnant women} \\\\" ///
-         "Social Group & \tiny Adivasi & \tiny Dalit & \tiny OBC$^{1}$ & \tiny Forward & \tiny Muslim$^{2}$ & \tiny \shortstack{All five \\\\ social groups} & \tiny Adivasi & \tiny Dalit & \tiny OBC$^{1}$ & \tiny Forward & \tiny Muslim$^{2}$ & \tiny \shortstack{All five \\\\ social groups} \\\\" ///
+         "Social Group & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\\\ social groups} & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\\\ social groups} \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");

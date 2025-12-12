@@ -1,8 +1,12 @@
+* This dofile first just does the same stuff as 010 but doesn't drop group 6 and missing group and then it does reweighting on that 
+
+
+* DO ASSEMBLE DATA WITHOUT DROPPING GROUPS
+qui { 
+	
 do "$paths"
 
 use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 using "$nfhs5ir", clear
-
-
 
 //generate variables for analyzing surveys with complex designs
 egen strata = group(v000 v024 v025) 
@@ -25,11 +29,6 @@ replace group = 6 if (v130 == 3| v130==4 | v130==6) & group==. // Christian, Sik
 replace group = 5 if v130 == 2 & group==. 						// Muslims that aren't Adivasi or Dalit
 replace group = 3 if (v130 == 1 |v130==4) & s116 == 3 			// OBC that are Hindu or Sikh
 replace group = 4 if v130 == 1 & (s116 == 4 | s116==8 |s116==.) // Forward caste Hindus
-
-// drop if group==6
-drop if group==.
-
-
 
 label define grouplbl ///
     1 "Adivasi" ///
@@ -332,4 +331,60 @@ gen weight = v437
 replace weight =. if v437>9990
 replace weight =weight/10
 
-save "$dataset", replace
+ 
+}
+
+* DO REWEIGHTING WITHOUT DROPPING GROUPS
+
+qui {
+	
+do "$paths"
+
+* ----------- PARAMETERS-----------
+local binvars not_c_user agebin rural less_edu noboy wealth parity_bs group
+* ----------------------------------------------------
+
+* generate bins for reweighting
+egen bin = group(`binvars')
+gen counter=1
+
+
+* collapse to bin-level counts of pregnant and total women
+* same as the collapse in diane's original code, just shorter
+preserve
+collapse ///
+    (sum) bin_preg = preg ///
+    (sum) bin_women = counter, ///
+    by(bin)
+
+* tag bins that only have pregnant or non-pregnant women
+gen dropbin = bin_preg == bin_women & bin_women > 0
+gen zerobin = bin_preg == 0 & bin_women > 0
+drop if bin==.
+
+tempfile bininfo
+save `bininfo'
+restore
+
+* merge this bin-level information back to the individual dataset
+merge m:1 bin using `bininfo', nogen
+
+* generate weights by bin
+egen pregweight = sum(v005) if preg==1, by(bin)
+egen nonpregweight = sum(v005) if preg==0, by(bin)
+egen transferpreg = mean(pregweight), by(bin)
+egen transfernonpreg = mean(nonpregweight), by(bin)
+gen reweightingfxn = v005*transferpreg/transfernonpreg if dropbin!=1 & preg==0
+
+
+
+	
+	
+	
+	
+	
+}
+
+
+* what is the national prepregnancy underweight prevalence with this sample?
+sum underweight [aw=reweightingfxn] if gestdur_3plus==0 & dropbin!=1

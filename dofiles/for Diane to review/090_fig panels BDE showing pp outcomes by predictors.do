@@ -3,7 +3,6 @@
 do "$paths"
 local var underweight
 
-
 * one graph for pp outcomes by each of these overvars
 foreach overvar in parity bs wealth {
 	
@@ -17,7 +16,7 @@ foreach overvar in parity bs wealth {
 		local xtitle "parity"
 		local xlabel `"1 "Parity 0" 2 "Parity 1" 3 "Parity 2" 4 "Parity 3+""'
 		local title "B. Prepregnancy underweight by `xtitle'"
-		local note "n=474,664 (non-pregnant women)" 
+		local note "n=679,369 (non-pregnant women)" 
 		
 		keep if strpos(rows, "Parity")==1
 	}
@@ -25,7 +24,7 @@ foreach overvar in parity bs wealth {
 		local xtitle "wealth quartile"
 		local xlabel `"1 "Quartile 1" 2 "Quartile 2" 3 "Quartile 3" 4 "Quartile 4""'
 		local title "F. Prepregnancy underweight" "by `xtitle'"
-		local note "n=474,664 (non-pregnant women)" 
+		local note "n=679,369 (non-pregnant women)" 
 		
 		keep if strpos(rows, "Wealth")==1
 	}
@@ -35,7 +34,7 @@ foreach overvar in parity bs wealth {
 		local xtitle "birth spacing"
 		local title "D. Prepregnancy underweight" "by `xtitle'"
 		local xlabel `"1 "<2 yrs" 2 "2–3 yrs" 3 ">3 yrs""'
-		local note "n=440,732 (non-pregnant women who have at least one live birth)" 
+		local note "n=466,149 (non-pregnant women who have at least one live birth)" 
 		
 		keep if inlist(_n, 11,12,13)
 	}
