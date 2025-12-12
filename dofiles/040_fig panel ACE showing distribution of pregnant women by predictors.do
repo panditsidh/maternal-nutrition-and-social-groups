@@ -34,8 +34,8 @@ graph hbar (mean) parity1 parity2 parity3 parity4 [aw=v005],
 	note("n=`sample_size' (3+ month pregnant women)", size(medsmall)) name(c, replace);
 #delimit cr 
 
-graph save "figures/a.gph", replace
-graph export "figures/parity distribution of pregnant women by social group.png", replace
+graph save "figures/figure2a.gph", replace
+// graph export "figures/parity distribution of pregnant women by social group.png", replace
 
 restore
 
@@ -71,7 +71,7 @@ graph hbar (mean) bs_below2 bs_2to3 bs_above3 [aw=v005],
 
 
 
-graph save "figures/c.gph", replace
+graph save "figures/figure2c.gph", replace
 graph export "figures/birth spacing distribution of pregnant women by social group.png", replace
 	
 restore
@@ -105,8 +105,8 @@ graph hbar (mean) wealth1 wealth2 wealth3 wealth4 [aw=v005],
 	title("E. Distribution of wealth among pregnant women");
 	
 # delimit cr
-graph save "figures/e.gph", replace
-graph export "figures/wealth distribution of pregnant women by social group.png", replace
+graph save "figures/figure2e.gph", replace
+// graph export "figures/wealth distribution of pregnant women by social group.png", replace
 
 restore
 
