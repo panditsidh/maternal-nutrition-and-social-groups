@@ -25,7 +25,23 @@ The less predictive, but still statistically significant covariates of pregnancy
 Wealth is an important determinant of health because it enables public investment in health infrastructure and sufficient expenditure on diet and medicine. Additionally, low incomes can generate stress that both directly damages health and increases associated unhealthy behaviors. Wealth also improves literacy and education access, which enable better engagement with health infrastructure and individual protection of health \citep{rajan2013wealthier}. 
 
 
+To our knowledge, no study or dataset allows a more nuanced picture of how gendered foodways differ across Indian social groups.  Future research could investigate whether  women of childbearing age eat after other women in the household, and whether they are discouraged from eating higher-calorie foods, such as meat, dairy products, and fried foods, even when they are available for others.\footnote{\cite{harris2017determinants} provides a comprehensive review of the literature on intrahousehold allocation of food among South Asian adults.  They note these and other discriminatory food practices faced by women in South Asia.}  
+
+
 Whether differences in wealth will explain differences in maternal nutrition will depend on the strength of the association between wealth and underweight, as well as the relative contribution of other determinants of underweight that cut across wealth groups. 
+
+
+Reweighting variables used in \cite{coffey2015prepregnancy}: "age, education, urban/rural residence, the number of living children, the age of the youngest living child, whether she has at least one livingson, and whether one or more of her children has died in the last 5 years. These factors were chosen for inclusion in the reweighting function because demographers have linked them to fertility (28–34), and they are also plausibly correlated with body mass". Because in this paper, we provide finer estimates of prepregnancy underweight within social group, we selected a smaller set of variables to use in creating bins for reweighting to minimize the percent of pregnant women dropped. To ensure this smaller set of variables was still accurately adjusting the distribution of nonpregnant women to match that of pregnant women, we conducted regressions to evaluate their predictive power of pregnancy in the sample. Additionally, to ensure that the addition or removal of any variables wouldn't systematically change the estimates of prepregnancy underweight by changing sample composition or affecting reweighting mechanics, we evaluate the robustness of our results to various reweighting specifications in appendix table \ref{tab:sampledropped}.
+
+notes: additional comparisons of reweighting variables with \cite{coffey2015prepregnancy}, specifically comparing table S3 there with our table \ref{regression}. i feel like we will need to justify these differences in our choice of reweighting variables
+\begin{itemize}
+    \item original paper didn't but we must include wealth in reweighting in order to get wealth stratified estimates to use in decomposition
+    \item we have 1 less age bin (og had 30-39 and 40-49, we have 30-49). maybe that's fine since childbearing careers end earlier in nfhs-5
+    \item  education in coffey 2015 was a big predictor of pregnancy but the coefficient in our regression is negligible (but still significant)
+    \item coffey 2015 drops contraceptors, we include it as a reweighting variable. regression shows it's very predictive of pregnancy, probably because use is more widespread in nfhs-5
+    \item coffey 2015 includes child death, we don't - but in nfhs-5 it's less likely, and the effect is maybe picked up by modern contraception? 
+\end{itemize}
+
 
 
 
