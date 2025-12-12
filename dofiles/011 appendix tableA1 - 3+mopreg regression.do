@@ -62,7 +62,7 @@ esttab model_g,
 * LaTeX export
 *--------------------------
 #delimit ;
-esttab model_g using "tables/table_gestdur3plus_group.tex",
+esttab model_g using "tables/tableA1 predicting first quarter pregnancy.tex",
     replace
     refcat(1.not_c_user "\textbf{Binary predictors}" ///
            2.agebin "\textbf{Age categories} \\ (15–19 omitted)" ///

@@ -12,7 +12,7 @@ columns: mean ll ul for every outcome
 * prepare dataset
 qui do "$paths"
 use "$dataset", clear
-qui do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
+qui do "dofiles/050_weights to estimate pp nutrition.do"
 
 * initialize results matrix
 local outcomes bmi weight underweight overweight obesity gainhatm1 gainhatm2

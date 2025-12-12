@@ -56,4 +56,4 @@ twoway (rcap `var'_ul `var'_ll group, lcolor(black)) ///
 #delimit cr
 
 
-graph export "figures/figppUW_by_socialgroup.png", replace
+graph export "figures/figure1 prepregnancy underweight by subgroup.png", replace
