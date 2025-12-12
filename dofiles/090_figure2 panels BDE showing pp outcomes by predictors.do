@@ -81,12 +81,12 @@ foreach overvar in parity bs wealth {
 		   text(`outcome_4' `textpos_4' "`=string(`outcome_4', "%4.2f")'", placement(west) size(small)) ; ///;
 	#delimit cr
 
-    graph export "figures/pp_underweight_by_`overvar'.png", replace
+//     graph export "figures/pp_underweight_by_`overvar'.png", replace
 	
 	if "`overvar'"=="parity" local graph b
 	if "`overvar'"=="bs" local graph d
 	if "`overvar'"=="wealth" local graph f
-	graph save "figures/`graph'.gph", replace
+	graph save "figures/figure2`graph'.gph", replace
 	
     
 	
