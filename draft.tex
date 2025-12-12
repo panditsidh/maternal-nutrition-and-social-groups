@@ -151,7 +151,7 @@ We use the most recent Demographic and Health Survey (DHS) from India, the Natio
 
 {\bf{Body mass index.}} Body mass index (BMI) is a person's weight in kilograms divided by her height in meters squared.  The WHO classifies someone as ``underweight'' if her body mass index is less than 18.5 kg/m$^2$.  The NFHS-5 measured women's weights and heights at the time of the survey.  BMI is missing for 2.8\% of pregnant women and 3.4\% of nonpregnant women; these observations are dropped from the analysis.
 
-{\bf{Pregnancy.}}  The NFHS-5 asks women ages 15 to 49 whether they are currently pregnant, and, if so, how many months pregnant they are. If the question on months of pregnancy is not answered, we use the amount of time between the last menstrual period and the date of the survey as a measure of gestational duration.\footnote{This substitution is made for less than 1\% of the pregnant sample.}  We drop women from the analysis who report pregnancies of one or two months duration because they are a select group.  Not all women are aware of early pregnancies and willing to report them.\footnote{Table \ref{regression3plusmopreg} in the online appendix shows that, among other differences, women who report being one or two months pregnant are more likely to be in the upper half of the wealth distribution than women who report three or more months of pregnancy. Table \ref{gestdur_distribution} in the online appendix shows that a smaller proportion of pregnant women report being one or two months pregnant relative to months three through eight.}
+{\bf{Pregnancy.}}  The NFHS-5 asks women ages 15 to 49 whether they are currently pregnant.  We drop women from the analysis who report pregnancies of one or two months duration because they are a select group.  Not all women are aware of early pregnancies and willing to report them.\footnote{Table \ref{regression3plusmopreg} in the online appendix shows that, among other differences, women who report being one or two months pregnant are more likely to be in the upper half of the wealth distribution than women who report three or more months of pregnancy. Table \ref{gestdur_distribution} in the online appendix shows that a smaller proportion of pregnant women report being one or two months pregnant relative to months three through eight.}  We compute gestational duration using the reported number of months since the start of the woman's last menstrual period.  If that question was not answered, then we use the woman's answer to the question, ``How many months pregnant are you?'' to measure gestational duration.\footnote{This substitution is made for less than 1\% of the pregnant sample.}  
 
 {\bf{Social group.}} The NFHS asks respondents whether they belong a Scheduled Caste, a Scheduled Tribe, an Other Backward Class, or a Forward Caste.  It also asks respondents their religion, listing Hindu, Muslim, Christian, Sikh, Buddhist, Jain, and ``others'' as options. Following the IHDS, which placed special emphasis on the study of social inequality, we combine the caste and religion variables into five mutually exclusive groups \citep{IHDS2005}.  
 
@@ -388,41 +388,8 @@ Finally, this study highlights the value of representative, longitudinal monitor
 
 % Now numbered sections start from S.1
 \stepcounter{section}
-\section{S.\arabic{section} Measuring weight gain during pregnancy} \label{sec:weightgain}
 
-\subsection{S.\arabic{section}.\arabic{subsection} Weight gain method 1} \label{sec:weightgainm1}
-
-The first method of estimating weight gain starts by estimating monthly weight gain of pregnant women at 3+ months gestational duration as $\hat{\beta}$ from an OLS regression of the form
-\begin{equation}
-    weight_i = \alpha + \beta month_i + \tau C_i + \epsilon_i
-\end{equation}
-
-where $weight_i$ is the weight in kilograms of pregnant woman $i$. $month_i$ is month of gestation, calculated as described in the methods section, and $C_i$ are controls, including women's current ages (single year), years of education, number of living children, urban or rural residence, wealth quintile, as well as state-month fixed effects.
-
-Assuming women gain 10 times more weight in their second and third trimesters than in their first, we estimate weight gain for a full-term pregnancy as 
-\begin{equation}
-    \hat{weight gain} = 1.1\times6\times\hat{\beta}
-\end{equation}
-
-In table A1, the 95\% confidence intervals for weight gain method 1 are calculated as $1.1\times6\times\hat{\beta} \pm 1.96\times se_{\hat{\beta}}$.
-
-\subsection{S.\arabic{section}.\arabic{subsection} Weight gain method 2} \label{sec:weightgainm2}
-
-
-The second method of estimating weight gain takes the difference of the average weight of pregnant women at gestational duration of 9 months or more and the average prepregnancy weight using the nonparametric reweighting method. 
-
-
-\begin{equation}
-    \hat{weight gain} = (\bar{W}_9-\bar{W}_0)+(0.5)\hat{\beta}
-\end{equation}
-where $\bar{W}_9$ is the average weight of pregnant women at gestational duration of 9 months or more, and $\bar{W}_0$ is the average prepregnancy weight using the nonparametric reweighting method. To account for additional weight gain between the time of survey and the end of pregnancy for women of gestational duration of 9 months or more, we assume these women are at the midpoint of their last month of pregnancy and add the accordingly scaled $\hat{\beta}$ from the regression in weight gain method 1.
-
-This offers a benchmark to method 1, which may be inaccurate if the assumption is false that women gain 10 times more weight in their second and third trimesters than in their first, or if gestational durations are incorrectly reported.
-
-
-
-
-\section{S.\arabic{section} Figures and tables} \label{sec:appendixexhibits}
+\section{S.\arabic{section} Standalone figures and tables} \label{sec:appendixexhibits}
 
 % \newgeometry{left=1.2in, right=1.2in}  % or smaller margins
 
@@ -598,6 +565,44 @@ This offers a benchmark to method 1, which may be inaccurate if the assumption i
 
     \end{threeparttable}
 \end{table}
+
+
+\section{S.\arabic{section} Additional maternal nutrition indicators by social group} \label{sec:weightgain}
+
+\subsection{S.\arabic{section}.\arabic{subsection} Description of additional maternal nutrition indicators} \label{sec:weightgainm1}
+
+\subsection{S.\arabic{section}.\arabic{subsection} Weight gain method 1} \label{sec:weightgainm1}
+
+The first method of estimating weight gain starts by estimating monthly weight gain of pregnant women at 3+ months gestational duration as $\hat{\beta}$ from an OLS regression of the form
+\begin{equation}
+    weight_i = \alpha + \beta month_i + \tau C_i + \epsilon_i
+\end{equation}
+
+where $weight_i$ is the weight in kilograms of pregnant woman $i$. $month_i$ is month of gestation, calculated as described in the methods section, and $C_i$ are controls, including women's current ages (single year), years of education, number of living children, urban or rural residence, wealth quintile, as well as state-month fixed effects.
+
+Assuming women gain 10 times more weight in their second and third trimesters than in their first, we estimate weight gain for a full-term pregnancy as 
+\begin{equation}
+    \hat{weight gain} = 1.1\times6\times\hat{\beta}
+\end{equation}
+
+In table A1, the 95\% confidence intervals for weight gain method 1 are calculated as $1.1\times6\times\hat{\beta} \pm 1.96\times se_{\hat{\beta}}$.
+
+\subsection{S.\arabic{section}.\arabic{subsection} Weight gain method 2} \label{sec:weightgainm2}
+
+
+The second method of estimating weight gain takes the difference of the average weight of pregnant women at gestational duration of 9 months or more and the average prepregnancy weight using the nonparametric reweighting method. 
+
+
+\begin{equation}
+    \hat{weight gain} = (\bar{W}_9-\bar{W}_0)+(0.5)\hat{\beta}
+\end{equation}
+where $\bar{W}_9$ is the average weight of pregnant women at gestational duration of 9 months or more, and $\bar{W}_0$ is the average prepregnancy weight using the nonparametric reweighting method. To account for additional weight gain between the time of survey and the end of pregnancy for women of gestational duration of 9 months or more, we assume these women are at the midpoint of their last month of pregnancy and add the accordingly scaled $\hat{\beta}$ from the regression in weight gain method 1.
+
+This offers a benchmark to method 1, which may be inaccurate if the assumption is false that women gain 10 times more weight in their second and third trimesters than in their first, or if gestational durations are incorrectly reported.
+
+
+
+
 
 \newpage
 \begin{landscape}
