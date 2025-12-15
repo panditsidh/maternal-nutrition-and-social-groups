@@ -120,7 +120,7 @@ matrix colnames results = ///
 drop *	
 
 input str100 rows
-"Original specification"
+"Original specification (4 category age bins)"
 "5 category age bins"
 "5 category age without less edu"
 "5 category age without rural"
