@@ -7,6 +7,7 @@
 
 use "$dataset", clear
 
+keep if v213==1 // self reports pregnant
 eststo clear
 estpost tabulate gestdur [aw=v005]
 

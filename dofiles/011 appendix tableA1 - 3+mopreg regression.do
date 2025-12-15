@@ -10,6 +10,8 @@ use "$dataset", clear
 eststo clear
 
 keep if v213==1 // self reports pregnant
+keep if !missing(gestdur)
+
 gen gestdur_1or2 = inlist(gestdur,1,2) // self reports 1 or 2 months pregnant
 
 * run model for that group

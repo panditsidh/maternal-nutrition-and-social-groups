@@ -76,8 +76,9 @@ tab gestdur if v213==1, m
 tab gestdur if v213==1, m
 
 //Create a variable "preg" to distinguish between the two groups.
-gen preg = gestdur>=3 if !missing(gestdur) & v213==1
-replace preg = . if inlist(v214,1,2) & v213==1
+* we define it as those who self report being pregnant and have gestational duration of 3 months or more (defining gestdur as months since last period and self reported gestational duration if that is unavailable)
+gen preg = v213
+replace preg = . if gestdur<3 & v213==1
 gen gestdur_3plus = gestdur>=3 if !missing(gestdur) & v213==1
 
 /*
