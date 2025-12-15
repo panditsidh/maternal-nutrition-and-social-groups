@@ -12,7 +12,7 @@ use "$dataset", clear
 * Overall model
 *--------------------------
 #delimit ;
-reghdfe gestdur_3plus
+reghdfe preg
     i.not_c_user
     i.less_edu
     i.rural
@@ -28,7 +28,7 @@ eststo model0
 *--------------------------
 foreach g of numlist 1/5 {
     #delimit ;
-    reghdfe gestdur_3plus
+    reghdfe preg
         i.not_c_user
         i.less_edu
         i.rural
