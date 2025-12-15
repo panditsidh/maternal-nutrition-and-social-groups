@@ -121,12 +121,12 @@ drop *
 
 input str100 rows
 "Original specification"
-"5 cat age"
-"5 cat age without less edu"
-"5 cat age without rural"
-"5 cat age without rural and less edu"
-"6 cat age without rural and less edu"
-"7 cat age without rural and less edu"
+"5 category age bins"
+"5 category age without less edu"
+"5 category age without rural"
+"5 category age without rural and less edu"
+"6 category age without rural and less edu"
+"7 category age without rural and less edu"
 end
 
 

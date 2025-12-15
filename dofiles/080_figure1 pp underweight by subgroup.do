@@ -52,6 +52,7 @@ twoway (rcap `var'_ul `var'_ll group, lcolor(black)) ///
 	   text(`outcome_5' `textpos_5' "`=string(`outcome_5', "%4.2f")'", placement(west) size(small))
 	   text(`outcome_6' `textpos_6' "`=string(`outcome_6', "%4.2f")'") ///
 	   text(-0.035 6.5 "social groups", placement(west)) ///
+	   text(-0.035 4.35 "caste Hindu", placement(west)) ///
 	   graphregion(color(white) margin(r+12));
 #delimit cr
 
