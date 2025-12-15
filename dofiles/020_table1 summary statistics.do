@@ -1,4 +1,6 @@
-* This file computes summary statistics and arranges them in a latex table.
+* This file computes summary statistics table 1
+* we calculate means of variables like age bin, wealth quartile, birth spacing and parity, contraception, has a son, contraception use, education, rural residence
+* and we calculate these means in 12 groups - (5 social groups + 1 for all social groups) for both pregnant and nonpregnant women
 * We first create a matrix of all calculated quantities of interest then use svmat to format it into strings, and listtex to export to latex
 
 

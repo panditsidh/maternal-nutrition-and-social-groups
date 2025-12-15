@@ -1,8 +1,9 @@
-
-
+* this dofile creates appendix table A2
+* it simply shows the number of women at each self reported gestational duration
+* and the proportion of all self reported pregnant women at each self reported gestational duration
+* we show that there are notably fewer women at self reported gestational durations of 1 or 2, suggesting that we do not observe the full sample since it should be evenly distributed 
 
 use "$dataset", clear
-
 
 eststo clear
 estpost tabulate v214 [aw=v005]

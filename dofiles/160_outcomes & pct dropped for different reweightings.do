@@ -149,7 +149,7 @@ drop if missing(rows)
 listtex rows ///
     underweight1 underweight2 underweight3 underweight4 underweight5 ///
     num_problems biggest_problem ///
-    using "tables/tableA7 reweighting specifications.tex", replace ///
+    using "tables/tableA5 reweighting specifications.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{7}{>{\centering\arraybackslash}p{1.5cm}}}" ///
          "\toprule" ///

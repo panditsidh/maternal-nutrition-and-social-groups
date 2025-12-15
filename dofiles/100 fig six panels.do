@@ -30,7 +30,7 @@ graph combine figure2a.gph figure2c.gph figure2e.gph figure2b.gph figure2d.gph f
 
 	
 cd "`orig_dir'"
-graph export "figures/figure2 predictors by social_group and gradients.pdf", replace
+graph export "figures/figure2 predictors by social group and gradients.pdf", replace
 
 
 

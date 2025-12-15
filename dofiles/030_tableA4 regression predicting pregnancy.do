@@ -41,7 +41,7 @@ foreach g of numlist 1/5 {
 }
 
 *==========================
-* Display in console
+* Display in console (make sure your window is wide enough)
 *==========================
 #delimit ;
 esttab model1 model2 model3 model4 model5 model0,
@@ -58,7 +58,7 @@ esttab model1 model2 model3 model4 model5 model0,
 * Export to LaTeX
 *==========================
 #delimit ;
-esttab model1 model2 model3 model4 model5 model0 using "tables/table_gestdur3plus_results.tex",
+esttab model1 model2 model3 model4 model5 model0 using "tables/tableA4 predict pregnancy using reweighting variables.tex",
     replace
     refcat(1.not_c_user "\textbf{Predictors of gestation ≥3 months}" ///
            2.agebin "\textbf{Age categories} \\ (15–19 omitted)" ///

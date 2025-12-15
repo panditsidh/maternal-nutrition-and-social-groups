@@ -107,31 +107,64 @@ gen gestdur_3plus = gestdur>=3 if !missing(gestdur)
 //The Stata code below only accomodates numeric options as answers for the contraceptive use questions. In the NFHS-5 women's questionnaire, "other modern contraception" is listed as an option denoted by an "X," but no "Xs" were recorded in the contraceptive calendars.  So, the code can be used as is.
 //We note that 1,554 pregnant women (7% of pregnant women) became pregnant while using a modern method.  337 (1.4%) of pregnant women became pregnant while sterilized.
 
+
+
+
 gen vcal_1_trim = trim(vcal_1)
-gen done = 0
-gen isnumber = .
-gen answer = .
-forvalues i = 1(1)15 {
-	gen month`i' = substr(vcal_1_trim,`i',1)
-	replace isnumber = real(month`i')
-	replace answer = isnumber if isnumber !=. & done==0
-	replace done = 1 if done == 0 & isnumber !=.
-}
-gen modernmethod = .
-replace modernmethod = 0 if answer==0
-replace modernmethod = 1 if answer>0 & answer <8 
 
-gen sterilized = answer==1 | answer ==2
-gen c_user = (sterilized==1 | modernmethod==1)
-bysort v213: tab c_user
+* bounds
+gen win_start = .
+replace win_start = 2             if v213==0
+replace win_start = gestdur + 2    if v213==1 & gestdur < .
 
-gen not_c_user = c_user
-recode not_c_user (0=1) (1=0)
+* extract exactly the 15-month window
+gen vcal_win = substr(vcal_1_trim, win_start, 15)
 
-label define not_c_userlbl ///
-    1 "not using modern contraception" ///
-    0 "using contraception" 
-label values not_c_user not_c_userlbl
+* TABULATE 
+// tab1 preg
+//
+// * break window into characters and tab them, separately by pregnancy status
+// forvalues k=1/15 {
+//     gen ch`k' = substr(vcal_win, `k', 1)
+// }
+//
+// forvalues k=1/15 {
+//     di "---- position `k' ----"
+//     tab ch`k' if preg==1
+// }
+//
+
+* modern method if ANY of 1-7 appears in the 15 chars
+gen modernmethod = regexm(vcal_win, "[1-7CNM]")
+replace modernmethod = 1 if regexm(vcal_win, "9")
+
+// *OLD
+// gen vcal_1_trim = trim(vcal_1)
+// gen done = 0
+// gen isnumber = .
+// gen answer = .
+// forvalues i = 1(1)15 {
+// 	gen month`i' = substr(vcal_1_trim,`i',1)
+// 	replace isnumber = real(month`i')
+// 	replace answer = isnumber if isnumber !=. & done==0
+// 	replace done = 1 if done == 0 & isnumber !=.
+// }
+//
+// gen modernmethod = .
+// replace modernmethod = 0 if answer==0
+// replace modernmethod = 1 if answer>0 & answer <8 
+//
+// gen sterilized = answer==1 | answer ==2
+// gen c_user = (sterilized==1 | modernmethod==1)
+// bysort v213: tab c_user
+//
+// gen not_c_user = c_user
+// recode not_c_user (0=1) (1=0)
+//
+// label define not_c_userlbl ///
+//     1 "not using modern contraception" ///
+//     0 "using contraception" 
+// label values not_c_user not_c_userlbl
 
 **************************** BIRTH HISTORY ********************************
 
