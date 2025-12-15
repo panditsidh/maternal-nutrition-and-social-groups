@@ -1,12 +1,16 @@
-
+* this dofile creates appendix tableA1
+* it reports results from a regression on the sample of women who report being pregnant
+* the outcome variable is "reports being 1 or 2 months pregnant"
+* and the covariates are things like SES, contraception use, birth spacing
+* we show that these variables are systematically different for women who report being 1 or 2 months pregnant because those who detect pregnancy early are a select sample
+* we define gestational duration as months since last period and if that's not available we use the self-reported gestational duration
 
 use "$dataset", clear
 
 eststo clear
 
-keep if v213==1
-gen gestdur_1or2 = inlist(v214,1,2)
-
+keep if v213==1 // self reports pregnant
+gen gestdur_1or2 = inlist(gestdur,1,2) // self reports 1 or 2 months pregnant
 
 * run model for that group
 #delimit ;

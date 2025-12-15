@@ -2,17 +2,15 @@ do "$paths"
 
 use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 using "$nfhs5ir", clear
 
-
-
 //generate variables for analyzing surveys with complex designs
-egen strata = group(v000 v024 v025) 
+egen strata = group(v000 v024 v025)
 *Rural Chandigarh has a very small number of observations, so we combine with urban Chandigarh.
 replace strata = 7 if strata==8
 egen psu = group(v000 v001 v024 v025)
 
 ********************************* SOCIAL GROUP *********************************
 //This paper only analyzes data for women beloning to the following groups:
-*Adivasi and Dalit (all religions)
+*Adivasi and Dalit (all religions)∂
 *OBC (Hindu and Sikh)
 *Forward Caste (Hindu)
 *Muslim 
@@ -29,9 +27,6 @@ replace group = 4 if v130 == 1 & (s116 == 4 | s116==8 |s116==.) // Forward caste
 // drop if group==6
 drop if group==.
 
-
-
-
 label define grouplbl ///
     1 "Adivasi" ///
     2 "Dalit" ///
@@ -46,8 +41,6 @@ gen obc = group==3
 gen forward = group==4
 gen muslim = group==5
 gen allfivegroups = 1
-
-
 
 **************************** GESTATIONAL DURATION ******************************
 
@@ -75,7 +68,7 @@ replace moperiod = 11 if v215==311
 //months since last period is not reported for 1,274 women who also report pregnancy.  use self-reported "months pregnant" as a measure of gestational duration for those women.
 //this allows us to assign a gestational duration for all but 5 women who report pregnancy.
 count if moperiod==. & v213==1
-gen gestdur = moperiod
+gen gestdur = moperiod if v213==1
 replace gestdur = v214 if missing(moperiod) & v213==1
 tab gestdur if v213==1, m
 
@@ -83,12 +76,41 @@ tab gestdur if v213==1, m
 tab gestdur if v213==1, m
 
 //Create a variable "preg" to distinguish between the two groups.
-gen preg = v213 == 1
-tab preg, m
+gen preg = gestdur>=3 if !missing(gestdur) & v213==1
+replace preg = . if inlist(v214,1,2) & v213==1
+gen gestdur_3plus = gestdur>=3 if !missing(gestdur) & v213==1
 
+/*
 
-gen gestdur_3plus = gestdur>=3 if !missing(gestdur)
+this is the DHS recode key for modern method contraception
 
+i put (is a modern method) next to the methods that v313 considers modern
+
+B -Birth
+T - Terminated pregnancy/non-live birth
+P - Pregnancy
+0 - Non-use of contraception
+1 - Pill (is a modern method)
+2 - IUD (is a modern method)
+3 - Injectables (is a modern method)
+4 - Diaphragm (is a modern method)
+5 - Condom (is a modern method)
+6 - Female sterilization (is a modern method)
+7 - Male sterilization (is a modern method)
+8 - Periodic abstinence/rhythm
+9 - Withdrawal
+W - Other traditional methods
+N - Implants
+A - Abstinence
+L - Lactational amenorrhea method (LAM) (is a modern method)
+C - Female condom (is a modern method)
+F - Foam and Jelly (is a modern method)
+E1 - Emergency contraception (DHSVI) (is a modern method)
+S1 - Standard days method (DHSVI) (is a modern method)
+M1 - Other modern method (DHSVI) (is a modern method)
+? - Unknown method/missing data
+
+*/
 
 
 **************************** CONTRACEPTIVE USE ********************************
@@ -103,68 +125,76 @@ gen gestdur_3plus = gestdur>=3 if !missing(gestdur)
 // 
 
 *not a contraceptive user
-//This code identifies contraceptive use at the time of the survey for non-pregnant women and the contraceptive use before pregnancy for women who are currently pregnant.
+//This code identifies contraceptive use at the time of the survey for non-pregnant women and the contraceptive use in the month before conception/pregnancy for women who are currently pregnant.
 //The Stata code below only accomodates numeric options as answers for the contraceptive use questions. In the NFHS-5 women's questionnaire, "other modern contraception" is listed as an option denoted by an "X," but no "Xs" were recorded in the contraceptive calendars.  So, the code can be used as is.
-//We note that 1,554 pregnant women (7% of pregnant women) became pregnant while using a modern method.  337 (1.4%) of pregnant women became pregnant while sterilized.
+//We note that 1,554 pregnant women (2.44% of pregnant women) became pregnant while using a modern method.  only 4 of 23,246 currently pregnant women became pregnant despite herself sterilized and only 2 despite her husband sterilized
 
+* NEW
 
+gen modernmethod = .
+replace modernmethod = (v313 == 3) if preg == 0
+gen precon_pos = gestdur + 2 if preg == 1 & gestdur < .
+gen precon_code = substr(trim(vcal_1), precon_pos, 1) if preg == 1
+replace modernmethod = inlist(precon_code,"1","2","3","4","5","6","7") if preg==1
+replace modernmethod = inlist(precon_code, "L","C","F","N","9","S","M") if preg==1
 
+gen female_ster = .
+gen male_ster   = .
+gen sterilized    = .
 
-gen vcal_1_trim = trim(vcal_1)
+* Nonpregnant: use v312 (current method)
+replace female_ster = (v312==6) if preg==0
+replace male_ster   = (v312==7) if preg==0
 
-* bounds
-gen win_start = .
-replace win_start = 2             if v213==0
-replace win_start = gestdur + 2    if v213==1 & gestdur < .
+* Pregnant: use calendar code month before conception
+replace female_ster = (precon_code=="6") if preg==1
+replace male_ster   = (precon_code=="7") if preg==1
 
-* extract exactly the 15-month window
-gen vcal_win = substr(vcal_1_trim, win_start, 15)
+replace sterilized = (female_ster==1 | male_ster==1)
 
-* TABULATE 
-// tab1 preg
-//
-// * break window into characters and tab them, separately by pregnancy status
-// forvalues k=1/15 {
-//     gen ch`k' = substr(vcal_win, `k', 1)
-// }
-//
-// forvalues k=1/15 {
-//     di "---- position `k' ----"
-//     tab ch`k' if preg==1
-// }
-//
+gen c_user = (sterilized==1 | modernmethod==1)
+bysort v213: tab c_user
 
-* modern method if ANY of 1-7 appears in the 15 chars
-gen modernmethod = regexm(vcal_win, "[1-7CNM]")
-replace modernmethod = 1 if regexm(vcal_win, "9")
+gen not_c_user = c_user
+recode not_c_user (0=1) (1=0)
 
-// *OLD
+label define not_c_userlbl ///
+    1 "not using modern contraception" ///
+    0 "using contraception" 
+label values not_c_user not_c_userlbl
+
+// * OLD this code defines it based on the 15 months before survey (nonpregnant) or before conception (pregnant)
+
 // gen vcal_1_trim = trim(vcal_1)
-// gen done = 0
-// gen isnumber = .
-// gen answer = .
-// forvalues i = 1(1)15 {
-// 	gen month`i' = substr(vcal_1_trim,`i',1)
-// 	replace isnumber = real(month`i')
-// 	replace answer = isnumber if isnumber !=. & done==0
-// 	replace done = 1 if done == 0 & isnumber !=.
-// }
 //
-// gen modernmethod = .
-// replace modernmethod = 0 if answer==0
-// replace modernmethod = 1 if answer>0 & answer <8 
+// * bounds
+// gen win_start = .
+// replace win_start = 2             if v213==0
+// replace win_start = gestdur + 2    if v213==1 & gestdur < .
 //
-// gen sterilized = answer==1 | answer ==2
-// gen c_user = (sterilized==1 | modernmethod==1)
-// bysort v213: tab c_user
+// * extract exactly the 15-month window
+// gen vcal_win = substr(vcal_1_trim, win_start, 15)
 //
-// gen not_c_user = c_user
-// recode not_c_user (0=1) (1=0)
+// * TABULATE 
+// // tab1 preg
+// //
+// // * break window into characters and tab them, separately by pregnancy status
+// // forvalues k=1/15 {
+// //     gen ch`k' = substr(vcal_win, `k', 1)
+// // }
+// //
+// // forvalues k=1/15 {
+// //     di "---- position `k' ----"
+// //     tab ch`k' if preg==1
+// // }
+// //
 //
-// label define not_c_userlbl ///
-//     1 "not using modern contraception" ///
-//     0 "using contraception" 
-// label values not_c_user not_c_userlbl
+// * modern method if ANY of 1-7 appears in the 15 chars
+// gen modernmethod = regexm(vcal_win, "[1-7CNM]")
+// replace modernmethod = 1 if regexm(vcal_win, "9")
+
+
+
 
 **************************** BIRTH HISTORY ********************************
 

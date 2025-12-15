@@ -1,7 +1,134 @@
 * This file computes summary statistics table 1
 * we calculate means of variables like age bin, wealth quartile, birth spacing and parity, contraception, has a son, contraception use, education, rural residence
 * and we calculate these means in 12 groups - (5 social groups + 1 for all social groups) for both pregnant and nonpregnant women
-* We first create a matrix of all calculated quantities of interest then use svmat to format it into strings, and listtex to export to latex
+
+
+
+
+
+
+do "$paths"
+use "$dataset", clear
+
+
+#delimit ;
+local varlist not_c_user less_edu rural noboy
+age1519 age2024 age2529 age3049 
+parity_bs1 parity_bs2 parity_bs3 parity_bs4 parity_bs5 parity_bs6 parity_bs7 parity_bs8 parity_bs9 parity_bs10 
+wealth1 wealth2 wealth3 wealth4;
+#delimit cr
+
+keep preg group v005 `varlist'
+
+* create an "India" group 0 by duplicating with group=0
+expand 2, gen(dup)
+replace group = 0 if dup==1
+drop dup
+
+* collapse to means by preg x group
+collapse (mean) `varlist' (count) N=v005 [pw=v005], by(preg group)
+
+drop if group==6
+
+replace group = 6 if group==0
+
+* If you want pregnant columns first, nonpreg second:
+gen pregorder = (preg==0)   // preg==1 -> 0, preg==0 -> 1
+sort pregorder group
+
+xpose, clear varname
+
+drop if inlist(_varname, "group", "preg", "pregorder")
+
+gen order = _n
+
+
+replace order = order+2 if order>=1
+replace order = order+2 if order>=5
+replace order = order+2 if order>=8
+replace order = order+2 if order>=18
+replace order = order+2 if order==23
+
+
+expand 3 if inlist(_varname, "not_c_user", "noboy", "age3049", "parity_bs10", "wealth4")
+
+
+bysort _varname: gen dupnum = _n
+sort order dupnum
+
+replace order = _n
+
+
+* use svmat to bring the matrix into the stata data environment and edit strings from there
+input str100 rows
+""
+"\textbf{Binary Predictors of Pregnancy and Underweight}"
+"\hspace*{2em}not using modern contraception" 
+"\hspace*{2em}less than primary education" 
+"\hspace*{2em}rural resident" 
+"\hspace*{2em}does not have boy child" 
+""
+"\textbf{Age Categories}"
+"\hspace*{2em}15 to 19" 
+"\hspace*{2em}20 to 24" 
+"\hspace*{2em}25 to 29"
+"\hspace*{2em}30 to 49" 
+""
+"\textbf{Categories for parity and spacing from last birth}"
+"\hspace*{2em}No births"  
+"\hspace*{2em}1 birth, \textless{}2y spacing"
+"\hspace*{2em}1 birth, 2–3y spacing"
+"\hspace*{2em}1 birth, \textgreater{}3y spacing"
+"\hspace*{2em}2 births, \textless{}2y spacing"
+"\hspace*{2em}2 births, 2–3y spacing"
+"\hspace*{2em}2 births, \textgreater{}3y spacing"
+"\hspace*{2em}3+ births, \textless{}2y spacing"
+"\hspace*{2em}3+ births, 2–3y spacing"
+"\hspace*{2em}3+ births, \textgreater{}3y spacing"
+""
+"\textbf{Wealth Categories}"
+"\hspace*{2em}1st (bottom) quartile" 
+"\hspace*{2em}2nd quartile" 
+"\hspace*{2em}3rd quartile" 
+"\hspace*{2em}4th quartile" 
+""
+"\textbf{N}"
+end
+
+
+order rows
+keep v* rows
+
+
+foreach i of numlist 1/12 {
+	gen disp_v`i' = substr(string(v`i', "%4.2f"), 2, .) if (rows!="" & strmatch(rows, "\textbf{*")==0) | rows=="\textbf{N}"
+}
+
+
+drop v*
+drop if _n==1
+	
+* export results
+#delimit ;
+listtex rows disp_v1 disp_v2 disp_v3 disp_v4 disp_v5 disp_v6 disp_v7 disp_v8 disp_v9 disp_v10 disp_v11 disp_v12 ///
+    using "tables/table1 sumstats.tex", replace ///
+    rstyle(tabular) ///
+    head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{1.2cm}}@{\hspace{3em}}*{6}{>{\centering\arraybackslash}p{1.2cm}}}" ///
+         "\toprule" ///
+         "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{6}{c}{Nonpregnant women} \\\\" ///
+         "Social Group & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\\\ social groups} & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\\\ social groups} \\\\" ///
+         "\midrule") ///
+    foot("\bottomrule" ///
+         "\end{tabular}");
+#delimit cr
+
+
+display("BROWSE DATA EDITOR TO SEE RESULTS IN STATA DIRECTLY")
+
+browse 
+
+
+
 
 
 do "$paths"
@@ -91,36 +218,6 @@ matrix colnames results_all = ///
     mean_forward_np  ///
     mean_muslim_np 
 
-* use svmat to bring the matrix into the stata data environment and edit strings from there
-input str100 rows
-"\textbf{Binary Predictors of Pregnancy and Underweight}"
-"\hspace*{2em}not using modern contraception" 
-"\hspace*{2em}less than primary education" 
-"\hspace*{2em}rural resident" 
-"\hspace*{2em}does not have boy child" 
-"\textbf{Age Categories}"
-"\hspace*{2em}15 to 19" 
-"\hspace*{2em}20 to 24" 
-"\hspace*{2em}25 to 29"
-"\hspace*{2em}30 to 49" 
-"\textbf{Categories for parity and spacing from last birth}"
-"\hspace*{2em}No births"  
-"\hspace*{2em}1 birth, \textless{}2y spacing"
-"\hspace*{2em}1 birth, 2–3y spacing"
-"\hspace*{2em}1 birth, \textgreater{}3y spacing"
-"\hspace*{2em}2 births, \textless{}2y spacing"
-"\hspace*{2em}2 births, 2–3y spacing"
-"\hspace*{2em}2 births, \textgreater{}3y spacing"
-"\hspace*{2em}3+ births, \textless{}2y spacing"
-"\hspace*{2em}3+ births, 2–3y spacing"
-"\hspace*{2em}3+ births, \textgreater{}3y spacing"
-"\textbf{Wealth Categories}"
-"\hspace*{2em}1st (bottom) quartile" 
-"\hspace*{2em}2nd quartile" 
-"\hspace*{2em}3rd quartile" 
-"\hspace*{2em}4th quartile" 
-"\textbf{N}"
-end
 
 
 svmat results_all, names(col)
