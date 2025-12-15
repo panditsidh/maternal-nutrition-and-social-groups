@@ -148,14 +148,13 @@ drop if missing(rows)
 #delimit ;
 listtex rows ///
     underweight1 underweight2 underweight3 underweight4 underweight5 ///
-    num_problems biggest_problem ///
+    num_problems ///
     using "tables/tableA5 reweighting specifications.tex", replace ///
     rstyle(tabular) ///
-    head("\begin{tabular}{l*{7}{>{\centering\arraybackslash}p{1.5cm}}}" ///
+    head("\begin{tabular}{l*{5}{>{\centering\arraybackslash}p{1.5cm}}>{\centering\arraybackslash}p{4.5cm}}" ///
          "\toprule" ///
-         "Specification & Adivasi & Dalit & OBC & Forward & Muslim & \# subgroups \textless3\% & Max \% dropped \\\\" ///
+         "Specification & Adivasi & Dalit & OBC & Forward & Muslim & Subgroups for which \newline \textgreater3\% of the pregnant sample was dropped \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
 #delimit cr
-

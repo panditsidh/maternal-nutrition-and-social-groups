@@ -86,7 +86,7 @@ foreach g in 1 2 3 5 {
 }
 
 
-local labels `"  "percentage point difference in pre-pregnancy underweight" " " "\textbf{Panel A: Decompositions of parity + birthspacing}" "pp difference within parity + birthspacing category$^{1}$" "pp difference across parity + birthspacing category$^{2}$" "\% explained by parity + birthspacing$^{3}$" " "  "\textbf{Panel B. Decompositions of wealth}"  "pp difference within wealth category$^{1}$"  "pp difference across wealth category$^{2}$"  "\% explained by wealth$^{3}$"  "'
+local labels `"  "percentage point difference in prepregnancy underweight" " " "\textbf{Panel A: Decompositions of parity + birthspacing}" "pp difference within parity + birthspacing category$^{1}$" "pp difference across parity + birthspacing category$^{2}$" "\% explained by parity + birthspacing$^{3}$" " "  "\textbf{Panel B. Decompositions of wealth}"  "pp difference within wealth category$^{1}$"  "pp difference across wealth category$^{2}$"  "\% explained by wealth$^{3}$"  "'
 
 #delimit ;
 esttab underweight1 underweight2 underweight3 underweight5, 

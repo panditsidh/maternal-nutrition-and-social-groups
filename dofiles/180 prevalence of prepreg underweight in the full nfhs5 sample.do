@@ -1,6 +1,5 @@
 * This dofile first just does the same stuff as 010 but doesn't drop group 6 and missing group and then it does reweighting on that 
 
-
 * DO ASSEMBLE DATA WITHOUT DROPPING GROUPS
 qui { 
 	
