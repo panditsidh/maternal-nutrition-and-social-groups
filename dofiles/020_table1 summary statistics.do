@@ -3,10 +3,6 @@
 * and we calculate these means in 12 groups - (5 social groups + 1 for all social groups) for both pregnant and nonpregnant women
 
 
-
-
-
-
 do "$paths"
 use "$dataset", clear
 

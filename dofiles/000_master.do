@@ -1,20 +1,15 @@
 do "$paths"
 
 // 1 : create dataset for analysis 
-do "dofiles/for Diane to review/010_assemble data.do"
+do "dofiles/010_assemble data.do"
 
+// 1.1: get appendix table A1 (regress 1 or 2 months pregnant on important covariates to show bias)
+do "dofiles/011 appendix tableA1 - 3+mopreg regression.do"
 
+// 1.2: get appendix table A2 (distribution of gestational ages to show underreporting of 1 or 2 month gestational duration)
+do "dofiles/012_appendix tableA2 distribution of gestational ages.do"
 
-// 1.1: look for bias among 1 and 2 month pregnant sample
-do "dofiles/for Diane to review/011 appendix table - 3+mopreg regression.do"
-
-// 1.2: check distribution of 1 and 2 month pregnant vs 3+ mo pregnant sample
-do "dofiles/for Diane to review/012_appendix table distribution of gestational ages.do"
-
-// 1.3: drop 1 and 2 month pregnant women 
-do "dofiles/for Diane to review/013_drop 1 to 2 month pregnant women.do"
-
-// 2 : summary statistics
+// 2 : summary statistics table
 do "dofiles/cleaned do files - reviewed/020_table summary statistics.do"
 
 
