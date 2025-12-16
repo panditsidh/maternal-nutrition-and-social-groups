@@ -38,7 +38,7 @@ do "dofiles/090_figure2 panels BDE showing pp outcomes by predictors.do"
 do "dofiles/100 figure2 six panels.do"
 
 // 11 : kitagawa decomposition
-do "dofiles/for Diane to review/110 table kitagawa results.do"
+do "dofiles/110 table2 kitagawa results.do"
 
 * TODO
 // 12 : tfrs

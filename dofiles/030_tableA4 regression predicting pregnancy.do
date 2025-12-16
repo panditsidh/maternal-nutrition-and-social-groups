@@ -1,3 +1,5 @@
+* this table gets appendix table A4
+
 *==========================
 *  Regression table: gestdur_3plus
 *==========================
