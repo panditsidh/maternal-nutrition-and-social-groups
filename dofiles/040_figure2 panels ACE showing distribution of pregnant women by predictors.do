@@ -1,7 +1,9 @@
-* This dofile generates the top row of panels in the 6 panel figure
+* 4: Panels ACE of Figure 2: Differences in parity, birth spacing, and wealth quartile by social group, and the relationship between these characteristics and prepregnancy underweight (stacked bars showing distribution of covariates within each social group)
 
 do "$paths"
 use "$dataset", clear
+
+drop if group==6 | group==.
 
 ************* FIGURE A: distribution of pregnant women by parity ***************
 preserve

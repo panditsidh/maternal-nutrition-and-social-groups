@@ -22,6 +22,7 @@ Notes on mechanics
 do "$paths"
 use "$dataset", clear
 
+drop if group==. | group==6
 *------------------------------------------------------------*
 * 1) Define the covariates shown in Table 1
 *------------------------------------------------------------*

@@ -120,13 +120,13 @@ matrix colnames results = ///
 drop *	
 
 input str100 rows
-"Original specification (4 category age bins)"
-"5 category age bins"
-"5 category age without less edu"
-"5 category age without rural"
-"5 category age without rural and less edu"
-"6 category age without rural and less edu"
-"7 category age without rural and less edu"
+"Original specification (4 category age bins)$^a$"
+"Replace age bins to 5 category$^b$"
+"Replace age bins to 5 category$^b$, remove education"
+"Replace age bins to 5 category$^b$, remove rural"
+"Replace age bins to 5 category$^b$, remove rural and education"
+"Replace age bins to 6 category$^c$, remove rural and education"
+"Replace age bins to 7 category$^d$, remove rural and education"
 end
 
 
@@ -138,7 +138,7 @@ forvalues g=1/5 {
     format underweight`g' %04.2f
 }
 
-format num_problems %04.2f
+format num_problems %04.0f
 format biggest_problem %04.2f
 
 
@@ -153,7 +153,7 @@ listtex rows ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{5}{>{\centering\arraybackslash}p{1.5cm}}>{\centering\arraybackslash}p{4.5cm}}" ///
          "\toprule" ///
-         "Specification & Adivasi & Dalit & OBC & Forward & Muslim & Subgroups for which \newline \textgreater3\% of the pregnant sample was dropped \\\\" ///
+         "Specification & Adivasi & Dalit & OBC & Forward & Muslim & Number of subgroups for which \newline \textgreater3\% of the pregnant sample  \newline was dropped \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");

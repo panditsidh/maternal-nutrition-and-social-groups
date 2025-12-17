@@ -1,11 +1,4 @@
-/*
-
-
-rows are social group
-
-cols are: BMI, weight, overweight, obesity, weight gain m1, weight gain m2
-
-*/
+* Table A7: Means and 95% CIs for additional maternal nutrition indicators by social group
 
 
 do "$paths"
