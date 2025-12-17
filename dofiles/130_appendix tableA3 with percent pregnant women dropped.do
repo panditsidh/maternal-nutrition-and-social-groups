@@ -3,6 +3,8 @@
  
 do "$paths"
 use "$dataset", clear
+
+drop if group==6|group==.
 do "dofiles/050_weights to estimate pp nutrition.do"
 
 
@@ -109,12 +111,15 @@ foreach v of varlist pctdrop_* {
 
 drop if missing(rows)
 
-keep rows-pctdrop_group5
-
 
 foreach v of varlist pctdrop_* {
     format `v' %4.2f
 }
+
+preserve 
+keep rows disp*
+
+
 
 #delimit ;
 listtex rows ///
