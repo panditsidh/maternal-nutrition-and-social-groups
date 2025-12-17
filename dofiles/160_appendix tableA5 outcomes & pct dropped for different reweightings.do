@@ -138,8 +138,8 @@ forvalues g=1/5 {
     format underweight`g' %04.2f
 }
 
-format num_problems %04.0f
-format biggest_problem %04.2f
+format num_problems %4.0f
+format biggest_problem %4.2f
 
 
 drop if missing(rows)
@@ -153,7 +153,7 @@ listtex rows ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{5}{>{\centering\arraybackslash}p{1.5cm}}>{\centering\arraybackslash}p{4.5cm}}" ///
          "\toprule" ///
-         "Specification & Adivasi & Dalit & OBC & Forward & Muslim & Number of subgroups for which \newline \textgreater3\% of the pregnant sample  \newline was dropped \\\\" ///
+         "Specification & Adivasi & Dalit & OBC & Forward & Muslim & Number of decomposition subgroups \newline for which \textgreater3\% of the pregnant \newline sample was dropped \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
