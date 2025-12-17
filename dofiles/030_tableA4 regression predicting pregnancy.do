@@ -1,7 +1,5 @@
 * this table gets Table A4: Variables used in the nonparametric reweighting predict pregnancy (from a regression on an indicator for being pregnant on the covariates we use in reweighting)
 
-
-
 do "$paths"
 use "$dataset", clear
 

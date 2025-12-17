@@ -1,5 +1,5 @@
 * this dofile creates appendix table A2
-* it simply shows the number of women at each gestational duration
+* it simply shows the number of pregnant women at each gestational duration
 * and the proportion of all pregnant women at each gestational duration
 * we show that there are notably fewer women at gestational durations of 1 or 2, suggesting that we do not observe the full sample since it should be evenly distributed 
 * we define pregnant based on v213 self reported currently pregnant
