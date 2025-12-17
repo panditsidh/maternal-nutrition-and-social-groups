@@ -31,6 +31,7 @@
 \floatstyle{plaintop}
 \restylefloat{table}
 \usepackage{rotating}
+\usepackage{ragged2e}
 \usepackage{authblk}
 
 % Optional styling for nicer author/affil typography
@@ -62,26 +63,29 @@
   {}{0pt}{}  % No numbering
   
 \begin{document}
+\RaggedRight
+ 
 \title{Fertility, Household Wealth, and Maternal Nutrition among Indian Social Groups} 
-\date{\today}
+\date{\today} 
 \maketitle
-
+   
 \begin{abstract}
 Maternal undernutrition is a threat to women’s health and a leading cause of child mortality and morbidity in India. This paper uses nationally representative data to estimate the fraction of women who begin pregnancy underweight -- a key indicator of maternal nutrition -- and presents the first estimates by caste and religion.  We use nonparametric reweighting to show that more than one in five Indian women start pregnancy underweight.  Adivasis and Dalits are 55\%, and 40\%, more likely, respectively, to be underweight before pregnancy than Forward Caste Hindus. Differences in fertility levels and birth spacing do not explain the maternal nutrition gaps that we observe.  Instead, differences in household wealth explain a large fraction of the gaps. Notably, and despite multidimensional disadvantage, we find that a similar fraction of Muslim and Forward Caste Hindu women start pregnancy underweight.  Our results suggest the continued need for monitoring of and health interventions in the prepregnancy period.
 \end{abstract}
 
+\subsection*{\textbf{Keywords:} Maternal nutrition, caste, pregnancy, decomposition}
 
-\section*{Highlights}
+\subsection*{Highlights}
 {\setstretch{0.25}
 \begin{itemize}
-    \item The fraction of women starting pregnancy with $BMI<18.5$ was 42\% in 2005 and 22\% in 2020.
+    \item The fraction of women starting pregnancy with BMI$<18.5$ was 42\% in 2005 and 22\% in 2020.
     \item Pregnant Adivasi and Dalit women are most likely to be underweight.
     \item Fertility and birth spacing \emph{do not} explain gaps across social groups.
     \item Differences in household wealth \emph{do} explain gaps across social groups.
 \end{itemize}
 }
 \newpage
-\onehalfspacing
+\doublespacing
 
 \section*{Introduction}
 
@@ -91,7 +95,7 @@ Prior research has documented a disproportionately high burden of maternal under
 
 Prepregnancy underweight, defined as having a body mass index (BMI) below 18.5 at conception \citep{who_nlis_malnutrition_women_2021}, is an important indicator of maternal nutrition. Health guidelines recommend that underweight women gain 28–40 pounds during pregnancy to compensate for limited nutrient reserves, roughly five pounds more than the recommendation for women who begin pregnancy in the normal BMI range \citep{yaktine2010weight, ismail2016gestational}. However, in low-income settings, including India, women typically gain very little weight during pregnancy, making the period before conception a critical window for nutrition interventions \citep{stephenson2018before, coffey2015prepregnancy, wang2020gestational, perumal2023suboptimal}.
 
-This paper contributes the most recent estimates of prepregnancy underweight for India, and the first estimates of prepregnancy underweight stratified by Indian social group. To estimate prepregnancy underweight from representative, cross-sectional data, we construct a nonparametric reweighting function to correct for selection into pregnancy.  This method was developed by \cite{coffey2015prepregnancy}, which found that 42\% of Indian women in 2005 began pregnancy underweight.  Using representative data from 2019-21, we find that 22\% of Indian women begin pregnancy with a BMI below 18.5. This result indicates that, despite improvement, maternal nutrition remains an important population health challenge for India.  
+This paper contributes the most recent estimates of prepregnancy underweight for India, and the first estimates of prepregnancy underweight stratified by Indian social group. To estimate prepregnancy underweight from representative, cross-sectional data, we construct a nonparametric reweighting function to correct for selection into pregnancy.  This method was developed by \cite{coffey2015prepregnancy}, which found that 42\% of Indian women in 2005 began pregnancy underweight.  Using representative data from 2019-2021, we find that 22\% of Indian women begin pregnancy with a BMI below 18.5. This result indicates that, despite improvement, maternal nutrition remains an important population health challenge for India.  
 
 We also contribute to a growing literature on how caste shapes population health in India  \citep{vyas2022social, gupta2020caste, coffey2019local, lopalo2019consequences, bora2019persistent}. We find that the burden of prepregnancy underweight is highest among Adivasi, or indigenous, women (28\%), followed by Dalits, a group of oppressed castes who have been treated as ``untouchable'' (25\%).  Muslim women who are not from a Dalit or Adivasi background have similar rates of prepregnancy underweight as Hindu women from dominant (``Forward'') castes (17\% and 18\%, respectively).  This is consistent with research on health disparities that documents health advantages among Indian Muslims relative to Hindus, despite socioeconomic disadvantage \citep{guillot2010hindu, bhalotra2010puzzle, visaria2015preference, geruso2018neighborhood, sharma_gupta_2025}.  
 
@@ -99,7 +103,7 @@ In addition to documenting disparities, this study also investigates explanation
 
 Second, we consider whether differences in household wealth can explain the gaps in prepregnancy underweight that we observe.  Using a Kitagawa decomposition, we find that the distributions of women into wealth quartiles explains about 70\% of the Forward caste-Adivasi gap, and about 65\% of the Forward caste-Dalit gap in prepregnancy underweight. We note that although differences in the distribution of women into wealth categories does explain a majority of the gaps we observe, large fractions of the gaps remain unexplained.
 
-In the next section, we present background information on maternal and child health patterns and measurement, on Indian social groups, and on the causes of maternal undernutrition.  We then describe our data, the fifth round of the National Family Health Survey (NFHS) (2019-21), India's Demographic and Health Survey.  We present two complementary decomposition methods that we use to analyze maternal nutrition levels and disparities.  The first is a nonparametric reweighting technique that corrects for selection into pregnancy.  The second is a Kitagawa decomposition that helps us investigate candidate explanations for group-level disparities in prepregnancy underweight.  Finally, we discuss our results and consider implications for policy and future research.
+In the next section, we present background information on maternal and child health patterns and measurement, on Indian social groups, and on the causes of maternal undernutrition.  We then describe our data, the fifth round of the National Family Health Survey (NFHS) (2019-2021), India's Demographic and Health Survey.  We present two complementary decomposition methods that we use to analyze maternal nutrition levels and disparities.  The first is a nonparametric reweighting technique that corrects for selection into pregnancy.  The second is a Kitagawa decomposition that helps us investigate candidate explanations for group-level disparities in prepregnancy underweight.  Finally, we discuss our results and consider implications for policy and future research.
 
 
 \section{Background}
@@ -150,7 +154,7 @@ Even if increases in wealth are less likely to translate into improvements in th
  
 The ideal data for measuring the proportion of women who are underweight before pregnancy would come from a national pregnancy monitoring system, where anthropometric measurements for the same person are taken before, during, and after pregnancy.  However, no such representative data for India exist.  Therefore, we estimate the prevalence of prepregnancy underweight from cross-sectional data \citep{coffey2015prepregnancy}.  We construct a nonparametric reweighting function based on observable characteristics of pregnant women, and apply it to representative cross-sectional data on the body mass index scores of nonpregnant women.  
 
-We use the most recent Demographic and Health Survey (DHS) from India, the National Family Health Survey (2019-21) (NFHS-5). These data are publicly available from \texit{www.dhsprogram.com}.  The NFHS-5 is a clustered multistage sample survey that interviewed over 635,000 households and over 720,000 women between the ages of 15 and 49. 
+We use the most recent Demographic and Health Survey (DHS) from India, the National Family Health Survey (2019-2021) (NFHS-5). These data are publicly available from \texit{www.dhsprogram.com}.  The NFHS-5 is a clustered multistage sample survey that interviewed over 635,000 households and over 720,000 women between the ages of 15 and 49. 
 
 \subsection{Key Variables}
 
@@ -263,7 +267,7 @@ Differences in the distributions of household wealth, in contrast, explain a lar
 
 \section{Discussion}
 
-This paper contributes the most recent estimates of the prevalence of prepregnancy underweight for India and the first estimates by social group. Notably, we find that in 2019-21, more than one in five women in India was underweight at the beginning of pregnancy.  This represents progress in maternal health; the prevalence of prepregnancy underweight has come down by 50\% since 2005.  However, the prevalence of prepregnancy underweight remains high.  For comparison, in the United States, fewer than 5\% of women are underweight before pregnancy \citep{zong2022maternal}. Even among socially dominant Forward caste Hindus, the burden of prepregnancy underweight remains similar to what it was among all sub-Saharan African women two decades ago \citep{coffey2015prepregnancy}.  
+This paper contributes the most recent estimates of the prevalence of prepregnancy underweight for India and the first estimates by social group. Notably, we find that in 2019-2021, more than one in five women in India was underweight at the beginning of pregnancy.  This represents progress in maternal health; the prevalence of prepregnancy underweight has come down by 50\% since 2005.  However, the prevalence of prepregnancy underweight remains high.  For comparison, in the United States, fewer than 5\% of women are underweight before pregnancy \citep{zong2022maternal}. Even among socially dominant Forward caste Hindus, the burden of prepregnancy underweight remains similar to what it was among all sub-Saharan African women two decades ago \citep{coffey2015prepregnancy}.  
 
 Within India, the burden of maternal undernutrition falls disproportionately on Adivasi, Dalit, and OBC women.  Considering these groups' social and economic disadvantage, the finding may be unsurprising.  However, \cite{harris2017determinants}'s review article of intrahousehold food allocation among adults suggests that that oppressed caste households that are ``not severely food insecure'' may distribute food more equally between men and women that Forward caste Hindu households.  This may be because oppressed caste women are more likely to work outside the home than dominant caste womorryen, and so have greater autonomy within their homes \citep{chakrabarty1996gender, eswaran2013status}.  The frequency and nature of women's religious fasting may also differ across social groups.  However, our analysis of an IHDS (2011) question which asked ever-married women whether women eat with, or after, the men in their households, found no difference between Forward Caste Hindus, on the one hand, and Dalits or Adivasis, on the other.  Figure \ref{fig:ihds_eat_last} in the online appendix shows the proportion of women who report eating last, by social group.  Further research is needed to better understand whether there are social group differences in intrahousehold food allocation, and if so, why.  
 
@@ -455,7 +459,7 @@ Finally, this study highlights the value of representative, longitudinal monitor
     \begin{tablenotes}
     \footnotesize
     \item 
-        Observations are women interviewed by the NFHS-5 who report being currently pregnant, N=24,217.
+        Observations are women interviewed by the NFHS-5 who report being currently pregnant.
     \end{tablenotes}
     
     \end{threeparttable}
@@ -551,6 +555,7 @@ Finally, this study highlights the value of representative, longitudinal monitor
         \item $^b$ 5 category age bin has 15-19, 20-24, 25-29, 30-34, and 35-49.
         \item $^c$ 6 category age bin has 15-19, 20-22, 23-25, 26-29, 30-34, and 35-49.
         \item $^d$ 7 category age bin has 15-17, 18-20, 21-23, 24-26, 27-30, and 31-34 and 35-39.
+        \item $^e$ decomposition subgroups refers to wealth quartile or parity and birth spacing subgroups within each social group (70 subgroups total)
 
         
     \end{tablenotes}
