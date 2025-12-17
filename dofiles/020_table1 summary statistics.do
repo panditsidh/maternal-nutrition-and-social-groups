@@ -164,7 +164,7 @@ keep v* rows
 *     - For the N row: show integer count (stored in v# on that row)
 *------------------------------------------------------------*
 foreach i of numlist 1/12 {
-    gen disp_v`i' = string(v`i') if _n==33
+    gen disp_v`i' = string(v`i', "%15.0fc") if _n==33
     replace disp_v`i' = substr(string(v`i', "%4.2f"), 2, .) ///
         if (rows!="" & strmatch(rows, "\textbf{*")==0) & _n<33
 }

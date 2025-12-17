@@ -3,7 +3,7 @@
 do "$paths"
 use "$dataset", clear
 
-
+drop if group==. | group==6
 
 *--------------------------
 * Overall model

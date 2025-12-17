@@ -94,6 +94,18 @@ end
 
 svmat results, names(col)
 
+*-------------------------------*
+* Format N columns with commas
+*-------------------------------*
+foreach v of varlist n_* {
+    gen str20 disp_`v' = cond(missing(`v'), "", string(`v', "%15.0fc"))
+}
+
+* Keep pctdrop formatted as before (or create disp_ versions too)
+foreach v of varlist pctdrop_* {
+    gen str10 disp_`v' = cond(missing(`v'), "", string(`v', "%4.2f"))
+}
+
 
 drop if missing(rows)
 
@@ -101,26 +113,46 @@ keep rows-pctdrop_group5
 
 
 foreach v of varlist pctdrop_* {
-    format `v' %04.2f
+    format `v' %4.2f
 }
-
 
 #delimit ;
 listtex rows ///
-    n_allgroups pctdrop_allgroups ///
-    n_group1 pctdrop_group1 ///
-    n_group2 pctdrop_group2 ///
-    n_group3 pctdrop_group3 ///
-    n_group4 pctdrop_group4 ///
-    n_group5 pctdrop_group5 ///
+    disp_n_allgroups disp_pctdrop_allgroups ///
+    disp_n_group1    disp_pctdrop_group1 ///
+    disp_n_group2    disp_pctdrop_group2 ///
+    disp_n_group3    disp_pctdrop_group3 ///
+    disp_n_group4    disp_pctdrop_group4 ///
+    disp_n_group5    disp_pctdrop_group5 ///
     using "tables/tableA3 percent dropped.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{12}{>{\centering\arraybackslash}p{1.2cm}}}" ///
          "\toprule" ///
          "& \multicolumn{2}{c}{\shortstack{All five \\\\ social groups}} & \multicolumn{2}{c}{Adivasi} & \multicolumn{2}{c}{Dalit} & \multicolumn{2}{c}{OBC} & \multicolumn{2}{c}{Forward} & \multicolumn{2}{c}{Muslim} \\\\" ///
          "\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11} \cmidrule(lr){12-13}" ///
-         "Predictor Group & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped \\\\" ///
+         "Predictor Group & N & \% dropped & N & \% dropped & N & \% dropped & N & \% dropped & N & \% dropped & N & \% dropped \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
 #delimit cr
+
+
+// #delimit ;
+// listtex rows ///
+//     n_allgroups pctdrop_allgroups ///
+//     n_group1 pctdrop_group1 ///
+//     n_group2 pctdrop_group2 ///
+//     n_group3 pctdrop_group3 ///
+//     n_group4 pctdrop_group4 ///
+//     n_group5 pctdrop_group5 ///
+//     using "tables/tableA3 percent dropped.tex", replace ///
+//     rstyle(tabular) ///
+//     head("\begin{tabular}{l*{12}{>{\centering\arraybackslash}p{1.2cm}}}" ///
+//          "\toprule" ///
+//          "& \multicolumn{2}{c}{\shortstack{All five \\\\ social groups}} & \multicolumn{2}{c}{Adivasi} & \multicolumn{2}{c}{Dalit} & \multicolumn{2}{c}{OBC} & \multicolumn{2}{c}{Forward} & \multicolumn{2}{c}{Muslim} \\\\" ///
+//          "\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11} \cmidrule(lr){12-13}" ///
+//          "Predictor Group & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped & n & \% dropped \\\\" ///
+//          "\midrule") ///
+//     foot("\bottomrule" ///
+//          "\end{tabular}");
+// #delimit cr
