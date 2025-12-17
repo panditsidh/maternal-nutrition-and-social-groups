@@ -120,7 +120,7 @@ P - Pregnancy
 8 - Periodic abstinence/rhythm
 9 - Withdrawal
 W - Other traditional methods
-N - Implants
+N - Implants (is a modern method)
 A - Abstinence
 L - Lactational amenorrhea method (LAM) (is a modern method)
 C - Female condom (is a modern method)
@@ -137,7 +137,7 @@ replace modernmethod = (v313 == 3) if preg == 0
 gen precon_pos = gestdur + 2 if preg == 1 & gestdur < .
 gen precon_code = substr(trim(vcal_1), precon_pos, 1) if preg == 1
 replace modernmethod = inlist(precon_code,"1","2","3","4","5","6","7") if preg==1
-replace modernmethod = inlist(precon_code, "L","C","F","N","9","S","M") if preg==1
+replace modernmethod = inlist(precon_code, "L","C","F","N","S","M") if preg==1
 
 gen female_ster = .
 gen male_ster   = .

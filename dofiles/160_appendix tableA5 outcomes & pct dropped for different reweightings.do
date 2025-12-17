@@ -153,7 +153,7 @@ listtex rows ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{5}{>{\centering\arraybackslash}p{1.5cm}}>{\centering\arraybackslash}p{4.5cm}}" ///
          "\toprule" ///
-         "Specification & Adivasi & Dalit & OBC & Forward & Muslim & Number of decomposition subgroups \newline for which \textgreater3\% of the pregnant \newline sample was dropped \\\\" ///
+         "Specification & Adivasi & Dalit & OBC & Forward & Muslim & Number of decomposition subgroups for which  \newline \textgreater3\% of the pregnant \newline sample was dropped$^e$ \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");

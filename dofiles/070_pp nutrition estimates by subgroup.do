@@ -14,6 +14,8 @@ qui do "$paths"
 use "$dataset", clear
 qui do "dofiles/050_weights to estimate pp nutrition.do"
 
+drop if group==6 | group==.
+
 * initialize results matrix
 local outcomes bmi weight underweight overweight obesity gainhatm1 gainhatm2
 
@@ -93,7 +95,7 @@ foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 				
 			}
 			
-			* all other outcomes - simple sum using reweighting, get ci from bootstrapping later
+			* all other outcomes - simple mean using reweighting, get ci from bootstrapping later
 			if strpos("`outcome'", "gainhat")==0 {
 
 				sum `outcome' if `overvar'==`i' & preg==0 [aw=reweightingfxn]	

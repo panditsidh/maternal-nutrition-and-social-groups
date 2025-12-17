@@ -5,7 +5,7 @@ clear all
 
 set seed 8062011
 local B = 1001 //how many times to bootstrap
-local chunk_size = 50
+local chunk_size = 20
 ******************* PREPARING BOOTSTRAP RESULTS DATASET ************************
 
 * bootstrapping loop start
@@ -62,7 +62,7 @@ use "$dataset", clear
 bsample, strata(strata) cluster(psu) 
 
 * generate weights for calculating pre-pregnancy outcomes based on bootstrap sample
-qui do "dofiles/cleaned do files - reviewed/050_weights to estimate pp nutrition.do"
+qui do "dofiles/050_weights to estimate pp nutrition.do"
 
 * get prepregnancy estimates within various subgrouping variables 
 foreach overvar in allfivegroups group parity bs parity_bs wealth {
