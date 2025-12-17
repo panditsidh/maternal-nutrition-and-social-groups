@@ -1,10 +1,7 @@
-* this table gets appendix table A4
+* this table gets Table A4: Variables used in the nonparametric reweighting predict pregnancy (from a regression on an indicator for being pregnant on the covariates we use in reweighting)
 
-*==========================
-*  Regression table: gestdur_3plus
-*==========================
 
-* paths & data
+
 do "$paths"
 use "$dataset", clear
 

@@ -81,6 +81,25 @@ gen preg = v213
 replace preg = . if gestdur<3 & v213==1
 gen gestdur_3plus = gestdur>=3 if !missing(gestdur) & v213==1
 
+
+
+
+**************************** CONTRACEPTIVE USE ********************************
+
+//Create the variables that will be used to match pregnant and nonpregnant women for the estimation of prepregnancy underweight.
+*not using modern contraception (binary)
+*age (4 categories)
+*less education (binary)
+*rural resident (binary)
+*parity and time since last birth (10 categories)
+*wealth (4 categories)
+// 
+
+*not a contraceptive user
+//This code identifies contraceptive use at the time of the survey for non-pregnant women and the contraceptive use in the month before conception/pregnancy for women who are currently pregnant.
+//The Stata code below only accomodates numeric options as answers for the contraceptive use questions. In the NFHS-5 women's questionnaire, "other modern contraception" is listed as an option denoted by an "X," but no "Xs" were recorded in the contraceptive calendars.  So, the code can be used as is.
+//We note that 1,554 pregnant women (2.44% of pregnant women) became pregnant while using a modern method.  only 4 of 23,246 currently pregnant women became pregnant despite herself sterilized and only 2 despite her husband sterilized
+
 /*
 
 this is the DHS recode key for modern method contraception
@@ -113,25 +132,6 @@ M1 - Other modern method (DHSVI) (is a modern method)
 
 */
 
-
-**************************** CONTRACEPTIVE USE ********************************
-
-//Create the variables that will be used to match pregnant and nonpregnant women for the estimation of prepregnancy underweight.
-*not using modern contraception (binary)
-*age (4 categories)
-*less education (binary)
-*rural resident (binary)
-*parity and time since last birth (10 categories)
-*wealth (4 categories)
-// 
-
-*not a contraceptive user
-//This code identifies contraceptive use at the time of the survey for non-pregnant women and the contraceptive use in the month before conception/pregnancy for women who are currently pregnant.
-//The Stata code below only accomodates numeric options as answers for the contraceptive use questions. In the NFHS-5 women's questionnaire, "other modern contraception" is listed as an option denoted by an "X," but no "Xs" were recorded in the contraceptive calendars.  So, the code can be used as is.
-//We note that 1,554 pregnant women (2.44% of pregnant women) became pregnant while using a modern method.  only 4 of 23,246 currently pregnant women became pregnant despite herself sterilized and only 2 despite her husband sterilized
-
-* NEW
-
 gen modernmethod = .
 replace modernmethod = (v313 == 3) if preg == 0
 gen precon_pos = gestdur + 2 if preg == 1 & gestdur < .
@@ -163,38 +163,6 @@ label define not_c_userlbl ///
     1 "not using modern contraception" ///
     0 "using contraception" 
 label values not_c_user not_c_userlbl
-
-// * OLD this code defines it based on the 15 months before survey (nonpregnant) or before conception (pregnant)
-
-// gen vcal_1_trim = trim(vcal_1)
-//
-// * bounds
-// gen win_start = .
-// replace win_start = 2             if v213==0
-// replace win_start = gestdur + 2    if v213==1 & gestdur < .
-//
-// * extract exactly the 15-month window
-// gen vcal_win = substr(vcal_1_trim, win_start, 15)
-//
-// * TABULATE 
-// // tab1 preg
-// //
-// // * break window into characters and tab them, separately by pregnancy status
-// // forvalues k=1/15 {
-// //     gen ch`k' = substr(vcal_win, `k', 1)
-// // }
-// //
-// // forvalues k=1/15 {
-// //     di "---- position `k' ----"
-// //     tab ch`k' if preg==1
-// // }
-// //
-//
-// * modern method if ANY of 1-7 appears in the 15 chars
-// gen modernmethod = regexm(vcal_win, "[1-7CNM]")
-// replace modernmethod = 1 if regexm(vcal_win, "9")
-
-
 
 
 **************************** BIRTH HISTORY ********************************

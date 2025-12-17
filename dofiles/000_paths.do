@@ -1,5 +1,6 @@
 //This do file sets paths for Sidh and Diane to run the code to generate tables and figures for the paper "Fertility and Maternal Undernutrition by Indian Social Group"
 
+* we can delete everything except for YOUR USERNAME one before submission.
 
 if "`c(username)'" == "YOUR USERNAME" {
 	

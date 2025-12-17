@@ -1,9 +1,9 @@
-* This file gets the main result figure 1
+* Figure 1: Prepregnancy underweight by social group (plotted with confidence intervals)
 
 do "$paths"
 use "data/results.dta", clear
 
-* you can change this to any outcome
+* you can change this to any outcome, just add a prettyname for it. we report underweight in the paper.
 local var underweight
 
 local prettyname = upper("`var'")

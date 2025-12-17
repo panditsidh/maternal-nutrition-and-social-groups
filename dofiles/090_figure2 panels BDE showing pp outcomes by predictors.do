@@ -1,8 +1,6 @@
 ** This do-file graphs outcomes (with bootstrapped ci) by parity, wealth, and birth spacing
 
 
-
-
 do "$paths"
 
 use "$dataset", clear

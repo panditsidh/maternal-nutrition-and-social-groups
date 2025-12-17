@@ -1,5 +1,5 @@
 
-/* this dofile generates a dataset that has 
+/* this dofile generates a stata dataset that has 
 
 rows: 5 social groups + 1 all groups + 4 parity + 3 birth spacing + 4 wealth = 17
 

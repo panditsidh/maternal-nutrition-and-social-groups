@@ -31,10 +31,3 @@ graph combine figure2a.gph figure2c.gph figure2e.gph figure2b.gph figure2d.gph f
 	
 cd "`orig_dir'"
 graph export "figures/figure2 predictors by social group and gradients.pdf", replace
-
-
-
-* REMOVED THIS SO THAT WE CAN EDIT IT IN OVERLEAF
-
-// ///
-//     note("Note: NFHS-5 data. In panels A and E, n=`sample_size_ae' (3+ months pregnant women), in panel C,  n=`sample_size_c' (3+ months pregnant women who have at least one live" "birth). In panels B and F, n=`sample_size_bf' (non-pregnant women), and in panel E, n=`sample_size_e' (non-pregnant women who have at least one live birth). Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).", size(small))
