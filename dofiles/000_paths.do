@@ -64,19 +64,16 @@ if "`c(username)'" == "sidhpandit" {
 
 
 if "`c(username)'" == "dc42724" {
-// 	global nfhs3ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\ir\IAIR52FL.dta"
-// 	global nfhs4ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\ir\IAIR71FL.DTA"
+
 	global nfhs5ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAIR7DDT\IAIR7DFL.DTA"
-	
-// 	global nfhs3br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\br\IABR52FL.dta"
-// 	global nfhs4br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\br\IABR71FL.DTA"
-// 	global nfhs5br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IABR7EDT\IABR7EFL.DTA"
 
 	global dataset "C:\Users\dc42724\Dropbox\K01\maternal-nutrition-social-group\data\prepared_dataset.dta"
 	
 	cd "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups"
 	
 	global paths "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\cleaned do files - reviewed\000_paths.do"
+	
+	global ihds2_ewomen "C:\Users\dc42724\Dropbox\Data\IHDS\2011 data\women\36151-0003-Data.dta"
 }
 
 
