@@ -42,6 +42,9 @@ gen forward = group==4
 gen muslim = group==5
 gen allfivegroups = 1
 
+**Keep only married women
+keep if v501==1
+
 **************************** GESTATIONAL DURATION ******************************
 
 //generate months since last period in order to exclude women who are 1 or 2 months pregnant from the analysis.
@@ -65,12 +68,15 @@ replace moperiod = 9 if v215==309
 replace moperiod = 10 if v215==310 
 replace moperiod = 11 if v215==311 
 
-//months since last period is not reported for 1,274 women who also report pregnancy.  use self-reported "months pregnant" as a measure of gestational duration for those women.
-//this allows us to assign a gestational duration for all but 5 women who report pregnancy.
+
 count if moperiod==. & v213==1
+//months since last period is not reported for ~1000 women who also report pregnancy.  use self-reported "months pregnant" as a measure of gestational duration for those women.
+//this allows us to assign a gestational duration for all but 5 women who report pregnancy.
+
 gen gestdur = moperiod if v213==1
 replace gestdur = v214 if missing(moperiod) & v213==1
-tab gestdur if v213==1, m
+
+//divide the number for whom "gestdur" is filled with v214 by the number of pregnant women
 
 //create an appendix table to explain why we drop women who report 1, 2, or missing months of gestational duration.
 tab gestdur if v213==1, m
@@ -80,8 +86,6 @@ tab gestdur if v213==1, m
 gen preg = v213
 replace preg = . if gestdur<3 & v213==1
 gen gestdur_3plus = gestdur>=3 if !missing(gestdur) & v213==1
-
-
 
 
 **************************** CONTRACEPTIVE USE ********************************
