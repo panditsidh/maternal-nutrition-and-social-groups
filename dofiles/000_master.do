@@ -1,6 +1,5 @@
-* Please edit this file to reflect your system paths to the NFHS and IHDS datasets needed in this paper. It also sets the working directory as this project folder. If your working directory changes, some code files might fail, but you can just rerun this to reset it. 
+* Please edit this file to reflect your system paths to the NFHS and IHDS datasets needed in this paper. It also sets the working directory as this project folder. If your working directory changes, some code files might fail, but you can just rerun this 000 paths to reset it. 
 do "$paths"
-
 
 * Note to Diane: every file in here runs self sufficiently, so the order isn't really important. 
 
@@ -45,7 +44,7 @@ do "dofiles/110 table2 kitagawa results.do"
 do "dofiles/for Diane to review/120_appendix table TFRs by social group.do"
 
 * 13: Table A3: Sample sizes of 3+ month pregnant women in each subgroup and the % of pregnant women dropped to estimate pre-pregnancy underweight
-do "dofiles/for Diane to review/130_appendix table with percent pregnant women dropped.do"
+do "dofiles/130_appendix tableA3 with percent pregnant women dropped.do"
 
 * 15: Table A7: Means and 95% CIs for additional maternal nutrition indicators by social group
-do "dofiles/for Diane to review/150_appendix table additional maternal nutrition indicators.do"
+do "dofiles/150_appendix tableA7 additional maternal nutrition indicators"

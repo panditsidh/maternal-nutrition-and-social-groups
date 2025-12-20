@@ -110,9 +110,13 @@ foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 			use "data/bootstrap cis for pp outcomes.dta", clear
 			
 			if "`outcome'"!="gainhatm1" {	
-				sum `outcome'_`overvar'`i', detail
-				matrix results[`row', `col'+1] = r(p5)
-				matrix results[`row', `col'+2] = r(p95)
+// 				sum `outcome'_`overvar'`i', detail
+// 				matrix results[`row', `col'+1] = r(p5)
+// 				matrix results[`row', `col'+2] = r(p95)
+				_pctile `outcome'_`overvar'`i', p(2.5 97.5)
+				matrix results[`row', `col'+1] = r(r1)
+				matrix results[`row', `col'+2] = r(r2)
+
 			}
 			
 	
