@@ -13,6 +13,9 @@ egen strata = group(v000 v024 v025)
 replace strata = 7 if strata==8
 egen psu = group(v000 v001 v024 v025)
 
+**Keep only married women
+keep if v501==1
+
 ********************************* SOCIAL GROUP *********************************
 //This paper only analyzes data for women beloning to the following groups:
 *Adivasi and Dalit (all religions)

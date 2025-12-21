@@ -41,7 +41,7 @@ do "dofiles/100 figure2 six panels.do"
 do "dofiles/110 table2 kitagawa results.do"
 
 * 12: Table A6: Fertility rates by social group
-do "dofiles/120_appendix table TFRs by social group.do"
+do "dofiles/120_appendix tableA6 TFRs by social group"
 
 * 13: Table A3: Sample sizes of 3+ month pregnant women in each subgroup and the % of pregnant women dropped to estimate pre-pregnancy underweight
 do "dofiles/130_appendix tableA3 with percent pregnant women dropped.do"
