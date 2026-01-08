@@ -387,12 +387,11 @@ gen reweightingfxn = v005*transferpreg/transfernonpreg if dropbin!=1 & preg==0
 	
 }
 
-
 * what is the national prepregnancy underweight prevalence with this sample?
 sum underweight [aw=reweightingfxn] if gestdur_3plus==0 & dropbin!=1
 
 
 
-* i get 22.23%
+* i get 19.83%
 
 count if parity>=2 & preg==1 & gestdur>=3

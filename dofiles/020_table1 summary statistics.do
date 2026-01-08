@@ -165,9 +165,9 @@ keep v* rows
 *------------------------------------------------------------*
 foreach i of numlist 1/12 {
     gen disp_v`i' = string(v`i', "%15.0fc") if _n==33
-    replace disp_v`i' = substr(string(v`i', "%4.2f"), 2, .) ///
-        if (rows!="" & strmatch(rows, "\textbf{*")==0) & _n<33
-}
+    replace disp_v`i' = subinstr(string(v`i', "%6.2f"), "0.", ".", 1) if (rows!="" & strmatch(rows, "\textbf{*")==0) & _n<33 
+	}
+
 
 drop v*
 drop if _n==1   // drop the first blank spacer row used for formatting

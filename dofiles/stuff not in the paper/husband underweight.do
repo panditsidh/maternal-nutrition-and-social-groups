@@ -126,9 +126,7 @@ replace state_module = hh_shmweight!=0 if missing(state_module)
 
 * problem is, for 83% of "not at home" husbands, we don't know their age
 
-* COME BACK TO THIS
-
-* 
+* COME BACK TO THIS 
 
 svyset psu [pw=v005], strata(strata) singleunit(centered)
 matrix R = J(6, 5, .)

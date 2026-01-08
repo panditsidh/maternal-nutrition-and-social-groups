@@ -1,5 +1,5 @@
 //This file creates the weights that are applied to non-pregnant women to compute pre-pregnancy nutrition estimates.
-do "$paths"
+// do "$paths"
 
 * ----------- PARAMETERS-----------
 local binvars not_c_user agebin rural less_edu noboy wealth parity_bs group
