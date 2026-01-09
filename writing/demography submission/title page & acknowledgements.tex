@@ -1,26 +1,85 @@
 \documentclass[12pt]{article}
-
-\usepackage[margin=1in]{geometry}
+\usepackage{graphicx} %package to manage images
+\usepackage{accsupp}     % for actual PDF alt text
+\usepackage{accessibility}
+\graphicspath{ {./figures/} }
+\usepackage{caption}
+\usepackage[font=scriptsize]{subcaption}
+\captionsetup[figure]{labelsep=none}
+\captionsetup[table]{labelsep=none}
+\usepackage{bbm}
+\usepackage{amsmath}
+\usepackage{import}
+\usepackage{array}
+\usepackage{booktabs}     % no extra vertical space between paragraphs
+\usepackage{indentfirst}
+\usepackage{afterpage}
+\usepackage{floatrow}
+\usepackage{pdflscape}
+\usepackage{soul}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{longtable}
+\usepackage{caption}
 \usepackage{setspace}
-\usepackage{authblk}
-\usepackage{ragged2e}
-
+\usepackage{afterpage}
+\usepackage[margin=1in]{geometry}
+\usepackage[round]{natbib}
 \usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{threeparttable}
+\usepackage{setspace}
+\usepackage{float}
+\floatstyle{plaintop}
+\restylefloat{table}
+\usepackage{rotating}
+\usepackage{ragged2e}
+\usepackage{authblk}
+
+
+
+\usepackage{totcount}
+\newtotcounter{citnum} % Define a new counter named 'citnum'
+
+% Optional styling for nicer author/affil typography
+\renewcommand\Authfont{\normalsize\bfseries}
+\renewcommand\Affilfont{\small\normalfont}
+\setlength{\affilsep}{0.3em} % space between author and affiliation
+
+% \author[1,2,3]{Diane Coffey\thanks{Corresponding author: coffey@utexas.edu}}
+
+% \author[1]{Siddhant Pandit}
+
+% \affil[1]{Population Research Center, UT Austin}
+% \affil[2]{Department of Sociology, UT Austin}
+% \affil[3]{r.i.c.e., a research institute for compassionate economics}
+
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{14}{16}\selectfont}  % Bold 14pt
+  {}{0pt}{}  % No numbering
+
+\titleformat{\subsection}
+  {\normalfont\bfseries\fontsize{12}{14}\selectfont}  % Bold 12pt
+  {}{0pt}{}  % No numbering
+
+\titleformat{\subsubsection}
+  {\normalfont\itshape\fontsize{12}{14}\selectfont}  % Italic 12pt
+  {}{0pt}{}  % No numbering
+  
 \begin{document}
 \thispagestyle{empty}
 \singlespacing
 \RaggedRight
 
+
+
 %--------------------------------------------------
 % Title
 %--------------------------------------------------
-\vspace*{1.5in}
 
-\begin{center}
-{\Large\bfseries
-Fertility, Household Wealth, and Maternal Nutrition among Indian Social Groups
-}
-\end{center}
+\section*{Disparities in Maternal Nutrition among Indian Social Groups: \\The Roles of Fertility Patterns and Household Wealth} 
+
 
 \vspace{1.2em}
 
@@ -28,9 +87,8 @@ Fertility, Household Wealth, and Maternal Nutrition among Indian Social Groups
 % Authors
 %--------------------------------------------------
 \begin{center}
-Diane Coffey\textsuperscript{1,2,3}\thanks{Corresponding author: coffey@utexas.edu}
-\\[0.4em]
-Siddhant Pandit$^{1}$
+Diane Coffey\textsuperscript{1,2,3}
+and Siddhant Pandit$^{1}$
 \end{center}
 
 
@@ -51,7 +109,7 @@ $^{3}$ r.i.c.e., a research institute for compassionate economics
 % Acknowledgements
 %--------------------------------------------------
 \noindent\textbf{Acknowledgements.}  
-We thank Dean Spears for helpful input in interpreting our preliminary results and revising our paper for submission. 
+We thank Dean Spears for helpful input in interpreting our preliminary results and providing feedback on drafts. 
 
 \vspace{1em}
 
@@ -59,7 +117,7 @@ We thank Dean Spears for helpful input in interpreting our preliminary results a
 % Funding
 %--------------------------------------------------
 \noindent\textbf{Funding.}  
-This research was supported by the Eunice Kennedy Shriver National Institute of Child Health and Human Development grant P2CHD042849 (awarded to the Population Research Center at the University of Texas at Austin) and by K01 grant. Funders had no role in the design of the study, data, analysis, or interpretation; the writing of the manuscript; or the decision to submit for publication. The content does not necessarily represent the official views of any funder. No additional external funding was received.
+This research was supported by the Eunice Kennedy Shriver National Institute of Child Health and Human Development grant P2CHD042849 (awarded to the Population Research Center at the University of Texas at Austin) and by Eunice Kennedy Shriver National Institute of Child Health and Human Development grant 5K01HD103999 to Diane Coffey. Funders had no role in the design of the study, data, analysis, or interpretation; the writing of the manuscript; or the decision to submit for publication. The content does not necessarily represent the official views of any funder. 
 
 \vspace{1em}
 
@@ -74,8 +132,8 @@ The authors declare no competing interests.
 %--------------------------------------------------
 % AI Disclosure
 %--------------------------------------------------
-\noindent\textbf{Declaration of AI-assisted technology.}  
-OpenAI ChatGPT (GPT-5.2) was used as an interactive assistant for Stata programming and for generating LaTeX table-export commands given author-specified formatting requirements. The tool was not used for model specification, statistical inference, or interpretation of results. All AI-suggested code and text edits were reviewed and implemented by the authors.
+\noindent\textbf{Declaration of Use of AI-assisted technology.}  
+OpenAI ChatGPT (GPT-5.2) was used as an interactive assistant for improving manually written Stata code, generating figure and LaTeX table export commands given author-specified formatting requirements, and for limited copyediting assistance, such as suggestions on reducing word count. The tool was not used for statistical inference, interpretation of results, or to produce text in the manuscript. All AI-suggested edits were reviewed and implemented by the authors.
 
 \vspace{1.5em}
 
