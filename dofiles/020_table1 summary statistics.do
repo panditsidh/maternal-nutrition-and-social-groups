@@ -1,4 +1,4 @@
-/****************************************************************************************
+/*
 Table 1: Descriptive statistics by social group and pregnancy status
 
 Goal
@@ -17,9 +17,9 @@ Notes on mechanics
   duplicated copy. After collapsing, group==0 is relabeled as group==6 for display ordering.
 - Weighted means use DHS sampling weights (v005) via [pw=v005].
 - "N" row uses the *true unweighted count* (no duplication) merged back after collapse.
-****************************************************************************************/
+*/
 
-do "$paths"
+*do "$paths"
 use "$dataset", clear
 
 drop if group==. | group==6

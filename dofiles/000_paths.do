@@ -71,7 +71,7 @@ if "`c(username)'" == "dc42724" {
 	
 	cd "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups"
 	
-	global paths "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\cleaned do files - reviewed\000_paths.do"
+	global paths "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\000_paths.do"
 	
 	global ihds2_ewomen "C:\Users\dc42724\Dropbox\Data\IHDS\2011 data\women\36151-0003-Data.dta"
 }
