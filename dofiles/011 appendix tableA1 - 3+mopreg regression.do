@@ -17,10 +17,12 @@ drop if group==6
 
 gen gestdur_1or2 = inlist(gestdur,1,2) // self reports 1 or 2 months pregnant
 
+
+* removed //     i.not_c_user
+
 * run model for that group
 #delimit ;
 reghdfe gestdur_1or2
-    i.not_c_user
     i.less_edu
     i.rural
     i.noboy
@@ -33,11 +35,13 @@ eststo model_g
 *--------------------------
 * Console display
 *--------------------------
+
+* removed from refcat: 1.not_c_user "\textbf{Predictors of gestation 1 or 2 months}" ///
+           
 #delimit ;
 esttab model_g,
     drop(1.agebin 1.parity_bs 1.wealth) 
-    refcat(1.not_c_user "\textbf{Predictors of gestation 1 or 2 months}" ///
-           2.agebin "\textbf{Age categories}" ///
+    refcat(2.agebin "\textbf{Age categories}" ///
            2.parity_bs "\textbf{Parity \& time since last live birth categories}" ///
            2.wealth "\textbf{Wealth quartiles}", nolabel)
     nonumbers 
@@ -70,14 +74,18 @@ esttab model_g,
 *--------------------------
 * LaTeX export
 *--------------------------
+
+* removed from refcat: 1.not_c_user "\textbf{Binary predictors}" ///
+
+* removed from drop 0.not_c_user 
+
 #delimit ;
 esttab model_g using "tables/tableA1 predicting first quarter pregnancy.tex",
     replace
-    refcat(1.not_c_user "\textbf{Binary predictors}" ///
-           2.agebin "\textbf{Age categories} \\ (15–19 omitted)" ///
+    refcat(2.agebin "\textbf{Age categories} \\ (15–19 omitted)" ///
            2.parity_bs "\textbf{Parity \& time since last live birth categories} \\ (No prior births omitted)" ///
            2.wealth "\textbf{Wealth quartiles} \\ (1st quartile omitted)", nolabel)
-    drop(0.not_c_user 0.less_edu 0.rural 0.noboy 1.agebin 1.parity_bs 1.wealth) 
+    drop(0.less_edu 0.rural 0.noboy 1.agebin 1.parity_bs 1.wealth) 
     nonumbers nonote 
     label se star(* 0.05 ** 0.01 *** 0.001)
     b(3) se(4)

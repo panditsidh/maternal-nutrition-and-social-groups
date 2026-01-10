@@ -28,7 +28,7 @@ drop if group==. | group==6
 *------------------------------------------------------------*
 #delimit ;
 local varlist ///
-    not_c_user less_edu rural noboy ///
+    less_edu rural noboy ///
     age1519 age2024 age2529 age3049 ///
     parity_bs1 parity_bs2 parity_bs3 parity_bs4 parity_bs5 ///
     parity_bs6 parity_bs7 parity_bs8 parity_bs9 parity_bs10 ///
@@ -107,7 +107,7 @@ replace order = order+2 if order>=18
 replace order = order+2 if order==23
 
 * For selected variables, create extra blank lines / spacing in the LaTeX table
-expand 3 if inlist(_varname, "not_c_user", "noboy", "age3049", "parity_bs10", "wealth4")
+expand 3 if inlist(_varname, "less_edu", "noboy", "age3049", "parity_bs10", "wealth4")
 
 bysort _varname: gen dupnum = _n
 sort order dupnum
@@ -119,7 +119,6 @@ replace order = _n
 input str100 rows
 ""
 "\textbf{Binary Predictors of Pregnancy and Underweight}"
-"\hspace*{2em}not using modern contraception"
 "\hspace*{2em}less than primary education"
 "\hspace*{2em}rural resident"
 "\hspace*{2em}does not have boy child"
@@ -146,7 +145,7 @@ input str100 rows
 "\hspace*{2em}1st (bottom) quartile"
 "\hspace*{2em}2nd quartile"
 "\hspace*{2em}3rd quartile"
-"\hspace*{2em}4th quartile"
+"\hspace*{2em}4th quartile" 
 ""
 "\textbf{N}"
 end

@@ -95,6 +95,8 @@ replace preg = . if gestdur<3 & v213==1
 gen gestdur_3plus = gestdur>=3 if !missing(gestdur) & v213==1
 
 
+**Note that there are still 230 people missing due to the problem described above.
+
 **************************** CONTRACEPTIVE USE ********************************
 
 //Create the variables that will be used to match pregnant and nonpregnant women for the estimation of prepregnancy underweight.
@@ -143,10 +145,15 @@ M1 - Other modern method (DHSVI) (is a modern method)
 
 */
 
+
+
 gen modernmethod = .
 replace modernmethod = (v313 == 3) if preg == 0
-gen precon_pos = gestdur + 2 if preg == 1 & gestdur < .
-gen precon_code = substr(trim(vcal_1), precon_pos, 1) if preg == 1
+
+gen precon_pos = indexnot(trim(vcal_1), "P")
+gen precon_code = substr(trim(vcal_1), precon_pos,1) if preg==1
+
+
 replace modernmethod = inlist(precon_code,"1","2","3","4","5","6","7") if preg==1
 replace modernmethod = inlist(precon_code, "L","C","F","N","S","M") if preg==1
 
@@ -370,4 +377,6 @@ gen weight = v437
 replace weight =. if v437>9990
 replace weight =weight/10
 
+
+drop if c_user==1 & preg==0
 save "$dataset", replace
