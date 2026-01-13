@@ -33,7 +33,7 @@ graph hbar (mean) parity1 parity2 parity3 parity4 [aw=v005],
     blabel(bar, format(%4.1f) position(inside) ) 
     ytitle("Percent") 
 	title("A. Distribution of parity among pregnant women")
-	note("n=`sample_size' (3+ month pregnant women)", size(medsmall)) name(c, replace);
+	note("n=`sample_size' (3+ month married pregnant women)", size(medsmall)) name(c, replace);
 #delimit cr 
 
 graph save "figures/figure2a.gph", replace
@@ -68,7 +68,7 @@ graph hbar (mean) bs_below2 bs_2to3 bs_above3 [aw=v005],
 	blabel(bar, format(%4.1f) position(inside) ) 
 	ytitle("Percent") 
 	title("C. Distribution of birth spacing among pregnant women")
-    note("n=`sample_size' (3+ month pregnant women who have at least 1 live birth)", size(medsmall)) ;
+    note("n=`sample_size' (3+ month married pregnant women" "who have at least 1 live birth)", size(medsmall)) ;
 # delimit cr
 
 
@@ -103,7 +103,7 @@ graph hbar (mean) wealth1 wealth2 wealth3 wealth4 [aw=v005],
        cols(4) pos(6) region(lstyle(none))) 
 	blabel(bar, format(%4.1f) position(inside) ) 
 	ytitle("Percent") 
-	note("n=`sample_size' (3+ month pregnant women)", size(medsmall)) name(c, replace) 
+	note("n=`sample_size' (3+ month married pregnant women)", size(medsmall)) name(c, replace) 
 	title("E. Distribution of wealth among pregnant women");
 	
 # delimit cr
