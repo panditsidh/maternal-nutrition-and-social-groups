@@ -1,5 +1,35 @@
+
+
 do "$paths"
-use "$dataset", clear
+
+use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 m15* using "$nfhs5ir", clear
+
+********************************* SOCIAL GROUP *********************************
+//This paper only analyzes data for women beloning to the following groups:
+*Adivasi and Dalit (all religions)∂
+*OBC (Hindu and Sikh)
+*Forward Caste (Hindu)
+*Muslim 
+//It does not include women who are Christians or Jains who do not identify as Dalit or Adivasi, and it does not include women who are Sikhs who do not identify as Adivasi, Dalit, or OBC.
+
+gen group = .
+replace group = 1 if s116 == 2 									// Adivasi
+replace group = 2 if s116 == 1 									// Dalit
+replace group = 6 if (v130 == 3| v130==4 | v130==6) & group==. // Christian, Sikh, Jain
+replace group = 5 if v130 == 2 & group==. 						// Muslims that aren't Adivasi or Dalit
+replace group = 3 if (v130 == 1 |v130==4) & s116 == 3 			// OBC that are Hindu or Sikh
+replace group = 4 if v130 == 1 & (s116 == 4 | s116==8 |s116==.) // Forward caste Hindus
+
+drop if group==6
+drop if group==.
+
+label define grouplbl ///
+    1 "Adivasi" ///
+    2 "Dalit" ///
+    3 "OBC" ///
+    4 "Forward" ///
+    5 "Muslim" 
+label values group grouplbl
 
 * we want 7 age specific fertility rates (5 year age groups), total fertility rate, and confidence intervals for total fertility rate by social group
 matrix results = J(6, 10, .)
