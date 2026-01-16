@@ -53,7 +53,7 @@ esttab model1 model2 model3 model4 model5 model0,
 * Export to LaTeX
 *==========================
 #delimit ;
-esttab model1 model2 model3 model4 model5 model0 using "tables/tableA4 predict pregnancy using reweighting variables.tex",
+esttab model1 model2 model3 model4 model5 model0 using "tables/tableA3 predict pregnancy using reweighting variables.tex",
     replace
     refcat(2.agebin "\textbf{Age categories} \\ (15–19 omitted)" ///
            2.parity_bs "\textbf{Parity \& time since last live birth categories} \\ (No prior births omitted)" ///

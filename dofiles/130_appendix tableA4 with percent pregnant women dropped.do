@@ -129,7 +129,7 @@ listtex rows ///
     disp_n_group3    disp_pctdrop_group3 ///
     disp_n_group4    disp_pctdrop_group4 ///
     disp_n_group5    disp_pctdrop_group5 ///
-    using "tables/tableA3 percent dropped.tex", replace ///
+    using "tables/tableA4 percent dropped.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{12}{>{\centering\arraybackslash}p{1.2cm}}}" ///
          "\toprule" ///
