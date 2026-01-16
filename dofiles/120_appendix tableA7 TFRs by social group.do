@@ -90,7 +90,7 @@ drop if _n==9 | _n==10
 
 
 #delimit ;
-listtex row group* using "tables/tableA6 fertility rate by social group.tex", replace rstyle(tabular) ///
+listtex row group* using "tables/tableA7 fertility rate by social group.tex", replace rstyle(tabular) ///
   head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{1.9cm}}}" ///
        "\toprule" ///
        "ASFR & Adivasi & Dalit & OBC & Forward & Muslim & All five social groups \\\\" ///

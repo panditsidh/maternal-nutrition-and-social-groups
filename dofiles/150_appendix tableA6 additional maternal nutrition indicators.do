@@ -58,7 +58,7 @@ keep rows bmi_ci weight_ci overweight_ci obesity_ci
 
 #delimit ;
 listtex rows bmi_ci weight_ci overweight_ci obesity_ci ///
-    using "tables/tableA7 additional maternal nutrition indicators.tex", replace ///
+    using "tables/tableA6 additional maternal nutrition indicators.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{4}{>{\centering\arraybackslash}p{3.5cm}}}" ///
          "\toprule" ///
