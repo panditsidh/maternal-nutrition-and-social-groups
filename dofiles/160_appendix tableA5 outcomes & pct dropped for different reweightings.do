@@ -79,7 +79,7 @@ forvalues i=1/7 {
 	forvalues g=1/5 {
 		
 		sum underweight if preg==0 & group==`g' [aw=reweightingfxn]
-		matrix results[`i', `g'] = r(mean)*100
+		matrix results[`i', `g'] = r(mean)
 		
 		foreach overvar in parity_bs wealth {
 			levelsof(`overvar'), local(levels)
@@ -87,7 +87,7 @@ forvalues i=1/7 {
 			foreach j in `levels' {
 				
 				sum dropbin if preg==1 & group==`g' & `overvar'==`j'
-				local pct_dropped = r(mean)*100
+				local pct_dropped = r(mean)
 				
 				if `pct_dropped'>3 local problem_counter = `problem_counter'+1
 				
@@ -144,6 +144,7 @@ format biggest_problem %4.2f
 
 drop if missing(rows)
 
+
 #delimit ;
 listtex rows ///
     underweight1 underweight2 underweight3 underweight4 underweight5 ///
@@ -153,7 +154,7 @@ listtex rows ///
          "\toprule" ///
          " & \multicolumn{5}{c}{Proportion of prepregnancy underweight} \\\\" ///
          "\cmidrule(lr){2-6}" ///
-         "Specification & Adivasi & Dalit & OBC & Forward & Muslim \\\\" ///
+         "Variables used in reweighting \newline relative to original specification & Adivasi & Dalit & OBC & Forward & Muslim \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
