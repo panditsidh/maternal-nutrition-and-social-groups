@@ -495,7 +495,7 @@ Finally, this study highlights the value of representative, longitudinal monitor
         \renewcommand{\arraystretch}{0.81}
 
         % {\input{tables/predictor_regression}}
-        {\input{tables/tableA4 predict pregnancy using reweighting variables}}
+        {\input{tables/tableA3 predict pregnancy using reweighting variables}}
 
         \begin{tablenotes}
             \item Standard errors are in parentheses and are clustered at the primary sampling unit level. Sample includes married women in one of the five social groups we study who are either currently 3 or more months pregnant or nonpregnant and not using modern contraception.
@@ -519,7 +519,7 @@ Finally, this study highlights the value of representative, longitudinal monitor
     \label{tab:sampledropped}
     \renewcommand{\arraystretch}{1.5}
     \resizebox{\textwidth}{!}{%
-        \input{tables/tableA3 percent dropped}
+        \input{tables/tableA4 percent dropped}
     }
     
     \begin{tablenotes}
@@ -633,36 +633,36 @@ Prompt for use case (iv):
 
 \newpage
 
-\section{S.\arabic{section} Additional maternal nutrition indicators by social group} \label{sec:weightgain}
+% \section{S.\arabic{section} Additional maternal nutrition indicators by social group} \label{sec:weightgain}
 
-\subsection{S.\arabic{section}.\arabic{subsection} Description of additional maternal nutrition indicators} \label{sec:weightgainm1}
+% \subsection{S.\arabic{section}.\arabic{subsection} Description of additional maternal nutrition indicators} \label{sec:weightgainm1}
 
-\subsection{S.\arabic{section}.\arabic{subsection} Weight gain method 1} \label{sec:weightgainm1}
+% \subsection{S.\arabic{section}.\arabic{subsection} Weight gain method 1} \label{sec:weightgainm1}
 
-The first method of estimating weight gain during pregnancy starts by estimating monthly weight gain of pregnant women at 3+ months gestational duration as $\hat{\beta}$ from an OLS regression of the form
-\begin{equation}
-    weight_i = \alpha + \beta month_i + \tau C_i + \epsilon_i
-\end{equation}
+% The first method of estimating weight gain during pregnancy starts by estimating monthly weight gain of pregnant women at 3+ months gestational duration as $\hat{\beta}$ from an OLS regression of the form
+% \begin{equation}
+%     weight_i = \alpha + \beta month_i + \tau C_i + \epsilon_i
+% \end{equation}
 
-where $weight_i$ is the weight in kilograms of pregnant woman $i$. $month_i$ is month of gestation, calculated as described in the methods section, and $C_i$ are controls, including women's current ages (single year), years of education, number of living children, urban or rural residence, wealth quintile, as well as state-month fixed effects.
+% where $weight_i$ is the weight in kilograms of pregnant woman $i$. $month_i$ is month of gestation, calculated as described in the methods section, and $C_i$ are controls, including women's current ages (single year), years of education, number of living children, urban or rural residence, wealth quintile, as well as state-month fixed effects.
 
-Assuming that, in the first trimester, women gain 10\% of the weight that they gain in the second and third trimesters, we estimate weight gain for a full-term pregnancy as 
-\begin{equation}
-    \hat{weight gain} = 1.1\times6\times\hat{\beta}
-\end{equation}
+% Assuming that, in the first trimester, women gain 10\% of the weight that they gain in the second and third trimesters, we estimate weight gain for a full-term pregnancy as 
+% \begin{equation}
+%     \hat{weight gain} = 1.1\times6\times\hat{\beta}
+% \end{equation}
 
-In table A1, the 95\% confidence intervals for weight gain method 1 are calculated as $1.1\times6\times\hat{\beta} \pm 1.96\times se_{\hat{\beta}}$.
+% In table A1, the 95\% confidence intervals for weight gain method 1 are calculated as $1.1\times6\times\hat{\beta} \pm 1.96\times se_{\hat{\beta}}$.
 
-\subsection{S.\arabic{section}.\arabic{subsection} Weight gain method 2} \label{sec:weightgainm2}
-
-
-The second method of estimating weight gain takes the difference of the average weight of pregnant women at gestational duration of 9 months or more and the average prepregnancy weight using the nonparametric reweighting method. 
+% \subsection{S.\arabic{section}.\arabic{subsection} Weight gain method 2} \label{sec:weightgainm2}
 
 
-\begin{equation}
-    \hat{weight gain} = (\bar{W}_9-\bar{W}_0)+(0.5)\hat{\beta}
-\end{equation}
-where $\bar{W}_9$ is the average weight of pregnant women at gestational duration of 9 months or more, and $\bar{W}_0$ is the average prepregnancy weight using the nonparametric reweighting method. To account for additional weight gain between the time of survey and the end of pregnancy for women of gestational duration of 9 months or more, we assume these women are at the midpoint of their last month of pregnancy and add the accordingly scaled $\hat{\beta}$ from the regression in weight gain method 1.
+% The second method of estimating weight gain takes the difference of the average weight of pregnant women at gestational duration of 9 months or more and the average prepregnancy weight using the nonparametric reweighting method. 
+
+
+% \begin{equation}
+%     \hat{weight gain} = (\bar{W}_9-\bar{W}_0)+(0.5)\hat{\beta}
+% \end{equation}
+% where $\bar{W}_9$ is the average weight of pregnant women at gestational duration of 9 months or more, and $\bar{W}_0$ is the average prepregnancy weight using the nonparametric reweighting method. To account for additional weight gain between the time of survey and the end of pregnancy for women of gestational duration of 9 months or more, we assume these women are at the midpoint of their last month of pregnancy and add the accordingly scaled $\hat{\beta}$ from the regression in weight gain method 1.
 
 
 
@@ -684,11 +684,10 @@ where $\bar{W}_9$ is the average weight of pregnant women at gestational duratio
 
     \input{tables/tableA7 additional maternal nutrition indicators}
 
-    \begin{tablenotes}[para,flushleft]
-        \item Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample (married, not using modern contraception, and belonging to one of the social groups of focus). Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state.
+    \begin{tablenotes}
+        \item Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample (married, not using modern contraception, and belonging to one of the five social groups we study). Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state.
         \item $^{a}$ Overweight defined as BMI above 25.
         \item $^{b}$ Obesity defined as BMI above 30.
-        \item $^{c}$ Weight gain method 1 and $^{d}$ weight gain method 2 explained above.
         \item Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim  (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
     \end{tablenotes}
 
