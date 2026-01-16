@@ -17,7 +17,7 @@ qui do "dofiles/050_weights to estimate pp nutrition.do"
 drop if group==6 | group==.
 
 * initialize results matrix
-local outcomes bmi weight underweight overweight obesity gainhatm1 gainhatm2
+local outcomes bmi weight underweight overweight obesity 
 
 matrix results = J(27, `=3 * wordcount("`outcomes'")', .)
 
@@ -41,67 +41,12 @@ foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 		
 		foreach outcome in `outcomes' {
 			
-			* first get the means - this comes from the original sample
-			* weight gain method 1
-			if "`outcome'"=="gainhatm1" {
-				matrix results[`row', `col'] = .
-				
-				
-				preserve
-				
-				* per Coffey (2015) topcode gestdur before regression
-				replace gestdur = 9 if inrange(gestdur,10,11)
-				
-				reghdfe weight gestdur i.v012 i.v133 i.v218 i.rural i.v190 if `overvar'==`i' & inrange(gestdur,3,9) & preg==1 [aw=v005],absorb(v024#v006) vce(cluster v021)
-				
-				matrix regtable = r(table)
-										
-				// Method 1: 6 months * beta, plus 10% first trimester assumption
-				matrix results[`row', `col'] = 1.1 * 6 * _b[gestdur]
-				*  M1 doesn't use reweighting so can directly get confidence intervals without the bootstrapping file
-				matrix results[`row', `col'+1] = 1.1 * 6 * regtable[5,1]
-				matrix results[`row', `col'+2] = 1.1 * 6 * regtable[6,1]
-				
-				restore
-				
-			}
-						
-			* weight gain method 2
-			if "`outcome'"=="gainhatm2" {
-				
-				
-				* first get prepreg weight
-				qui sum weight [aw=reweightingfxn] if preg==0 & `overvar'==`i' & dropbin!=1
-				local weight_`overvar'`i' = r(mean)
-				
-				* then get weight at 9+ mopreg
-				qui sum weight [aw=v005] if preg==1 & gestdur>=9 & gestdur!=. & `overvar'==`i'
-				local nineweighthat_`overvar'`i' = r(mean)
-				
-				* get beta from weight on mopreg regression for the adjustment 
-				preserve
-				replace gestdur = 9 if inrange(gestdur,10,11)
-				qui reg weight gestdur i.v012 i.v133 i.v218 i.rural i.v190 i.v024##v006 [aw=v005] if `overvar'==`i'& inrange(gestdur,3,9) & preg==1
-				local coeffhat_`overvar'`i' = _b[gestdur]
 
-				restore 
-				
-				* follow Coffey (2015) formula
-				local gainhatm2_`overvar'`i' = `nineweighthat_`overvar'`i''-`weight_`overvar'`i''+(0.5)*`coeffhat_`overvar'`i''
-				
-				
-				* store in results, get ci from bootstrapping later
-				matrix results[`row', `col'] = `gainhatm2_`overvar'`i''
-				
-			}
-			
-			* all other outcomes - simple mean using reweighting, get ci from bootstrapping later
-			if strpos("`outcome'", "gainhat")==0 {
 
-				sum `outcome' if `overvar'==`i' & preg==0 [aw=reweightingfxn]	
-				matrix results[`row', `col'] = r(mean)
+			sum `outcome' if `overvar'==`i' & preg==0 [aw=reweightingfxn]	
+			matrix results[`row', `col'] = r(mean)
+		
 			
-			}
 					
 
 			* now get confidence intervals for all variables except gainhatm1 from bootstrap results dataset
@@ -109,15 +54,15 @@ foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 			
 			use "data/bootstrap cis for pp outcomes.dta", clear
 			
-			if "`outcome'"!="gainhatm1" {	
+			
 // 				sum `outcome'_`overvar'`i', detail
 // 				matrix results[`row', `col'+1] = r(p5)
 // 				matrix results[`row', `col'+2] = r(p95)
-				_pctile `outcome'_`overvar'`i', p(2.5 97.5)
-				matrix results[`row', `col'+1] = r(r1)
-				matrix results[`row', `col'+2] = r(r2)
+			_pctile `outcome'_`overvar'`i', p(2.5 97.5)
+			matrix results[`row', `col'+1] = r(r1)
+			matrix results[`row', `col'+2] = r(r2)
 
-			}
+		
 			
 	
 			

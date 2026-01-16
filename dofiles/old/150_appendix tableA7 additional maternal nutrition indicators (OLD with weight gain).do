@@ -7,10 +7,11 @@ use "data/results.dta", clear
 * focus on social groups, not other subgroup divisions
 keep if inlist(rows, "All five social groups", "Adivasi", "Dalit", "OBC", "Forward", "Muslim")
 
-foreach var in bmi weight overweight obesity {
+
+foreach var in bmi weight overweight obesity gainhatm1 gainhatm2 {
 	
 	
-	if inlist("`var'", "weight") {
+	if inlist("`var'", "weight", "gainhatm1", "gainhatm2") {
 		
 		replace `var'_mean = `var'_mean *2.20462
 		replace `var'_ll = `var'_ll *2.20462
@@ -18,9 +19,8 @@ foreach var in bmi weight overweight obesity {
 	}
 	
 	
-	
 	* create CI variable for display purposes
-	if inlist("`var'", "bmi", "weight") {
+	if inlist("`var'", "bmi", "weight", "gainhatm1", "gainhatm2") {
 		
 		gen `var'_ci = string(`var'_mean, "%9.1f") + " [" + ///
                    string(`var'_ll, "%9.1f") + ", " + ///
@@ -39,7 +39,7 @@ foreach var in bmi weight overweight obesity {
 }
 
 
-keep rows bmi_ci weight_ci overweight_ci obesity_ci 
+keep rows bmi_ci weight_ci overweight_ci obesity_ci gainhatm1_ci gainhatm2_ci
 
 
 
@@ -56,14 +56,17 @@ keep rows bmi_ci weight_ci overweight_ci obesity_ci
 // #delimit cr
 
 
+
 #delimit ;
-listtex rows bmi_ci weight_ci overweight_ci obesity_ci ///
+listtex rows  bmi_ci weight_ci overweight_ci obesity_ci gainhatm1_ci gainhatm2_ci ///
     using "tables/tableA7 additional maternal nutrition indicators.tex", replace ///
     rstyle(tabular) ///
-    head("\begin{tabular}{l*{4}{>{\centering\arraybackslash}p{3.5cm}}}" ///
+    head("\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{3.5cm}}}" ///
          "\toprule" ///
-         "\Social Group & BMI & Weight (lbs) & Overweight^a & Obesity^b \\\\" ///
+         "\Social Group & BMI & Weight (lbs) & Overweight^a & Obesity^b & Weight gain \newline method 1 (lbs)^c & Weight gain \newline method 2 (lbs)^d \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
 #delimit cr
+
+
