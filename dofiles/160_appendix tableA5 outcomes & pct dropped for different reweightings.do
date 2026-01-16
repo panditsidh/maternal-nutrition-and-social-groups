@@ -154,7 +154,7 @@ listtex rows ///
          "\toprule" ///
          " & \multicolumn{5}{c}{Proportion of prepregnancy underweight} \\\\" ///
          "\cmidrule(lr){2-6}" ///
-         "Variables used in reweighting \newline relative to original specification & Adivasi & Dalit & OBC & Forward & Muslim \\\\" ///
+         "Variables used in reweighting relative to original specification & Adivasi & Dalit & OBC & Forward & Muslim \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
