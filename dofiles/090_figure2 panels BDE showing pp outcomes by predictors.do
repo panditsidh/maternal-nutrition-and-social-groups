@@ -9,7 +9,7 @@ qui do "dofiles/050_weights to estimate pp nutrition.do"
 count if preg==0 & group!=6
 local sample_size_bf : display %15.0fc r(N)
 
-count if preg==0 & parity>=2
+count if preg==0 & parity>=2 
 local sample_size_d : display %15.0fc r(N)
 
 
