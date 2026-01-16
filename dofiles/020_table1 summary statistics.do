@@ -146,13 +146,13 @@ input str100 rows
 "\hspace*{2em}2nd quartile"
 "\hspace*{2em}3rd quartile"
 "\hspace*{2em}4th quartile" 
-""
+"" 
 "\textbf{N}"
 end
 
 * Ensure the "N" label appears only on the final row where counts are printed
 replace rows = "" if rows=="\textbf{N}"
-replace rows = "\textbf{N}" if _n==33
+replace rows = "\textbf{N}" if _n==32
 
 order rows
 keep v* rows
@@ -165,11 +165,15 @@ keep v* rows
 foreach i of numlist 1/12 {
     gen disp_v`i' = string(v`i', "%15.0fc") if _n==33
     replace disp_v`i' = subinstr(string(v`i', "%6.2f"), "0.", ".", 1) if (rows!="" & strmatch(rows, "\textbf{*")==0) & _n<33 
+	
+	replace disp_v`i' = string(v`i') if _n==32
 	}
 
 
 drop v*
 drop if _n==1   // drop the first blank spacer row used for formatting
+
+drop if _n==30
 
 *------------------------------------------------------------*
 * 11) Export to LaTeX (tabular) with a custom header grouping columns by pregnancy status
