@@ -14,7 +14,6 @@ gen counter=1
 
 
 * collapse to bin-level counts of pregnant and total women
-* same as the collapse in diane's original code, just shorter
 preserve
 collapse ///
     (sum) bin_preg = preg ///

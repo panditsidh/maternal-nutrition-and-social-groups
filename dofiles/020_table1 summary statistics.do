@@ -118,7 +118,7 @@ replace order = _n
 *------------------------------------------------------------*
 input str100 rows
 ""
-"\textbf{Binary Predictors of Pregnancy and Underweight}"
+"\textbf{Binary Predictors}"
 "\hspace*{2em}less than primary education"
 "\hspace*{2em}rural resident"
 "\hspace*{2em}does not have boy child"

@@ -1,6 +1,6 @@
 do "$paths"
 
-use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 using "$nfhs5ir", clear
+use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 m15* using "$nfhs5ir", clear
 
 //generate variables for analyzing surveys with complex designs
 egen strata = group(v000 v024 v025)

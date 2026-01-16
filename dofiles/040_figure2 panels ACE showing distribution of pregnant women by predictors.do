@@ -16,8 +16,6 @@ replace parity4 = parity4*100
 
 keep if preg==1
 
-keep if gestdur>=3
-
 
 * for displaying the sample size in the graph
 count
