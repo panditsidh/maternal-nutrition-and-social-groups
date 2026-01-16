@@ -144,16 +144,16 @@ format biggest_problem %4.2f
 
 drop if missing(rows)
 
-
 #delimit ;
 listtex rows ///
     underweight1 underweight2 underweight3 underweight4 underweight5 ///
-    num_problems ///
     using "tables/tableA5 reweighting specifications.tex", replace ///
     rstyle(tabular) ///
-    head("\begin{tabular}{l*{5}{>{\centering\arraybackslash}p{1.5cm}}>{\centering\arraybackslash}p{4.5cm}}" ///
+    head("\begin{tabular}{l*{5}{>{\centering\arraybackslash}p{1.5cm}}}" ///
          "\toprule" ///
-         "Specification & Adivasi & Dalit & OBC & Forward & Muslim & Number of decomposition subgroups for which  \newline \textgreater3\% of the pregnant \newline sample was dropped$^e$ \\\\" ///
+         " & \multicolumn{5}{c}{Proportion of prepregnancy underweight} \\\\" ///
+         "\cmidrule(lr){2-6}" ///
+         "Specification & Adivasi & Dalit & OBC & Forward & Muslim \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");

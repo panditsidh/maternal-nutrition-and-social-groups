@@ -75,7 +75,6 @@ replace moperiod = 9 if v215==309
 replace moperiod = 10 if v215==310 
 replace moperiod = 11 if v215==311 
 
-
 count if moperiod==. & v213==1
 //months since last period is not reported for ~1000 women who also report pregnancy.  use self-reported "months pregnant" as a measure of gestational duration for those women.
 //this allows us to assign a gestational duration for all but 5 women who report pregnancy.
