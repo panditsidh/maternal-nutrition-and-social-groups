@@ -525,7 +525,7 @@ Finally, this study highlights the value of representative, longitudinal monitor
     \begin{tablenotes}
     \footnotesize
     \item \parbox{\textwidth}{
-        Pregnant women are dropped in reweighting if they are categorized into bins based on the reweighting covariates with no nonpregnant women. 
+        Pregnant women are dropped from the reweighting technique if they are categorized into a bin that contains no nonpregnant women. 
     }
     \end{tablenotes}
 
@@ -583,6 +583,36 @@ Finally, this study highlights the value of representative, longitudinal monitor
 
 \end{landscape}
 
+
+
+\newpage
+\begin{landscape}
+\begin{table}[!htbp]
+\centering
+\begin{adjustbox}{center, max width=0.95\linewidth} % <-- reduced slightly from 1.0 to 0.95
+\begin{threeparttable}
+    \small
+    \caption{: Means and 95\% CIs for additional maternal nutrition indicators by social group}
+    \label{tab:addnut}
+
+    \setlength{\tabcolsep}{2pt}
+    \renewcommand{\arraystretch}{1.35}
+
+    \input{tables/tableA6 additional maternal nutrition indicators}
+
+    \begin{tablenotes}
+        \item Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample (married, not using modern contraception, and belonging to one of the five social groups we study). Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state.
+        \item $^{a}$ Overweight defined as BMI above 25.
+        \item $^{b}$ Obesity defined as BMI above 30.
+        \item Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim  (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
+    \end{tablenotes}
+
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+\end{landscape}
+
+
 % \end{landscape}
 \newpage
 \begin{table}[H]
@@ -597,7 +627,7 @@ Finally, this study highlights the value of representative, longitudinal monitor
     \setlength{\tabcolsep}{5pt}
     \resizebox{\textwidth}{!}{%
         % \input{tables/tfr}
-        \input{tables/tableA6 fertility rate by social group}
+        \input{tables/tableA7 fertility rate by social group}
     }
     
     \small
@@ -609,6 +639,9 @@ Finally, this study highlights the value of representative, longitudinal monitor
 \end{table}
 
 \newpage
+
+
+
 
 \section{S.\arabic{section} Use of AI} \label{sec:aiprompts}
 In Section \ref{sec:AIuse}, we describe how we used AI in the production of this research.  We write:
@@ -669,32 +702,6 @@ Prompt for use case (iv):
 
 
 
-\newpage
-\begin{landscape}
-\begin{table}[!htbp]
-\centering
-\begin{adjustbox}{center, max width=0.95\linewidth} % <-- reduced slightly from 1.0 to 0.95
-\begin{threeparttable}
-    \small
-    \caption{: Means and 95\% CIs for additional maternal nutrition indicators by social group}
-    \label{tab:addnut}
-
-    \setlength{\tabcolsep}{2pt}
-    \renewcommand{\arraystretch}{1.35}
-
-    \input{tables/tableA7 additional maternal nutrition indicators}
-
-    \begin{tablenotes}
-        \item Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample (married, not using modern contraception, and belonging to one of the five social groups we study). Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state.
-        \item $^{a}$ Overweight defined as BMI above 25.
-        \item $^{b}$ Obesity defined as BMI above 30.
-        \item Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim  (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
-    \end{tablenotes}
-
-\end{threeparttable}
-\end{adjustbox}
-\end{table}
-\end{landscape}
 
 
 
