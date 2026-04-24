@@ -52,7 +52,7 @@ foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 			* now get confidence intervals for all variables except gainhatm1 from bootstrap results dataset
 			preserve
 			
-			use "data/bootstrap cis for pp outcomes.dta", clear
+			use "data/bootstrap cis for pp outcomes nfhs4.dta", clear
 			
 			
 // 				sum `outcome'_`overvar'`i', detail

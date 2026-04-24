@@ -1,8 +1,14 @@
 do "$paths"
 
-use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 m15* d113 sweight sdweight  using "$nfhs5ir", clear
+// use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 m15* d113 sweight sdweight  using "$nfhs5ir", clear
 
-//generate variables for analyzing surveys with complex designs
+clear
+
+set maxvar 7000
+use "$nfhs4ir", clear
+
+
+//generate variables for analyzing surveys with c omplex designs
 egen strata = group(v000 v024 v025)
 *Rural Chandigarh has a very small number of observations, so we combine with urban Chandigarh.
 replace strata = 7 if strata==8
@@ -15,7 +21,7 @@ count
 
 ********************************* SOCIAL GROUP *********************************
 //This paper only analyzes data for women beloning to the following groups:
-*Adivasi and Dalit (all religions)∂
+*Adivasi and Dalit (all religions)
 *OBC (Hindu and Sikh)
 *Forward Caste (Hindu)
 *Muslim 
@@ -378,4 +384,3 @@ replace weight =weight/10
 
 
 drop if c_user==1 & preg==0
-save "$dataset", replace

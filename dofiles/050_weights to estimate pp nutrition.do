@@ -2,10 +2,8 @@
 do "$paths"
 
 * ----------- PARAMETERS-----------
-local binvars agebin rural less_edu noboy wealth parity_bs group
+local binvars agebin rural less_edu noboy wealth parity_bs group 
 * ----------------------------------------------------
-
-
 
 
 * generate bins for reweighting

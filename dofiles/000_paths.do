@@ -29,11 +29,11 @@ if "`c(username)'" == "YOUR USERNAME" {
 
 if "`c(username)'" == "sidhpandit" {
 // 	global nfhs3ir "/Users/sidhpandit/Desktop/data/nfhs/nfhs3ir/IAIR52FL.dta"
-// 	global nfhs4ir "/Users/sidhpandit/Desktop/data/nfhs/nfhs4ir/IAIR74FL.DTA"	
+	global nfhs4ir "/Users/sidhpandit/Desktop/data/nfhs/nfhs4ir/IAIR74FL.DTA"	
 	global nfhs5ir "/Users/sidhpandit/Desktop/data/nfhs/nfhs5ir/IAIR7EFL.DTA"
 
-// 	global nfhs3br "/Users/sidhpandit/Desktop/data/nfhs/nfhs3br/IABR52FL.dta"
-// 	global nfhs4br "/Users/sidhpandit/Desktop/data/nfhs/nfhs4br/IABR74FL.DTA"
+	global nfhs3br "/Users/sidhpandit/Desktop/data/nfhs/nfhs3br/IABR52FL.dta"
+	global nfhs4br "/Users/sidhpandit/Desktop/data/nfhs/nfhs4br/IABR74FL.DTA"
 // 	global nfhs5br "/Users/sidhpandit/Desktop/data/nfhs/nfhs5br/IABR7EFL.DTA"
 	global dataset "/Users/sidhpandit/Dropbox/maternal nutrition by social group/data/prepared_dataset.dta"
 

@@ -93,6 +93,26 @@ replace wealth4 = wealth4*100
 count
 local sample_size : display %15.0fc r(N)
 
+
+#delimit ;
+graph hbar (mean) wealth1 wealth2 wealth3 wealth4 [aw=v005], 
+    over(group) 
+    stack 
+    bar(1, color(navy%20)) ///
+    bar(2, color(navy%40)) ///
+    bar(3, color(navy%60)) ///
+    bar(4, color(navy%80)) ///
+    legend(order(1 "Poorest quartile" 2 "2nd quartile" 3 "3rd quartile" 4 "Richest quartile") 
+           cols(4) pos(6) region(lstyle(none)) size(medlarge)) 
+    blabel(bar, format(%4.0f) position(inside) size(medlarge)) 
+    ytitle("Percent", size(medlarge))  
+    ylabel(, labsize(medlarge)) ///
+    title("Distribution of wealth among pregnant women", size(vlarge)) ///
+    graphregion(color(white));
+#delimit cr
+
+graph export "figures/(poster) wealth distribution.png", as(png) name("Graph")
+
 #delimit ;
 graph hbar (mean) wealth1 wealth2 wealth3 wealth4 [aw=v005], 
     over(group) 

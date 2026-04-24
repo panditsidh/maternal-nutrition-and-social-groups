@@ -4,7 +4,7 @@ set more off
 clear all
 
 set seed 8062011
-local B = 1001
+local B = 100
 local chunk_size = 20
 
 ******************* PREPARING BOOTSTRAP RESULTS DATASET ************************
@@ -49,6 +49,7 @@ forvalues iteration = 1(1)`B' {
 
         * ---- Bootstrap sample ----
         use "$dataset", clear
+		
         bsample, strata(strata) cluster(psu)
 
         * ---- Generate reweighting ----

@@ -143,7 +143,7 @@ foreach i of numlist 1/6 {
 		if `i'!=6 keep if group==`i'
 		
 		* get the percent of men missing from eligible households 
-		keep if state_module
+		keep if state_module==1
 		svy: mean husband_not_home
 		matrix H = r(table)
         local migrant = H[1,1]

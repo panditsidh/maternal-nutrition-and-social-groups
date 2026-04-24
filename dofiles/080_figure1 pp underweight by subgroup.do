@@ -38,6 +38,31 @@ foreach i in `levels' {
 #delimit ;
 twoway (rcap `var'_ul `var'_ll group, lcolor(black)) ///
        (scatter `var'_mean group, msymbol(circle) mcolor(black)),
+       xlabel(1 "Adivasi" 2 "Dalit" 3 "OBC" 4 "Forward" 5 "Muslim" 6 "All five", nogrid labsize(medlarge)) ///
+       ylabel(0(.05)0.3, grid labsize(medlarge)) ///
+       ytitle("`prettyname'", size(medlarge)) ///
+       xtitle("") ///
+	   title("Prepregnancy underweight by social groups", size(vlarge)) ///
+	   yscale(range(0 .)) ///
+       graphregion(color(white)) ///
+       legend(off) ///
+	   text(`outcome_1' `textpos_1' "`=string(`outcome_1', "%4.2f")'", placement(north) size(medlarge)) ///
+       text(`outcome_2' `textpos_2' "`=string(`outcome_2', "%4.2f")'", placement(north) size(medlarge)) 
+	   text(`outcome_3' `textpos_3' "`=string(`outcome_3', "%4.2f")'", placement(north) size(medlarge))
+	   text(`outcome_4' `textpos_4' "`=string(`outcome_4', "%4.2f")'", placement(north) size(medlarge)) 
+	   text(`outcome_5' `textpos_5' "`=string(`outcome_5', "%4.2f")'", placement(north) size(medlarge))
+	   text(`outcome_6' `textpos_6' "`=string(`outcome_6', "%4.2f")'", placement(north) size(medlarge)) ///
+	   text(-0.04 6.5 "social groups", placement(west) size(medlarge)) ///
+	   text(-0.04 4.35 "caste Hindu", placement(west) size(medlarge)) ///
+	   graphregion(color(white) margin(r+12));
+#delimit cr
+
+graph export "figures/(poster) figure1 prepregnancy underweight by subgroup.png", replace
+
+
+#delimit ;
+twoway (rcap `var'_ul `var'_ll group, lcolor(black)) ///
+       (scatter `var'_mean group, msymbol(circle) mcolor(black)),
        xlabel(1 "Adivasi" 2 "Dalit" 3 "OBC" 4 "Forward" 5 "Muslim" 6 "All five", nogrid) ///
        ylabel(0(.05)0.3, grid) ///
        ytitle("`prettyname'") ///
@@ -55,6 +80,9 @@ twoway (rcap `var'_ul `var'_ll group, lcolor(black)) ///
 	   text(-0.035 4.35 "caste Hindu", placement(west)) ///
 	   graphregion(color(white) margin(r+12));
 #delimit cr
+
+
+
 
 
 graph export "figures/figure1 prepregnancy underweight by subgroup.png", replace
