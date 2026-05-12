@@ -8,6 +8,14 @@ columns: mean ll ul for every outcome
 
 */
 
+* the original is "data/results.dta"
+local outfile "data/results reweighting without kitagawa vars.dta"
+
+* the original is "data/bootstrap cis for pp outcomes.dta"
+local bootstrap_results "data/bootstrap cis reweighting without kitagawa vars.dta"
+
+
+
 
 * prepare dataset
 qui do "$paths"
@@ -31,7 +39,8 @@ matrix colnames results = `colnames'
 * calculate means and confidence intervals for all subgroups (predictor level * social group)
 local row = 1
 
-foreach overvar in group allfivegroups parity bs parity_bs wealth  {
+foreach overvar in group allfivegroups {
+// foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 	
 	levelsof(`overvar'), local(levels)
 	
@@ -52,7 +61,7 @@ foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 			* now get confidence intervals for all variables except gainhatm1 from bootstrap results dataset
 			preserve
 			
-			use "data/bootstrap cis for pp outcomes nfhs4.dta", clear
+			use "`bootstrap_results'", clear
 			
 			
 // 				sum `outcome'_`overvar'`i', detail
@@ -125,4 +134,4 @@ drop if missing(rows)
 local last_outcome : word `=wordcount("`outcomes'")' of `outcomes'
 keep rows-`last_outcome'_ul
 
-save "data/results.dta", replace
+save "`outfile'", replace

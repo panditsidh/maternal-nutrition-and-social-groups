@@ -1,0 +1,12 @@
+---------------------------------------------------
+             Adivasi-Fo~d Dalit-Forw~d  OBC-Forward
+---------------------------------------------------
+---------------------------------------------------
+Forward mean         15.7         15.7         15.7
+Group mean           26.7         22.5         20.4
+Total gap            11.1          6.9          4.7
+Within-cat~t          8.7          7.0          5.2
+Compositio~t         -0.7          0.1         -0.3
+\% explain~n         -6.6          1.3         -6.4
+---------------------------------------------------
+The decomposition variable has 5 categories based on the percent of the PSU that is a different social group: 0, 0-10, 10-33, 33-66, and 66-100.

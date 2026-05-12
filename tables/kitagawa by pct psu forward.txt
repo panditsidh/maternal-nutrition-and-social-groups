@@ -1,0 +1,12 @@
+---------------------------------------------------
+             Adivasi-Fo~d Dalit-Forw~d  OBC-Forward
+---------------------------------------------------
+---------------------------------------------------
+fwd_mean             16.0         16.0         16.0
+group_mean           26.9         22.7         20.3
+total_gap            10.9          6.6          4.3
+within_total         10.1          5.0          2.9
+between_to~l          0.9          1.8          1.6
+pct_explai~d          7.8         27.3         36.2
+---------------------------------------------------
+The decomposition variable has 5 categories based on the percent of the PSU that is forward caste: 0, 0-10, 10-33, 33-66, and 66-100.

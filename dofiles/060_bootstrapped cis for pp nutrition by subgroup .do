@@ -7,6 +7,9 @@ set seed 8062011
 local B = 100
 local chunk_size = 20
 
+* the original is "data/bootstrap cis for pp outcomes.dta"
+local outfile "data/bootstrap cis reweighting without kitagawa vars.dta"
+
 ******************* PREPARING BOOTSTRAP RESULTS DATASET ************************
 
 forvalues iteration = 1(1)`B' {
@@ -25,12 +28,19 @@ forvalues iteration = 1(1)`B' {
 
                 if `iteration'==`chunk_size' {
                     use `results', clear
-                    save "data/bootstrap cis for pp outcomes.dta", replace
+//                     save "data/bootstrap cis for pp outcomes.dta", replace
+					
+					save "`outfile'", replace
                 }
                 else {
-                    use "data/bootstrap cis for pp outcomes.dta", clear
+//                     use "data/bootstrap cis for pp outcomes.dta", clear
+					
+					use "`outfile'", clear
                     append using `results'
-                    save "data/bootstrap cis for pp outcomes.dta", replace
+					
+//                     save "data/bootstrap cis for pp outcomes.dta", replace
+					
+					save "`outfile'", replace
                 }
             }
 
@@ -49,14 +59,17 @@ forvalues iteration = 1(1)`B' {
 
         * ---- Bootstrap sample ----
         use "$dataset", clear
-		
+				
         bsample, strata(strata) cluster(psu)
 
         * ---- Generate reweighting ----
         qui do "dofiles/050_weights to estimate pp nutrition.do"
 
         * ---- Prepregnancy estimates ----
-        foreach overvar in allfivegroups group parity bs parity_bs wealth {
+		foreach overvar in allfivegroups group {
+
+//         foreach overvar in allfivegroups group parity bs parity_bs wealth {
+			
 
             levelsof `overvar', local(levels)
 
@@ -86,11 +99,16 @@ forvalues iteration = 1(1)`B' {
     }
 }
 
-use "data/bootstrap cis for pp outcomes.dta", clear
+// use "data/bootstrap cis for pp outcomes.dta", clear
+
+
+use "`outfile'", clear
 gen str overlevel = "_" + overvar + string(level)
 drop overvar level
 
 reshape wide bmi underweight weight overweight obesity, ///
     i(iteration) j(overlevel) string
 
-save "data/bootstrap cis for pp outcomes.dta", replace
+// save "data/bootstrap cis for pp outcomes.dta", replace
+
+save "`outfile'", replace

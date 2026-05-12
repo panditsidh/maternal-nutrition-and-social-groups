@@ -1,0 +1,12 @@
+---------------------------------------------------
+             Adivasi-Fo~d Dalit-Forw~d  OBC-Forward
+---------------------------------------------------
+---------------------------------------------------
+Forward mean         15.9         15.9         15.9
+Group mean           27.1         23.2         20.4
+Total gap            11.2          7.3          4.5
+Within-cat~t          6.5          5.1          2.7
+Compositio~t          0.2          2.2          2.3
+\% explain~n          1.8         30.7         50.2
+---------------------------------------------------
+The decomposition variable has 4 categories based on the quartile of households in a woman's PSU that defecate in the open.

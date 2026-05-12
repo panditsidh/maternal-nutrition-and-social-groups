@@ -1,0 +1,12 @@
+---------------------------------------------------
+             Adivasi-Fo~d Dalit-Forw~d  OBC-Forward
+---------------------------------------------------
+---------------------------------------------------
+Forward mean         15.4         15.4         15.4
+Group mean           26.7         22.8         20.3
+Total gap            11.4          7.5          4.9
+Within-cat~t         11.1          7.5          4.8
+Compositio~t          0.2         -0.0          0.1
+\% explain~n          2.1         -0.0          1.5
+---------------------------------------------------
+The decomposition variable has 3 categories based on the diversity of protein foods (milk/curd, pulses/beans, eggs, fish, chicken/meat) consumed at least weekly: 0-1, 2, 3+

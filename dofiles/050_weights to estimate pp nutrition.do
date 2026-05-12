@@ -1,9 +1,13 @@
 //This file creates the weights that are applied to non-pregnant women to compute pre-pregnancy nutrition estimates.
 do "$paths"
 
-* ----------- PARAMETERS-----------
+
+
 local binvars agebin rural less_edu noboy wealth parity_bs group 
+
 * ----------------------------------------------------
+
+drop if missing(preg)
 
 
 * generate bins for reweighting
@@ -36,7 +40,6 @@ egen nonpregweight = sum(v005) if preg==0, by(bin)
 egen transferpreg = mean(pregweight), by(bin)
 egen transfernonpreg = mean(nonpregweight), by(bin)
 gen reweightingfxn = v005*transferpreg/transfernonpreg if dropbin!=1 & preg==0
-
 
 
 

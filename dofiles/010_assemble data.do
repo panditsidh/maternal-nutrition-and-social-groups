@@ -243,6 +243,49 @@ replace agebin4 = 5 if inrange(v012, 27, 30)     // Lowest fertility
 replace agebin4 = 6 if inrange(v012, 31, 34)
 replace agebin4 = 7 if inrange(v012, 35, 49)
 
+
+
+
+gen agebin5 = .
+
+* young tail
+replace agebin5 = 1516 if inrange(v012,15,16)
+
+* single-year ages
+replace agebin5 = v012 if inrange(v012,17,39)
+
+* older tail
+replace agebin5 = 4049 if inrange(v012,40,49)
+
+label define agebin5 ///
+1516 "15-16" ///
+17 "17" ///
+18 "18" ///
+19 "19" ///
+20 "20" ///
+21 "21" ///
+22 "22" ///
+23 "23" ///
+24 "24" ///
+25 "25" ///
+26 "26" ///
+27 "27" ///
+28 "28" ///
+29 "29" ///
+30 "30" ///
+31 "31" ///
+32 "32" ///
+33 "33" ///
+34 "34" ///
+35 "35" ///
+36 "36" ///
+37 "37" ///
+38 "38" ///
+39 "39" ///
+4049 "40-49"
+
+label values agebin5 agebin5
+
 *parity and time since last birth (10 categories)
 //bord_01 tells us how many live births the woman has had
 //we will code "parity" as 1, 2, 3, 4 (1 - no live births 2 - one live birth 3 - two live births 4 - three or more live births)
@@ -378,4 +421,38 @@ replace weight =weight/10
 
 
 drop if c_user==1 & preg==0
+
+
+**************************** OTHER VARS ************************************
+
+
+* fraction PSU higher ranking caste
+
+* fraction PSU open defecate (besides the household)
+
+* protein intake categories
+
+ 
+ *** come back you need to do this at the household level, not at the woman level
+use "$dataset", clear
+
+preserve
+collapse (mean) obc forward muslim [aw=v005], by (psu)
+
+rename obc pct_psu_obc
+rename forward pct_psu_forward
+rename muslim pct_psu_muslim
+
+tempfile psu_group_shares 
+save `psu_group_shares'
+
+restore
+
+
+merge m:1 psu using `psu_group_shares'
+
+gen pct_higher_ranking = pct_psu_obc + pct_psu_forward + pct_psu_muslim if inlist(group,1,2) // for Dalit and Adivasi
+replace pct_higher_ranking = pct_psu_forward if group==3 // for OBC
+
+
 save "$dataset", replace
