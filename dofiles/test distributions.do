@@ -6,9 +6,11 @@ do "$paths"
 drop if group==6 | group==.
 
 
-local overvar protein_div_cat
-local overtitle "Diversity of protein sources consumed weekly"
-local outfile "figures/distribution of diversity protein sources.png"
+// local n_legend_cols =3 
+
+local overvar parity_bs
+local overtitle "parity and birth spacing"
+local outfile "figures/distribution of parity and birth spacing.png"
 
 capture drop `overvar'_*
 local vallab : value label `overvar'
@@ -62,7 +64,7 @@ graph hbar (mean) `over_dummies' [aw=v005],
     over(group, label(angle(0))) 
     stack 
     legend(order(`legend_order') 
-       rows(`n_legend_cols') pos(6) region(lstyle(none))) 
+       cols(`n_legend_cols') pos(6) region(lstyle(none))) 
     blabel(bar, format(%4.0f) position(inside)) 
     ytitle("Percent") 
     title("Distribution of `overtitle'")

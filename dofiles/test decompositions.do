@@ -1,8 +1,9 @@
-local overvar psu_od_q4
+local overvar protein_q4
 
-local outfile "tables/kitagawa by open defecation quartiles.tex"
+local outfile "tables/kitagawa by protein quartile.tex"
 
-local note "The decomposition variable has 4 categories based on the quartile of households in a woman's PSU that defecate in the open."
+local note "\parbox[t]{0.95\linewidth}{The decomposition variable has 4 categories based on the frequency (daily, weekly, occaisionally, never) and diversity of protein consumption (milk/curd, fish, meat, eggs, pulses/beans): 0-1 types of protein weekly, 2 or more types of protein weekly, but none daily, 1 protein food daily, and 2 or more types of protein daily.}"
+
 
 *********************** First do the reweighting including the new variable ***********************
 
