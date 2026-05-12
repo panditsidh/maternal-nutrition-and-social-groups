@@ -1,8 +1,8 @@
-local overvar fwd_psu_bin
+local overvar psu_od_q4
 
-local outfile "tables/kitagawa by pct psu forward"
+local outfile "tables/kitagawa by open defecation quartiles.tex"
 
-local note "The decomposition variable has 5 categories based on the percent of the PSU that is forward caste: 0, 0-10, 10-33, 33-66, and 66-100."
+local note "The decomposition variable has 4 categories based on the quartile of households in a woman's PSU that defecate in the open."
 
 *********************** First do the reweighting including the new variable ***********************
 
@@ -153,9 +153,8 @@ esttab underweight1 underweight2 underweight3,
 #delimit cr
 
 
-
 #delimit ;
-esttab underweight1 underweight2 underweight3 using("`outfile'" ,
+esttab underweight1 underweight2 underweight3 using "`outfile'" , replace tex
     stats(
         fwd_mean
         group_mean
