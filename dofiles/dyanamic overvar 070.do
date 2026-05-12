@@ -12,8 +12,8 @@ Columns:
 * Output files
 *------------------------------------------------------------
 
-local outfile "data/results wealth and social group interaction.dta"
-local bootstrap_results "data/bootstrap cis reweighting without kitagawa vars.dta"
+local outfile "data/results parity bs and social group interaction.dta"
+local bootstrap_results "data/bootstrap cis reweighting parity x group interaction.dta"
 
 
 *------------------------------------------------------------
@@ -23,7 +23,8 @@ local bootstrap_results "data/bootstrap cis reweighting without kitagawa vars.dt
 qui do "$paths"
 use "$dataset", clear
 
-egen wealth_group = group(wealth group), label
+egen parity_group = group(parity group), label
+egen bs_group = group(bs group), label
 
 qui do "dofiles/050_weights to estimate pp nutrition.do"
 
@@ -37,7 +38,7 @@ drop if group==6 | group==.
 local outcomes bmi weight underweight overweight obesity
 
 * Put any overvars here
-local overvars group allfivegroups wealth_group
+local overvars group allfivegroups parity_group bs_group
 * local overvars group allfivegroups parity bs parity_bs wealth wealth_group
 
 

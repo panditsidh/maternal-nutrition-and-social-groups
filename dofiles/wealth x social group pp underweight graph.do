@@ -160,4 +160,4 @@ graph combine panel_a panel_b panel_c, ///
     title("Prepregnancy underweight by wealth quartile and social group")
 
 graph export "figures/prepreg_underweight_by_wealth_group_panels.png", replace width(3000)
-graph save "figures/prepreg_underweight_by_wealth_group_panels.gph", replace
+// graph save "figures/prepreg_underweight_by_wealth_group_panels.gph", replace
