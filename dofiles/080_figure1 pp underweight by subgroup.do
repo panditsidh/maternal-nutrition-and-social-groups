@@ -5,11 +5,13 @@ do "$paths"
 
 * the original is "data/results.dta"
 // local results_file "data/results only age reweighting.dta"
-local results_file "data/results reweighting without kitagawa vars.dta"
+local results_file "data/results figure1 simple reweighting.dta"
+
+
 
 * the original is "figures/figure1 prepregnancy underweight by subgroup.png"
 // local outfile "figures/figure1 only age reweighting.png"
-local outfile "figures/figure1 reweighting without kitagawa vars.png"
+local outfile "figures/figure1 reweighting without wealth and paritybs.png"
 
 
 use "`results_file'", clear

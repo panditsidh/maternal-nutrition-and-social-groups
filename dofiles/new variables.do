@@ -322,6 +322,9 @@ foreach v in s731a s731b s731e s731f s731g {
 
 * Count number of protein-rich foods consumed daily
 egen protein_daily_count = rowtotal(daily_s731a daily_s731b daily_s731e daily_s731f daily_s731g)
+
+egen protein_daily_count_animal = rowtotal(daily_s731a daily_s731e daily_s731f daily_s731g)
+
 egen protein_daily_nonmiss = rownonmiss(daily_s731a daily_s731b daily_s731e daily_s731f daily_s731g)
 
 
@@ -330,11 +333,14 @@ egen protein_weeklyplus_count = rowtotal(weeklyplus_s731a weeklyplus_s731b weekl
 egen protein_weeklyplus_nonmiss = rownonmiss(weeklyplus_s731a weeklyplus_s731b weeklyplus_s731e weeklyplus_s731f weeklyplus_s731g)
 
 egen protein_weekly_count = rowtotal(weekly_s731a weekly_s731b weekly_s731e weekly_s731f weekly_s731g)
+egen protein_weekly_count_animal = rowtotal(weekly_s731a weekly_s731e weekly_s731f weekly_s731g)
 
 replace protein_daily_count = . if protein_daily_nonmiss == 0
 replace protein_weeklyplus_count = . if protein_weeklyplus_nonmiss == 0
 
 egen protein_occ_count = rowtotal(occ_s731a occ_s731b occ_s731e occ_s731f occ_s731g)
+
+egen protein_occ_count_animal = rowtotal(occ_s731a occ_s731e occ_s731f occ_s731g)
 
 label variable protein_daily_count "Number of protein-rich foods consumed daily"
 label variable protein_weekly_count "Number of protein-rich foods consumed weekly"
@@ -400,8 +406,12 @@ occaisionally 2
 
 gen protein_score = (protein_daily_count * 30 + protein_weekly_count * 5 + protein_occ_count*1)/30
 
+gen protein_score_animal = (protein_daily_count_animal * 30 + protein_weekly_count_animal * 5 + protein_occ_count_animal*1)/30
+
 
 xtile protein_score_quartile = protein_score, n(4)
+
+xtile protein_score_quartile_animal = protein_score_animal, n(4)
 
 
 label define protein_score_quartilelbl ///
@@ -411,7 +421,9 @@ label define protein_score_quartilelbl ///
     4 "quartile 4 protein score", replace
 
 label values protein_score_quartile protein_score_quartilelbl
+label values protein_score_quartile_animal protein_score_quartilelbl
 label variable protein_score_quartile "Protein score quartile"
+label variable protein_score_quartile_animal "Animal protein score quartile"
 
 
 

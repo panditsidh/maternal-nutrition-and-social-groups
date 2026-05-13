@@ -1,8 +1,8 @@
-local overvar parity_bs
+local overvar protein_score_quartile_animal
 
-local outfile "tables/kitagawa by parity and birth spacing.tex"
+local outfile "tables/kitagawa by animal protein score quartile.tex"
 
-local note "\parbox[t]{0.95\linewidth}{The decomposition variable is the 10 category parity and birth spacing variable we use in the paper.}"
+local note "\parbox[t]{0.95\linewidth}{The decomposition variable is the protein score quartile where the protein score is +30 for every ANIMAL protein food daily, +5 for every protein food weekly, and +1 for every protein food occaisionally. So only milk/curd, fish, eggs, meat - no pulses/beans.}"
 
 
 *********************** First do the reweighting including the new variable ***********************
