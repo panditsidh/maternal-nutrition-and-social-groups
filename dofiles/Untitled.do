@@ -8,7 +8,13 @@ local B = 100
 local chunk_size = 20
 
 * the original is "data/bootstrap cis for pp outcomes.dta"
-local outfile "data/bootstrap cis figure1 simple reweighting.dta"
+local outfile "data/bootstrap cis with psu od.dta"
+
+
+do "dofiles/new variables.do"
+
+tempfile dataset 
+save `dataset'
 
 ******************* PREPARING BOOTSTRAP RESULTS DATASET ************************
 
@@ -58,7 +64,7 @@ forvalues iteration = 1(1)`B' {
         }
 
         * ---- Bootstrap sample ----
-        use "$dataset", clear
+        use `dataset', clear
 		
 
 				
@@ -67,16 +73,15 @@ forvalues iteration = 1(1)`B' {
         * ---- Generate reweighting ----
         qui do "dofiles/050_weights to estimate pp nutrition.do"
 		
-		egen parity_group = group(parity group), label
-		egen bs_group = group(bs group), label
-
+		egen od_group = group(group psu_od_besideshh_q4)
 
 
 
         * ---- Prepregnancy estimates ----
 // 		foreach overvar in allfivegroups group parity_group bs_group {
 
-        foreach overvar in allfivegroups group parity bs parity_bs wealth {
+//         foreach overvar in allfivegroups group parity bs parity_bs wealth {
+		foreach overvar in allfivegroups group od_group {
 			
 
             levelsof `overvar', local(levels)

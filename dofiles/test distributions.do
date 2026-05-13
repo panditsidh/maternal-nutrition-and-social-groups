@@ -8,9 +8,9 @@ drop if group==6 | group==.
 
 // local n_legend_cols =3 
 
-local overvar protein_q4v2
-local overtitle "protein quartile v2"
-local outfile "figures/distribution of protein quartile v2.png"
+local overvar protein_score_quartile_animal
+local overtitle "animal protein score quartile"
+local outfile "figures/distribution of animal protein score quartile.png"
 
 capture drop `overvar'_*
 local vallab : value label `overvar'

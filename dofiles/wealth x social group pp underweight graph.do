@@ -215,7 +215,12 @@ graph combine panel_a panel_b panel_c, ///
 graph export "figures/`outcome'_by_`interaction_var'_panels.png", replace width(3000)
 graph save "figures/`outcome'_by_`interaction_var'_panels.gph", replace
 
+
+
+
+
 // *------------------------------------------------------------
+
 // * Figure: Prepregnancy underweight by wealth quartile and social group
 // * Panels compare each disadvantaged group to Forward caste
 // * Requires results dataset with wealth_group rows
