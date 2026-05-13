@@ -49,6 +49,24 @@
 
 \subsection*{Robustness to other reweightings}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]
+    {figures/figure 1 only age reweighting.png}
+    \caption{: Figure 1 using only age in reweighting (15-16, single years for 17-39, 40-49)}
+
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]
+    {figures/figure1 reweighting without wealth and paritybs.png}
+    \caption{: Figure 1 using only 4 age bins (15-19, 20-24, 25-29, 30-49), has a living son, urban/rural, less than primary education}
+
+\end{figure}
+
+
+
 
 \subsection*{New decompositions}
 
@@ -91,6 +109,19 @@
     % \setlength{\tabcolsep}{1pt}
     \renewcommand{\arraystretch}{1.5}
     {\input{tables/kitagawa by protein quartile}}
+    \end{threeparttable}
+\end{table}
+
+\begin{table}[H]
+    \centering
+
+    \begin{threeparttable}
+        
+    \small % shrink text
+    \caption{: Decomposition by protein score quartile}
+    % \setlength{\tabcolsep}{1pt}
+    \renewcommand{\arraystretch}{1.5}
+    {\input{tables/kitagawa by protein score quartile}}
     \end{threeparttable}
 \end{table}
 
@@ -246,11 +277,6 @@ I'm not sure why the connected lines are so messed up here. I don't think it mak
 
 
 
-weekly, not daily
-1 daily
-2 daily 
-3+ daily
-
 
 \begin{figure}[H]
     \centering
@@ -261,25 +287,15 @@ weekly, not daily
 \end{figure}
 
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]
-    {figures/distribution of diversity protein sources.png}
-    \caption{: Distribution of pregnant women}
-
-\end{figure}
-
-
-
-
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]
-    {figures/distribution of number protein sources.png}
+    {figures/distribution of protein score quartile.png}
     \caption{: Distribution of pregnant women}
 
 \end{figure}
+
 
 
 \begin{figure}[H]
