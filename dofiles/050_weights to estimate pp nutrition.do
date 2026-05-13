@@ -2,7 +2,7 @@
 do "$paths"
 
 
-local binvars agebin rural less_edu noboy parity_bs group 
+local binvars agebin rural less_edu noboy group 
 
 * ----------------------------------------------------
 

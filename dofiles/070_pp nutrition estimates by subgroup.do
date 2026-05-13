@@ -9,10 +9,10 @@ columns: mean ll ul for every outcome
 */
 
 * the original is "data/results.dta"
-local outfile "data/results reweighting without kitagawa vars.dta"
+local outfile "data/results figure1 simple reweighting.dta"
 
 * the original is "data/bootstrap cis for pp outcomes.dta"
-local bootstrap_results "data/bootstrap cis reweighting without kitagawa vars.dta"
+local bootstrap_results "data/bootstrap cis figure1 simple reweighting.dta"
 
 
 
@@ -20,6 +20,11 @@ local bootstrap_results "data/bootstrap cis reweighting without kitagawa vars.dt
 * prepare dataset
 qui do "$paths"
 use "$dataset", clear
+
+
+egen wealth_group = group(wealth group), label
+
+
 qui do "dofiles/050_weights to estimate pp nutrition.do"
 
 drop if group==6 | group==.
@@ -39,7 +44,7 @@ matrix colnames results = `colnames'
 * calculate means and confidence intervals for all subgroups (predictor level * social group)
 local row = 1
 
-foreach overvar in group allfivegroups {
+foreach overvar in group allfivegroups wealth_group {
 // foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 	
 	levelsof(`overvar'), local(levels)

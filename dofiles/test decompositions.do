@@ -1,8 +1,8 @@
-local overvar protein_q4
+local overvar parity_bs
 
-local outfile "tables/kitagawa by protein quartile.tex"
+local outfile "tables/kitagawa by parity and birth spacing.tex"
 
-local note "\parbox[t]{0.95\linewidth}{The decomposition variable has 4 categories based on the frequency (daily, weekly, occaisionally, never) and diversity of protein consumption (milk/curd, fish, meat, eggs, pulses/beans): 0-1 types of protein weekly, 2 or more types of protein weekly, but none daily, 1 protein food daily, and 2 or more types of protein daily.}"
+local note "\parbox[t]{0.95\linewidth}{The decomposition variable is the 10 category parity and birth spacing variable we use in the paper.}"
 
 
 *********************** First do the reweighting including the new variable ***********************

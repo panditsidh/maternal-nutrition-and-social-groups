@@ -91,7 +91,7 @@ bys group: tab protein_div_cat if preg==0 [aw=v005], missing
 
 
 * open defecation indicator
-gen open_defec
+gen open_defec = .
 
 replace open_defec = 1 if inlist(v116, 30, 31)
 replace open_defec = 0 if !inlist(v116, 30, 31) & v116 < .

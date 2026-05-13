@@ -8,9 +8,9 @@ drop if group==6 | group==.
 
 // local n_legend_cols =3 
 
-local overvar parity_bs
-local overtitle "parity and birth spacing"
-local outfile "figures/distribution of parity and birth spacing.png"
+local overvar protein_q4v2
+local overtitle "protein quartile v2"
+local outfile "figures/distribution of protein quartile v2.png"
 
 capture drop `overvar'_*
 local vallab : value label `overvar'
