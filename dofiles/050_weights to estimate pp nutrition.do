@@ -2,7 +2,10 @@
 do "$paths"
 
 
-local binvars agebin rural less_edu noboy group 
+capture drop bin counter dropbin zerobin pregweight nonpregweight transferpreg transfernonpreg reweightingfxn
+
+
+local binvars agebin rural less_edu noboy group
 
 * ----------------------------------------------------
 

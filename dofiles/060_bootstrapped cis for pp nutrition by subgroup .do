@@ -7,8 +7,10 @@ set seed 8062011
 local B = 100
 local chunk_size = 20
 
+
+local cutoff = 0.75
 * the original is "data/bootstrap cis for pp outcomes.dta"
-local outfile "data/bootstrap cis figure1 simple reweighting.dta"
+local outfile "data/bootstrap cis `cutoff' cutoff.dta"
 
 ******************* PREPARING BOOTSTRAP RESULTS DATASET ************************
 
@@ -58,8 +60,9 @@ forvalues iteration = 1(1)`B' {
         }
 
         * ---- Bootstrap sample ----
-        use "$dataset", clear
-		
+//         use "$dataset", clear
+		do "dofiles/new variables.do"
+		keep if pct_psu_higher<=cutoff
 
 				
         bsample, strata(strata) cluster(psu)

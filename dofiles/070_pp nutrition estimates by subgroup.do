@@ -8,20 +8,22 @@ columns: mean ll ul for every outcome
 
 */
 
+local cutoff .75
+
+
 * the original is "data/results.dta"
-local outfile "data/results interaction with psu od.dta"
+local outfile "data/results cutoff `cutoff'.dta"
 
 * the original is "data/bootstrap cis for pp outcomes.dta"
-local bootstrap_results "data/bootstrap cis with psu od.dta"
+local bootstrap_results "data/bootstrap cis `cutoff' cutoff.dta"
 
 
 
 * prepare dataset
 qui do "$paths"
-// use "$dataset", clear
-do "dofiles/new variables.do"
+use "$dataset", clear
+// do "dofiles/new variables.do"
 
-egen od_group = group(group psu_od_besideshh_q4), label
 
 
 qui do "dofiles/050_weights to estimate pp nutrition.do"
@@ -43,7 +45,7 @@ matrix colnames results = `colnames'
 * calculate means and confidence intervals for all subgroups (predictor level * social group)
 local row = 1
 
-foreach overvar in group allfivegroups od_group {
+foreach overvar in group allfivegroups  {
 // foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 	
 	levelsof(`overvar'), local(levels)

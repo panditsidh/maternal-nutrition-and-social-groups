@@ -1,28 +1,33 @@
 *------------------------------------------------------------
-* Dynamic figure: outcome by interaction category and social group
+* Dynamic figure: outcome by protein category and social group
 * Single graph with Adivasi, Dalit, OBC, Forward
 *
-* Assumes results dataset has:
-* rows, overvar, level, underweight_mean, underweight_ll, underweight_ul
+* rows format:
+*   "Adivasi 0-1 protein foods weekly"
+*   "Dalit 0-1 protein foods weekly"
+*   "OBC 2+ protein foods daily"
+*   "Forward 1 protein food daily"
 *
-* Change only interaction_var and outcome as needed.
+* Assumes results dataset has:
+* rows, overvar, level,
+* underweight_mean, underweight_ll, underweight_ul, etc.
 *------------------------------------------------------------
 
 use "data/results interaction with protein quartile.dta", clear
-* use "data/results wealth and social group interaction.dta", clear
+* change filename above if needed
 
-// local interaction_var parity_group
 local interaction_var protein_group
-* local interaction_var wealth_group
-
-local prettyname "protein quartile"
+local prettyname "protein-rich food consumption"
 
 local outcome underweight
 local ytitle "Prepregnancy underweight (%)"
 
 local figtitle "Prepregnancy underweight by `prettyname' and social group"
 
+*------------------------------------------------------------
 * Keep selected interaction rows
+*------------------------------------------------------------
+
 keep if overvar == "`interaction_var'"
 
 * Drop Muslim if present
@@ -51,50 +56,46 @@ label define group4_lbl ///
 label values group4 group4_lbl
 
 *------------------------------------------------------------
-* Parse category label from rows by removing social group text
+* Parse protein category from rows
+* Remove social group prefix so category is common across groups
 *------------------------------------------------------------
 
 gen str100 cat_label = rows
 
-replace cat_label = subinstr(cat_label, " Adivasi", "", .)
-replace cat_label = subinstr(cat_label, " Dalit", "", .)
-replace cat_label = subinstr(cat_label, " OBC", "", .)
-replace cat_label = subinstr(cat_label, " Forward", "", .)
+replace cat_label = subinstr(cat_label, "Adivasi ", "", .)
+replace cat_label = subinstr(cat_label, "Dalit ", "", .)
+replace cat_label = subinstr(cat_label, "OBC ", "", .)
+replace cat_label = subinstr(cat_label, "Forward ", "", .)
 
-* Encode category label in the order it appears in level
-sort level
-egen cat_order = group(cat_label)
+*------------------------------------------------------------
+* Force intended protein category order
+*------------------------------------------------------------
+
+gen cat_order = .
+
+replace cat_order = 1 if cat_label == "0-1 protein foods weekly"
+replace cat_order = 2 if cat_label == "2+ protein foods weekly, none daily"
+replace cat_order = 3 if cat_label == "1 protein food daily"
+replace cat_order = 4 if cat_label == "2+ protein foods daily"
 
 gen x = cat_order
 
+* Sanity check
+list rows group4 cat_label cat_order if missing(group4) | missing(cat_order)
+
 *------------------------------------------------------------
-* Build x-axis labels dynamically
+* X-axis labels
 *------------------------------------------------------------
 
-levelsof cat_order, local(cats)
-
-local xlabels
-
-foreach c of local cats {
-    
-    preserve
-        keep if cat_order == `c'
-        keep cat_order cat_label
-        duplicates drop
-        
-        local thislab = cat_label[1]
-    restore
-    
-    local xlabels `xlabels' `c' `"`thislab'"'
-}
-
-di `"`xlabels'"'
-
-* If you prefer manual labels for birth spacing, uncomment:
-* local xlabels 1 "<2 years" 2 "2-3 years" 3 "3+ years"
+local xlabels ///
+    1 "0-1 protein foods weekly" ///
+    2 "2+ weekly, none daily" ///
+    3 "1 daily" ///
+    4 "2+ daily"
 
 *------------------------------------------------------------
 * Convert outcome estimates to percentage points
+* Only multiply if estimates are proportions.
 *------------------------------------------------------------
 
 foreach suffix in mean ll ul {
@@ -102,14 +103,13 @@ foreach suffix in mean ll ul {
 }
 
 *------------------------------------------------------------
-* Stagger groups within each category
-* Tighter stagger
+* Stagger groups within each protein category
 *------------------------------------------------------------
 
 distinct group4
 local n_groups = r(ndistinct)
 
-* Tighter radius so points stay closer together
+* Tight stagger
 local radius = min(0.12, 0.035 + 0.02 * `n_groups')
 
 capture drop grouppos offset xpos
@@ -135,7 +135,8 @@ local xmax = r(max) + .25
 *------------------------------------------------------------
 * Build graph layers dynamically
 * Scatter only, no connected lines
-* With point labels above markers
+* CI colors match point colors
+* Point labels above markers
 *------------------------------------------------------------
 
 local colors navy forest_green dkorange maroon

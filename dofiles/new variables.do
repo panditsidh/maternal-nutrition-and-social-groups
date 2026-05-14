@@ -20,10 +20,18 @@ gen group = .
 replace group = 1 if sh49==2 // Adivasi
 replace group = 2 if sh49==1 // Dalit
 replace group = 5 if sh47==2 & group==. // Muslims that aren't SC or ST
-replace group = 3 if inlist(sh47,1,4) // OBC that are Hindu or Sikh
-replace group = 4 if sh47==1 & inlist(sh49,4,8,.) // forward caste Hindu
+replace group = 3 if sh49==3 & inlist(sh47,1,4) // OBC that are Hindu or Sikh
+replace group = 4 if sh47==1 & inlist(sh49,4,8,.) & group==. // forward caste Hindu
 
+label define grouplbl ///
+    1 "Adivasi" ///
+    2 "Dalit" ///
+    3 "OBC" ///
+    4 "Forward" ///
+    5 "Muslim" 
+label values group grouplbl
 
+gen hr_group = group
 
 gen adivasi = group==1 & !missing(group)
 gen dalit = group==2 & !missing(group)
@@ -72,8 +80,7 @@ replace pct_psu_different = pct_psu_adivasi + pct_psu_dalit + pct_psu_forward + 
 replace pct_psu_different = pct_psu_adivasi + pct_psu_dalit + pct_psu_obc + pct_psu_muslim if forward==1
 replace pct_psu_different = pct_psu_adivasi + pct_psu_dalit + pct_psu_obc + pct_psu_forward if muslim==1
 
-gen pct_psu_higher = pct_psu_obc + pct_psu_forward + pct_psu_muslim if inlist(group,1,2)
-replace pct_psu_higher = pct_psu_forward if obc==1
+
 
 
 
@@ -84,7 +91,7 @@ rename hv024 v024
 rename hv025 v025
 
 
-keep v000 v001 v002 v024 v025 pct_psu_higher pct_psu_forward pct_psu_different pct_psu_open_defecates pct_psu_od_besideshh
+keep v000 v001 v002 v024 v025  pct_psu_adivasi pct_psu_dalit pct_psu_obc pct_psu_forward pct_psu_muslim  pct_psu_different pct_psu_open_defecates pct_psu_od_besideshh hr_group sh49 sh47
  
 * common PSU-level variable for decomposition
 gen pct_forward_psu = pct_psu_forward
@@ -99,10 +106,13 @@ use "$dataset", clear
 
 merge m:1 v000 v001 v002 v024 v025 using `hh_psu_share_group'
 
+
 keep if _merge==3
 drop _merge
 
 
+gen pct_psu_higher = pct_psu_obc + pct_psu_forward + pct_psu_muslim if inlist(group,1,2)
+replace pct_psu_higher = pct_psu_forward if obc==1
 
 gen pct_outrank_bin = 1 if pct_psu_higher==0
 replace pct_outrank_bin = 2 if pct_psu_higher>0 & pct_psu_higher<=0.1

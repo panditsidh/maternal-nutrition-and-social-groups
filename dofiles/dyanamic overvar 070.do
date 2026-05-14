@@ -12,8 +12,12 @@ Columns:
 * Output files
 *------------------------------------------------------------
 
-local outfile "data/results parity bs and social group interaction.dta"
-local bootstrap_results "data/bootstrap cis reweighting parity x group interaction.dta"
+
+clear all
+local outfile "data/results interaction with protein quartile.dta"
+
+* the original is "data/bootstrap cis for pp outcomes.dta"
+local bootstrap_results "data/bootstrap cis with protein quartile.dta"
 
 
 *------------------------------------------------------------
@@ -21,10 +25,9 @@ local bootstrap_results "data/bootstrap cis reweighting parity x group interacti
 *------------------------------------------------------------
 
 qui do "$paths"
-use "$dataset", clear
+do "dofiles/new variables.do"
 
-egen parity_group = group(parity group), label
-egen bs_group = group(bs group), label
+egen protein_group = group(group protein_q4), label
 
 qui do "dofiles/050_weights to estimate pp nutrition.do"
 
@@ -38,7 +41,7 @@ drop if group==6 | group==.
 local outcomes bmi weight underweight overweight obesity
 
 * Put any overvars here
-local overvars group allfivegroups parity_group bs_group
+local overvars group allfivegroups protein_group
 * local overvars group allfivegroups parity bs parity_bs wealth wealth_group
 
 
