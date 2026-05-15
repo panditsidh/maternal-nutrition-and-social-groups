@@ -6,6 +6,9 @@ if "`c(username)'" == "YOUR USERNAME" {
 	
 	global nfhs5ir "YOUR FILEPATH TO IAIR7EFL.DTA"
 	
+	
+
+	global nfhs5hr "YOUR PATH TO NFHS5 HOUSEHOLD RECODE DATA"
 	global dataset "WHEREVER YOU'D LIKE THE DATASET STORED"
 
 	cd "FILEPATH TO THIS FOLDER"
@@ -31,7 +34,7 @@ if "`c(username)'" == "sidhpandit" {
 // 	global nfhs3ir "/Users/sidhpandit/Desktop/data/nfhs/nfhs3ir/IAIR52FL.dta"
 	global nfhs4ir "/Users/sidhpandit/Desktop/data/nfhs/nfhs4ir/IAIR74FL.DTA"	
 	global nfhs5ir "/Users/sidhpandit/Desktop/data/nfhs/nfhs5ir/IAIR7EFL.DTA"
-
+	global nfhs5hr "/Users/sidhpandit/Desktop/data/nfhs/nfhs5hr/IAHR7EFL.DTA"
 	global nfhs3br "/Users/sidhpandit/Desktop/data/nfhs/nfhs3br/IABR52FL.dta"
 	global nfhs4br "/Users/sidhpandit/Desktop/data/nfhs/nfhs4br/IABR74FL.DTA"
 // 	global nfhs5br "/Users/sidhpandit/Desktop/data/nfhs/nfhs5br/IABR7EFL.DTA"

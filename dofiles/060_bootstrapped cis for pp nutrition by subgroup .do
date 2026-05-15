@@ -8,7 +8,8 @@ local B = 100
 local chunk_size = 20
 
 
-local cutoff = 0.75
+
+local cutoff = 0.1
 * the original is "data/bootstrap cis for pp outcomes.dta"
 local outfile "data/bootstrap cis `cutoff' cutoff.dta"
 
@@ -60,9 +61,12 @@ forvalues iteration = 1(1)`B' {
         }
 
         * ---- Bootstrap sample ----
-//         use "$dataset", clear
-		do "dofiles/new variables.do"
-		keep if pct_psu_higher<=cutoff
+        use "$dataset", clear
+
+		keep if pct_psu_higher<=`cutoff'
+		
+		replace strata=3 if strata==4
+		replace strata=68 if strata==67
 
 				
         bsample, strata(strata) cluster(psu)

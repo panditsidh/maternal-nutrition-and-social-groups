@@ -163,7 +163,6 @@ gen obc_ci_ul   = pp_ul   if group==3
 gen forward_ci_ll = pp_ll if group==4
 gen forward_ci_ul = pp_ul if group==4
 
-
 twoway ///
     (line pct_adivasi_ppunderweight cutoff, sort lwidth(medthick) lcolor(navy)) ///
     (rcap adivasi_ci_ul adivasi_ci_ll cutoff if !missing(adivasi_ci_ll), ///
@@ -180,18 +179,18 @@ twoway ///
     (rcap forward_ci_ul forward_ci_ll cutoff if group==4 & cutoff==1, ///
         lcolor(gs8)) ///
     ///
+    (function y=16, range(0 1) lpattern(dash) lcolor(gs10) lwidth(thin)) ///
+    ///
     , ///
-    yline(16, lpattern(dash) lcolor(gs10) lwidth(thin)) ///
-    text(16 .08 "Forward caste: 16%", color(gs8) size(small) placement(e)) ///
     xscale(reverse range(0 1)) ///
     xlabel(1(.1)0, angle(0)) ///
     ylabel(, angle(0)) ///
     xtitle("Maximum fraction of PSU" "higher ranking included") ///
     ytitle("Estimated prepregnancy" "underweight (%)") ///
-    legend(order(1 "Adivasi" 3 "Dalit" 5 "OBC" 7 "Forward caste CI") ///
+    legend(order(1 "Adivasi" 3 "Dalit" 5 "OBC" 8 "Forward caste") ///
            rows(1) position(6)) ///
     title("Prepregnancy underweight by local higher caste-rank exposure") ///
     note("Lines re-estimate prepregnancy underweight after restricting the sample by fraction PSU higher ranking." ///
-         "Confidence intervals are shown at selected cutoffs. Dashed line shows forward-caste estimate.")
+         "Confidence intervals are shown at selected cutoffs.")
 
 graph export "figures/ppu_by_pct_psu_higher_cutoff_with_ci.png", replace width(2400)

@@ -1,4 +1,9 @@
+
 do "$paths"
+
+do "dofiles/011 prepare hh level vars for merge.do"
+
+
 
 use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s v404 bord* v190 v191 b3* s731a-s731i v731 m15* d113 sweight sdweight  using "$nfhs5ir", clear
 
@@ -51,6 +56,58 @@ gen obc = group==3
 gen forward = group==4
 gen muslim = group==5
 gen allfivegroups = 1
+
+
+merge m:1 v000 v001 v002 v024 v025 using "data/hh_level_vars.dta"
+keep if _merge==3
+drop _merge
+
+
+* make quartiles of the variable: share of psu that defecates in the open, leaving out the household
+xtile psu_od_besideshh_q4 = pct_psu_od_besideshh [aw=v005], nq(4)
+
+label define psu_od_besideshh_q4_lbl ///
+    1 "Lowest PSU OD exposure quartile" ///
+    2 "Second PSU OD exposure quartile" ///
+    3 "Third PSU OD exposure quartile" ///
+    4 "Highest PSU OD exposure quartile", replace
+
+label values psu_od_besideshh_q4 psu_od_besideshh_q4_lbl
+label variable psu_od_besideshh_q4 "PSU open defecation exposure quartile"
+
+
+
+
+* percent psu higher ranking
+gen pct_psu_higher = pct_psu_obc + pct_psu_forward + pct_psu_muslim if inlist(group,1,2)
+replace pct_psu_higher = pct_psu_forward if obc==1
+
+
+gen pct_psu_higher_bins = . 
+
+replace pct_psu_higher_bins = 1 if pct_psu_higher <= 0.10
+replace pct_psu_higher_bins = 2 if pct_psu_higher > 0.10 & pct_psu_higher <= 0.25
+replace pct_psu_higher_bins = 3 if pct_psu_higher > 0.25 & pct_psu_higher <= 0.50
+replace pct_psu_higher_bins = 4 if pct_psu_higher > 0.50 & pct_psu_higher <= 0.75
+replace pct_psu_higher_bins = 5 if pct_psu_higher > 0.75 & !missing(pct_psu_higher)
+
+
+label define pct_psu_higher_bins_lbl ///
+    1 "0-10% higher-caste households in PSU" ///
+    2 "10-25% higher-caste households in PSU" ///
+    3 "25-50% higher-caste households in PSU" ///
+    4 "50-75% higher-caste households in PSU" ///
+    5 "75-100% higher-caste households in PSU", replace
+
+label values pct_psu_higher_bins pct_psu_higher_bins_lbl
+label variable pct_psu_higher_bins "Share of higher-caste households in PSU"
+
+
+
+
+
+	
+	
 
 **************************** GESTATIONAL DURATION ******************************
 
@@ -361,6 +418,9 @@ label define parity_bs_lbl ///
    10 "3+ births, 3+y spacing"
 label values parity_bs parity_bs_lbl
 
+
+label var parity_bs "Parity & time since last birth (10 category)"
+
 **************************** SOCIOECONOMIC ************************************
 
 *education
@@ -404,6 +464,9 @@ label define wealthlbl ///
     4 "4th quartile" 
 label values wealth wealthlbl
 
+
+label wealth "Wealth quartile"
+
 **************************** OUTCOME ************************************
 
 //Our outcome variable is "underweight," defined as having a BMI less than 18.5.
@@ -426,33 +489,98 @@ drop if c_user==1 & preg==0
 **************************** OTHER VARS ************************************
 
 
-* fraction PSU higher ranking caste
 
-* fraction PSU open defecate (besides the household)
+*------------------------------------------------------------
+* Protein-rich food consumption intensity/diversity
+*
+* Original coding:
+* 0 = Never
+* 1 = Daily
+* 2 = Weekly
+* 3 = Occasionally
+*
+* Foods:
+* s731a = milk/curd
+* s731b = pulses/beans
+* s731e = eggs
+* s731f = fish
+* s731g = chicken/meat
+*------------------------------------------------------------
 
-* protein intake categories
+* Indicators for daily and weekly-or-more consumption
+foreach v in s731a s731b s731e s731f s731g {
+    
+    gen daily_`v' = .
+    replace daily_`v' = 1 if `v' == 1
+    replace daily_`v' = 0 if inlist(`v', 0, 2, 3)
+    
+    gen weeklyplus_`v' = .
+    replace weeklyplus_`v' = 1 if inlist(`v', 1, 2)
+    replace weeklyplus_`v' = 0 if inlist(`v', 0, 3)
+	
+	gen weekly_`v' = .
+    replace weekly_`v' = 1 if inlist(`v', 2)
+    replace weekly_`v' = 0 if inlist(`v', 0, 1, 3)
+	
+	gen occ_`v' = .
+    replace occ_`v' = 1 if inlist(`v', 3)
+    replace occ_`v' = 0 if inlist(`v', 0, 1, 2)
+}
 
- 
- *** come back you need to do this at the household level, not at the woman level
-use "$dataset", clear
+* Count number of protein-rich foods consumed daily
+egen protein_daily_count = rowtotal(daily_s731a daily_s731b daily_s731e daily_s731f daily_s731g)
 
-preserve
-collapse (mean) obc forward muslim [aw=v005], by (psu)
+egen protein_daily_count_animal = rowtotal(daily_s731a daily_s731e daily_s731f daily_s731g)
 
-rename obc pct_psu_obc
-rename forward pct_psu_forward
-rename muslim pct_psu_muslim
-
-tempfile psu_group_shares 
-save `psu_group_shares'
-
-restore
+egen protein_daily_nonmiss = rownonmiss(daily_s731a daily_s731b daily_s731e daily_s731f daily_s731g)
 
 
-merge m:1 psu using `psu_group_shares'
+* Count number consumed at least weekly
+egen protein_weeklyplus_count = rowtotal(weeklyplus_s731a weeklyplus_s731b weeklyplus_s731e weeklyplus_s731f weeklyplus_s731g)
+egen protein_weeklyplus_nonmiss = rownonmiss(weeklyplus_s731a weeklyplus_s731b weeklyplus_s731e weeklyplus_s731f weeklyplus_s731g)
 
-gen pct_higher_ranking = pct_psu_obc + pct_psu_forward + pct_psu_muslim if inlist(group,1,2) // for Dalit and Adivasi
-replace pct_higher_ranking = pct_psu_forward if group==3 // for OBC
+egen protein_weekly_count = rowtotal(weekly_s731a weekly_s731b weekly_s731e weekly_s731f weekly_s731g)
+egen protein_weekly_count_animal = rowtotal(weekly_s731a weekly_s731e weekly_s731f weekly_s731g)
+
+replace protein_daily_count = . if protein_daily_nonmiss == 0
+replace protein_weeklyplus_count = . if protein_weeklyplus_nonmiss == 0
+
+egen protein_occ_count = rowtotal(occ_s731a occ_s731b occ_s731e occ_s731f occ_s731g)
+
+egen protein_occ_count_animal = rowtotal(occ_s731a occ_s731e occ_s731f occ_s731g)
+
+label variable protein_daily_count "Number of protein-rich foods consumed daily"
+label variable protein_weekly_count "Number of protein-rich foods consumed weekly"
+label variable protein_occ_count "Number of protein-rich foods consumed weekly"
+label variable protein_weeklyplus_count "Number of protein-rich foods consumed at least weekly"
+
+
+*------------------------------------------------------------
+* Four-category protein intensity/diversity variable
+*------------------------------------------------------------
+
+gen protein_q4 = .
+
+replace protein_q4 = 1 if protein_weeklyplus_count <= 1
+replace protein_q4 = 2 if protein_weeklyplus_count >= 2 & protein_daily_count == 0
+replace protein_q4 = 3 if protein_daily_count == 1 
+replace protein_q4 = 4 if protein_daily_count >= 2 & protein_daily_count < .
+
+label define protein_q4_lab ///
+    1 "0-1 protein foods weekly" ///
+    2 "2+ protein foods weekly, none daily" ///
+    3 "1 protein food daily" ///
+    4 "2+ protein foods daily", replace
+	
+label values protein_q4 protein_q4_lab
+label variable protein_q4 "Protein-rich food consumption intensity/diversity"
+
+
+
+
+
+
+
 
 
 save "$dataset", replace

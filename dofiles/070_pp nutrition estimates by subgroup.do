@@ -8,7 +8,7 @@ columns: mean ll ul for every outcome
 
 */
 
-local cutoff .75
+local cutoff .1
 
 
 * the original is "data/results.dta"
@@ -45,10 +45,12 @@ matrix colnames results = `colnames'
 * calculate means and confidence intervals for all subgroups (predictor level * social group)
 local row = 1
 
-foreach overvar in group allfivegroups  {
+foreach overvar in group   {
 // foreach overvar in group allfivegroups parity bs parity_bs wealth  {
 	
-	levelsof(`overvar'), local(levels)
+// 	levelsof(`overvar'), local(levels)
+
+	local levels 1 2 3
 	
 	foreach i in `levels' {
 		
