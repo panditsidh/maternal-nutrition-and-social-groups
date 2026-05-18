@@ -67,10 +67,10 @@ drop _merge
 xtile psu_od_besideshh_q4 = pct_psu_od_besideshh [aw=v005], nq(4)
 
 label define psu_od_besideshh_q4_lbl ///
-    1 "Lowest PSU OD exposure quartile" ///
-    2 "Second PSU OD exposure quartile" ///
-    3 "Third PSU OD exposure quartile" ///
-    4 "Highest PSU OD exposure quartile", replace
+    1 "Lowest exposure quartile" ///
+    2 "2nd exposure quartile" ///
+    3 "3rd exposure quartile" ///
+    4 "Highest exposure quartile", replace
 
 label values psu_od_besideshh_q4 psu_od_besideshh_q4_lbl
 label variable psu_od_besideshh_q4 "PSU open defecation exposure quartile"
@@ -93,11 +93,11 @@ replace pct_psu_higher_bins = 5 if pct_psu_higher > 0.75 & !missing(pct_psu_high
 
 
 label define pct_psu_higher_bins_lbl ///
-    1 "0-10% higher-caste households in PSU" ///
-    2 "10-25% higher-caste households in PSU" ///
-    3 "25-50% higher-caste households in PSU" ///
-    4 "50-75% higher-caste households in PSU" ///
-    5 "75-100% higher-caste households in PSU", replace
+    1 "0-10\% higher-caste households in PSU" ///
+    2 "10-25\% higher-caste households in PSU" ///
+    3 "25-50\% higher-caste households in PSU" ///
+    4 "50-75\% higher-caste households in PSU" ///
+    5 "75-100\% higher-caste households in PSU", replace
 
 label values pct_psu_higher_bins pct_psu_higher_bins_lbl
 label variable pct_psu_higher_bins "Share of higher-caste households in PSU"
@@ -362,9 +362,9 @@ gen birth_space = (v008 - b3_01) + 9 if preg==0 & !missing(b3_01)
 replace birth_space = (v008 - b3_01) + (9-gestdur) if preg==1 & !missing(b3_01)
 
 gen bs = .
-replace bs = 1 if birth_space < 24
-replace bs = 2 if inrange(birth_space, 24, 36)
-replace bs = 3 if birth_space > 36
+replace bs = 1 if birth_space < 24 & !missing(birth_space)
+replace bs = 2 if inrange(birth_space, 24, 36) & !missing(birth_space)
+replace bs = 3 if birth_space > 36 & !missing(birth_space)
 
 gen bs_below2 = bs==1
 gen bs_2to3 = bs==2
@@ -458,14 +458,14 @@ gen wealth4 = wealth==4
 tab preg wealth, m
 
 label define wealthlbl ///
-    1 "1st quartile" ///
+    1 "Poorest quartile" ///
     2 "2nd quartile" ///
     3 "3rd quartile" ///
-    4 "4th quartile" 
+    4 "Richest quartile" 
 label values wealth wealthlbl
 
 
-label wealth "Wealth quartile"
+label var wealth "Wealth quartile"
 
 **************************** OUTCOME ************************************
 
