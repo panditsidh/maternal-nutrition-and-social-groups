@@ -28,8 +28,8 @@ foreach g in 1 2 3 {
 
     use "$dataset", clear
 
-    local binvars agebin rural less_edu noboy group parity_bs wealth
-    do "dofiles/050_weights to estimate pp nutrition.do"
+    global binvars agebin rural less_edu noboy group 
+    do "dofiles/new final/050 bootstrap"
 
     * forward caste prepreg outcome
     quietly sum `outcome' [aw=reweightingfxn] if group == 4 & preg == 0
@@ -56,8 +56,8 @@ foreach decompvar in `decompvars' {
 
     use "$dataset", clear
 
-    local binvars agebin rural less_edu noboy group `decompvar' parity_bs wealth
-    do "dofiles/050_weights to estimate pp nutrition.do"
+    global binvars agebin rural less_edu noboy group `decompvar' 
+    do "dofiles/new final/050 bootstrap"
 
     levelsof `decompvar' if !missing(`decompvar'), local(decompvarlevels)
 

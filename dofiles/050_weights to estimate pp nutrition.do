@@ -5,7 +5,7 @@ do "$paths"
 use "$dataset", clear
 
 
-local binvars agebin rural less_edu noboy group
+// local binvars agebin rural less_edu noboy group
 
 capture drop bin counter dropbin zerobin pregweight nonpregweight transferpreg transfernonpreg reweightingfxn
 

@@ -1,18 +1,29 @@
 local overvar parity_bs
 
+
+
 // local outfile "tables/kitagawa by animal protein score quartile.tex"
 
-local note "\parbox[t]{0.95\linewidth}{The decomposition variable is the protein score quartile where the protein score is +30 for every ANIMAL protein food daily, +5 for every protein food weekly, and +1 for every protein food occaisionally. So only milk/curd, fish, eggs, meat - no pulses/beans.}"
+// local note "\parbox[t]{0.95\linewidth}{The decomposition variable is the protein score quartile where the protein score is +30 for every ANIMAL protein food daily, +5 for every protein food weekly, and +1 for every protein food occaisionally. So only milk/curd, fish, eggs, meat - no pulses/beans.}"'
 
 
 *********************** First do the reweighting including the new variable ***********************
 
 do "$paths"
 
+use "$dataset", clear
+
+foreach i in 1 2 3 4 {
+	
+	gen psu_od_besideshh_q4`i' = psu_od_besideshh_q4==`i'
+}
+
+
+
 cap drop pregweight nonpregweight transferpreg transfernonpreg reweightingfxn counter dropbin zerobin bin
 
 
-local binvars agebin rural less_edu noboy parity_bs group `overvar'
+local binvars agebin rural less_edu noboy group `overvar'
 
 drop if missing(preg)
 
@@ -95,12 +106,13 @@ foreach g in 1 2 3  {
         
         sum `overvar' if group==`g' & preg==1 [aw=v005]
         local g_total = r(N)
-        
-        sum `overvar' if group==4 & preg==1 & `overvar'==`p' [aw=v005]
-        local fwd_wt = r(N) / `fwd_total'
-        
-        sum `overvar' if group==`g' & preg==1 & `overvar'==`p' [aw=v005]
-        local g_wt = r(N) / `g_total'
+
+		
+		sum `overvar'`p' if group==`g' & preg==1 [aw=v005]
+		local g_wt = r(mean)
+		
+		sum `overvar'`p' if group==4 & preg==1 [aw=v005]
+		local fwd_wt = r(mean)
         
         * prepregnancy outcomes within category
         sum `outcome' if group==4 & `overvar'==`p' & preg==0 [aw=reweightingfxn]
