@@ -147,12 +147,12 @@
 \begin{threeparttable}
     
     \centering
-    \tiny % shrink text
+    \scriptsize % shrink text
     
     \caption{: Women reporting one or two months of pregnancy are different than those reporting three or more months of pregnancy}
     \label{regression3plusmopreg}
     \setlength{\tabcolsep}{1pt}
-    \renewcommand{\arraystretch}{0.8}
+    \renewcommand{\arraystretch}{1.4}
     {\input{tables/tableA1 predicting first quarter pregnancy NEW}}
     \begin{tablenotes}
         \item NFHS-5 data. Observations are married women who are in one of the five social groups we study and who report being currently pregnant. Standard errors, shown in parentheses, are clustered at the primary sampling unit level. 
@@ -162,6 +162,7 @@
 \end{table}
 
 
+\begin{landscape}
 
 \begin{table}[H]
     \centering
@@ -187,8 +188,55 @@
     \end{threeparttable}
 \end{table}
 
-
 \end{landscape}
+
+\begin{table}[H]
+    \centering
+
+    \begin{threeparttable}
+            
+    \caption{: Distribution of gestational ages suggests under-reporting of early pregnancy}
+    \label{gestdur_distribution}
+    \small
+    \setlength{\tabcolsep}{5pt}
+    
+        \input{tables/tableA2 distribution of gestational duration}
+    
+    \small
+    \begin{tablenotes}
+        \item  
+    \end{tablenotes}
+
+    \begin{tablenotes}
+    \footnotesize
+    \item 
+        NFHS-5 data. Observations are married women interviewed who are in one of the five social groups we study and report being currently pregnant.
+    \end{tablenotes}
+    
+    \end{threeparttable}
+\end{table}
+
+
+\newpage
+\begin{table}[!htbp]
+    \centering
+    \begin{threeparttable}
+        \caption{: Variables used in the nonparametric reweighting predict pregnancy}
+        \label{tab:regression}
+
+        \scriptsize
+        \setlength{\tabcolsep}{1pt}
+        \renewcommand{\arraystretch}{0.81}
+
+        % {\input{tables/predictor_regression}}
+        {\input{tables/tableA3 predict pregnancy using reweighting variables}}
+
+        \begin{tablenotes}
+            \item NFHS-5 data. Standard errors are in parentheses and are clustered at the primary sampling unit level. Sample includes married women in one of the five social groups we study who are either currently 3 or more months pregnant or nonpregnant and not using modern contraception.
+            \item * $p<0.5$, ** $p<0.01$ *** $p<0.001$ 
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
 
 
 % \section*{Disparities in Maternal Nutrition: additional results} 
