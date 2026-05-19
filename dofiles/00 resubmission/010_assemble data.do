@@ -77,7 +77,7 @@ label define psu_od_besideshh_q4_lbl ///
     4 "Highest quartile", replace
 
 label values psu_od_besideshh_q4 psu_od_besideshh_q4_lbl
-label variable psu_od_besideshh_q4 "Fraction of other households in PSU that defecate in the open"
+label variable psu_od_besideshh_q4 "Fraction of neighbors that defecate in the open"
 
 
 

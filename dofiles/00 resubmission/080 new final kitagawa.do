@@ -217,7 +217,7 @@ replace rowlabel = "\textbf{Panel A: Decomposition by parity + birthspacing}" //
 replace rowlabel = "\textbf{Panel B: Decomposition by wealth}" ///
     in `=`oldN' + 2'
 
-replace rowlabel = "\textbf{Panel C: Decomposition by fraction of other households in PSU that defecate in the open}" ///
+replace rowlabel = "\textbf{Panel C: Decomposition by local open defecation prevalence}" ///
     in `=`oldN' + 3'
 
 gen panelheader = inlist(order, 2, 6, 10)
