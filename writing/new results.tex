@@ -162,33 +162,6 @@
 \end{table}
 
 
-\begin{landscape}
-
-\begin{table}[H]
-    \centering
-    \small % shrink text
-
-    \begin{threeparttable}
-        
-    
-    \caption{: Sample sizes of 3+ month pregnant women in each subgroup and the \% of pregnant women dropped to estimate pre-pregnancy underweight}
-    \label{tab:sampledropped}
-    \renewcommand{\arraystretch}{1}
-    \resizebox{\textwidth}{!}{%
-        \input{tables/tableA4 percent dropped NEW}
-    }
-    
-    \begin{tablenotes}
-    \footnotesize
-    \item \parbox{\textwidth}{
-        NFHS-5 data. Pregnant women are dropped from the reweighting technique if they are categorized into a bin that contains no nonpregnant women. 
-    }
-    \end{tablenotes}
-
-    \end{threeparttable}
-\end{table}
-
-\end{landscape}
 
 \begin{table}[H]
     \centering
@@ -224,12 +197,12 @@
         \caption{: Variables used in the nonparametric reweighting predict pregnancy}
         \label{tab:regression}
 
-        \scriptsize
-        \setlength{\tabcolsep}{1pt}
-        \renewcommand{\arraystretch}{0.81}
+        \footnotesize
+        \setlength{\tabcolsep}{1.5pt}
+        \renewcommand{\arraystretch}{1.5}
 
         % {\input{tables/predictor_regression}}
-        {\input{tables/tableA3 predict pregnancy using reweighting variables}}
+        {\input{tables/tableA3 predict pregnancy NEW}}
 
         \begin{tablenotes}
             \item NFHS-5 data. Standard errors are in parentheses and are clustered at the primary sampling unit level. Sample includes married women in one of the five social groups we study who are either currently 3 or more months pregnant or nonpregnant and not using modern contraception.
@@ -237,6 +210,105 @@
         \end{tablenotes}
     \end{threeparttable}
 \end{table}
+
+
+
+\begin{landscape}
+
+\begin{table}[H]
+    \centering
+    \small % shrink text
+
+    \begin{threeparttable}
+        
+    
+    \caption{: Sample sizes of 3+ month pregnant women in each subgroup and the \% of pregnant women dropped to estimate pre-pregnancy underweight}
+    \label{tab:sampledropped}
+    \renewcommand{\arraystretch}{1}
+    \resizebox{\textwidth}{!}{%
+        \input{tables/tableA4 percent dropped NEW}
+    }
+    
+    \begin{tablenotes}
+    \footnotesize
+    \item \parbox{\textwidth}{
+        NFHS-5 data. Pregnant women are dropped from the reweighting technique if they are categorized into a bin that contains no nonpregnant women. 
+    }
+    \end{tablenotes}
+
+    \end{threeparttable}
+\end{table}
+
+\end{landscape}
+
+
+\begin{landscape}
+    
+
+
+\begin{table}[H]
+    \centering
+
+    \begin{threeparttable}
+            
+    \caption{: Prepregnancy underweight estimates are robust to reweighting over different sets of variables}
+    \label{specifications}
+    \renewcommand{\arraystretch}{1.5}
+    \scriptsize
+    \setlength{\tabcolsep}{5pt}
+    \resizebox{\textwidth}{!}{%
+        \input{tables/tableA5 reweighting specifications}
+    }
+    
+    \scriptsize
+
+    
+    \begin{tablenotes}
+        \item  \textit{Notes}: NFHS-5 data.
+        \item $^a$ Original reweighting specification includes all categories seen in Table \ref{tab:sumstats} and used in the main results: 4 category age bin (15–19, 20–24, 25–29, 30–49), 10 parity \& time since last birth categories, 4 wealth quartiles, and indicators for not using modern contraception, less than primary education, rural resident, and does not have boy child.
+        \item $^b$ 5 category age bin has 15-19, 20-24, 25-29, 30-34, and 35-49.
+        \item $^c$ 6 category age bin has 15-19, 20-22, 23-25, 26-29, 30-34, and 35-49.
+        \item $^d$ 7 category age bin has 15-17, 18-20, 21-23, 24-26, 27-30, and 31-34 and 35-39.
+    \end{tablenotes}
+
+    
+    
+    \end{threeparttable}
+\end{table}
+
+% \end{landscape}
+
+\end{landscape}
+
+
+
+\newpage
+\begin{landscape}
+\begin{table}[!htbp]
+\centering
+\begin{adjustbox}{center, max width=0.95\linewidth} % <-- reduced slightly from 1.0 to 0.95
+\begin{threeparttable}
+    \small
+    \caption{: Means and 95\% CIs for additional maternal nutrition indicators by social group}
+    \label{tab:addnut}
+
+    \setlength{\tabcolsep}{2pt}
+    \renewcommand{\arraystretch}{1.35}
+
+    \input{tables/tableA6 additional maternal nutrition indicators}
+
+    \begin{tablenotes}
+        \item NFHS-5 data. Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample (married, not using modern contraception, and belonging to one of the five social groups we study). Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state.
+        \item $^{a}$ Overweight defined as BMI above 25.
+        \item $^{b}$ Obesity defined as BMI above 30.
+        \item Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim  (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
+    \end{tablenotes}
+
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+\end{landscape}
+
 
 
 % \section*{Disparities in Maternal Nutrition: additional results} 
