@@ -136,7 +136,7 @@ twoway
         3 "OBC" 
         4 "Forward" 
         5 "Muslim" 
-        6 "All India",
+        6 "All five groups",
         nogrid
     )
     ylabel(0(.05)0.3, grid)
@@ -163,9 +163,6 @@ twoway
     )
     text(`outcome_6' `textpos_6' "`=string(`outcome_6', "%4.2f")'", 
         placement(west) size(small)
-    )
-    text(-0.035 6.5 "all India", 
-        placement(west)
     )
     text(-0.035 4.35 "caste Hindu", 
         placement(west)

@@ -118,7 +118,7 @@ foreach panel of local panels {
 		local note_wealth "n=`sample_size' (3+ month married pregnant women)"
 		local note_parity "n=`sample_size' (3+ month married pregnant women)"
 		local note_psu_od_besideshh_q4 "n=`sample_size' (3+ month married pregnant women)"
-		local note_bs "n=`sample_size' (3+ month married pregnant women who have at least 1 live birth)"
+		local note_bs "n=`sample_size' (3+ month married pregnant women" "who have at least 1 live birth)"
 
         
         #delimit ;
