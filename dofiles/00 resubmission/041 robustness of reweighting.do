@@ -30,27 +30,67 @@ do "$paths"
 
 local n_specs = 7
 
-local binvars1 group agebin5 
-local titles1 "1. 15-16, 40-49, and single year age bins"
+// local binvars1 group agebin5 
+// local titles1 "1. 15-16, 40-49, and single year age bins"
+//
+// local binvars2 group agebin5 rural
+// local titles2 "2. (1)+rural"
+//
+// local binvars3 group agebin5 rural less_edu
+// local titles3 "3. (1)+rural+education"
+//
+// local binvars4 group agebin5 rural less_edu noboy
+// local titles4 "4. (1)+rural+education+noboy"
+//
+// local binvars5 group agebin5 rural less_edu noboy
+// local titles5 "5. (1)+rural+edu+noboy+parity_bs"
+//
+//
+// local binvars6 group agebin rural less_edu noboy
+// local titles6 "6. 4 cat age bin, rural, edu, noboy"
+//
+// local binvars7 group agebin rural less_edu noboy parity_bs
+// local titles7 "7. (6)+parity_bs"
 
-local binvars2 group agebin5 rural
-local titles2 "2. (1)+rural"
-
-local binvars3 group agebin5 rural less_edu
-local titles3 "3. (1)+rural+education"
-
-local binvars4 group agebin5 rural less_edu noboy
-local titles4 "4. (1)+rural+education+noboy"
-
-local binvars5 group agebin5 rural less_edu noboy
-local titles5 "5. (1)+rural+edu+noboy+parity_bs"
 
 
-local binvars6 group agebin rural less_edu noboy
-local titles6 "6. 4 cat age bin, rural, edu, noboy"
+*------------------------------------------------------------
+* Reweighting specification checks
+*------------------------------------------------------------
 
+* 1. Main reweighting specification:
+*    4-category age groups + rural + education + noboy
+local binvars1 group agebin rural less_edu noboy
+local titles1 "1. Main specification: 4-category age, rural, education, noboy"
+
+* 2. Finer age bins only:
+*    15-16, single-year ages 17-39, and 40-49
+local binvars2 group agebin5
+local titles2 "2. Fine age bins only: 15-16, single years 17-39, 40-49"
+
+* 3. Fine age bins + main controls
+local binvars3 group agebin5 rural less_edu noboy
+local titles3 "3. Fine age bins + rural + education + noboy"
+
+* 4. Fine age bins + main controls + parity/birth spacing
+local binvars4 group agebin5 rural less_edu noboy parity_bs
+local titles4 "4. Fine age bins + rural + education + noboy + parity/birth spacing"
+
+* 5. Main specification + PSU open defecation quartiles
+local binvars5 group agebin rural less_edu noboy psu_od_besideshh_q4
+local titles5 "5. Main specification + PSU open defecation quartiles"
+
+* 6. Main specification + wealth quartiles
+local binvars6 group agebin rural less_edu noboy wealth
+local titles6 "6. Main specification + wealth quartiles"
+
+* 7. Main specification + parity and birth spacing categories
 local binvars7 group agebin rural less_edu noboy parity_bs
-local titles7 "7. (6)+parity_bs"
+local titles7 "7. Main specification + parity/birth spacing"
+
+* 8. Main specification + protein categories
+local binvars8 group agebin rural less_edu noboy protein_q4
+local titles8 "8. Main specification + protein categories"
 
 
 
