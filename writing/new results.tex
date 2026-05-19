@@ -45,7 +45,7 @@
 
 \begin{landscape}
 
-
+\section*{Main tables and figures}
 
 
 \begin{table}[H]
@@ -122,6 +122,70 @@
     \caption{: Prepregnancy underweight by social group}
 \end{figure}
 
+\end{landscape}
+
+\section*{Appendix}
+
+% Reset and format appendix numbering
+\setcounter{section}{-1}
+\renewcommand{\thesection}{S.\arabic{section}}
+\renewcommand{\thesubsection}{S.\arabic{section}.\arabic{subsection}}
+
+% Make tables/figures labeled A.1, A.2, etc.
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+
+% Now numbered sections start from S.1
+\stepcounter{section}
+
+
+
+\begin{table}[H]
+
+\begin{threeparttable}
+    
+    \centering
+    \tiny % shrink text
+    
+    \caption{: Women reporting one or two months of pregnancy are different than those reporting three or more months of pregnancy}
+    \label{regression3plusmopreg}
+    \setlength{\tabcolsep}{1pt}
+    \renewcommand{\arraystretch}{0.8}
+    {\input{tables/tableA1 predicting first quarter pregnancy NEW}}
+    \begin{tablenotes}
+        \item NFHS-5 data. Observations are married women who are in one of the five social groups we study and who report being currently pregnant. Standard errors, shown in parentheses, are clustered at the primary sampling unit level. 
+        \item * $p<0.5$, ** $p<0.01$
+    \end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+
+\begin{table}[H]
+    \centering
+    \small % shrink text
+
+    \begin{threeparttable}
+        
+    
+    \caption{: Sample sizes of 3+ month pregnant women in each subgroup and the \% of pregnant women dropped to estimate pre-pregnancy underweight}
+    \label{tab:sampledropped}
+    \renewcommand{\arraystretch}{1}
+    \resizebox{\textwidth}{!}{%
+        \input{tables/tableA4 percent dropped NEW}
+    }
+    
+    \begin{tablenotes}
+    \footnotesize
+    \item \parbox{\textwidth}{
+        NFHS-5 data. Pregnant women are dropped from the reweighting technique if they are categorized into a bin that contains no nonpregnant women. 
+    }
+    \end{tablenotes}
+
+    \end{threeparttable}
+\end{table}
 
 
 \end{landscape}
