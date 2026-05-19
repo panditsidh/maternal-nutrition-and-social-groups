@@ -258,6 +258,8 @@ label define noboylbl ///
     0 "has at least one boy child" 
 label values noboy noboylbl
 
+label variable noboy "Does not have boy child"
+
 *age
 gen agebin = .
 replace agebin = 1 if inrange(v012, 15, 19)     // Teens
@@ -268,6 +270,8 @@ replace agebin = 4 if inrange(v012, 30, 49)     // Lowest fertility
 
 label define agebinlbl 1 "15–19" 2 "20–24" 3 "25–29" 4 "30–49"
 label values agebin agebinlbl
+label variable agebin "Age Categories"
+
 
 gen age1519 = agebin==1
 gen age2024 = agebin==2
@@ -421,7 +425,7 @@ label define parity_bs_lbl ///
 label values parity_bs parity_bs_lbl
 
 
-label var parity_bs "Parity & time since last birth (10 category)"
+label var parity_bs "Categories for parity and spacing from last birth"
 
 **************************** SOCIOECONOMIC ************************************
 
@@ -435,7 +439,7 @@ label define lessedulbl ///
     0 "primary education or higher" ///
     1 "less than primary education" 
 label values less_edu lessedulbl
-
+label var less_edu "Less than primary education"
 
 * rural resident
 //it is not missing for any of the pregnant or nonpregnant women.
@@ -448,6 +452,7 @@ label define rurallbl ///
     0 "not a rural resident" ///
     1 "rural resident" 
 label values rural rurallbl
+label variable rural "Rural resident"
 
 *wealth (4)
 //it is not missing for any of the pregnant or nonpregnant women.
