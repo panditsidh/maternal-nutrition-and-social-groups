@@ -41,11 +41,13 @@
 
 
 
-\section*{Disparities in Maternal Nutrition: final exhbits}
+\section*{Disparities in Maternal Nutrition: final exhibits}
+
+\section*{Main tables and figures}
+
 
 \begin{landscape}
 
-\section*{Main tables and figures}
 
 
 \begin{table}[H]
@@ -56,15 +58,16 @@
 
         \scriptsize
         \setlength{\tabcolsep}{2pt}
-        \renewcommand{\arraystretch}{1.2}
+        \renewcommand{\arraystretch}{1.05}
 
-        \input{tables/table1 sumstats NEW.tex}
+        \input{tables/table1 sumstats NEW}
 
         \begin{tablenotes}
             \item NFHS-5 data. Sample means for women who are 3+ months pregnant are calculated based on what was true in the month of conception. Sample means for nonpregnant women who are married and not currently using modern contraception are calculated based on what was true at the time of the survey.
         \end{tablenotes}
     \end{threeparttable}
 \end{table}
+
 
  
 \begin{figure}[H]
@@ -75,23 +78,27 @@
 \end{figure}
 
 
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth,keepaspectratio]
-    {figures/distribution of reweighting predictors among pregnant women.png}
+    \vspace*{-0.3in}
+    \includegraphics[
+        width=\linewidth,
+        height=\textheight,
+        keepaspectratio
+    ]{figures/distribution of reweighting predictors among pregnant women.png}
     \caption{: Distribution of decomposition variables among pregnant women}
 \end{figure}
 
-
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth,keepaspectratio]
-    {figures/combined_underweight_4panel}
+    \vspace*{-0.3in}
+    \includegraphics[
+        width=\linewidth,
+        height=\textheight,
+        keepaspectratio
+    ]{figures/combined_underweight_4panel}
     \caption{: Gradient of prepregnancy underweight estimates by decomposition variables}
 \end{figure}
-
 
 
 \begin{table}[H]
@@ -189,16 +196,17 @@
     \end{threeparttable}
 \end{table}
 
+\begin{landscape}
 
 \newpage
-\begin{table}[!htbp]
+\begin{table}[H]
     \centering
     \begin{threeparttable}
         \caption{: Variables used in the nonparametric reweighting predict pregnancy}
         \label{tab:regression}
 
         \footnotesize
-        \setlength{\tabcolsep}{1.5pt}
+        \setlength{\tabcolsep}{9pt}
         \renewcommand{\arraystretch}{1.5}
 
         % {\input{tables/predictor_regression}}
@@ -213,7 +221,7 @@
 
 
 
-\begin{landscape}
+
 
 \begin{table}[H]
     \centering
@@ -225,9 +233,9 @@
     \caption{: Sample sizes of 3+ month pregnant women in each subgroup and the \% of pregnant women dropped to estimate pre-pregnancy underweight}
     \label{tab:sampledropped}
     \renewcommand{\arraystretch}{1}
-    \resizebox{\textwidth}{!}{%
-        \input{tables/tableA4 percent dropped NEW}
-    }
+    \begin{adjustbox}{center,max width=\linewidth, totalheight=0.9\textheight,keepaspectratio}
+    \input{tables/tableA4 percent dropped NEW}
+    \end{adjustbox}
     
     \begin{tablenotes}
     \footnotesize
@@ -295,7 +303,7 @@
     \setlength{\tabcolsep}{2pt}
     \renewcommand{\arraystretch}{1.35}
 
-    \input{tables/tableA6 additional maternal nutrition indicators}
+    \input{tables/tableA6 additional maternal nutrition indicators NEW}
 
     \begin{tablenotes}
         \item NFHS-5 data. Estimates are generated using a nonparametric reweighting function applied to nonpregnant women in the original sample (married, not using modern contraception, and belonging to one of the five social groups we study). Confidence intervals are computed from resampling clusters from the original sample, stratifying by type of place of residence (urban/rural) and state.
@@ -308,6 +316,30 @@
 \end{adjustbox}
 \end{table}
 \end{landscape}
+
+\newpage
+\begin{table}[H]
+    \centering
+
+    \begin{threeparttable}
+            
+    \caption{: Fertility rates by social group}
+    \label{tab:tfr}
+    \renewcommand{\arraystretch}{1.5}
+    \scriptsize
+    \setlength{\tabcolsep}{5pt}
+    \resizebox{\textwidth}{!}{%
+        % \input{tables/tfr}
+        \input{tables/tableA7 fertility rate by social group}
+    }
+    
+    \small
+    \begin{tablenotes}
+        \item  \textit{Notes:} NFHS-5 data. As in the DHS reports, fertility rates are based on births in the three years before the survey. Social groups are defined based on self-reported constitutional categories and religion as follows: Adivasi (ST), Dalit (SC), Muslim (non‐SC/ST), OBC (Hindu/Sikh OBC), and Forward caste (Hindus not SC/ST/OBC).
+    \end{tablenotes}
+
+    \end{threeparttable}
+\end{table}
 
 
 
