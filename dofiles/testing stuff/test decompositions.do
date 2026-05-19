@@ -1,4 +1,7 @@
-local overvar parity_bs
+local overvar v190
+
+
+
 
 
 
@@ -18,6 +21,11 @@ foreach i in 1 2 3 4 {
 	gen psu_od_besideshh_q4`i' = psu_od_besideshh_q4==`i'
 }
 
+
+
+foreach i in 1 2 3 4 5 {
+	gen v190`i' = v190==`i'
+}
 
 
 cap drop pregweight nonpregweight transferpreg transfernonpreg reweightingfxn counter dropbin zerobin bin
