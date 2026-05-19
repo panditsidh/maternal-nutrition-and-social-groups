@@ -2,10 +2,12 @@
 do "$paths"
 
 
+use "$dataset", clear
+
+
+local binvars agebin rural less_edu noboy group
+
 capture drop bin counter dropbin zerobin pregweight nonpregweight transferpreg transfernonpreg reweightingfxn
-
-
-// local binvars agebin rural less_edu noboy group
 
 * ----------------------------------------------------
 
@@ -42,6 +44,7 @@ egen nonpregweight = sum(v005) if preg==0, by(bin)
 egen transferpreg = mean(pregweight), by(bin)
 egen transfernonpreg = mean(nonpregweight), by(bin)
 gen reweightingfxn = v005*transferpreg/transfernonpreg if dropbin!=1 & preg==0
+
 
 
 

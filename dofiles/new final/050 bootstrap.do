@@ -10,7 +10,7 @@ drop if missing(preg)
 
 
 * generate bins for reweighting
-egen bin = group(`binvars')
+egen bin = group($binvars)
 gen counter=1
 
 

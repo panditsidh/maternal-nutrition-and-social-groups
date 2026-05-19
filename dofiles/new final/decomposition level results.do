@@ -136,4 +136,13 @@ order decompvar decompvarlevel grouplevel ///
 
 sort decompvar grouplevel decompvarlevel
 
+
+
+
+
+
+
+
+
+
 save "data/results/decomplevel_results_with_ci.dta", replace

@@ -18,6 +18,8 @@ Required columns:
 clear all
 set more off
 
+do "$paths"
+
 *------------------------------------------------------------
 * Load data
 *------------------------------------------------------------
@@ -94,11 +96,11 @@ label define protein_q4lbl ///
 *------------------------------------------------------------
 * Figure titles
 *------------------------------------------------------------
-local figtitle_bs                  "Birth spacing"
-local figtitle_parity              "Parity"
+local figtitle_bs                  "C. Time since last live birth"
+local figtitle_parity              "B. Parity"
 local figtitle_protein_q4          "Protein consumption"
-local figtitle_psu_od_besideshh_q4 "Neighborhood open defecation"
-local figtitle_wealth              "Wealth"
+local figtitle_psu_od_besideshh_q4 "D. Neighborhood open defecation exposure"
+local figtitle_wealth              "A. Wealth"
 
 *------------------------------------------------------------
 * Decomposition variables to graph
@@ -268,9 +270,9 @@ foreach dv of local overvars {
 
 
 graph combine ///
+	underweight_wealth ///
     underweight_parity ///
     underweight_bs ///
-    underweight_wealth ///
     underweight_psu_od_besideshh_q4, ///
     cols(2) ///
     xsize(10) ///

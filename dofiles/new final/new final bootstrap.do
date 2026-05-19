@@ -4,8 +4,8 @@ set more off
 clear all
 
 set seed 1231231
-local B = 50
-local chunk_size = 10
+local B = 100
+local chunk_size = 10 
 
 cap mkdir "data/bootstrap_chunks"
 
@@ -101,14 +101,16 @@ forvalues chunk_start = 1(`chunk_size')`B' {
             *------------------------------------------------------------
             foreach estimate_level in india group {
                 
+				local estimate_level "group"
+				
                 if "`estimate_level'"=="india" {
-                    local binvars agebin rural less_edu noboy
+                    global binvars agebin rural less_edu noboy
                 }
                 else if "`estimate_level'"=="group" {
-                    local binvars agebin rural less_edu noboy group
+                    global binvars agebin rural less_edu noboy group
                 }
-                
-                do "dofiles/050 bootstrap"
+				
+                qui do "dofiles/new final/050 bootstrap.do"
                 
                 levelsof `estimate_level', local(levels)
                 
@@ -190,8 +192,8 @@ do "$paths"
 set more off
 clear all
 
-local B = 50
-local chunk_size = 10
+local B = 1000
+local chunk_size = 100
 
 cap mkdir "data/results"
 
@@ -223,3 +225,6 @@ foreach level in grouplevel decomplevel cutofflevel {
     save "data/results/bootstrap_`level'_all.dta", replace
 }
 
+
+
+use "data/results/bootstrap_grouplevel_all.dta", clear

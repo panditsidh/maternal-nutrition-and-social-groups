@@ -116,3 +116,4 @@ order estimate_level level ///
     obesity_mean obesity_ll obesity_ul
 
 save "data/results/grouplevel_results_with_ci.dta", replace
+
