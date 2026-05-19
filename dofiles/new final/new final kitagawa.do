@@ -56,7 +56,7 @@ foreach decompvar in `decompvars' {
 
     use "$dataset", clear
 
-    global binvars agebin rural less_edu noboy group `decompvar' 
+    global binvars agebin rural less_edu noboy group `decompvar'
     do "dofiles/new final/050 bootstrap"
 
     levelsof `decompvar' if !missing(`decompvar'), local(decompvarlevels)
@@ -130,3 +130,144 @@ foreach decompvar in `decompvars' {
 postclose `decompresults'
 
 use `decompresultsfile', clear
+
+
+
+*------------------------------------------------------------
+* Format Kitagawa decomposition results for LaTeX table
+* using listtex
+*------------------------------------------------------------
+
+* At this point, data should look like:
+* quantity adivasigap dalitgap obcgap
+
+* Create row order
+gen order = .
+
+replace order = 1  if quantity == "gaps"
+
+replace order = 3  if quantity == "within group parity_bs"
+replace order = 4  if quantity == "between group parity_bs"
+replace order = 5  if quantity == "pct explained parity_bs"
+
+replace order = 7  if quantity == "within group wealth"
+replace order = 8  if quantity == "between group wealth"
+replace order = 9  if quantity == "pct explained wealth"
+
+replace order = 11 if quantity == "within group psu_od_besideshh_q4"
+replace order = 12 if quantity == "between group psu_od_besideshh_q4"
+replace order = 13 if quantity == "pct explained psu_od_besideshh_q4"
+
+
+* Create row labels
+gen str120 rowlabel = ""
+
+replace rowlabel = "percentage point difference in prepregnancy underweight" ///
+    if quantity == "gaps"
+
+replace rowlabel = "pp difference within parity + birthspacing category" ///
+    if quantity == "within group parity_bs"
+
+replace rowlabel = "pp difference across parity + birthspacing category" ///
+    if quantity == "between group parity_bs"
+
+replace rowlabel = "\% explained by parity + birthspacing" ///
+    if quantity == "pct explained parity_bs"
+
+replace rowlabel = "pp difference within wealth category" ///
+    if quantity == "within group wealth"
+
+replace rowlabel = "pp difference across wealth category" ///
+    if quantity == "between group wealth"
+
+replace rowlabel = "\% explained by wealth" ///
+    if quantity == "pct explained wealth"
+
+replace rowlabel = "pp difference within PSU open defecation category" ///
+    if quantity == "within group psu_od_besideshh_q4"
+
+replace rowlabel = "pp difference across PSU open defecation category" ///
+    if quantity == "between group psu_od_besideshh_q4"
+
+replace rowlabel = "\% explained by PSU open defecation" ///
+    if quantity == "pct explained psu_od_besideshh_q4"
+
+
+* Format numeric columns as strings
+gen str20 adivasi = string(adivasigap, "%9.1f")
+gen str20 dalit   = string(dalitgap,   "%9.1f")
+gen str20 obc     = string(obcgap,     "%9.1f")
+
+
+* Add panel header rows
+local oldN = _N
+set obs `=`oldN' + 3'
+
+replace order = 2  in `=`oldN' + 1'
+replace order = 6  in `=`oldN' + 2'
+replace order = 10 in `=`oldN' + 3'
+
+replace rowlabel = "\textbf{Panel A: Decomposition of parity + birthspacing}" ///
+    in `=`oldN' + 1'
+
+replace rowlabel = "\textbf{Panel B: Decomposition of wealth}" ///
+    in `=`oldN' + 2'
+
+replace rowlabel = "\textbf{Panel C: Decomposition of PSU open defecation}" ///
+    in `=`oldN' + 3'
+
+gen panelheader = inlist(order, 2, 6, 10)
+
+replace adivasi = "" if panelheader
+replace dalit   = "" if panelheader
+replace obc     = "" if panelheader
+
+
+* Drop anything that did not get assigned to table
+drop if missing(order)
+
+
+* Add blank row before each panel header
+expand 2 if panelheader, gen(blankrow)
+
+replace order = order - .5 if blankrow
+
+replace rowlabel = "" if blankrow
+replace adivasi  = "" if blankrow
+replace dalit    = "" if blankrow
+replace obc      = "" if blankrow
+
+
+* Sort final table
+sort order
+
+
+* Keep only display columns
+keep rowlabel adivasi dalit obc
+
+
+*------------------------------------------------------------
+* Export with listtex
+*------------------------------------------------------------
+
+do "$paths"
+
+#delimit ;
+
+listtex rowlabel adivasi dalit obc
+    using "tables/table2 kitagawa decomposition NEW.tex",
+    replace
+    rstyle(tabular)
+    head(
+        "\begin{tabular}{lccc}"
+        "\toprule"
+        " & Adivasi-Forward & Dalit-Forward & OBC-Forward \\"
+        "\midrule"
+    )
+    foot(
+        "\bottomrule"
+        "\end{tabular}"
+    )
+;
+
+#delimit cr

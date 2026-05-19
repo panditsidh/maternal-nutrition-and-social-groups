@@ -33,11 +33,6 @@ local n_specs = 7
 local binvars1 group agebin5 
 local titles1 "1. 15-16, 40-49, and single year age bins"
 
-
-
-
-
-
 local binvars2 group agebin5 rural
 local titles2 "2. (1)+rural"
 
