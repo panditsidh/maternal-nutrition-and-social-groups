@@ -1,12 +1,8 @@
-* 4: Panels ACE of Figure 2: Differences in parity, birth spacing, and wealth quartile by social group, and the relationship between these characteristics and prepregnancy underweight (stacked bars showing distribution of covariates within each social group)
 
 do "$paths"
-// use "$dataset", clear
+use "$dataset", clear
 
 drop if group==6 | group==.
-
-
-// local n_legend_cols =3 
 
 local overvar protein_score_quartile_animal
 local overtitle "animal protein score quartile"
@@ -50,8 +46,6 @@ di `"`legend_order'"'
 
 
 
-
-************* FIGURE A: distribution among pregnant women ***************
 preserve
 
 keep if preg==1

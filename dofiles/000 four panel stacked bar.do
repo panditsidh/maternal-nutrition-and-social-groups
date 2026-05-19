@@ -115,6 +115,11 @@ foreach panel of local panels {
         
         count if !missing(`overvar')
         local sample_size : display %15.0fc r(N)
+		local note_wealth "n=`sample_size' (3+ month married pregnant women)"
+		local note_parity "n=`sample_size' (3+ month married pregnant women)"
+		local note_psu_od_besideshh_q4 "n=`sample_size' (3+ month married pregnant women)"
+		local note_bs "n=`sample_size' (3+ month married pregnant women who have at least 1 live birth)"
+
         
         #delimit ;
         graph hbar (mean) `over_dummies' [aw=v005],
@@ -151,4 +156,4 @@ graph combine `graphlist', ///
     ysize(8) ///
     name(combined_reweighting_predictors, replace)
 
-graph export "`outfile'", replace as(png) name(combined_reweighting_predictors)
+graph export "`outfile'", replace as(pdf) name(combined_reweighting_predictors)

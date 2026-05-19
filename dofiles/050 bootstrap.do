@@ -4,9 +4,6 @@ do "$paths"
 
 capture drop bin counter dropbin zerobin pregweight nonpregweight transferpreg transfernonpreg reweightingfxn
 
-
-// local binvars agebin rural less_edu noboy group
-
 * ----------------------------------------------------
 
 drop if missing(preg)

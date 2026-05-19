@@ -1,3 +1,28 @@
+/*
+
+
+The final version will have the following 
+
+- wealth, quintile
+- parity bs, 10 categories
+- open defecation, quartiles (?)
+- fraction higher ranking: <0.75, <0.5, <0.25, <0.1
+- 4 category protein 
+
+
+Each one will have a different reweighting (core vars + current var)
+
+
+
+
+
+*/
+
+
+
+
+
+
 * This dofile gets us appendix table #???? which shows the number of women in each subgroup and percent of pregnant women dropped in reweighting.
 
  

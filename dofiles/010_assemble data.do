@@ -26,6 +26,8 @@ count
 *Muslim 
 //It does not include women who are Christians or Jains who do not identify as Dalit or Adivasi, and it does not include women who are Sikhs who do not identify as Adivasi, Dalit, or OBC.
 
+gen india = 1
+
 gen group = .
 replace group = 1 if s116 == 2 									// Adivasi
 replace group = 2 if s116 == 1 									// Dalit

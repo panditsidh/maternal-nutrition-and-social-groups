@@ -9,6 +9,7 @@ local chunk_size = 20
 
 
 
+
 local cutoff = 0.1
 * the original is "data/bootstrap cis for pp outcomes.dta"
 local outfile "data/bootstrap cis `cutoff' cutoff.dta"
