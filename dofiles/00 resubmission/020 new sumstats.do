@@ -25,8 +25,8 @@ drop if group == . | group == 6
 * 1) Define variables shown in Table 1
 *------------------------------------------------------------*
 
-local binaryvars less_edu rural noboy
-local catvars agebin parity_bs wealth psu_od_besideshh_q4
+local binaryvars less_edu rural noboy pct_psu_higher
+local catvars agebin parity_bs wealth_index psu_od_besideshh_q4
 
 local outfile "tables/table1 sumstats NEW.tex"
 

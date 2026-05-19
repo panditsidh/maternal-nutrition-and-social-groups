@@ -221,3 +221,6 @@ foreach level in grouplevel decomplevel cutofflevel {
 
 
 
+do "dofiles/new final/051 group level results"
+do "dofiles/new final/052 decomposition level results"
+do "dofiles/new final/053 cutoff level results"

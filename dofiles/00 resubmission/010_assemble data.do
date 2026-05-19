@@ -1,7 +1,7 @@
 
 do "$paths"
 
-do "dofiles/011 prepare hh level vars for merge.do"
+do "dofiles/00 resubmission/011 prepare hh level vars for merge.do"
 
 
 
@@ -60,6 +60,8 @@ gen muslim = group==5
 gen allfivegroups = 1
 
 
+********************************* VARIABLES FROM HH RECODE *********************************
+
 merge m:1 v000 v001 v002 v024 v025 using "data/hh_level_vars.dta"
 keep if _merge==3
 drop _merge
@@ -69,21 +71,26 @@ drop _merge
 xtile psu_od_besideshh_q4 = pct_psu_od_besideshh [aw=v005], nq(4)
 
 label define psu_od_besideshh_q4_lbl ///
-    1 "Lowest exposure quartile" ///
-    2 "2nd exposure quartile" ///
-    3 "3rd exposure quartile" ///
-    4 "Highest exposure quartile", replace
+    1 "Lowest quartile" ///
+    2 "2nd quartile" ///
+    3 "3rd quartile" ///
+    4 "Highest quartile", replace
 
 label values psu_od_besideshh_q4 psu_od_besideshh_q4_lbl
-label variable psu_od_besideshh_q4 "PSU open defecation exposure quartile"
+label variable psu_od_besideshh_q4 "Fraction of other households in PSU that defecate in the open"
 
 
 
 
 * percent psu higher ranking
+// gen pct_psu_higher = pct_psu_obc + pct_psu_forward + pct_psu_muslim if inlist(group,1,2)
+
 gen pct_psu_higher = pct_psu_obc + pct_psu_forward + pct_psu_muslim if inlist(group,1,2)
 replace pct_psu_higher = pct_psu_forward if obc==1
 
+
+
+label variable pct_psu_higher "Share of higher-caste households in PSU"
 
 gen pct_psu_higher_bins = . 
 
@@ -260,6 +267,90 @@ label values noboy noboylbl
 
 label variable noboy "Does not have boy child"
 
+
+*parity and time since last birth (10 categories)
+//bord_01 tells us how many live births the woman has had
+//we will code "parity" as 1, 2, 3, 4 (1 - no live births 2 - one live birth 3 - two live births 4 - three or more live births)
+gen parity = bord_01 + 1 if !missing(bord_01)
+replace parity = 1 if missing(bord_01)
+replace parity = 4 if parity>=4 
+
+gen parity1 = parity==1
+gen parity2 = parity==2
+gen parity3 = parity==3
+gen parity4 = parity==4
+
+//birth spacing is time between last delivery and interview for non-pregnant women and time between last delivery and estimated conception of current pregnancy for pregnant women
+//it is only defined for women that have had at least one live birth
+//v008 is the date of the interview and b3 is the date of birth of the child
+gen birth_space = (v008 - b3_01) + 9 if preg==0 & !missing(b3_01)
+replace birth_space = (v008 - b3_01) + (9-gestdur) if preg==1 & !missing(b3_01)
+
+gen bs = .
+replace bs = 1 if birth_space < 24 & !missing(birth_space)
+replace bs = 2 if inrange(birth_space, 24, 36) & !missing(birth_space)
+replace bs = 3 if birth_space > 36 & !missing(birth_space)
+
+gen bs_below2 = bs==1
+gen bs_2to3 = bs==2
+gen bs_above3 = bs==3
+gen bs_noprior = parity<2
+
+label define paritylbl ///
+    1 "1 (no live births)" ///
+    2 "2 (1 live birth)" ///
+	3 "3 (2 live births)" ///
+	4 "4+ (3+ live births)" 	
+label values parity paritylbl
+
+label define bslbl /// 
+	1 "under 2 years" ///
+	2 "2-3 years" ///
+	3 "over 3 years" 
+
+label values bs bslbl
+
+//now generate a variable that combines parity and birth spacing
+gen parity_bs = .
+replace parity_bs = 1 if parity==1
+
+local i = 2
+foreach p of numlist 2/4 {
+	
+	foreach b of numlist 1/3 {
+		
+		replace parity_bs = `i' if parity==`p' & bs==`b'		
+		local i = `i' + 1
+	}
+}
+
+
+
+forvalues i = 1/10 {
+    gen parity_bs`i' = parity_bs == `i'
+}
+
+label define parity_bs_lbl ///
+    1 "No births/1 birth, NA spacing" ///
+    2 "1 birth, below 2y spacing" ///
+    3 "1 birth, 2–3y spacing" ///
+    4 "1 birth, 3+y spacing" ///
+    5 "2 births, below 2y spacing" ///
+    6 "2 births, 2–3y spacing" ///
+    7 "2 births, 3+y spacing" ///
+    8 "3+ births, below 2y spacing" ///
+    9 "3+ births, 2–3y spacing" ///
+   10 "3+ births, 3+y spacing"
+label values parity_bs parity_bs_lbl
+
+
+label var parity_bs "Categories for parity and spacing from last birth"
+
+
+**************************** AGE BINS ************************************
+
+
+
 *age
 gen agebin = .
 replace agebin = 1 if inrange(v012, 15, 19)     // Teens
@@ -349,83 +440,7 @@ label define agebin5 ///
 
 label values agebin5 agebin5
 
-*parity and time since last birth (10 categories)
-//bord_01 tells us how many live births the woman has had
-//we will code "parity" as 1, 2, 3, 4 (1 - no live births 2 - one live birth 3 - two live births 4 - three or more live births)
-gen parity = bord_01 + 1 if !missing(bord_01)
-replace parity = 1 if missing(bord_01)
-replace parity = 4 if parity>=4 
 
-gen parity1 = parity==1
-gen parity2 = parity==2
-gen parity3 = parity==3
-gen parity4 = parity==4
-
-//birth spacing is time between last delivery and interview for non-pregnant women and time between last delivery and estimated conception of current pregnancy for pregnant women
-//it is only defined for women that have had at least one live birth
-//v008 is the date of the interview and b3 is the date of birth of the child
-gen birth_space = (v008 - b3_01) + 9 if preg==0 & !missing(b3_01)
-replace birth_space = (v008 - b3_01) + (9-gestdur) if preg==1 & !missing(b3_01)
-
-gen bs = .
-replace bs = 1 if birth_space < 24 & !missing(birth_space)
-replace bs = 2 if inrange(birth_space, 24, 36) & !missing(birth_space)
-replace bs = 3 if birth_space > 36 & !missing(birth_space)
-
-gen bs_below2 = bs==1
-gen bs_2to3 = bs==2
-gen bs_above3 = bs==3
-gen bs_noprior = parity<2
-
-label define paritylbl ///
-    1 "1 (no live births)" ///
-    2 "2 (1 live birth)" ///
-	3 "3 (2 live births)" ///
-	4 "4+ (3+ live births)" 	
-label values parity paritylbl
-
-label define bslbl /// 
-	1 "under 2 years" ///
-	2 "2-3 years" ///
-	3 "over 3 years" 
-
-label values bs bslbl
-
-//now generate a variable that combines parity and birth spacing
-gen parity_bs = .
-replace parity_bs = 1 if parity==1
-
-local i = 2
-foreach p of numlist 2/4 {
-	
-	foreach b of numlist 1/3 {
-		
-		replace parity_bs = `i' if parity==`p' & bs==`b'		
-		local i = `i' + 1
-	}
-}
-
-
-
-forvalues i = 1/10 {
-    gen parity_bs`i' = parity_bs == `i'
-}
-
-label define parity_bs_lbl ///
-    1 "No births/1 birth, NA spacing" ///
-    2 "1 birth, below 2y spacing" ///
-    3 "1 birth, 2–3y spacing" ///
-    4 "1 birth, 3+y spacing" ///
-    5 "2 births, below 2y spacing" ///
-    6 "2 births, 2–3y spacing" ///
-    7 "2 births, 3+y spacing" ///
-    8 "3+ births, below 2y spacing" ///
-    9 "3+ births, 2–3y spacing" ///
-   10 "3+ births, 3+y spacing"
-label values parity_bs parity_bs_lbl
-
-
-label var parity_bs "Categories for parity and spacing from last birth"
 
 **************************** SOCIOECONOMIC ************************************
 
@@ -473,6 +488,22 @@ label values wealth wealthlbl
 
 
 label var wealth "Wealth quartile"
+
+
+
+gen wealth_index = v190
+
+label define wealth_indexlbl ///
+    1 "Poorest" ///
+    2 "Poorer" ///
+    3 "Middle" ///
+    4 "Richer" ///
+	5 "Richest"
+label values wealth_index wealth_indexlbl
+
+label var wealth_index "Wealth quintiles"
+
+
 
 **************************** OUTCOME ************************************
 
@@ -563,7 +594,7 @@ label variable protein_weeklyplus_count "Number of protein-rich foods consumed a
 
 
 *------------------------------------------------------------
-* Four-category protein intensity/diversity variable
+* Four-category protein  variable
 *------------------------------------------------------------
 
 gen protein_q4 = .

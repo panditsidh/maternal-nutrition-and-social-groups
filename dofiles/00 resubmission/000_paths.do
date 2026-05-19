@@ -42,7 +42,7 @@ if "`c(username)'" == "sidhpandit" {
 
 	cd "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups"
 	
-	global paths "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/000_paths.do"
+	global paths "/Users/sidhpandit/Documents/GitHub/maternal-nutrition-and-social-groups/dofiles/00 resubmission/000_paths.do"
 	
 	global nfhs5mr "/Users/sidhpandit/Desktop/nfhs/nfhs5mr/IAMR7EFL.DTA"
 	

@@ -43,6 +43,12 @@ replace group = 5 if sh47==2 & group==. // Muslims that aren't SC or ST
 replace group = 3 if sh49==3 & inlist(sh47,1,4) // OBC that are Hindu or Sikh
 replace group = 4 if sh47==1 & inlist(sh49,4,8,.) & group==. // forward caste Hindu
 
+
+
+
+
+
+
 label define grouplbl ///
     1 "Adivasi" ///
     2 "Dalit" ///
@@ -50,6 +56,9 @@ label define grouplbl ///
     4 "Forward" ///
     5 "Muslim" 
 label values group grouplbl
+
+
+
 
 gen adivasi = group==1 & !missing(group)
 gen dalit = group==2 & !missing(group)

@@ -8,9 +8,9 @@ drop if group == 6 | group == .
 * distribution of reweighting predictors among pregnant women
 *------------------------------------------------------------
 
-local panels wealth parity bs psu_od_besideshh_q4
+local panels wealth_index parity bs psu_od_besideshh_q4
 
-local title_wealth "A. Wealth"
+local title_wealth_index "A. Wealth quintiles"
 local title_parity "B. Parity"
 local title_bs "C. Time since last live birth"
 local title_psu_od_besideshh_q4 "D. PSU open defecation exposure"
@@ -29,6 +29,7 @@ local outfile "figures/distribution of reweighting predictors among pregnant wom
 * category 1 = eltblue, category 2 = ebblue, category 3 = emidblue, category 4 = navy
 local colors3 "eltblue%55 ebblue%55 emidblue%55"
 local colors4 "eltblue%55 ebblue%55 emidblue%55 navy%55"
+local colors5 "eltblue%55 ebblue%55 emidblue%55 navy%55 dknavy%55"
 
 
 
@@ -56,24 +57,22 @@ foreach panel of local panels {
     * Number of categories
     local n_categories : word count `over'
     
-    * Pick palette
-    if `n_categories' == 3 {
-        local colors `colors3'
-        local n_legend_cols = 3
-    }
-    else if `n_categories' == 4 {
-        local colors `colors4'
-        local n_legend_cols = 2
-		
-		if "`panel'"=="psu_od_besideshh_q4" {
-			local n_legend_cols = 2
-			
-		}
-    }
-    else {
-        di as error "Panel `overvar' has `n_categories' categories; define a color palette for this case."
-        exit 198
-    }
+	if `n_categories' == 3 {
+		local colors `colors3'
+		local n_legend_cols = 3
+	}
+	else if `n_categories' == 4 {
+		local colors `colors4'
+		local n_legend_cols = 2
+	}
+	else if `n_categories' == 5 {
+		local colors `colors5'
+		local n_legend_cols = 3
+	}
+	else {
+		di as error "Panel `overvar' has `n_categories' categories; define a color palette for this case."
+		exit 198
+	}
     
     local i = 1
     

@@ -23,7 +23,7 @@ forvalues c = 100(-2)0 {
     
     keep if pct_psu_higher <= `cutoff'
     
-    do "dofiles/050_weights to estimate pp nutrition.do"
+    do "dofiles/00 resubmission/040 reweighting"
     }
     
     foreach group in 1 2 3 {
@@ -107,45 +107,24 @@ gen obc_ci_ul   = pp_ul   if group == 3
 
 
 *------------------------------------------------------------
-* Forward caste reference line
+* Forward caste reference line and CI
 *------------------------------------------------------------
-use "data/results/cutofflevel_results_with_ci.dta", clear
+use "data/results/grouplevel_results_with_ci.dta", clear
 
-keep if cutoff == 1 & group == 4
+keep if estimate_level == "group" & level == 4
 
-if _N > 0 {
-    gen forward_ppu = 100 * underweight_mean
-    gen forward_ll  = 100 * underweight_ll
-    gen forward_ul  = 100 * underweight_ul
+gen forward_ppu = 100 * underweight_mean
+gen forward_ll  = 100 * underweight_ll
+gen forward_ul  = 100 * underweight_ul
 
-    sum forward_ppu
-    local forward_ppu = r(mean)
+sum forward_ppu
+local forward_ppu = r(mean)
 
-    sum forward_ll
-    local forward_ll = r(mean)
+sum forward_ll
+local forward_ll = r(mean)
 
-    sum forward_ul
-    local forward_ul = r(mean)
-}
-else {
-    * fallback if group 4 is not in cutofflevel_results_with_ci.dta
-    use "data/results.dta", clear
-
-    keep if rows == "Forward"
-
-    gen forward_ppu = 100 * underweight_mean
-    gen forward_ll  = 100 * underweight_ll
-    gen forward_ul  = 100 * underweight_ul
-
-    sum forward_ppu
-    local forward_ppu = r(mean)
-
-    sum forward_ll
-    local forward_ll = r(mean)
-
-    sum forward_ul
-    local forward_ul = r(mean)
-}
+sum forward_ul
+local forward_ul = r(mean)
 
 
 *------------------------------------------------------------
@@ -169,6 +148,21 @@ gen obc_ci_ll   = pp_ll   if group == 3
 gen obc_ci_ul   = pp_ul   if group == 3
 
 
+* Add one Forward caste CI observation at x = 0
+gen forward_ci_ll = .
+gen forward_ci_ul = .
+
+local oldN = _N
+set obs `=`oldN' + 1'
+
+replace cutoff = 0 in `=`oldN' + 1'
+replace forward_ci_ll = `forward_ll' in `=`oldN' + 1'
+replace forward_ci_ul = `forward_ul' in `=`oldN' + 1'
+
+
+*------------------------------------------------------------
+* Graph
+*------------------------------------------------------------
 *------------------------------------------------------------
 * Graph
 *------------------------------------------------------------
@@ -186,6 +180,8 @@ twoway ///
         lcolor(green)) ///
     ///
     (function y = `forward_ppu', range(0 1) lpattern(dash) lcolor(gs10) lwidth(thin)) ///
+    (rcap forward_ci_ul forward_ci_ll cutoff if !missing(forward_ci_ll), ///
+        lcolor(gs8)) ///
     ///
     , ///
     xscale(reverse range(0 1)) ///

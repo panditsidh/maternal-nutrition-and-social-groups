@@ -1,6 +1,10 @@
 do "$paths"
 use "$dataset", clear
 
+drop wealth
+rename wealth_index wealth
+
+
 tempname decompresults
 tempfile decompresultsfile
 
@@ -29,7 +33,7 @@ foreach g in 1 2 3 {
     use "$dataset", clear
 
     global binvars agebin rural less_edu noboy group 
-    do "dofiles/new final/040 reweighting"
+    do "dofiles/00 resubmission/040 reweighting"
 
     * forward caste prepreg outcome
     quietly sum `outcome' [aw=reweightingfxn] if group == 4 & preg == 0
@@ -57,7 +61,7 @@ foreach decompvar in `decompvars' {
     use "$dataset", clear
 
     global binvars agebin rural less_edu noboy group `decompvar'
-    do "dofiles/new final/040 reweighting"
+    do "dofiles/00 resubmission/040 reweighting"
 
     levelsof `decompvar' if !missing(`decompvar'), local(decompvarlevels)
 
@@ -207,13 +211,13 @@ replace order = 2  in `=`oldN' + 1'
 replace order = 6  in `=`oldN' + 2'
 replace order = 10 in `=`oldN' + 3'
 
-replace rowlabel = "\textbf{Panel A: Decomposition of parity + birthspacing}" ///
+replace rowlabel = "\textbf{Panel A: Decomposition by parity + birthspacing}" ///
     in `=`oldN' + 1'
 
-replace rowlabel = "\textbf{Panel B: Decomposition of wealth}" ///
+replace rowlabel = "\textbf{Panel B: Decomposition by wealth}" ///
     in `=`oldN' + 2'
 
-replace rowlabel = "\textbf{Panel C: Decomposition of PSU open defecation}" ///
+replace rowlabel = "\textbf{Panel C: Decomposition by fraction of other households in PSU that defecate in the open}" ///
     in `=`oldN' + 3'
 
 gen panelheader = inlist(order, 2, 6, 10)
