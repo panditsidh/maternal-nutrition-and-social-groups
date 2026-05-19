@@ -29,7 +29,7 @@ foreach g in 1 2 3 {
     use "$dataset", clear
 
     global binvars agebin rural less_edu noboy group 
-    do "dofiles/new final/050 bootstrap"
+    do "dofiles/new final/040 reweighting"
 
     * forward caste prepreg outcome
     quietly sum `outcome' [aw=reweightingfxn] if group == 4 & preg == 0
@@ -57,7 +57,7 @@ foreach decompvar in `decompvars' {
     use "$dataset", clear
 
     global binvars agebin rural less_edu noboy group `decompvar'
-    do "dofiles/new final/050 bootstrap"
+    do "dofiles/new final/040 reweighting"
 
     levelsof `decompvar' if !missing(`decompvar'), local(decompvarlevels)
 

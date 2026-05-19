@@ -23,11 +23,11 @@ foreach decompvar in wealth parity bs protein_q4 psu_od_besideshh_q4 {
     * Reweighting bins include group and decomposition variable
     *--------------------------------------------------------
     
-    local binvars agebin rural less_edu noboy group `decompvar'
+    global binvars agebin rural less_edu noboy group `decompvar'
     
     use "$dataset", clear
     
-    qui do "dofiles/050_weights to estimate pp nutrition.do"
+    do "dofiles/new final/040 reweighting"
     
     levelsof `decompvar', local(levels)
     levelsof group, local(groups)
