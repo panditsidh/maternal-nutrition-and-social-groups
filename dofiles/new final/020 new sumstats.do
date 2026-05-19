@@ -26,9 +26,9 @@ drop if group == . | group == 6
 *------------------------------------------------------------*
 
 local binaryvars less_edu rural noboy
-local catvars agebin parity_bs wealth
+local catvars agebin parity_bs wealth psu_od_besideshh_q4
 
-local outfile "tables/table1 sumstats.tex"
+local outfile "tables/table1 sumstats NEW.tex"
 
 
 *------------------------------------------------------------*

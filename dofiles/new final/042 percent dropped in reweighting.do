@@ -1,8 +1,16 @@
+/*
+Todo 
+- change this to be cutoffs
+
+
+*/
 
 
 
 
-local overvars wealth parity_bs psu_od_besideshh_q4 protein_q4 pct_psu_higher_bins allgroups
+
+
+local overvars v190 parity_bs psu_od_besideshh_q4 protein_q4 pct_psu_higher_bins allgroups
 
 
 capture postclose handle
@@ -50,7 +58,7 @@ foreach overvar in `overvars' {
 		preserve
 		collapse ///
 			(sum) bin_preg = preg ///
-			(sum) bin_women = counter, ///
+			(sum) bin_women = counte r, ///
 			by(bin)
 
 		gen dropbin = bin_preg == bin_women & bin_women > 0

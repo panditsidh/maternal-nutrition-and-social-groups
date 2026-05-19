@@ -49,7 +49,7 @@ esttab model_g,
            2.protein_q4 "\textbf{Protein-rich food consumption intensity/diversity}" ///
            2.psu_od_besideshh_q4 "\textbf{PSU open defecation exposure quartiles}", nolabel)
     nonumbers 
-    label se star(* 0.05 ** 0.01 *** 0.001)
+    label se wide star(* 0.05 ** 0.01 *** 0.001)
     b(3) se(4)
     stats(N, fmt(%15.0fc) label(N))
     mtitle("reports 1 or 2" "months of pregnancy")
@@ -95,7 +95,7 @@ esttab model_g using "tables/tableA1 predicting first quarter pregnancy NEW.tex"
     drop(0.less_edu 0.rural 0.noboy ///
          1.agebin 1.parity_bs 1.wealth 1.protein_q4 1.psu_od_besideshh_q4) 
     nonumbers nonote 
-    label se star(* 0.05 ** 0.01 *** 0.001)
+    label se wide star(* 0.05 ** 0.01 *** 0.001)
     b(3) se(4)
     stats(N, fmt(%15.0fc) label("\textbf{N}"))
     mtitle("\shortstack{reports of 1 or 2 months of pregnancy}")

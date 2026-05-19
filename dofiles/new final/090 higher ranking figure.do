@@ -195,8 +195,7 @@ twoway ///
     ytitle("Estimated prepregnancy" "underweight (%)") ///
     legend(order(1 "Adivasi" 3 "Dalit" 5 "OBC" 7 "Forward caste") ///
            rows(1) position(6)) ///
-    title("Prepregnancy underweight by local higher caste-rank exposure") ///
     note("Lines re-estimate prepregnancy underweight after restricting the sample by fraction PSU higher ranking." ///
          "Confidence intervals are shown at selected cutoffs.")
 
-// graph export "figures/ppu_by_pct_psu_higher_cutoff_with_ci.png", replace width(2400)
+graph export "figures/ppu_by_pct_psu_higher_cutoff_with_ci.png", as(pdf) replace 
