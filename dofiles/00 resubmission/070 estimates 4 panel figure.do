@@ -99,7 +99,7 @@ label define protein_q4lbl ///
 local figtitle_bs                  "C. Time since last live birth"
 local figtitle_parity              "B. Parity"
 local figtitle_protein_q4          "Protein consumption"
-local figtitle_psu_od_besideshh_q4 "D. Neighborhood open defecation exposure"
+local figtitle_psu_od_besideshh_q4 "D. Fraction of neighbors that defecate in the open"
 local figtitle_wealth              "A. Wealth"
 
 *------------------------------------------------------------
@@ -246,10 +246,16 @@ foreach dv of local overvars {
         * Single graph
         *------------------------------------------------------------
         local gname "underweight_`dv'"
+		
+		local xscaleopt "xscale(range(`xmin' `xmax'))"
+
+		if "`dv'" == "psu_od_besideshh_q4" {
+			local xscaleopt "xscale(reverse range(`xmin' `xmax'))"
+		}
 
         twoway `plots', ///
             xlabel(`xlabels', angle(30) labsize(vsmall) nogrid) ///
-            xscale(range(`xmin' `xmax')) ///
+            `xscaleopt' ///
             ylabel(`ymin'(5)`ymax', angle(horizontal) labsize(tiny) grid) ///
             yscale(range(`ymin' `ymax')) ///
             ytitle("`ytitle'", size(vsmall)) ///

@@ -8,12 +8,12 @@ drop if group == 6 | group == .
 * distribution of reweighting predictors among pregnant women
 *------------------------------------------------------------
 
-local panels wealth_index parity bs psu_od_besideshh_q4
+local panels wealth_index psu_od_besideshh_q4 parity bs
 
 local title_wealth_index "A. Wealth quintiles"
-local title_parity "B. Parity"
-local title_bs "C. Time since last live birth"
-local title_psu_od_besideshh_q4 "D. PSU open defecation exposure"
+local title_parity "C. Parity"
+local title_bs "D. Time since last live birth"
+local title_psu_od_besideshh_q4 "B. Fraction of neighbors that defecate in the open"
 
 
 local note_wealth "n=`sample_size' (3+ month married pregnant women)"
