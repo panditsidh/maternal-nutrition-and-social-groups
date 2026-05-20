@@ -230,9 +230,9 @@ listtex rows ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{5}{>{\centering\arraybackslash}p{1.5cm}}*{2}{>{\centering\arraybackslash}p{1.5cm}}}" ///
          "\toprule" ///
-         " & \multicolumn{5}{c}{Proportion of prepregnancy underweight} & \multicolumn{2}{c}{Dropped pregnant women} \\\\" ///
+         " & \multicolumn{5}{c}{Proportion of prepregnancy underweight} \\\\" ///
          "\cmidrule(lr){2-6} \cmidrule(lr){7-8}" ///
-         "Variables used in reweighting relative to original specification & Adivasi & Dalit & OBC & Forward & Muslim & Num. problems & Biggest problem \\\\" ///
+         "Variables used in reweighting relative to original specification & Adivasi & Dalit & OBC & Forward & Muslim  \\\\" ///
          "\midrule") ///
     foot("\bottomrule" ///
          "\end{tabular}");
