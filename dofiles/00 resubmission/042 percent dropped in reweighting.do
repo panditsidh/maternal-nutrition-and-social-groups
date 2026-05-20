@@ -6,11 +6,11 @@ Todo
 */
 
 
+do "$paths"
 
 
 
-
-local overvars v190 parity_bs psu_od_besideshh_q4 protein_q4 pct_psu_higher_bins allgroups
+local overvars v190 parity_bs psu_od_besideshh_q4 protein_q4 allgroups
 
 
 capture postclose handle
@@ -169,6 +169,79 @@ foreach overvar in `overvars' {
 	}
 	
 }
+
+
+*----------------------------------------------------
+* Cutoff rows for share of higher-caste households in PSU
+* Instead of bins, restrict sample to pct_psu_higher <= cutoff
+*----------------------------------------------------
+
+foreach cutoff in 1 .75 .5 .25 .1 {
+
+    qui {
+
+        use "$dataset", clear
+        gen allgroups = 1
+
+        keep if pct_psu_higher <= `cutoff'
+
+        global binvars agebin rural less_edu noboy group
+        do "dofiles/00 resubmission/040 reweighting.do"
+
+    }
+
+    * Row labels
+    local overlabel "Share of higher-caste households in PSU"
+    local overlevel "\(\leq `cutoff'\)"
+
+    * Make labels prettier
+    if `cutoff' == 1 {
+        local overlevel "\(\leq 1.00\)"
+    }
+    else if `cutoff' == .75 {
+        local overlevel "\(\leq 0.75\)"
+    }
+    else if `cutoff' == .5 {
+        local overlevel "\(\leq 0.50\)"
+    }
+    else if `cutoff' == .25 {
+        local overlevel "\(\leq 0.25\)"
+    }
+    else if `cutoff' == .1 {
+        local overlevel "\(\leq 0.10\)"
+    }
+
+    * Get N and percent dropped by group
+    foreach g of numlist 0/5 {
+
+        if `g' == 0 {
+            qui count if preg == 1
+            local n_group`g' = r(N)
+
+            qui sum dropbin if preg == 1
+            local pctdrop_group`g' = round(r(mean) * 100, .01)
+        }
+        else {
+            qui count if preg == 1 & group == `g'
+            local n_group`g' = r(N)
+
+            qui sum dropbin if preg == 1 & group == `g'
+            local pctdrop_group`g' = round(r(mean) * 100, .01)
+        }
+
+    }
+
+    post handle ///
+        (`"`overlabel'"') (`"`overlevel'"') ///
+        (`n_group0') (`pctdrop_group0') ///
+        (`n_group1') (`pctdrop_group1') ///
+        (`n_group2') (`pctdrop_group2') ///
+        (`n_group3') (`pctdrop_group3') ///
+        (`n_group4') (`pctdrop_group4') ///
+        (`n_group5') (`pctdrop_group5')
+
+}
+
 
 postclose handle
 

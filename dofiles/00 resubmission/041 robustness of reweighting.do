@@ -225,7 +225,7 @@ drop if missing(rows)
 
 #delimit ;
 listtex rows ///
-    underweight1 underweight2 underweight3 underweight4 underweight5 num_problems biggest_problem ///
+    underweight1 underweight2 underweight3 underweight4 underweight5  ///
     using "tables/testing new reweighting specifications.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{l*{5}{>{\centering\arraybackslash}p{1.5cm}}*{2}{>{\centering\arraybackslash}p{1.5cm}}}" ///
