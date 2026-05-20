@@ -187,6 +187,7 @@ twoway ///
     xscale(reverse range(0 1)) ///
     xlabel(1(.1)0, angle(0)) ///
     ylabel(, angle(0)) ///
+	title("A. Prepregnancy underweight at different" "levels of local caste composition", size(medlarge)) ///
     xtitle("Maximum fraction of PSU" "higher ranking included") ///
     ytitle("Estimated prepregnancy" "underweight (%)") ///
     legend(order(1 "Adivasi" 3 "Dalit" 5 "OBC" 7 "Forward caste") ///
@@ -194,4 +195,13 @@ twoway ///
     note("Lines re-estimate prepregnancy underweight after restricting the sample by fraction PSU higher ranking." ///
          "Confidence intervals are shown at selected cutoffs.")
 
+		 
+graph save "figures/ppu_cutoff_line.gph", replace
+
 graph export "figures/ppu_by_pct_psu_higher_cutoff_with_ci.png", as(pdf) replace 
+
+
+
+do "dofiles/00 resubmission/091 two panel with cdf"
+
+
