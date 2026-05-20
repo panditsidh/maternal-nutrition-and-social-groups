@@ -1,9 +1,7 @@
-
 /*
 
 Reweighting variables | outcome 1 | outcome 2 …. | outcome 5 | # subgroups with % dropped >3% | highest % dropped in subgroup 
 —————————————————————————————————————————————————————————————————————— 
-
 
 */
 
@@ -28,7 +26,7 @@ Reweighting variables | outcome 1 | outcome 2 …. | outcome 5 | # subgroups wit
 
 do "$paths"
 
-local n_specs = 7
+local n_specs = 8
 
 // local binvars1 group agebin5 
 // local titles1 "1. 15-16, 40-49, and single year age bins"
@@ -61,45 +59,45 @@ local n_specs = 7
 * 1. Main reweighting specification:
 *    4-category age groups + rural + education + noboy
 local binvars1 group agebin rural less_edu noboy
-local titles1 "1. Main specification: 4-category age, rural, education, noboy"
+local titles1 "1. Main spec: 4-cat age + rural + edu + noboy"
 
 * 2. Finer age bins only:
 *    15-16, single-year ages 17-39, and 40-49
 local binvars2 group agebin5
-local titles2 "2. Fine age bins only: 15-16, single years 17-39, 40-49"
+local titles2 "2. Fine age bins only"
 
 * 3. Fine age bins + main controls
 local binvars3 group agebin5 rural less_edu noboy
-local titles3 "3. Fine age bins + rural + education + noboy"
+local titles3 "3. Fine age bins + rural + edu + noboy"
 
 * 4. Fine age bins + main controls + parity/birth spacing
 local binvars4 group agebin5 rural less_edu noboy parity_bs
-local titles4 "4. Fine age bins + rural + education + noboy + parity/birth spacing"
+local titles4 "4. Fine age bins + rural + edu + noboy + parity/spacing"
 
 * 5. Main specification + PSU open defecation quartiles
 local binvars5 group agebin rural less_edu noboy psu_od_besideshh_q4
-local titles5 "5. Main specification + PSU open defecation quartiles"
+local titles5 "5. Main spec + PSU open defecation quartiles"
 
 * 6. Main specification + wealth quartiles
 local binvars6 group agebin rural less_edu noboy wealth
-local titles6 "6. Main specification + wealth quartiles"
+local titles6 "6. Main spec + wealth quartiles"
 
 * 7. Main specification + parity and birth spacing categories
 local binvars7 group agebin rural less_edu noboy parity_bs
-local titles7 "7. Main specification + parity/birth spacing"
+local titles7 "7. Main spec + parity/birth spacing"
 
 * 8. Main specification + protein categories
 local binvars8 group agebin rural less_edu noboy protein_q4
-local titles8 "8. Main specification + protein categories"
+local titles8 "8. Main spec + protein categories"
 
 
 
 
 
-matrix results = J(7, 7, .)
+matrix results = J(`n_specs', 7, .)
 
 * loop through the different specifications
-forvalues i=1/7 {
+forvalues i=1/`n_specs' {
 	
 	use "$dataset", clear
     local title `titles`i''
@@ -151,8 +149,8 @@ forvalues i=1/7 {
 		sum underweight if preg==0 & group==`g' [aw=reweightingfxn]
 		matrix results[`i', `g'] = r(mean)
 		
-		foreach overvar in parity_bs wealth {
-			levelsof(`overvar'), local(levels)
+		foreach overvar in parity_bs wealth psu_od_besideshh_q4 protein_q4 {
+			levelsof `overvar', local(levels)
 			
 			foreach j in `levels' {
 				
@@ -200,13 +198,14 @@ drop *
 // end
 
 input str100 rows
-"1. 15-16, 40-49, and single year age bins"
-"2. (1)+rural"
-"3. (1)+rural+education"
-"4. (1)+rural+education+noboy"
-"5. (1)+rural+edu+noboy+parity_bs"
-"6. 4 cat age bin, rural, edu, noboy"
-"7. (6)+parity_bs"
+"1. Main spec: 4-cat age + rural + edu + noboy"
+"2. Fine age bins only"
+"3. Fine age bins + rural + edu + noboy"
+"4. Fine age bins + rural + edu + noboy + parity/spacing"
+"5. Main spec + PSU open defecation quartiles"
+"6. Main spec + wealth quartiles"
+"7. Main spec + parity/birth spacing"
+"8. Main spec + protein categories"
 end
 
 

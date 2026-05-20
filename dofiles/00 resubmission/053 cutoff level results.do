@@ -29,7 +29,7 @@ foreach cutoff in 1 0.75 0.5 0.25 0.1 {
     replace strata = 3  if strata == 4
     replace strata = 68 if strata == 67
     
-    local binvars agebin rural less_edu noboy group
+    global binvars agebin rural less_edu noboy group
     
     qui do "dofiles/050_weights to estimate pp nutrition.do"
     

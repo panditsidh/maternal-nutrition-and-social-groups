@@ -27,10 +27,10 @@ foreach estimate_level in india group {
     *--------------------------------------------------------
     
     if "`estimate_level'" == "india" {
-        local binvars agebin rural less_edu noboy
+        global binvars agebin rural less_edu noboy
     }
     else if "`estimate_level'" == "group" {
-        local binvars agebin rural less_edu noboy group
+        global binvars agebin rural less_edu noboy group
     }
     
     
@@ -40,7 +40,7 @@ foreach estimate_level in india group {
     
     use "$dataset", clear
     
-    qui do "dofiles/050_weights to estimate pp nutrition.do"
+    qui do "dofiles/00 resubmission/040 reweighting.do"
     
     levelsof `estimate_level', local(levels)
     
