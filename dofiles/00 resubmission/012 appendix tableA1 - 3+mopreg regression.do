@@ -95,7 +95,7 @@ esttab model_g using "tables/tableA1 predicting first quarter pregnancy NEW.tex"
     stats(N, fmt(%15.0fc) label("\textbf{N}"))
     mtitle("\shortstack{reports of 1 or 2 months of pregnancy}")
     booktabs 
-    substitute("less than primary education" "\hspace*{1em}Less than primary education" ///
+    substitute("no education or primary only" "\hspace*{1em}No education or primary only" ///
                "rural resident" "\hspace*{1em}Rural resident" ///
                "does not have boy child" "\hspace*{1em}Does not have boy child" ///
                "20–24" "\hspace*{1em}20–24" ///
