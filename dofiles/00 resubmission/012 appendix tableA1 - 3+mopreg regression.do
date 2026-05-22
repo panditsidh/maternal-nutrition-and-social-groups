@@ -86,7 +86,7 @@ esttab model_g using "tables/tableA1 predicting first quarter pregnancy NEW.tex"
     refcat(2.agebin "\textbf{Age categories} \\ (15–19 omitted)" ///
            2.parity_bs "\textbf{Parity \& time since last live birth categories} \\ (No prior births omitted)" ///
            2.wealth_index "\textbf{Wealth quintiles} \\ (Poorest quintile omitted)" ///
-           2.psu_od_besideshh_q4 "\textbf{PSU open defecation exposure quartiles} \\ (lowest exposure quartile omitted)", nolabel)
+           2.psu_od_besideshh_q4 "\textbf{Percent of neighboring households that defecate in the open} \\ (Quartile 1 0% omitted)", nolabel)
     drop(0.less_edu 0.rural 0.noboy ///
          1.agebin 1.parity_bs 1.wealth_index 1.psu_od_besideshh_q4) 
     nonumbers nonote 
@@ -114,8 +114,8 @@ esttab model_g using "tables/tableA1 predicting first quarter pregnancy NEW.tex"
                "Middle" "\hspace*{1em}Middle" ///
                "Richer" "\hspace*{1em}Richer" ///
 			   "Richest" "\hspace*{1em}Richest" ///
-               "Second PSU OD exposure quartile" "\hspace*{1em}Second PSU OD exposure quartile" ///
-               "Third PSU OD exposure quartile" "\hspace*{1em}Third PSU OD exposure quartile" ///
-               "Highest PSU OD exposure quartile" "\hspace*{1em}Highest PSU OD exposure quartile" ///
+               "Quartile 2: 4\% - 10\%" "\hspace*{1em}Quartile 2: 4\% - 10\%" ///
+               "Quartile 3: 10\% - 33.3\%" "\hspace*{1em}Quartile 3: 10\% - 33.3\%" ///
+			   "Quartile 4: 33.3\% - 100\%" "\hspace*{1em}Quartile 4: 33.3\% - 100\%" ///
                "Constant" "\hspace*{1em}Constant");
 #delimit cr
