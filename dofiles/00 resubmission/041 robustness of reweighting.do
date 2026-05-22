@@ -198,14 +198,14 @@ drop *
 // end
 
 input str100 rows
-"1. Main spec: 4-cat age + rural + edu + noboy"
-"2. Fine age bins only"
-"3. Fine age bins + rural + edu + noboy"
-"4. Fine age bins + rural + edu + noboy + parity/spacing"
-"5. Main spec + PSU open defecation quartiles"
-"6. Main spec + wealth quartiles"
+"1. Main specification: 4 category age bins + rural + edu + noboy"
+"2. Fine age bins only (15-16, single year 17-39, 40-49)"
+"3. Fine age bins + rural + education + has son"
+"4. Fine age bins + rural + education + has son + parity/spacing"
+"5. Main spec + local open defecation quartiles"
+"6. Main spec + wealth quintiles"
 "7. Main spec + parity/birth spacing"
-"8. Main spec + protein categories"
+"8. Main spec + protein consumption categories"
 end
 
 
