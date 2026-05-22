@@ -44,7 +44,7 @@ esttab model_g,
     drop(1.agebin 1.parity_bs 1.wealth_index 1.psu_od_besideshh_q4)
     refcat(2.agebin "\textbf{Age categories}" ///
            2.parity_bs "\textbf{Parity \& time since last live birth categories}" ///
-           2.wealth "\textbf{Wealth quintile}" ///
+           2.wealth_index "\textbf{Wealth quintile}" ///
            2.psu_od_besideshh_q4 "\textbf{Fraction of neighboring households that defecate in the open}", nolabel)
     nonumbers 
     label se wide star(* 0.05 ** 0.01 *** 0.001)
@@ -85,7 +85,7 @@ esttab model_g using "tables/tableA1 predicting first quarter pregnancy NEW.tex"
     replace
     refcat(2.agebin "\textbf{Age categories} \\ (15–19 omitted)" ///
            2.parity_bs "\textbf{Parity \& time since last live birth categories} \\ (No prior births omitted)" ///
-           2.wealth "\textbf{Wealth quartiles} \\ (1st quartile omitted)" ///
+           2.wealth_index "\textbf{Wealth quintiles} \\ (Poorest quintile omitted)" ///
            2.psu_od_besideshh_q4 "\textbf{PSU open defecation exposure quartiles} \\ (lowest exposure quartile omitted)", nolabel)
     drop(0.less_edu 0.rural 0.noboy ///
          1.agebin 1.parity_bs 1.wealth_index 1.psu_od_besideshh_q4) 
