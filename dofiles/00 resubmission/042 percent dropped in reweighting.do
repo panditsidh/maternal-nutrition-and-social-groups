@@ -410,7 +410,10 @@ use `body', clear
 append using `headers'
 append using `blanks'
 
-* Put Overall at the end
+* Put protein section after all other sections, but before Overall
+replace over_first = 999998 if overvar == "Protein-rich food consumption intensity/diversity"
+
+* Put Overall at the very end
 replace over_first = 999999 if overvar == "Overall"
 
 sort over_first rowtype level_order orig_order
