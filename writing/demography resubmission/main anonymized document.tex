@@ -493,6 +493,7 @@ Finally, this study highlights the value of representative, longitudinal monitor
     \caption{: Distribution of gestational ages suggests under-reporting of early pregnancy}
     \label{gestdur_distribution}
     \small
+    \renewcommand{\arraystretch}{1.7}
     \setlength{\tabcolsep}{5pt}
     
         \input{tables/tableA2 distribution of gestational duration}
@@ -538,28 +539,27 @@ Finally, this study highlights the value of representative, longitudinal monitor
     \end{threeparttable}
 \end{table}
 
+\clearpage
 \begin{landscape}
-    
 
-
-\begin{table}[H]
+\begin{table}[p]
     \centering
-    \small % shrink text
+    \small
 
     \begin{threeparttable}
-        
     
     \caption{: Sample sizes of 3+ month pregnant women in each subgroup and the \% of pregnant women dropped to estimate pre-pregnancy underweight}
     \label{tab:sampledropped}
+
     \renewcommand{\arraystretch}{1}
-    \resizebox{\textwidth}{!}{%
+    \resizebox{\linewidth}{!}{%
         \input{tables/tableA4 percent dropped NEW}
     }
     
     \begin{tablenotes}
     \footnotesize
-    \item \parbox{\textwidth}{
-        NFHS-5 data. Pregnant women are dropped from the reweighting technique if they are categorized into a bin that contains no nonpregnant women. 
+    \item \parbox{\linewidth}{
+        NFHS-5 data. Pregnant women are dropped from the reweighting technique if they are categorized into a bin that contains no nonpregnant women.
     }
     \end{tablenotes}
 
@@ -567,7 +567,7 @@ Finally, this study highlights the value of representative, longitudinal monitor
 \end{table}
 
 \end{landscape}
-
+\clearpage
 
 
 % \begin{landscape}
@@ -587,8 +587,8 @@ Finally, this study highlights the value of representative, longitudinal monitor
     \caption{: Prepregnancy underweight estimates are robust to reweighting over different sets of variables}
     \label{specifications}
     \renewcommand{\arraystretch}{1.5}
-    \scriptsize
-    \setlength{\tabcolsep}{5pt}
+    \footnotesize
+    \setlength{\tabcolsep}{20pt}
     \resizebox{\textwidth}{!}{%
         \input{tables/testing new reweighting specifications}
     }
@@ -626,7 +626,7 @@ Finally, this study highlights the value of representative, longitudinal monitor
     \label{tab:addnut}
 
     \setlength{\tabcolsep}{2pt}
-    \renewcommand{\arraystretch}{1.35}
+    \renewcommand{\arraystretch}{2}
 
     \input{tables/tableA6 additional maternal nutrition indicators NEW}
 
@@ -652,7 +652,7 @@ Finally, this study highlights the value of representative, longitudinal monitor
             
     \caption{: Fertility rates by social group}
     \label{tab:tfr}
-    \renewcommand{\arraystretch}{1.5}
+    \renewcommand{\arraystretch}{2}
     \scriptsize
     \setlength{\tabcolsep}{5pt}
     \resizebox{\textwidth}{!}{%
@@ -673,8 +673,8 @@ Finally, this study highlights the value of representative, longitudinal monitor
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]
     \label{fig:two_panel_protein}
+    \includegraphics[width=\textwidth]
     {figures/combined_protein_distribution_underweight.png}
     \caption{: Distribution of protein category and prepregnancy underweight estimates at the interaction of protein category and social group}
     
