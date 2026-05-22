@@ -1,3 +1,5 @@
+clear all
+set maxvar 7000
 use "$nfhs5hr", clear
 
 *Rural Chandigarh has a very small number of observations, so we combine with urban Chandigarh.

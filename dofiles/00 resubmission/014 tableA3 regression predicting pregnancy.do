@@ -60,7 +60,7 @@ esttab model1 model2 model3 model4 model5 model0 using "tables/tableA3 predict p
     stats(N, fmt(%15.0fc) label("\textbf{N}"))
     mtitle("Adivasi" "Dalit" "OBC" "Forward" "Muslim" "\shortstack{All five\\social groups}")
     booktabs 
-    substitute("less than primary education" "\hspace*{1em}Less than primary education" ///
+    substitute("no education or primary only" "\hspace*{1em}No education or primary only" ///
                "rural resident" "\hspace*{1em}Rural resident" ///
                "does not have boy child" "\hspace*{1em}Does not have boy child" ///
                "20–24" "\hspace*{1em}20–24" ///

@@ -36,7 +36,7 @@ local decompvar protein_q4
 
 use "$dataset", clear
 
-global binvars agebin rural less_edu noboy group
+global binvars agebin rural less_edu noboy group 
 do "dofiles/00 resubmission/040 reweighting"
 
 * Forward caste prepreg outcome
@@ -63,6 +63,10 @@ post `decompresults' ///
 *------------------------------------------------------------
 
 use "$dataset", clear
+
+
+
+
 
 global binvars agebin rural less_edu noboy group `decompvar'
 do "dofiles/00 resubmission/040 reweighting"

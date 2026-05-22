@@ -10,7 +10,7 @@ do "$paths"
 
 
 
-local overvars v190 parity_bs psu_od_besideshh_q4 protein_q4 allgroups
+local overvars wealth_index parity_bs psu_od_besideshh_q4 protein_q4 allgroups
 
 
 capture postclose handle
@@ -339,8 +339,8 @@ preserve
     replace row = "\textbf{Parity and time since last live birth categories}" ///
         if overvar == "Parity & time since last birth (10 category)"
 
-    replace row = "\textbf{PSU open defecation exposure quartile}" ///
-        if overvar == "PSU open defecation exposure quartile"
+    replace row = "\textbf{Fraction of neighboring households that defecate in the open}" ///
+        if overvar == "Fraction of neighboring households that defecate in the open"
 
     replace row = "\textbf{Protein-rich food consumption intensity/diversity}" ///
         if overvar == "Protein-rich food consumption intensity/diversity"

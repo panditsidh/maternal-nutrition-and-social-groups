@@ -388,22 +388,48 @@ replace disp_v7 = "\multicolumn{1}{>{\centering\arraybackslash}m{1.55cm}}{" + di
 *------------------------------------------------------------*
 * 15) Export to LaTeX with listtex
 *------------------------------------------------------------*
+// #delimit ;
+//
+// listtex rows ///
+//     disp_v1 disp_v2 disp_v3 disp_v4 disp_v5 disp_v6 ///
+//     disp_v7 ///
+//     disp_v8 disp_v9 disp_v10 disp_v11 disp_v12 disp_v13 ///
+//     using "`outfile'", replace ///
+//     rstyle(tabular) ///
+//     head(
+//         "\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{1.2cm}}@{\hspace{2em}}>{\centering\arraybackslash}m{1.55cm}@{\hspace{2em}}*{6}{>{\centering\arraybackslash}p{1.2cm}}}"
+//         "\toprule"
+//         "\addlinespace[0.25em]"
+//         "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{1}{>{\centering\arraybackslash}m{1.55cm}}{\shortstack[c]{Prepregnant \\ women}} & \multicolumn{6}{c}{Nonpregnant women} \\"
+//         "\cmidrule[0.01em](lr){2-7} \cmidrule[0.01em](l{-0.4em}r{-0.4em}){8-8} \cmidrule[0.01em](lr){9-14}"
+//         "\addlinespace[0.35em]"
+//         "Social Group & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\ social groups} & \multicolumn{1}{>{\centering\arraybackslash}m{1.55cm}}{\tiny \shortstack[c]{All five \\ social groups}} & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\ social groups} \\"
+//         "\midrule"
+//     )
+//     foot(
+//         "\bottomrule"
+//         "\end{tabular}"
+//     );
+//
+// #delimit cr
+
+*------------------------------------------------------------*
+* 14) Export to LaTeX with listtex
+*------------------------------------------------------------*
 #delimit ;
 
 listtex rows ///
     disp_v1 disp_v2 disp_v3 disp_v4 disp_v5 disp_v6 ///
-    disp_v7 ///
     disp_v8 disp_v9 disp_v10 disp_v11 disp_v12 disp_v13 ///
     using "`outfile'", replace ///
     rstyle(tabular) ///
     head(
-        "\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{1.2cm}}@{\hspace{2em}}>{\centering\arraybackslash}m{1.55cm}@{\hspace{2em}}*{6}{>{\centering\arraybackslash}p{1.2cm}}}"
+        "\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{1.2cm}}@{\hspace{2em}}*{6}{>{\centering\arraybackslash}p{1.2cm}}}"
         "\toprule"
-        "\addlinespace[0.25em]"
-        "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{1}{>{\centering\arraybackslash}m{1.55cm}}{\shortstack[c]{Prepregnant \\ women}} & \multicolumn{6}{c}{Nonpregnant women} \\"
-        "\cmidrule[0.01em](lr){2-7} \cmidrule[0.01em](l{-0.4em}r{-0.4em}){8-8} \cmidrule[0.01em](lr){9-14}"
+        "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{6}{c}{Nonpregnant women} \\"
+        "\cmidrule(lr){2-7} \cmidrule(lr){8-13}"
         "\addlinespace[0.35em]"
-        "Social Group & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\ social groups} & \multicolumn{1}{>{\centering\arraybackslash}m{1.55cm}}{\tiny \shortstack[c]{All five \\ social groups}} & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\ social groups} \\"
+        "Social Group & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\ social groups} & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\ social groups} \\"
         "\midrule"
     )
     foot(

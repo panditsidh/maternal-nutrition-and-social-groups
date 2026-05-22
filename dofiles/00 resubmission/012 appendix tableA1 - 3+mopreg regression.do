@@ -28,8 +28,7 @@ reghdfe gestdur_1or2
     i.noboy
     i.agebin
     i.parity_bs
-    i.wealth
-	i.protein_q4
+    i.wealth_index
 	i.psu_od_besideshh_q4, cluster(psu);
 #delimit cr
 eststo model_g
@@ -42,18 +41,17 @@ do "$paths"
 
 #delimit ;
 esttab model_g,
-    drop(1.agebin 1.parity_bs 1.wealth 1.protein_q4 1.psu_od_besideshh_q4)
+    drop(1.agebin 1.parity_bs 1.wealth_index 1.psu_od_besideshh_q4)
     refcat(2.agebin "\textbf{Age categories}" ///
            2.parity_bs "\textbf{Parity \& time since last live birth categories}" ///
-           2.wealth "\textbf{Wealth quartiles}" ///
-           2.protein_q4 "\textbf{Protein-rich food consumption intensity/diversity}" ///
-           2.psu_od_besideshh_q4 "\textbf{PSU open defecation exposure quartiles}", nolabel)
+           2.wealth "\textbf{Wealth quintile}" ///
+           2.psu_od_besideshh_q4 "\textbf{Fraction of neighboring households that defecate in the open}", nolabel)
     nonumbers 
     label se wide star(* 0.05 ** 0.01 *** 0.001)
     b(3) se(4)
     stats(N, fmt(%15.0fc) label(N))
     mtitle("reports 1 or 2" "months of pregnancy")
-    substitute("less than primary education" "\hspace*{1em}Less than primary education" ///
+    substitute("no education or primary only" "\hspace*{1em}No education or primary only" ///
                "rural resident" "\hspace*{1em}Rural resident" ///
                "does not have boy child" "\hspace*{1em}Does not have boy child" ///
                "20–24" "\hspace*{1em}20–24" ///
@@ -68,12 +66,10 @@ esttab model_g,
                "3+ births, below 2y spacing" "\hspace*{1em}3+ births, below 2y spacing" ///
                "3+ births, 2–3y spacing" "\hspace*{1em}3+ births, 2–3y spacing" ///
                "3+ births, 3+y spacing" "\hspace*{1em}3+ births, above 3y spacing" ///
-               "2nd quartile" "\hspace*{1em}2nd quartile" ///
-               "3rd quartile" "\hspace*{1em}3rd quartile" ///
-               "4th quartile" "\hspace*{1em}4th quartile" ///
-               "2+ protein foods weekly, none daily" "\hspace*{1em}2+ protein foods weekly, none daily" ///
-               "1 protein food daily" "\hspace*{1em}1 protein food daily" ///
-               "2+ protein foods daily" "\hspace*{1em}2+ protein foods daily" ///
+               "Poorer" "\hspace*{1em}Poorer" ///
+               "Middle" "\hspace*{1em}Middle" ///
+               "Richer" "\hspace*{1em}Richer" ///
+			   "Richest" "\hspace*{1em}Richest" ///
                "Second PSU OD exposure quartile" "\hspace*{1em}Second PSU OD exposure quartile" ///
                "Third PSU OD exposure quartile" "\hspace*{1em}Third PSU OD exposure quartile" ///
                "Highest PSU OD exposure quartile" "\hspace*{1em}Highest PSU OD exposure quartile" ///
@@ -90,10 +86,9 @@ esttab model_g using "tables/tableA1 predicting first quarter pregnancy NEW.tex"
     refcat(2.agebin "\textbf{Age categories} \\ (15–19 omitted)" ///
            2.parity_bs "\textbf{Parity \& time since last live birth categories} \\ (No prior births omitted)" ///
            2.wealth "\textbf{Wealth quartiles} \\ (1st quartile omitted)" ///
-           2.protein_q4 "\textbf{Protein-rich food consumption intensity/diversity} \\ (0--1 protein foods weekly omitted)" ///
            2.psu_od_besideshh_q4 "\textbf{PSU open defecation exposure quartiles} \\ (lowest exposure quartile omitted)", nolabel)
     drop(0.less_edu 0.rural 0.noboy ///
-         1.agebin 1.parity_bs 1.wealth 1.protein_q4 1.psu_od_besideshh_q4) 
+         1.agebin 1.parity_bs 1.wealth_index 1.psu_od_besideshh_q4) 
     nonumbers nonote 
     label se wide star(* 0.05 ** 0.01 *** 0.001)
     b(3) se(4)
@@ -115,12 +110,10 @@ esttab model_g using "tables/tableA1 predicting first quarter pregnancy NEW.tex"
                "3+ births, below 2y spacing" "\hspace*{1em}3+ births, below 2y spacing" ///
                "3+ births, 2–3y spacing" "\hspace*{1em}3+ births, 2--3y spacing" ///
                "3+ births, 3+y spacing" "\hspace*{1em}3+ births, above 3y spacing" ///
-               "2nd quartile" "\hspace*{1em}2nd quartile" ///
-               "3rd quartile" "\hspace*{1em}3rd quartile" ///
-               "4th quartile" "\hspace*{1em}4th quartile" ///
-               "2+ protein foods weekly, none daily" "\hspace*{1em}2+ protein foods weekly, none daily" ///
-               "1 protein food daily" "\hspace*{1em}1 protein food daily" ///
-               "2+ protein foods daily" "\hspace*{1em}2+ protein foods daily" ///
+               "Poorer" "\hspace*{1em}Poorer" ///
+               "Middle" "\hspace*{1em}Middle" ///
+               "Richer" "\hspace*{1em}Richer" ///
+			   "Richest" "\hspace*{1em}Richest" ///
                "Second PSU OD exposure quartile" "\hspace*{1em}Second PSU OD exposure quartile" ///
                "Third PSU OD exposure quartile" "\hspace*{1em}Third PSU OD exposure quartile" ///
                "Highest PSU OD exposure quartile" "\hspace*{1em}Highest PSU OD exposure quartile" ///

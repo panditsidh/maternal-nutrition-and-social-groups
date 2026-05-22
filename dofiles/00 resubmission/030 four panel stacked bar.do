@@ -13,13 +13,24 @@ local panels wealth_index psu_od_besideshh_q4 parity bs
 local title_wealth_index "A. Wealth quintiles"
 local title_parity "C. Parity"
 local title_bs "D. Time since last live birth"
-local title_psu_od_besideshh_q4 "B. Fraction of neighbors that defecate in the open"
+local title_psu_od_besideshh_q4 "B. Fraction of neighboring households" "that defecate in the open"
 
 
 local note_wealth "n=`sample_size' (3+ month married pregnant women)"
 local note_parity "n=`sample_size' (3+ month married pregnant women)"
 local note_psu_od_besideshh_q4 "n=`sample_size' (3+ month married pregnant women)"
 local note_bs "n=`sample_size' (3+ month married pregnant women who have at least 1 live birth)"
+
+
+cap label drop psu_od_besideshh_q4_lbl
+
+label define psu_od_besideshh_q4_lbl ///
+    1 "Quartile 1: 0%" ///
+    2 "Quartile 2: 4% - 10%" ///
+    3 "Quartile 3: 10% - 33.3%" ///
+    4 "Quartile 4: 33.3% - 100%", replace
+
+label values psu_od_besideshh_q4 psu_od_besideshh_q4_lbl
 
 
 local outfile "figures/distribution of reweighting predictors among pregnant women.png"
@@ -114,7 +125,7 @@ foreach panel of local panels {
         
         count if !missing(`overvar')
         local sample_size : display %15.0fc r(N)
-		local note_wealth "n=`sample_size' (3+ month married pregnant women)"
+		local note_wealth_index "n=`sample_size' (3+ month married pregnant women)"
 		local note_parity "n=`sample_size' (3+ month married pregnant women)"
 		local note_psu_od_besideshh_q4 "n=`sample_size' (3+ month married pregnant women)"
 		local note_bs "n=`sample_size' (3+ month married pregnant women" "who have at least 1 live birth)"

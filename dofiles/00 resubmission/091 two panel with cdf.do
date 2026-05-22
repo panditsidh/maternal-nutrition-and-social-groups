@@ -66,7 +66,7 @@ twoway ///
     (line cdf cutoff if group == 2, sort lwidth(medthick) lcolor(maroon)) ///
     (line cdf cutoff if group == 3, sort lwidth(medthick) lcolor(green)) ///
     , ///
-    xscale(reverse range(0 1)) ///
+    xscale(range(0 1)) ///
     xlabel(1(.1)0, angle(0) labsize(small)) ///
     ylabel(0(20)100, angle(0) labsize(small) grid) ///
     xtitle("Fraction of PSU higher ranking") ///

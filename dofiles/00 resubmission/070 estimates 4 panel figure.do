@@ -93,14 +93,23 @@ label define protein_q4lbl ///
     2 "2nd protein quartile" ///
     3 "3rd protein quartile" ///
     4 "Highest protein quartile", replace
+	
 
+label define psu_od_besideshh_q4lbl ///
+    1 "Quartile 1: 0%" ///
+    2 "Quartile 2: 4% - 10%" ///
+    3 "Quartile 3: 10% - 33.3%" ///
+    4 "Quartile 4: > 33.3%", replace
+
+
+	
 *------------------------------------------------------------
 * Figure titles
 *------------------------------------------------------------
-local figtitle_bs                  "C. Time since last live birth"
-local figtitle_parity              "B. Parity"
+local figtitle_bs                  "D. Time since last live birth"
+local figtitle_parity              "C. Parity"
 local figtitle_protein_q4          "Protein consumption"
-local figtitle_psu_od_besideshh_q4 "D. Fraction of neighbors that defecate in the open"
+local figtitle_psu_od_besideshh_q4 "B. Fraction of neighboring households" "that defecate in the open"
 local figtitle_v190              "A. Wealth quintile"
 
 *------------------------------------------------------------
@@ -108,6 +117,8 @@ local figtitle_v190              "A. Wealth quintile"
 * Add/remove/order variables here
 *------------------------------------------------------------
 local overvars bs parity protein_q4 psu_od_besideshh_q4 v190
+
+
 
 *------------------------------------------------------------
 * Graph aesthetics
@@ -255,7 +266,7 @@ foreach dv of local overvars {
 		}
 
         twoway `plots', ///
-            xlabel(`xlabels', angle(30) labsize(vsmall) nogrid) ///
+            xlabel(`xlabels', angle(45) labsize(vsmall) nogrid) ///
             `xscaleopt' ///
             ylabel(`ymin'(5)`ymax', angle(horizontal) labsize(tiny) grid) ///
             yscale(range(`ymin' `ymax')) ///
@@ -278,9 +289,9 @@ foreach dv of local overvars {
 
 graph combine ///
 	underweight_v190 ///
+	underweight_psu_od_besideshh_q4 ///
     underweight_parity ///
-    underweight_bs ///
-    underweight_psu_od_besideshh_q4, ///
+    underweight_bs, ///
     cols(2) ///
     xsize(10) ///
     ysize(8) ///

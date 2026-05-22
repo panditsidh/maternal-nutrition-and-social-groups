@@ -71,13 +71,16 @@ drop _merge
 xtile psu_od_besideshh_q4 = pct_psu_od_besideshh [aw=v005], nq(4)
 
 label define psu_od_besideshh_q4_lbl ///
-    1 "Lowest quartile" ///
-    2 "2nd quartile" ///
-    3 "3rd quartile" ///
-    4 "Highest quartile", replace
+    1 "Quartile 1: 0%" ///
+    2 "Quartile 2: 4\% - 10\%" ///
+    3 "Quartile 3: 10\% - 33.3\%" ///
+    4 "Quartile 4: 33.3\% - 100\%", replace
 
 label values psu_od_besideshh_q4 psu_od_besideshh_q4_lbl
-label variable psu_od_besideshh_q4 "Fraction of neighbors that defecate in the open"
+label variable psu_od_besideshh_q4 "Fraction of neighboring households that defecate in the open"
+
+
+
 
 
 
@@ -451,10 +454,10 @@ gen less_edu = inlist(v106,0,1)
 tab less_edu, m
 
 label define lessedulbl ///
-    0 "primary education or higher" ///
-    1 "less than primary education" 
+    0 "secondary education or higher" ///
+    1 "no education or primary only" 
 label values less_edu lessedulbl
-label var less_edu "Less than primary education"
+label var less_edu "No education or primary only"
 
 * rural resident
 //it is not missing for any of the pregnant or nonpregnant women.
