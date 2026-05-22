@@ -36,6 +36,8 @@ local decompvar protein_q4
 
 use "$dataset", clear
 
+
+
 global binvars agebin rural less_edu noboy group 
 do "dofiles/00 resubmission/040 reweighting"
 

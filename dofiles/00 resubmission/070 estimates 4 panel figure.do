@@ -96,10 +96,10 @@ label define protein_q4lbl ///
 	
 
 label define psu_od_besideshh_q4lbl ///
-    1 "Quartile 1: 0%" ///
-    2 "Quartile 2: 4% - 10%" ///
-    3 "Quartile 3: 10% - 33.3%" ///
-    4 "Quartile 4: > 33.3%", replace
+    1 "Q1: 0%" ///
+    2 "Q2: 4% - 10%" ///
+    3 "Q3: 10% - 33.3%" ///
+    4 "Q4: > 33.3%", replace
 
 
 	
@@ -109,7 +109,7 @@ label define psu_od_besideshh_q4lbl ///
 local figtitle_bs                  "D. Time since last live birth"
 local figtitle_parity              "C. Parity"
 local figtitle_protein_q4          "Protein consumption"
-local figtitle_psu_od_besideshh_q4 "B. Fraction of neighboring households" "that defecate in the open"
+local figtitle_psu_od_besideshh_q4 "B. Fraction of neighboring households" "that defecate in the open (quartiles)"
 local figtitle_v190              "A. Wealth quintile"
 
 *------------------------------------------------------------

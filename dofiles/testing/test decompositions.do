@@ -1,4 +1,4 @@
-local overvar v190
+local overvar psu_od_besideshh_q4
 
 
 
@@ -16,7 +16,11 @@ do "$paths"
 
 use "$dataset", clear
 
-foreach i in 1 2 3 4 {
+cap drop psu_od_besideshh_q4
+xtile psu_od_besideshh_q4 = pct_psu_od_besideshh [aw=v005], nq(5)
+
+
+foreach i in 1 2 3 4 5 {
 	
 	gen psu_od_besideshh_q4`i' = psu_od_besideshh_q4==`i'
 }
