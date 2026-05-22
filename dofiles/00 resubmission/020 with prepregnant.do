@@ -19,10 +19,15 @@ As long as wealth_q5 has a variable label and value labels, the table updates au
 do "$paths"
 use "$dataset", clear
 
-
-
-
 drop if group == . | group == 6
+
+*------------------------------------------------------------*
+* 0) Create prepregnancy reweighting function
+*------------------------------------------------------------*
+
+global binvars agebin rural less_edu noboy group
+qui do "dofiles/00 resubmission/040 reweighting.do"
+
 
 *------------------------------------------------------------*
 * 1) Define variables shown in Table 1
@@ -147,20 +152,21 @@ postclose `rowpost'
 * 3) Keep only what is needed
 *------------------------------------------------------------*
 
-keep preg group v005 `meanvars'
+keep preg group v005 reweightingfxn `meanvars'
 gen ones = 1
 
 
 *------------------------------------------------------------*
 * 4) Compute true unweighted N by pregnancy status and group
 *    Include pooled "All five groups" N dynamically
+*    Also add prepregnant pooled N
 *------------------------------------------------------------*
 
 preserve
 
     keep if !missing(preg)
 
-    tempfile N_by_group N_pooled Ntrue
+    tempfile N_by_group N_pooled N_prepreg Ntrue
 
     collapse (count) N = ones, by(preg group)
     save `N_by_group', replace
@@ -178,15 +184,45 @@ restore
 
 preserve
 
+    keep if preg == 0 & !missing(reweightingfxn)
+    collapse (count) N = ones
+    gen preg = 2
+    gen group = 0
+    save `N_prepreg', replace
+
+restore
+
+preserve
+
     use `N_by_group', clear
     append using `N_pooled'
+    append using `N_prepreg'
     save `Ntrue', replace
 
 restore
 
 
 *------------------------------------------------------------*
-* 5) Add "All five groups" columns by duplicating observations
+* 5) Compute prepregnant pooled means separately
+*------------------------------------------------------------*
+
+preserve
+
+    keep if preg == 0 & !missing(reweightingfxn)
+
+    collapse (mean) `meanvars' [aw = reweightingfxn]
+
+    gen preg = 2
+    gen group = 0
+
+    tempfile prepreg_means
+    save `prepreg_means', replace
+
+restore
+
+
+*------------------------------------------------------------*
+* 6) Add "All five groups" columns by duplicating observations
 *------------------------------------------------------------*
 
 expand 2, gen(dup)
@@ -195,43 +231,54 @@ drop dup
 
 
 *------------------------------------------------------------*
-* 6) Collapse to weighted means
+* 7) Collapse to weighted means
 *------------------------------------------------------------*
 
-collapse (mean) `meanvars' [pw=v005], by(preg group)
+collapse (mean) `meanvars' [pw = v005], by(preg group)
 
 drop if preg == .
+
+append using `prepreg_means'
 
 merge 1:1 preg group using `Ntrue', nogen
 
 
 *------------------------------------------------------------*
-* 7) Fix group codes and ordering
+* 8) Fix group codes and ordering
 *------------------------------------------------------------*
 
 drop if group == 6
 replace group = 6 if group == 0
 
-gen pregorder = (preg == 0)
+gen colorder = .
 
-sort pregorder group
+* Pregnant women first: Adivasi, Dalit, OBC, Forward, Muslim, All five
+replace colorder = group if preg == 1
+
+* Prepregnant women pooled column immediately after pregnant pooled column
+replace colorder = 7 if preg == 2 & group == 6
+
+* Nonpregnant women last: Adivasi, Dalit, OBC, Forward, Muslim, All five
+replace colorder = 7 + group if preg == 0
+
+sort colorder
 
 
 *------------------------------------------------------------*
-* 8) Reshape: variables become rows, columns become group/preg cells
+* 9) Reshape: variables become rows, columns become group/preg cells
 *------------------------------------------------------------*
 
-keep preg group pregorder `meanvars' N
-sort pregorder group
+keep preg group colorder `meanvars' N
+sort colorder
 
-drop preg group pregorder
+drop preg group colorder
 
 xpose, clear varname
 rename _varname statvar
 
 
 *------------------------------------------------------------*
-* 9) Merge row labels and section metadata
+* 10) Merge row labels and section metadata
 *------------------------------------------------------------*
 
 merge 1:1 statvar using `rowmeta', nogen keep(match)
@@ -242,10 +289,10 @@ sort final_order
 
 
 *------------------------------------------------------------*
-* 10) Create display strings
+* 11) Create display strings
 *------------------------------------------------------------*
 
-foreach i of numlist 1/12 {
+foreach i of numlist 1/13 {
 
     gen disp_v`i' = ""
 
@@ -261,7 +308,7 @@ keep statvar rows section section_order row_order final_order disp_v*
 
 
 *------------------------------------------------------------*
-* 11) Create dynamic section header rows
+* 12) Create dynamic section header rows
 *------------------------------------------------------------*
 
 tempfile body headers blanks
@@ -279,7 +326,7 @@ preserve
     gen row_order = 0
     gen final_order = section_order * 100
 
-    foreach i of numlist 1/12 {
+    foreach i of numlist 1/13 {
         gen disp_v`i' = ""
     }
 
@@ -288,7 +335,7 @@ preserve
 restore
 
 *------------------------------------------------------------*
-* 12) Create blank row before each section header
+* 13) Create blank row before each section header
 *     and before N
 *------------------------------------------------------------*
 
@@ -307,7 +354,7 @@ keep if statvar == "N"
 replace rows = ""
 replace final_order = final_order - .5
 
-foreach i of numlist 1/12 {
+foreach i of numlist 1/13 {
     replace disp_v`i' = ""
 }
 
@@ -316,7 +363,7 @@ save `blankN', replace
 
 
 *------------------------------------------------------------*
-* 13) Combine body, blank rows, headers, and N blank row
+* 14) Combine body, blank rows, headers, and N blank row
 *------------------------------------------------------------*
 
 use `body', clear
@@ -327,11 +374,19 @@ append using `blankN'
 sort final_order
 
 keep rows disp_v1 disp_v2 disp_v3 disp_v4 disp_v5 disp_v6 ///
-          disp_v7 disp_v8 disp_v9 disp_v10 disp_v11 disp_v12
+          disp_v7 disp_v8 disp_v9 disp_v10 disp_v11 disp_v12 disp_v13
 
 
+		  
+gen blank_pre = ""		  
+gen blank_post = ""
+
+// replace disp_v7 = "\multicolumn{1}{>{\centering\arraybackslash}m{1.55cm}}{" + disp_v7 + "}" if disp_v7 != ""
+
+replace disp_v7 = "\multicolumn{1}{>{\centering\arraybackslash}m{1.55cm}}{" + disp_v7 + "}" if disp_v7 != ""
+		  
 *------------------------------------------------------------*
-* 14) Export to LaTeX with listtex
+* 15) Export to LaTeX with listtex
 *------------------------------------------------------------*
 #delimit ;
 
@@ -342,12 +397,13 @@ listtex rows ///
     using "`outfile'", replace ///
     rstyle(tabular) ///
     head(
-        "\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{1.2cm}}@{\hspace{2em}}>{\centering\arraybackslash}p{1.2cm}@{\hspace{2em}}*{6}{>{\centering\arraybackslash}p{1.2cm}}}"
+        "\begin{tabular}{l*{6}{>{\centering\arraybackslash}p{1.2cm}}@{\hspace{2em}}>{\centering\arraybackslash}m{1.55cm}@{\hspace{2em}}*{6}{>{\centering\arraybackslash}p{1.2cm}}}"
         "\toprule"
-        "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{1}{c}{\shortstack{Prepregnant \\ women}} & \multicolumn{6}{c}{Nonpregnant women} \\"
-        "\cmidrule(lr){2-7} \cmidrule(lr){8-8} \cmidrule(lr){9-14}"
+        "\addlinespace[0.25em]"
+        "& \multicolumn{6}{c}{Pregnant women (3+ months)} & \multicolumn{1}{>{\centering\arraybackslash}m{1.55cm}}{\shortstack[c]{Prepregnant \\ women}} & \multicolumn{6}{c}{Nonpregnant women} \\"
+        "\cmidrule[0.01em](lr){2-7} \cmidrule[0.01em](l{-0.4em}r{-0.4em}){8-8} \cmidrule[0.01em](lr){9-14}"
         "\addlinespace[0.35em]"
-        "Social Group & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\ social groups} & \tiny \shortstack{All five \\ social groups} & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\ social groups} \\"
+        "Social Group & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\ social groups} & \multicolumn{1}{>{\centering\arraybackslash}m{1.55cm}}{\tiny \shortstack[c]{All five \\ social groups}} & \tiny Adivasi & \tiny Dalit & \tiny OBC & \tiny Forward & \tiny Muslim & \tiny \shortstack{All five \\ social groups} \\"
         "\midrule"
     )
     foot(
@@ -357,9 +413,8 @@ listtex rows ///
 
 #delimit cr
 
-
 *------------------------------------------------------------*
-* 15) Quick manual check
+* 16) Quick manual check
 *------------------------------------------------------------*
 
 display "BROWSE DATA EDITOR TO SEE RESULTS IN STATA DIRECTLY"

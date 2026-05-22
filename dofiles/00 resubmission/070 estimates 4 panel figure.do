@@ -72,12 +72,13 @@ label define bslbl ///
     2 "2-3 years" ///
     3 "Over 3 years", replace
 
-capture label drop wealthlbl
-label define wealthlbl ///
-    1 "Poorest quartile" ///
-    2 "2nd quartile" ///
-    3 "3rd quartile" ///
-    4 "Richest quartile", replace
+capture label drop v190lbl
+label define v190lbl ///
+    1 "Poorest" ///
+    2 "Poorer" ///
+    3 "Middle" ///
+    4 "Richer" ///
+	5 "Richest", replace
 
 capture label drop psu_od_besideshh_q4lbl
 label define psu_od_besideshh_q4lbl ///
@@ -100,13 +101,13 @@ local figtitle_bs                  "C. Time since last live birth"
 local figtitle_parity              "B. Parity"
 local figtitle_protein_q4          "Protein consumption"
 local figtitle_psu_od_besideshh_q4 "D. Fraction of neighbors that defecate in the open"
-local figtitle_wealth              "A. Wealth"
+local figtitle_v190              "A. Wealth quintile"
 
 *------------------------------------------------------------
 * Decomposition variables to graph
 * Add/remove/order variables here
 *------------------------------------------------------------
-local overvars bs parity protein_q4 psu_od_besideshh_q4 wealth
+local overvars bs parity protein_q4 psu_od_besideshh_q4 v190
 
 *------------------------------------------------------------
 * Graph aesthetics
@@ -276,7 +277,7 @@ foreach dv of local overvars {
 
 
 graph combine ///
-	underweight_wealth ///
+	underweight_v190 ///
     underweight_parity ///
     underweight_bs ///
     underweight_psu_od_besideshh_q4, ///

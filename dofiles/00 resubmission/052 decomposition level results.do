@@ -17,7 +17,7 @@ postfile handle ///
     using `results', replace
 
 
-foreach decompvar in wealth parity bs protein_q4 psu_od_besideshh_q4 {
+foreach decompvar in v190 parity bs protein_q4 psu_od_besideshh_q4 {
     
     *--------------------------------------------------------
     * Reweighting bins include group and decomposition variable
@@ -27,7 +27,7 @@ foreach decompvar in wealth parity bs protein_q4 psu_od_besideshh_q4 {
     
     use "$dataset", clear
     
-    do "dofiles/new final/040 reweighting"
+    do "dofiles/00 resubmission/040 reweighting"
     
     levelsof `decompvar', local(levels)
     levelsof group, local(groups)

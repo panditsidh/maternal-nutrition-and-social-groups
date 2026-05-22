@@ -230,7 +230,13 @@ foreach cutoff in 1 .75 .5 .25 .1 {
         }
 
     }
-
+	
+	* Do not report Forward or Muslim for cutoff rows
+    local n_group4 = .
+    local n_group5 = .
+    local pctdrop_group4 = .
+    local pctdrop_group5 = .
+	
     post handle ///
         (`"`overlabel'"') (`"`overlevel'"') ///
         (`n_group0') (`pctdrop_group0') ///

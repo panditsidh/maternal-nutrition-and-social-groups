@@ -4,8 +4,8 @@ set more off
 clear all
 
 set seed 1231231
-local B = 100
-local chunk_size = 10 
+local B = 1000
+local chunk_size = 100 
 
 cap mkdir "data/bootstrap_chunks"
 
@@ -72,7 +72,7 @@ forvalues chunk_start = 1(`chunk_size')`B' {
                 
                 global binvars agebin rural less_edu noboy group
                 
-                do "dofiles/new final/040 reweighting"
+                do "dofiles/00 resubmission/040 reweighting"
                 
                 foreach group in 1 2 3 {
                     
@@ -110,7 +110,7 @@ forvalues chunk_start = 1(`chunk_size')`B' {
                     global binvars agebin rural less_edu noboy group
                 }
 				
-                do "dofiles/new final/040 reweighting"
+                do "dofiles/00 resubmission/040 reweighting"
                 
                 levelsof `estimate_level', local(levels)
                 
@@ -139,11 +139,11 @@ forvalues chunk_start = 1(`chunk_size')`B' {
             *------------------------------------------------------------
             * Decomposition-level estimates
             *------------------------------------------------------------
-            foreach estimate_level in wealth parity bs protein_q4 psu_od_besideshh_q4 {
+            foreach estimate_level in v190 parity bs protein_q4 psu_od_besideshh_q4 {
                 
                 global binvars agebin rural less_edu noboy group `estimate_level'
                 
-                do "dofiles/new final/040 reweighting"
+                do "dofiles/00 resubmission/040 reweighting"
                 
                 levelsof `estimate_level', local(levels)
                 
@@ -221,6 +221,6 @@ foreach level in grouplevel decomplevel cutofflevel {
 
 
 
-do "dofiles/new final/051 group level results"
-do "dofiles/new final/052 decomposition level results"
-do "dofiles/new final/053 cutoff level results"
+do "dofiles/00 resubmission/051 group level results"
+do "dofiles/00 resubmission/052 decomposition level results"
+do "dofiles/00 resubmission/053 cutoff level results"
