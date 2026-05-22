@@ -59,36 +59,36 @@ local n_specs = 8
 * 1. Main reweighting specification:
 *    4-category age groups + rural + education + noboy
 local binvars1 group agebin rural less_edu noboy
-local titles1 "1. Main spec: 4-cat age + rural + edu + noboy"
+local titles1 "1. Main specification"
 
 * 2. Finer age bins only:
 *    15-16, single-year ages 17-39, and 40-49
 local binvars2 group agebin5
-local titles2 "2. Fine age bins only"
+local titles2 "2. Fine age bins only (15-16, single year 17-39, 40-49)"
 
 * 3. Fine age bins + main controls
 local binvars3 group agebin5 rural less_edu noboy
-local titles3 "3. Fine age bins + rural + edu + noboy"
+local titles3 "3. Fine age bins + rural + education + has son"
 
 * 4. Fine age bins + main controls + parity/birth spacing
 local binvars4 group agebin5 rural less_edu noboy parity_bs
-local titles4 "4. Fine age bins + rural + edu + noboy + parity/spacing"
+local titles4 "4. Fine age bins + rural + education + has son + parity/spacing"
 
 * 5. Main specification + PSU open defecation quartiles
 local binvars5 group agebin rural less_edu noboy psu_od_besideshh_q4
-local titles5 "5. Main spec + PSU open defecation quartiles"
+local titles5 "5. Main specification + local open defecation quartiles"
 
 * 6. Main specification + wealth quartiles
-local binvars6 group agebin rural less_edu noboy wealth
-local titles6 "6. Main spec + wealth quartiles"
+local binvars6 group agebin rural less_edu noboy wealth_index
+local titles6 "6. Main specification + wealth quintiles"
 
 * 7. Main specification + parity and birth spacing categories
 local binvars7 group agebin rural less_edu noboy parity_bs
-local titles7 "7. Main spec + parity/birth spacing"
+local titles7 "7. Main specification + parity/birth spacing"
 
 * 8. Main specification + protein categories
 local binvars8 group agebin rural less_edu noboy protein_q4
-local titles8 "8. Main spec + protein categories"
+local titles8 "8. Main specification + protein categories"
 
 
 
