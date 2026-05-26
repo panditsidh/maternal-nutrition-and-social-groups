@@ -109,7 +109,7 @@ label define psu_od_besideshh_q4lbl ///
 local figtitle_bs                  "D. Time since last live birth"
 local figtitle_parity              "C. Parity"
 local figtitle_protein_q4          "Protein consumption"
-local figtitle_psu_od_besideshh_q4 "B. Fraction of neighboring households" "that defecate in the open (quartiles)"
+local figtitle_psu_od_besideshh_q4 "B. Fraction of nearby (PSU) households" "that defecate in the open (quartiles)"
 local figtitle_v190              "A. Wealth quintile"
 
 *------------------------------------------------------------

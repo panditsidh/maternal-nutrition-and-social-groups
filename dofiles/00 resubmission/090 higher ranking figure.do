@@ -167,6 +167,8 @@ replace forward_ci_ul = `forward_ul' in `=`oldN' + 1'
 * Graph
 *------------------------------------------------------------
 
+// local forward_ppu 16
+
 twoway ///
     (line pct_adivasi_ppunderweight cutoff, sort lwidth(medthick) lcolor(navy)) ///
     (rcap adivasi_ci_ul adivasi_ci_ll cutoff if !missing(adivasi_ci_ll), ///
@@ -195,10 +197,9 @@ twoway ///
     legend(order(1 "Adivasi" 3 "Dalit" 5 "OBC" 7 "Forward caste") ///
            rows(1) position(6)) ///
     note("At each tick on the x-axis, the sample of Adivasi, Dalit, and OBC women is restricted to women for whom the fraction" ///
-	"of nearby households ranked higher in caste is less than or equal to that value." ///
-     "Prepregnancy underweight is then re-estimated using the reweighting method within the restricted sample." ///
-     "Confidence intervals are shown at selected values." ///
-     "For Forward caste women, this fraction is always zero by construction -- their estimate is shown as a horizontal reference line.", size(vsmall))
+	"of nearby households ranked higher in caste is less than or equal to that value. Prepregnancy underweight is then" ///
+     "re-estimated using the reweighting method within the restricted sample. Confidence intervals are shown at select values." ///
+     "For Forward caste women, this fraction is always 0 by construction. Their estimate is shown as a line for reference.", size(vsmall))
 
 * Each 0.02 increment of maximum fraction of nearby households higher ranking in caste restricts the original sample of Adivasi, Dalit, and OBC women to those with a
 

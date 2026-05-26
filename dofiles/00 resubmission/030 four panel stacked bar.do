@@ -13,7 +13,7 @@ local panels wealth_index psu_od_besideshh_q4 parity bs
 local title_wealth_index "A. Wealth quintiles"
 local title_parity "C. Parity"
 local title_bs "D. Time since last live birth"
-local title_psu_od_besideshh_q4 "B. Fraction of neighboring households" "that defecate in the open"
+local title_psu_od_besideshh_q4 "B. Fraction of nearby (PSU) households" "that defecate in the open"
 
 
 local note_wealth "n=`sample_size' (3+ month married pregnant women)"

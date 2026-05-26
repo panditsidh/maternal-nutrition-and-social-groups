@@ -178,19 +178,19 @@ replace rowlabel = "pp difference across parity + birthspacing category" ///
 replace rowlabel = "\% explained by parity + birthspacing" ///
     if quantity == "pct explained parity_bs"
 
-replace rowlabel = "pp difference within wealth category" ///
+replace rowlabel = "pp difference within wealth quintile" ///
     if quantity == "within group wealth"
 
-replace rowlabel = "pp difference across wealth category" ///
+replace rowlabel = "pp difference across wealth quintile" ///
     if quantity == "between group wealth"
 
 replace rowlabel = "\% explained by wealth" ///
     if quantity == "pct explained wealth"
 
-replace rowlabel = "pp difference within PSU open defecation category" ///
+replace rowlabel = "pp difference within quartile of share of nearby households that defecate in the open" ///
     if quantity == "within group psu_od_besideshh_q4"
 
-replace rowlabel = "pp difference across PSU open defecation category" ///
+replace rowlabel = "pp difference across quartile of share of nearby households that defecate in the open" ///
     if quantity == "between group psu_od_besideshh_q4"
 
 replace rowlabel = "\% explained by PSU open defecation" ///
@@ -211,7 +211,7 @@ replace order = 2  in `=`oldN' + 1'
 replace order = 6  in `=`oldN' + 2'
 replace order = 10 in `=`oldN' + 3'
 
-replace rowlabel = "\textbf{Panel A: Decomposition by parity + birthspacing}" ///
+replace rowlabel = "\textbf{Panel A: Decomposition by 10 parity + birthspacing}" ///
     in `=`oldN' + 1'
 
 replace rowlabel = "\textbf{Panel B: Decomposition by wealth}" ///

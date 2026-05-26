@@ -94,7 +94,7 @@ graph combine ///
     cols(1) ///
     xsize(7.5) ///
     ysize(10) ///
-    graphregion(color(white)) note("Nearby households refer to those in the woman's NFHS primary sampling unit." "Households are determined as higher ranking than Adivasi or Dalit women if their household head is OBC or Forward caste." "Households are determined as higher ranking than OBC women if their household head is forward caste", size(vsmall)) ///
+    graphregion(color(white)) note("Nearby households refer to those in the woman's primary sampling unit. Households are determined" "as higher ranking than Adivasi or Dalit women if their household head is OBC or Forward caste." "Households are determined as higher ranking than OBC women if their household head is forward caste.", size(vsmall)) ///
     name(combined_cutoff_cdf, replace)
 
 graph export "figures/combined_cutoff_cdf.pdf", as(pdf) replace
