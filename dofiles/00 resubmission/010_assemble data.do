@@ -71,7 +71,7 @@ drop _merge
 xtile psu_od_besideshh_q4 = pct_psu_od_besideshh [aw=v005], nq(4)
 
 label define psu_od_besideshh_q4_lbl ///
-    1 "Quartile 1: 0%" ///
+    1 "Quartile 1: 0\%" ///
     2 "Quartile 2: 4\% - 10\%" ///
     3 "Quartile 3: 10\% - 33.3\%" ///
     4 "Quartile 4: 33.3\% - 100\%", replace
@@ -618,6 +618,12 @@ label variable protein_q4 "Protein-rich food consumption intensity/diversity"
 
 
 
+gen protein_q4 = .
+
+replace protein_q4 = 1 if protein_weeklyplus_count <= 1
+replace protein_q4 = 2 if protein_weeklyplus_count >= 2 & protein_daily_count == 0
+replace protein_q4 = 3 if protein_daily_count == 1 
+replace protein_q4 = 4 if protein_daily_count >= 2 & protein_daily_count < .
 
 
 

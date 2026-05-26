@@ -166,6 +166,7 @@ replace forward_ci_ul = `forward_ul' in `=`oldN' + 1'
 *------------------------------------------------------------
 * Graph
 *------------------------------------------------------------
+
 twoway ///
     (line pct_adivasi_ppunderweight cutoff, sort lwidth(medthick) lcolor(navy)) ///
     (rcap adivasi_ci_ul adivasi_ci_ll cutoff if !missing(adivasi_ci_ll), ///
@@ -185,17 +186,29 @@ twoway ///
     ///
     , ///
     xscale(reverse range(0 1)) ///
-    xlabel(1(.1)0, angle(0)) ///
-    ylabel(, angle(0)) ///
+	xtick(0(0.02)1, tlength(tiny)) ///
+    xlabel(1(.1)0, tlength(vsmall) angle(0) labsize(vsmall)) ///
+    ylabel(, angle(0) labsize(vsmall)) ///
 	title("A. Prepregnancy underweight at different" "levels of local caste composition", size(medlarge)) ///
-    xtitle("Maximum fraction of PSU" "higher ranking included") ///
-    ytitle("Estimated prepregnancy" "underweight (%)") ///
+    xtitle("Maximum fraction of nearby households" "ranked higher in caste than the woman") ///
+    ytitle("Prepregnancy underweight (%)") ///
     legend(order(1 "Adivasi" 3 "Dalit" 5 "OBC" 7 "Forward caste") ///
            rows(1) position(6)) ///
-    note("Lines re-estimate prepregnancy underweight after restricting the sample by fraction PSU higher ranking." ///
-         "Confidence intervals are shown at selected cutoffs.")
+    note("At each tick on the x-axis, the sample of Adivasi, Dalit, and OBC women is restricted to women for whom the fraction" ///
+	"of nearby households ranked higher in caste is less than or equal to that value." ///
+     "Prepregnancy underweight is then re-estimated using the reweighting method within the restricted sample." ///
+     "Confidence intervals are shown at selected values." ///
+     "For Forward caste women, this fraction is always zero by construction -- their estimate is shown as a horizontal reference line.", size(vsmall))
+
+* Each 0.02 increment of maximum fraction of nearby households higher ranking in caste restricts the original sample of Adivasi, Dalit, and OBC women to those with a
+
+* At each 0.02 tick on the x-axis, the sample is restricted to women for whom the share of nearby households higher ranking in caste is less than the maximum 
+
 
 		 
+* Prepregnancy underweight is re-estimated at each 0.02 increment of maximum fraction of nearby households higher ranking in caste. 
+* Each increment restricts the original sample of Adivasi, Dalit, and OBC women to those with 
+
 graph save "figures/ppu_cutoff_line.gph", replace
 
 graph export "figures/ppu_by_pct_psu_higher_cutoff_with_ci.png", as(pdf) replace 

@@ -67,11 +67,11 @@ twoway ///
     (line cdf cutoff if group == 3, sort lwidth(medthick) lcolor(green)) ///
     , ///
     xscale(range(0 1)) ///
-    xlabel(1(.1)0, angle(0) labsize(small)) ///
-    ylabel(0(20)100, angle(0) labsize(small) grid) ///
-    xtitle("Fraction of PSU higher ranking") ///
-    ytitle("Cumulative share of pregnant women (%)") ///
-    title("B. Distribution of higher-ranking PSU exposure", size(medlarge)) ///
+    xlabel(1(.1)0, angle(0) labsize(vsmall)) ///
+    ylabel(0(20)100, angle(0) labsize(vsmall) grid) ///
+    xtitle("Fraction of nearby households" "ranked higher in caste than the woman") ///
+    ytitle("Cumulative share" "of pregnant women (%)") ///
+    title("B. Distribution of share of nearby households" "that are higher ranking in caste", size(medlarge)) ///
     legend(order(1 "Adivasi" 2 "Dalit" 3 "OBC") ///
            rows(1) position(6) size(small)) ///
     graphregion(color(white)) ///
@@ -94,7 +94,7 @@ graph combine ///
     cols(1) ///
     xsize(7.5) ///
     ysize(10) ///
-    graphregion(color(white)) ///
+    graphregion(color(white)) note("Nearby households refer to those in the woman's NFHS primary sampling unit." "Households are determined as higher ranking than Adivasi or Dalit women if their household head is OBC or Forward caste." "Households are determined as higher ranking than OBC women if their household head is forward caste", size(vsmall)) ///
     name(combined_cutoff_cdf, replace)
 
 graph export "figures/combined_cutoff_cdf.pdf", as(pdf) replace

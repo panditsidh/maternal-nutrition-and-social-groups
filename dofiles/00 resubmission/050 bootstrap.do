@@ -100,9 +100,7 @@ forvalues chunk_start = 1(`chunk_size')`B' {
             * India and group-level estimates
             *------------------------------------------------------------
             foreach estimate_level in india group {
-                
-				local estimate_level "group"
-				
+                				
                 if "`estimate_level'"=="india" {
                     global binvars agebin rural less_edu noboy
                 }
@@ -186,7 +184,8 @@ forvalues chunk_start = 1(`chunk_size')`B' {
 *============================================================
 * 1. Append bootstrap chunks into final bootstrap files
 *============================================================
-
+local B = 1000
+local chunk_size = 100 
 do "$paths"
 
 cap mkdir "data/results"

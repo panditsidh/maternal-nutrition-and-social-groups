@@ -14,6 +14,7 @@ set more off
 do "$paths"
 use "$dataset", clear
 
+
 drop if group == 6 | group == .
 
 capture mkdir "figures"
